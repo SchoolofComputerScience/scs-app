@@ -1,0 +1,15 @@
+{
+  "background_color": "#C41226",
+  "name": "Carnegie Mellon University : School of Computer Science",
+  "short_name": "CMU:SCS",
+  "display": "standalone",
+  "start_url": "https://www.scs-shadow.com",
+  "icons": [
+    {
+     "src": "/images/ficon/android-icon-192x192.png",
+     "sizes": "192x192",
+     "type": "image\/png",
+     "density": "4.0"
+    }
+  ]
+}

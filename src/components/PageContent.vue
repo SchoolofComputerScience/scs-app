@@ -1,0 +1,78 @@
+<template>
+  <div class="content" :class="pageId">
+    <spinner class="spinner" v-if="!content" key="spinner"></spinner>
+    <div class="content-body" v-if="content" key="content">
+      <div class="content-container" v-html="content"></div>
+    </div>
+  </div>
+</template>
+
+<script>
+import marked from 'marked'
+import Spinner from './Spinner.vue'
+
+export default {
+  name: 'page-content',
+
+  props: ['metadata'],
+
+  components: {
+    Spinner
+  },
+
+  computed: {
+    content(){
+      marked.setOptions({
+        gfm: true,
+        tables: true,
+        smartLists: true
+      })
+      if(this.$store.state.pages.pages[this.$route.params.page] !== undefined){
+        const metadataDelimiter = '---'
+        const metadataPosition = this.$store.state.pages.pages[this.$route.params.page].indexOf(metadataDelimiter)
+        return  marked(this.$store.state.pages.pages[this.$route.params.page].slice(metadataPosition + metadataDelimiter.length))
+      }
+    },
+    pageId(){
+      return this.$route.params.page
+    }
+  }
+}
+</script>
+
+<style lang="stylus">
+@import '../assets/styles/content';
+@import '../assets/styles/markdown';
+</style>
+
+<style lang="stylus" scoped>
+.content-body{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+img{
+  width 100%
+}
+
+.content-title{
+  margin-bottom: 0;
+}
+
+.content-title a{
+  transition: color .3s ease;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+.content-meta{
+  margin-top: .5em;
+  margin-bottom: 0;
+}
+
+.content-container{
+  flex: 1;
+}
+</style>

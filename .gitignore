@@ -1,0 +1,20 @@
+.DS_Store
+node_modules/
+dist/
+npm-debug.log
+yarn.lock
+
+#normal computer stuff.
+.DS_Store
+logs
+*.log
+
+#install on dev environment.
+node_modules
+
+# build is for construction on host server.
+# build
+
+# google build and environment variables
+app.yaml
+.env
