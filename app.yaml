@@ -1,0 +1,19 @@
+service: default
+runtime: nodejs
+env: flex
+resources:
+  cpu: 2
+  memory_gb: 1.8
+  disk_size_gb: 10
+skip_files:
+  - ^(.*/)?.*/node_modules/.*$
+health_check:
+  enable_health_check: False
+automatic_scaling:
+  min_num_instances: 1
+  max_num_instances: 4
+  cool_down_period_sec: 120
+  cpu_utilization:
+    target_utilization: 0.3
+env_variables:
+  NODE_ENV: production

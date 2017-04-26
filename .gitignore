@@ -16,5 +16,4 @@ node_modules
 # build
 
 # google build and environment variables
-app.yaml
 .env
