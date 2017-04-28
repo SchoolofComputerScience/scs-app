@@ -11,6 +11,6 @@ Main Application
 
 `cd scs-app`.
 
-`npm install`
+`yarn install`
 
 `npm run dev`

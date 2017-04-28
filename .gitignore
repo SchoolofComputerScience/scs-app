@@ -2,7 +2,6 @@
 node_modules/
 dist/
 npm-debug.log
-yarn.lock
 
 #normal computer stuff.
 .DS_Store

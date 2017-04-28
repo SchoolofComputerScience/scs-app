@@ -7,21 +7,25 @@
     </div>
     <nav id="mnav" class="main-nav">
       <ul class="nav">
-        <li class="item">
-          <router-link to="/" exact>Home</router-link>
-        </li>
-        <li class="item">
-          <router-link to="/directory">Directory</router-link>
-        </li>
-        <li class="item">
-          <router-link to="/news">News</router-link>
-        </li>
-        <li class="item">
-          <router-link to="/events">Events</router-link>
-        </li>
-        <li v-for="item in navigation" class="item" v-if="!item.nonav">
-          <router-link :to="item.path" v-text="item.label"></router-link>
-        </li>
+        <div>
+          <li class="item">
+            <router-link to="/" exact>Home</router-link>
+          </li>
+          <li class="item">
+            <router-link to="/directory">Directory</router-link>
+          </li>
+          <li class="item">
+            <router-link to="/news">News</router-link>
+          </li>
+          <li class="item">
+            <router-link to="/events">Events</router-link>
+          </li>
+        </div>
+        <div>
+          <li v-for="item in navigation" class="item" v-if="!item.nonav" :key="item.slug">
+            <router-link :to="item.path" v-text="item.label"></router-link>
+          </li>
+        </div>
       </ul>
     </nav>
     <nav id="mobileNav">
@@ -29,21 +33,25 @@
         <span>Menu</span>
       </div>
       <ul class="nav">
-        <li class="item" v-on:click="toggleMenu">
-          <router-link to="/" exact>Home</router-link>
-        </li>
-        <li class="item" v-on:click="toggleMenu">
-          <router-link to="/directory">Directory</router-link>
-        </li>
-        <li class="item" v-on:click="toggleMenu">
-          <router-link to="/news">News</router-link>
-        </li>
-        <li class="item" v-on:click="toggleMenu">
-          <router-link to="/events">Events</router-link>
-        </li>
-        <li v-for="item in navigation" class="item" v-if="!item.nonav" v-on:click="toggleMenu">
-          <router-link :to="item.path" v-text="item.label"></router-link>
-        </li>
+        <div>
+          <li class="item" v-on:click="toggleMenu">
+            <router-link to="/" exact>Home</router-link>
+          </li>
+          <li class="item" v-on:click="toggleMenu">
+            <router-link to="/directory">Directory</router-link>
+          </li>
+          <li class="item" v-on:click="toggleMenu">
+            <router-link to="/news">News</router-link>
+          </li>
+          <li class="item" v-on:click="toggleMenu">
+            <router-link to="/events">Events</router-link>
+          </li>
+        </div>
+        <div>
+          <li v-for="item in navigation" class="item" v-if="!item.nonav" v-on:click="toggleMenu">
+            <router-link :to="item.path" v-text="item.label"></router-link>
+          </li>
+        </div>
       </ul>
     </nav>
   </header>
@@ -188,6 +196,19 @@ li {
   width: 100%;
   position: absolute;
   z-index: 200;
+  div {
+    display: inline-block;
+    &:first-child {
+      .item:first-child{
+        margin-left: 0vw;
+      }
+    }
+    &:last-child {
+      .item:last-child{
+        margin-right: 0vw;
+      }
+    }
+  }
   &.stuck {
     position: fixed;
     width: inherit;
@@ -205,11 +226,8 @@ li {
   .item {
     display: inline-block;
     margin: 0 .85em;
-    &:first-child {
-      margin-left: 0vw;
-    }
-    &:last-child {
-      margin-right: 0vw;
+    @media only screen and (max-width: 900px) {
+      margin: 0 .5em;
     }
     a {
       text-align: center;
