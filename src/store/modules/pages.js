@@ -2,6 +2,8 @@ import Vue from 'vue'
 import marked from 'marked'
 import * as staticdb from 'staticDB'
 
+const staticContent = 'https://storage.googleapis.com/scs-content/pages/'
+
 export default {
   state: {
     title: '',
@@ -12,15 +14,11 @@ export default {
   actions: {
     FETCH_PAGE: ({ commit, state }, fields = {}) => {
 
-      let page = '/content/pages/' + fields + '.md'
-
-      let host = process.env.NODE_ENV === 'development'
-        ? 'http://localhost:4000'
-        : 'https://scs-shadow.com'
+      let page = staticContent + fields + '.md'
 
       return state.pages[fields]
         ? Promise.resolve(state.pages[fields])
-        : fetch(host + page)
+        : fetch(page)
           .then((res, err) => {
              if (res.status >= 400) {
               throw new Error("404 | Page Error")
