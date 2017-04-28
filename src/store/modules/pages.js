@@ -63,9 +63,8 @@ export default {
 
     navigation: state => state.staticDB.pages
       .map(page => {
-        page.markdown = '/content/pages/' + page.slug + '.md'
+        page.markdown = page.slug + '.md'
         return page
       }),
-
   }
 }
