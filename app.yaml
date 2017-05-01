@@ -11,9 +11,9 @@ health_check:
   enable_health_check: False
 automatic_scaling:
   min_num_instances: 1
-  max_num_instances: 4
-  cool_down_period_sec: 120
+  max_num_instances: 2
+  cool_down_period_sec: 60
   cpu_utilization:
-    target_utilization: 0.3
+    target_utilization: 0.2
 env_variables:
   NODE_ENV: production
