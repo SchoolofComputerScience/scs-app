@@ -190,6 +190,7 @@ li {
 .main-nav {
   border-top: 1px solid #eee;
   padding: .8em 0 0;
+  padding-top: .2em;
   opacity: 1;
   transition: all .2s;
   background: rgba(255, 255, 255, 0);
