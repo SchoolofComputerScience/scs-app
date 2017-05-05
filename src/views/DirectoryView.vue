@@ -6,15 +6,27 @@
         <form class="search">
           <input class="filter-input" v-if="loaded" v-model="query" placeholder="search" name="query">
         </form>
+        <div class="dep-buttons">
+            <router-link :to="'/directory/'" name="all">All Faculty & Staff</router-link>
+            <router-link :to="'/directory/department/compbio'" name="compbio">Computational Biology Department</router-link>
+            <router-link :to="'/directory/department/csd'" name="csd">Computer Science Department</router-link>
+            <router-link :to="'/directory/department/hcii'" name="hcii">Human-Computer Interaction Institute</router-link>
+            <router-link :to="'/directory/department/isr'" name="isr">Institute For Software Research</router-link>
+            <router-link :to="'/directory/department/lti'" name="lti">Language Technologies Institute</router-link>
+            <router-link :to="'/directory/department/mld'" name="mld">Machine Learning Department</router-link>
+            <router-link :to="'/directory/department/ri'" name="ri">Robotics Institute</router-link>
+            <router-link :to="'/directory/department/dean'" name="dean">Dean's Office</router-link>
+            <router-link :to="'/directory/department/compfac'" name="compfac">Computing Facilities</router-link>
+        </div>
       </div>
       <section>
         <transition name="fade" mode="out-in" appear>
           <transition-group  v-if="loaded" tag="ul" class="card-holder">
-            <li v-for="member in directoryFilter" :key="member.name"  class="card">
-              <router-link :to="'/directory/' + member.name">
-                <p class="name">{{ member.fullname }}</p>
-                <p class="title"><span>({{ member.department }})</span> {{ member.short_jobtitle }}</p>
-                <p class="room">{{ member.room }}</p>
+            <li v-for="member in directoryFilter" :key="member._id"  class="card">
+              <router-link :to="'/directory/' + member.scid">
+                <p class="name">{{ member.full_name }}</p>
+                <p v-for="position in member.positions" class="title">{{ position.title }}</p>
+                <p v-for="position in member.positions" class="room">{{ position.building }} {{ position.room }}</p>
               </router-link>
             </li>
           </transition-group>
@@ -27,12 +39,14 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 
+function fetchDirectory(store) {
+  return store.dispatch('GET_DIRECTORY', store.state.route.params.department);
+}
+
 export default {
   name: 'directory-list',
 
-  preFetch(store) {
-    return store.dispatch('GET_DIRECTORY')
-  },
+  preFetch: fetchDirectory,
 
   components: {
     Spinner
@@ -47,13 +61,12 @@ export default {
   },
 
   beforeMount () {
-    if (!this.$root._isMounted || this.$store.state.directory.list < 1)
-      this.$store.dispatch('GET_DIRECTORY')
+    fetchDirectory(this.$store);
   },
 
   computed: {
     loaded() {
-      return this.$store.state.directory.list.length > 0 ? true : false
+      return this.$store.state.directory.list ? true : false
     },
     directoryFilter() {
       let directory = this.findBy(this.$store.state.directory.list, this.query)
@@ -137,6 +150,21 @@ export default {
     font-size: .7em;
     text-transform: uppercase;
     font-weight: 300;
+  }
+}
+
+.dep-buttons {
+  margin-top: 10px;
+  a {
+    display: inline-block;
+    -webkit-appearance: none;
+    background: #C41230;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 5px 10px;
+    margin: 5px;
+    border: none;
   }
 }
 
