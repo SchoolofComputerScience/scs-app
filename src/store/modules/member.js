@@ -13,15 +13,42 @@ export default {
         : apollo.query({
           query: gql`
             {
-              directory(name:"${fields}"){
-                _id
-                fullname
-                job
-                name
-                room
-                department
-                fulldepartment
-                short_jobtitle
+              directory(scid:"${fields}"){
+                email
+                employee_status
+                employee_status_desc
+                family_name
+                fax_phone
+                given_name
+                homepage_url
+                middle_name
+                name_suffix
+                image_url
+                phone_area_code
+                phone_area_code_secondary
+                phone_exchange
+                phone_extension
+                phone_extension_secondary
+                relationship
+                relationship_class
+                relationship_desc
+                research_areas
+                full_name
+                phone_full_call
+                phone_full
+                scid
+                positions {
+                  building
+                  department
+                  department_name
+                  employee_type
+                  full_part_time_indicator
+                  hr_department
+                  performance_supervisor
+                  primary_position
+                  room
+                  title
+                }
                 news{
                   uid
                   image
@@ -72,7 +99,7 @@ export default {
   },
   mutations: {
     SET_MEMBER: (state, data) => {
-      Vue.set(state.info, data[0].name, data[0])
+      Vue.set(state.info, data[0].scid, data[0])
     }
   }
 }

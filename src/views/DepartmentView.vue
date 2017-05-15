@@ -35,8 +35,6 @@ function fetchDepartment(store) {
     })
 }
 
-
-
 function getDeparmentData(store){
   return store.dispatch('GET_DEPARTMENT', store.state.route.params.department)
 }

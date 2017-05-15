@@ -45,7 +45,7 @@ export default {
 .footer {
   border-top: 1px solid #eee;
   border-bottom: 0;
-  margin-top: 2vw;
+  margin-top: 1vw;
   .feedback {
     position: absolute;
     right: 0;
@@ -55,6 +55,7 @@ export default {
     position: relative;
     margin: 0 auto;
     max-width: 62em;
+    padding: 1em 0;
   }
   figure {
     margin: 0;
