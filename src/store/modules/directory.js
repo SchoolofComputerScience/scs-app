@@ -4,119 +4,83 @@ import gql from 'graphql-tag'
 
 export default {
   state: {
-    list: []
+    list: [],
+    y_position: 0,
+    query: ''
   },
   actions: {
-    GET_DIRECTORY: ({ commit, state }, department = '') => {
-      if (!department) {
-        if (!state.default_list) {
-          return apollo.query({
-            query: gql`
-              {
-                directory {
-                  _id
-                  given_name
-                  family_name
-                  full_name
-                  positions {
-                    title
-                    department
-                    room
-                    building
-                  }
-                  relationship
-                  relationship_class
-                  relationship_desc
-                  research_areas
-                  scid
+    GET_DIRECTORY: ({ commit, state }) => {
+      return state.list.length
+        ? Promise.resolve(state.list)
+        : apollo.query({
+          query: gql`
+            {
+              directory {
+                _id
+                full_name
+                relationship_class
+                positions {
+                  title
+                  department
+                  primary_position
                 }
+                scid
               }
-            `
-          }).then((res,err) => {
-            if (res) {
-              commit('SET_DEFAULT_DIRECTORY', res.data)
-              return res.data
-            } else {
-              Promise.reject(":err :directory graphql failed")
             }
-          }).catch((err) => {
-            console.error(err.locations)
-            console.error(`GraphQL Error: ${err.message}`)
-          });
-        }
-        else {
-          commit('SET_DEFAULT_DIRECTORY', state.default_list)
-          return Promise.resolve(state.list);
-        }
+          `
+        }).then((res,err) => {
+          if (res) {
+            commit('SET_DIRECTORY', res.data)
+            return res.data
+          } else {
+            Promise.reject(":err :directory graphql failed")
+          }
+        }).catch((err) => {
+          console.error(err.locations)
+          console.error(`GraphQL Error: ${err.message}`)
+        });
       }
-      else {
-        if (state.department === department) {
-          return Promise.resolve(state.list);
-        }
-
-        if (!state.default_list && state.department !== department) {
-          apollo.query({
-            query: gql`
-              {
-                directory(department:"${department}" ) {
-                  _id
-                  given_name
-                  family_name
-                  full_name
-                  positions {
-                    title
-                    department
-                    room
-                    building
-                  }
-                  relationship
-                  relationship_class
-                  relationship_desc
-                  research_areas
-                  scid
-                }
-              }
-            `
-          }).then((res,err) => {
-            if (res) {
-              commit('SET_DIRECTORY', res.data, department)
-              return res.data
-            } else {
-              Promise.reject(":err :directory graphql failed")
-            }
-          }).catch((err) => {
-            console.error(err.locations)
-            console.error(`GraphQL Error: ${err.message}`)
-          });
-        }
-        else {
-          commit('SET_FILTERED_DIRECTORY', state.default_list, department)
-        }
-      }
-    }
   },
+
   mutations: {
-    SET_DIRECTORY: (state, data, department) => {
-      if (department) {
-        state.list = data.directory;
-        state.department = department;
-      }
-      else {
-        state.list = data.directory;
-        state.default_list = data.directory;
-        state.department = '';
-      }
+    SET_POSITION: (state, position) => {
+      state.y_position = position
     },
-    SET_DEFAULT_DIRECTORY: (state, data) => {
-      state.list = data.directory;
-      state.default_list = data.directory;
+    SET_QUERY: (state, query) => {
+      state.query = query
     },
-    SET_FILTERED_DIRECTORY: (state, data, department) => {
-      let filtered_list = {};
-      filtered_list = state.default_list.filter(function(item){
-        return item.positions.find(position => position.department === department);
+    SET_DIRECTORY: (state, data) => {
+
+      let updatedList = []
+      data.directory.forEach(function(item){
+
+        let position = ''
+        let departments = []
+        let positionsArray = []
+        let inactivePositionsArray = []
+
+        item.positions.forEach((pos) => {
+          departments.push(pos.department)
+          positionsArray.push({ title: pos.title, primary: pos.primary_position})
+        })
+
+        positionsArray.forEach((pos) => {
+          if(pos.primary)
+            position = pos.title.toLowerCase()
+          else
+            inactivePositionsArray.push(pos)
+        })
+
+        inactivePositionsArray.forEach((pos) => {
+          if(pos.position === '')
+            position = pos.title.toLowerCase()
+        })
+
+        updatedList.push(Object.assign({ departments, position } , item));
+
       });
-      state.list = filtered_list;
+
+      state.list = updatedList;
     }
   }
 }

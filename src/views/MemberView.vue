@@ -4,23 +4,58 @@
     <div class="member-view" v-if="loaded">
       <transition name="fade" mode="out-in" appear>
         <div>
-          <div v-if="gs">
-            <img v-if="member.gsProfile[0].gs_image_url" :src="'https://scholar.google.com/' + member.gsProfile[0].gs_image_url" />
-          </div>
-          <h1>{{member.fullname}}</h1>
-          <p v-if="gs"><a :href="member.gsProfile[0].gs_homepage_url">{{member.gsProfile[0].gs_homepage_url}}</a></p>
-          <p class="job"><span>{{member.job}}</span> | {{member.short_jobtitle}}</p>
-          <router-link :to="'/departments/' + member.department">{{member.fulldepartment}}</router-link>
-          <p v-if="member.room">room: {{member.room}}</p>
-          <div v-if="gs">
-            <p>affiliations: {{member.gsProfile[0].gs_affiliation}}</p>
-            <p v-if="member.gsProfile[0].gs_areas">areas: {{member.gsProfile[0].gs_areas}}</p>
-            <p>citations amount: {{member.gsProfile[0].gs_citation_count}}</p>
-            <p><a :href="member.gsProfile[0].gs_profile_url">google scholar profile</a></p>
-          </div>
-          <div v-if="gp">
-            <br>
+
+          <section class="top-header">
+            <div class="image" v-if="member.image_url" :style="{ 'background-image': 'url(' + member.image_url + ')' }">
+            </div>
+            <div>
+              <h1 class="full_name">{{member.full_name}}</h1>
+              <p class="title">{{member.relationship_class}}</p>
+              <p v-if="member.homepage_url" class="homepage"><a :href="member.homepage_url">{{member.homepage_url}}</a></p>
+            </div>
+          </section>
+
+          <section class="main-positions" v-for="position in member.positions" v-if="position.primary_position == 'true'">
+            <p><router-link :to="'/departments/' + position.department">{{position.department_name}}</router-link></p>
+            <p class="job" v-if="position.title">{{position.title | tlc}}</p>
+          </section>
+
+          <section v-if="member.positions.length > 0" class="sub-positions">
+            <div v-for="position in member.positions" v-if="position.primary_position == 'false'">
+              <p><router-link :to="'/departments/' + position.department">{{position.department_name}}</router-link></p>
+              <p v-if="position.title" class="job">{{position.title | tlc}}</p>
+            </div>
+          </section>
+
+          <section class="directory-information">
+            <div v-if="member.phone_full != '(null) null - null'">
+              <p class="title">phone</p>
+              <p><a :to="'tel:' + member.phone_full_call" class="phone">{{member.phone_full}}</a></p>
+            </div>
+            <div v-if="member.email">
+              <p class="title">email</p>
+              <p><a :to="'mailto:' + member.email">{{member.email}}</a></p>
+            </div>
+            <div v-if="member.positions[0].building">
+              <p class="title">building</p>
+              <p>{{ member.positions[0].building | buildingTranslate }}</a></p>
+            </div>
+            <div v-if="member.positions[0].room">
+              <p class="title">room</p>
+              <p>{{member.positions[0].room}}</a></p>
+            </div>
+          </section>
+
+          <section class="research directory-information">
+            <div v-if="member.research_areas">
+              <p class="title">Research Areas</p>
+              <p><span v-for="areas in member.research_areas">{{ areas }}<em>|</em></span></p>
+            </div>
+          </section>
+
+          <section v-if="gp">
             <h2>Cited Publications</h2>
+            <p>Citations Amount: {{member.gsProfile[0].gs_citation_count}}</p>
             <div v-for="pub in member.gsProfile[0].pub_year_agg">
               <h4>{{pub._id}}</h4>
               <div v-for="art in member.gsPublication">
@@ -29,7 +64,8 @@
                 </div>
               </div>
             </div>
-          </div>
+          </section>
+
         </div>
       </transition>
     </div>
@@ -80,9 +116,111 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.member-view
-  h1
-    text-transform capitalize
-  p.job
-    text-transform capitalize
+.member-view{
+  font-size: 1.05em;
+}
+.top-header{
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.4em;
+  padding-bottom: 2em;
+  padding-top: 2em;
+  .homepage{
+    font-size: .8em;
+    padding-top: 1em;
+  }
+  .title{
+    padding-top: .6em;
+  }
+  div{
+    display: inline-block
+    &:nth-child(2){
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+
+  .image{
+    width: 8em;
+    height: 8em;
+    margin-right: 1em;
+    background-size: cover;
+    border: 1px solid #ccc;
+  }
+}
+
+.research{
+  p{
+    text-transform: capitalize;
+  }
+}
+
+.sub-positions, .main-positions{
+  border-bottom: 1px solid #ccc;
+  font-size: .95em;
+  div{
+    display: inline-block;
+    margin-right: 2em;
+    padding: 1em 0;
+    &:not(:last-child){
+      padding-right: 1em;
+      margin-right: 1em;
+      border-right: 1px solid #ccc;
+    }
+    p{
+      padding: 0;
+      padding-bottom: .5em;
+      text-transform: capitalize;
+      &:nth-child(2){
+        padding-bottom: 0;
+      }
+    }
+  }
+}
+.main-positions{
+  font-size: 1.1em;
+  padding-top: 1.2em;
+  padding-bottom: 1.6em;
+  p{
+    padding: 0;
+    padding-top: .95em;
+    padding-bottom: .5em;
+    padding-left: 1em;
+    border-left: 6px solid #C41230;
+    text-transform: capitalize;
+    &:nth-child(2){
+      padding-top: 0;
+    }
+  }
+}
+
+.directory-information{
+  padding: 1.6em 0;
+  display: flex;
+  flex-wrap: wrap;
+  > div{
+    margin-right: 3.5rem;
+  }
+  .title{
+    text-transform: uppercase;
+    font-size: .8em;
+    padding-bottom: .5em;
+    margin-bottom: .5em;
+    border-bottom: 1px solid #ccc;
+  }
+}
+
+.directory-information{
+  p:nth-child(2) > span > em{
+    color: #ccc;
+    padding: 0 .8em;
+  }
+  p:nth-child(2) > span:last-child{
+    em{
+      display: none;
+    }
+  }
+}
+
 </style>
