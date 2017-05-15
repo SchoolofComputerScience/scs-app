@@ -1,6 +1,8 @@
 
 *, *:before, *:after {
   box-sizing: border-box;
+  -webkit-margin-before: 0em;
+  -webkit-margin-after: 0em;
 }
 
 html, body {
@@ -28,20 +30,16 @@ body {
   max-width: 1520px;
 }
 
-ul, menu, dir {
-  -webkit-margin-before: 0;
-  -webkit-margin-after: 0;
-  -webkit-margin-start: 0px;
-  -webkit-margin-end: 0px;
-  -webkit-padding-start: 0;
-}
-
 a {
   color: #c41230;
 }
 
 h1, h2, h3, h4, h5, h6, strong {
   font-weight: 600;
+  color: #2c3e50;
+}
+
+p{
   color: #2c3e50;
 }
 
@@ -62,10 +60,6 @@ code {
   white-space: nowrap;
 }
 
-p {
-  word-spacing: 0.05em;
-}
-
 blockquote {
   margin: 0;
   padding: 1px 15px;
@@ -80,6 +74,9 @@ blockquote > :first-child {
 
 blockquote > :last-child {
   margin-bottom: 0;
+}
+ul, menu, dir{
+  -webkit-padding-start: 0px;
 }
 
 
@@ -188,7 +185,7 @@ a.button:hover {
 }
 
 main.body{
-  margin-top: 4.29em;
+  margin-top: 3.7em;
   @media only screen and (max-width: 768px) {
     margin-top: 0;
   }
