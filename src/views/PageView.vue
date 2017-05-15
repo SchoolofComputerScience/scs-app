@@ -1,6 +1,6 @@
 <template>
   <transition name="fade" mode="out-in" appear>
-    <div class="page">
+    <div class="page content-container">
       <page-content class="page-body" :metadata="page"></page-content>
     </div>
   </transition>
@@ -25,20 +25,15 @@ export default {
 
   computed: {
     page () {
+
       const pages = this.$store.getters.navigation
+
       for (var i = 0; i < pages.length; i++) {
         if (pages[i].slug === this.$route.params.page) {
           return pages[i]
         }
       }
-      this.oops()
       return { markdown: '', slug: '', title: '' }
-    }
-  },
-
-  methods: {
-    oops () {
-      this.$router.replace('/404')
     }
   },
 

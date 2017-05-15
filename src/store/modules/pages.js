@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import marked from 'marked'
 import * as staticdb from 'staticDB'
-
 const staticContent = 'https://storage.googleapis.com/scs-content/pages/'
+import { router } from '../../app'
 
 export default {
   state: {
@@ -15,18 +15,28 @@ export default {
     FETCH_PAGE: ({ commit, state }, fields = {}) => {
 
       let page = staticContent + fields + '.md'
+      let found = false;
+
+      state.staticDB.pages.map((value, key ) => {
+        if (value.slug === fields) {
+          found = true;
+        }
+      })
+
+      if(!found) router.replace('/404')
 
       return state.pages[fields]
         ? Promise.resolve(state.pages[fields])
         : fetch(page)
           .then((res, err) => {
-             if (res.status >= 400) {
-              throw new Error("404 | Page Error")
+            if (res.status >= 400) {
+              router.replace('/404')
             }
             return res.text()
           }, (err) => {
-            err.message
-          }).then((res) => {
+            router.replace('/404')
+          })
+          .then((res) => {
             commit('setMarkdown', {res, fields})
             return res
           })

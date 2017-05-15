@@ -1,9 +1,7 @@
 <template>
   <div class="content" :class="pageId">
     <spinner class="spinner" v-if="!content" key="spinner"></spinner>
-    <div class="content-body" v-if="content" key="content">
-      <div class="content-container" v-html="content"></div>
-    </div>
+    <div class="content-body" v-if="content" key="content" v-html="content"></div>
   </div>
 </template>
 
@@ -30,7 +28,7 @@ export default {
       if(this.$store.state.pages.pages[this.$route.params.page] !== undefined){
         const metadataDelimiter = '---'
         const metadataPosition = this.$store.state.pages.pages[this.$route.params.page].indexOf(metadataDelimiter)
-        return  marked(this.$store.state.pages.pages[this.$route.params.page].slice(metadataPosition + metadataDelimiter.length))
+        return marked(this.$store.state.pages.pages[this.$route.params.page].slice(metadataPosition + metadataDelimiter.length))
       }
     },
     pageId(){
