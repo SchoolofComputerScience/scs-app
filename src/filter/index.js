@@ -16,6 +16,10 @@ export function seasonTranslate (seasonId) {
   return `${seasonMap.get(month)} ${year}`
 }
 
+export function tlc(str) {
+  return str.toLowerCase()
+}
+
 export function departmentTranslate (depId) {
   let departmentMap = new Map([
     [ 'CB', 'Computational Biology Department' ],
