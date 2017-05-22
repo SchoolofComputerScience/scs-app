@@ -6,6 +6,11 @@
         <form class="search">
           <input class="filter-input" v-model="query" placeholder="search" name="query" autocomplete="off">
         </form>
+        <div class="filter-title" :class="depTitle">
+          <button class="Student" @click="titleFilter('Student')" name="student">Student</button>
+          <button class="Faculty" @click="titleFilter('Faculty')" name="faculty">Faculty</button>
+          <button class="Staff" @click="titleFilter('Staff')" name="staff">Staff</button>
+        </div>
 
         <div class="dep-buttons" :class="nav">
           <router-link :to="'/directory/'" class="all">all</router-link>
@@ -64,22 +69,27 @@ export default {
       nav: '',
       directory: [],
       directoryLength: 0,
-      directoryShown: 0
+      directoryShown: 0,
+      depTitle: ''
     }
   },
+
   watch: {
     query: function () {
-      this.findBy()
+      this.departmentFilter()
     }
   },
 
   beforeMount () {
     this.query = this.$store.state.directory.query
-    fetchDirectory(this.$store);
+    fetchDirectory(this.$store)
+    this.departmentFilter()
   },
 
   mounted () {
-    Vue.nextTick(() => window.scrollTo(0, this.$store.state.directory.y_position))
+    Vue.nextTick(() => {
+      window.scrollTo(0, this.$store.state.directory.y_position)
+    })
   },
 
   beforeDestroy () {
@@ -92,7 +102,8 @@ export default {
       if(this.$store.state.directory.list.length > 0){
         this.directory = this.$store.state.directory.list
         this.directoryLength = this.$store.state.directory.list.length
-        this.departmentFilt()
+        this.directoryShown = this.$store.state.directory.list.length
+        this.departmentFilter()
         return true
       }else{
         return false
@@ -101,45 +112,67 @@ export default {
   },
 
   methods: {
-    departmentFilt() {
-      let vm = this
-      let departmentFilter = this.$store.state.route.params.department
-      let filtered = []
 
-      vm.nav = departmentFilter
-      vm.loaded = false
-      vm.query = ''
+    titleFilter: function(val) {
+      if(val === this.depTitle){
+        this.depTitle = ''
+      }else{
+        this.depTitle = val;
+      }
+      this.departmentFilter()
+    },
 
-      for (var i = 0; i < this.$store.state.directory.list.length; i++) {
-        if(this.$store.state.directory.list[i].departments.includes(departmentFilter) || !departmentFilter){
-          filtered.push(this.$store.state.directory.list[i])
+    departmentFilter: _.debounce(function(){
+
+      let departmentParam = this.$store.state.route.params.department || ''
+      this.nav = departmentParam
+      this.directoryShown = this.$store.state.directory.list.length
+      this.directory = this.$store.state.directory.list
+
+      if(departmentParam === ''){
+        this.nav = 'all'
+      }
+
+      if(this.query === '' && departmentParam === ''){
+        if(this.depTitle === '')
+          return;
+      }
+
+      var departmentFilter = []
+
+      for (var i = 0; i < this.directoryLength; ++i) {
+        if(this.directory[i].departments.includes(departmentParam) || !departmentParam){
+          departmentFilter.push(this.directory[i])
         }
       }
 
-      vm.directoryShown = filtered.length
-      vm.directory = filtered
-    },
-    findBy: _.debounce(function(){
-      let departmentFilter = this.$store.state.route.params.department
-      let vm = this
+      var titleFilter = []
 
-      if(this.query === ''){
-        vm.directory = this.$store.state.directory.list
+      for (var i = 0; i < departmentFilter.length; ++i) {
+
+        if(departmentFilter[i].relationship_class.includes(this.depTitle) || !this.depTitle){
+          titleFilter.push(departmentFilter[i])
+        }
       }
 
-      let filtered = []
+      var textFilter = []
 
-      for (var i = 0; i < this.$store.state.directory.list.length; i++) {
-        if(this.$store.state.directory.list[i].departments.includes(departmentFilter) || !departmentFilter){
-          let normalised = this.$store.state.directory.list[i].full_name.toString().toLowerCase();
+      if(this.query !== '') {
+        for (var i = 0; i < titleFilter.length; ++i) {
+          let normalised = titleFilter[i].full_name.toString().toLowerCase();
           if (normalised.indexOf(this.query.toLowerCase()) > -1) {
-            filtered.push(this.$store.state.directory.list[i])
+            textFilter.push(titleFilter[i])
           }
         }
+      }else{
+        textFilter = titleFilter;
       }
-      vm.directoryShown = filtered.length
-      vm.directory = filtered
-    }, 200)
+
+      this.directoryShown = textFilter.length
+      this.directory = textFilter
+
+    }, 100),
+
   }
 }
 </script>
@@ -267,6 +300,10 @@ export default {
       color white;
     }
   }
+  &.all a.all{
+    background-color: #2c3e50;
+    color white;
+  }
   &.ri a.ri{
     background-color: #9b22b4;
     color white;
@@ -287,7 +324,8 @@ export default {
     background-color: #b45222;
     color white;
   }
-  & a.deans_office, &.scs a.scs{
+  &.deans_office a.scs,
+  &.scs a.scs{
     background-color: #C41230;
     color white;
   }
@@ -299,6 +337,96 @@ export default {
     background-color: #b42284;
     color white;
   }
+}
+
+.filter{
+  border: 1px solid #e0e0e0;
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.filter-toggle{
+  transition: all .5s;
+  margin-bottom: 1em;
+  padding-top: 1.6em;
+  .count{
+    font-size: .7em;
+    text-transform: uppercase;
+    padding-top: .5em;
+    color: #444;
+  }
+}
+
+.filter-label{
+  display: block;
+  margin-top: 2.2em;
+}
+
+.filter-input{
+  border: none;
+  border-left: .1em solid #C41230;
+  background: white;
+  font-size: 1.5em;
+  font-weight: 300;
+  padding-bottom: .4em;
+  margin-top: .5em;
+  outline: none;
+  padding: .5em .2em .5em 1.2em;
+  background: #efefef;
+  transition: border-left .1s, background .1s;
+  width: 100%;
+  &:focus{
+    border-left: .2em solid #C41230;
+    background: white;
+    padding-left: .4em
+  }
+}
+
+.filter-input::placeholder{
+  font-weight:300;
+  color: #aaa;
+  font-style: italic;
+}
+
+.main .filter-input{
+  margin-top: 0;
+}
+
+.main.filter{
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+.filter-title {
+  width: 38%;
+  display: inline-block;
+  button{
+    -webkit-appearance: none;
+    border: 0;
+    outline: none;
+    padding: .7em 1.2em .7em 1.2em;
+    font-size: .9em;
+    text-transform: uppercase;
+    margin-right: .5em;
+    cursor:pointer;
+    background: #eee;
+  }
+  &.Staff button.Staff{
+    color: #C41230;
+    background: #ccc;
+  }
+  &.Faculty button.Faculty{
+    color: #C41230;
+    background: #ccc;
+  }
+  &.Student button.Student{
+    color: #C41230;
+    background: #ccc;
+  }
+}
+form.search {
+  width: 58%;
+  margin-right: 2%
+  display: inline-block;
 }
 
 </style>
