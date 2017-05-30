@@ -8,12 +8,11 @@
           <img class="logo" :src="department.logo" />
           <h1>{{department.name}}</h1>
           <p>{{department.description}}</p>
-          <section>
-            <h3>
-              Faculty, Staff, and Students
-            </h3>
+          <h3 class="directory-title">Directory</h3>
+          <section class="card-holder">
             <DepartmentDirectory></DepartmentDirectory>
           </section>
+          <router-link class="btn" :to="'/directory/department/' + this.$route.params.department">View All</router-link>
           <section>
             <DepartmentCourses :semester="semester"></DepartmentCourses>
           </section>
@@ -88,7 +87,9 @@ export default {
 h1 {
   font-size 2em
 }
-
+.directory-title{
+  margin-top 2em;
+}
 .content-container {
   background white;
   margin 1em
@@ -140,4 +141,31 @@ h2 {
     background rgb(196, 18, 48);
   }
 }
+
+
+.card-holder ul{
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  position: relative;
+}
+
+.btn {
+  display: inline-block;
+  color: white;
+  background: #c41230;
+  padding: .3em .8em;
+  margin-right: .5em;
+  margin-bottom: .2em;
+  font-weight: 900;
+  text-decoration: none;
+  text-align: center;
+  border: 2px solid;
+  &:hover {
+    background: white;
+    color: #c41230;
+    text-decoration: none;
+  }
+}
+
 </style>
