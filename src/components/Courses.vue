@@ -44,7 +44,7 @@ export default {
 
       for (let i = 0, courses_count = courses_data.length; i < courses_count; i++) {
         let course = courses_data[i];
-        
+
         if (component_level && component_level.length && component_level !== course.level) {
           continue;
         }
@@ -57,7 +57,6 @@ export default {
         departments[course.s3Department][course.courseNumber] = departments[course.s3Department][course.courseNumber] || {};
 
         if (departments[course.s3Department][course.courseNumber].courseCodes) {
-          console.log("hit");
           departments[course.s3Department][course.courseNumber].courseCodes.push({
             code: course.courseCode,
             section: course.section
@@ -219,5 +218,6 @@ h4 {
       border: 1px solid #666;
     }
   }
+
 }
 </style>

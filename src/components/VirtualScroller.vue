@@ -168,7 +168,7 @@ export default {
           this._endIndex = endIndex
           this.visibleItems = this.items.slice(startIndex, endIndex)
           this.itemContainerStyle = {
-            height: ((l * this.itemHeight) + 120 ) + 'px',
+            height: ((l * this.itemHeight) + 136 ) + 'px',
           }
           this.itemsStyle = {
             marginTop: startIndex * this.itemHeight + 'px',

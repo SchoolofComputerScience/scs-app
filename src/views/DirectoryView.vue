@@ -27,7 +27,7 @@
         <div class="count">showing : {{ directoryShown}} / {{directoryLength}}</div>
       </div>
 
-      <VirtualScroller v-if="loaded" class="scroller card-holder" :items="directory" item-height="34" main-tag="section" content-tag="ul" page-mode>
+      <VirtualScroller v-if="loaded" class="scroller card-holder" :items="directory" item-height="38" main-tag="section" content-tag="ul" page-mode>
         <template scope="props">
           <DirectoryListItem :item="props.item"></DirectoryListItem>
         </template>

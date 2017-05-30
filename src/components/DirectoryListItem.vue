@@ -58,20 +58,23 @@ export default {
 
 .card {
   position: relative;
-  flex: 1 21%;
   justify-content: space-between;
   padding: 10px;
-  margin-left: 2.5%;
+  margin-right: 2.5%;
   margin-top: 15px;
   margin-bottom: 15px;
   display: block;
   transition: none;
   border: 1px solid #eee;
-  height: 110px;
+  height: 120px;
   max-width: 25%;
-
-  &:nth-child(4n-3){
-    margin-left: 0;
+  width: 22.5%;
+  overflow: hidden;
+  &:hover {
+    background: white;
+    box-shadow: none;
+    transition: none;
+    border: 1px solid #bbb;
   }
   p.name {
     font-weight: 900;
@@ -85,6 +88,7 @@ export default {
   p.title {
     font-size: .9em;
     font-weight: 400;
+    padding-top: 0;
     span {
       font-weight: 900;
       text-transform: uppercase;
@@ -97,12 +101,6 @@ export default {
   a {
     text-decoration: none;
     color: #131313;
-  }
-  &:hover {
-    background: white;
-    box-shadow: none;
-    transition: none;
-    border: 1px solid #bbb;
   }
   p {
     margin-bottom: .4em;

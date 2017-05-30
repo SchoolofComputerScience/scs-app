@@ -91,6 +91,12 @@ global.STATIC_DB = {
       title: 'Outreach Programs at SCS',
       slug: 'outreach',
       path: '/outreach'
+    },
+    {
+      label: 'Donate',
+      title: 'Donate to SCS',
+      slug: 'donate',
+      path: '/donate'
     }
   ]
 }
