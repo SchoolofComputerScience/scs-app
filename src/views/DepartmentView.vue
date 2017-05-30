@@ -8,6 +8,15 @@
           <img class="logo" :src="department.logo" />
           <h1>{{department.name}}</h1>
           <p>{{department.description}}</p>
+          <section>
+            <h3>
+              Faculty, Staff, and Students
+            </h3>
+            <DepartmentDirectory></DepartmentDirectory>
+          </section>
+          <section>
+            <Courses :semester="semester"></Courses>
+          </section>
         </div>
       </div>
     </transition>
@@ -18,6 +27,8 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import CourseListView from '../views/CourseListView.vue'
+import DepartmentDirectory from '../components/DepartmentDirectory.vue'
+import Courses from '../components/Courses.vue'
 
 function fetchDepartment(store) {
   return store.dispatch('GET_DEPARTMENT_LIST')
@@ -46,7 +57,15 @@ export default {
 
   components: {
     Spinner,
-    CourseListView
+    CourseListView,
+    DepartmentDirectory,
+    Courses
+  },
+
+  data() {
+    return {
+      semester: "F17"
+    }
   },
 
   computed: {

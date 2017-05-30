@@ -48,6 +48,7 @@ export default {
                 longTitle
                 college
                 s3Department
+                department
                 courseCode
                 courseNumber
                 section
@@ -91,6 +92,7 @@ export default {
                 }
                 deliveryMode
                 s3Department
+                department
                 courseCode
                 title
                 programLocation
