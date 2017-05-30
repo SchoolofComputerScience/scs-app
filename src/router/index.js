@@ -28,7 +28,7 @@ export default new Router({
     { path: '/directory/:name?', component: MemberView },
     { path: '/courses/', component: CourseSelectView },
     { path: '/courses/course/:course', component: CourseView },
-    { path: '/courses/:courseList', component: CourseListView },
+    { path: '/courses/:semester', component: CourseListView },
     { path: '/departments/:department?', component: DepartmentView },
     { path: '/publication/:pubid?', component: PublicationView },
     { path: '/news/', component: NewsListView },

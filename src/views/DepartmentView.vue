@@ -14,7 +14,7 @@
           </section>
           <router-link class="btn" :to="'/directory/department/' + this.$route.params.department">View All</router-link>
           <section>
-            <DepartmentCourses :semester="semester"></DepartmentCourses>
+            <Courses :semester="semester"></Courses>
           </section>
         </div>
       </div>
@@ -27,7 +27,7 @@ import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import CourseListView from '../views/CourseListView.vue'
 import DepartmentDirectory from '../components/DepartmentDirectory.vue'
-import DepartmentCourses from '../components/DepartmentCourses.vue'
+import Courses from '../components/Courses.vue'
 
 function fetchDepartment(store) {
   return store.dispatch('GET_DEPARTMENT_LIST')
@@ -58,7 +58,7 @@ export default {
     Spinner,
     CourseListView,
     DepartmentDirectory,
-    DepartmentCourses
+    Courses
   },
 
   data() {

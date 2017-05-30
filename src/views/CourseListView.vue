@@ -1,91 +1,72 @@
 <template>
   <div class="courses-view">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <transition name="fade" mode="out-in" v-if="loaded" >
-      <article>
-        <h1>{{courseListParam | seasonTranslate}} Course Listing</h1>
-        <div v-for="department in courseListSection" :key="department.departmentId">
-          <h3 :id="department.departmentId">{{department.departmentId | departmentTranslate}}</h3>
-          <section class="container">
-            <div class="item" v-if="courseSection.longTitle" v-for="(courseSection, index) in department.courseListings" :key="courseSection.courseNumber">
-              <h4><em :class="'level' + courseSection.level">{{courseSection.level}}</em> {{courseSection.courseNumber}} | <span>{{courseSection.longTitle}}</span></h4>
-              <router-link class="course-link" v-for="course in courseSection.courses" track-by="course.courseCode" :to="'/courses/course/' + course.courseCode" :key="course.section">{{course.section}}</router-link>
-            </div>
-          </section>
-        </div>
-      </article>
-    </transition>
+    <div class="dep-buttons" :class="nav">
+      <a href="#" v-on:click="filter" class="all" filter-name="department">all</a>
+      <a href="#" v-on:click="filter" class="csd" filter-name="department" filter-value="csd">csd</a>
+      <a href="#" v-on:click="filter" class="lti" filter-name="department" filter-value="lti">lti</a>
+      <a href="#" v-on:click="filter" class="hcii" filter-name="department" filter-value="hcii">hcii</a>
+      <a href="#" v-on:click="filter" class="ri" filter-name="department" filter-value="ri">ri</a>
+      <a href="#" v-on:click="filter" class="compbio" filter-name="department" filter-value="compbio">cbd</a>
+      <a href="#" v-on:click="filter" class="mld" filter-name="department" filter-value="mld">mld</a>
+      <a href="#" v-on:click="filter" class="isr" filter-name="department" filter-value="isr">isr</a>
+      <a href="#" v-on:click="filter" class="isr" filter-name="department" filter-value="etc">etc</a>
+    </div>
+    <div class="level-buttons" :class="level">
+      <button class="U" v-on:click="filter" filter-name="level" filter-value="U">Undergraduate</button>
+      <button class="G" v-on:click="filter" filter-name="level" filter-value="G">Graduate</button>
+    </div>
+    <Courses :semester="semester" :level="level" :department="department"></Courses>
   </div>
 </template>
 
 <script>
 import Spinner from '../components/Spinner.vue'
+import Courses from '../components/Courses.vue'
 import { router } from '../app'
 
 function fetchCourses(store) {
-  return store.dispatch('FETCH_COURSE_LIST', store.state.route.params.courseList)
+  return store.dispatch('FETCH_COURSE_LIST', store.state.route.semester)
 }
 
 export default {
   name: 'courses-list-view',
 
   components: {
-    Spinner
+    Spinner,
+    Courses
+  },
+
+  data() {
+    return {
+      semester: this.$store.state.route.params.semester,
+      department: '',
+      level: '',
+      nav: ''
+    }
   },
 
   preFetch: fetchCourses,
 
   computed: {
     loaded() {
-      return this.$store.state.courses.lists[this.$route.params.courseList] ? true : false
-    },
-
-    courseListSection(){
-      if(this.$store.state.courses.lists[this.$route.params.courseList] !== undefined) {
-
-        let courseData = this.$store.state.courses.lists[this.$route.params.courseList]
-        let allCourses = []
-        let allDepartments = []
-
-        courseData.map((course) => {
-          if(allCourses.some((id) => id.courseNumber == course.courseNumber)){
-            allCourses.find((id) => id.courseNumber === course.courseNumber).courses.push(course)
-          }else{
-            allCourses.push({
-              courseNumber: course.courseNumber,
-              longTitle: course.longTitle,
-              level: course.level,
-              courses: [course],
-              departmentId: course.s3Department
-            })
-          }
-          allCourses.sort(function(a, b) {
-            return parseFloat(a.courseNumber) - parseFloat(b.courseNumber);
-          })
-        })
-
-        allCourses.map((department) => {
-          if(allDepartments.some((id) => id.departmentId == department.departmentId)){
-            allDepartments.find((id) => id.departmentId === department.departmentId).courseListings.push(department)
-          }else{
-            allDepartments.push({
-              departmentId: department.departmentId,
-              courseListings: [department]
-            })
-          }
-        })
-
-        return allDepartments
-
-      }
-    },
-    courseListParam(){
-      return this.$route.params.courseList
-    },
+      return this.$store.state.courses.lists[this.semester] ? true : false
+    }
   },
 
   beforeMount () {
     fetchCourses(this.$store)
+  },
+
+  methods: {
+    filter(event) {
+      let filter_name = event.target.getAttribute('filter-name');
+      let filter_value = event.target.getAttribute('filter-value');
+      if (filter_value && this[filter_name] !== filter_value)
+        this[filter_name] = filter_value;
+      else
+        this[filter_name] = '';
+    }
   }
 }
 </script>
@@ -130,7 +111,7 @@ h1 {
 h3 {
   top: 2.2em;
   position: sticky;
-  margin-top: 1.85em;
+  margin-top: 1em;
   margin-bottom: 0;
   border-top: 1px solid #eee;
   padding-top: .8em;
@@ -169,5 +150,154 @@ h4 {
       border: 1px solid #666;
     }
   }
+}
+
+.dep-buttons {
+  margin-top: 1.6em;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  a {
+    display: inline-block;
+    margin-right: 2em;
+    margin-top: 1.6em;
+    margin-bottom: 1.6em;
+    -webkit-appearance: none;
+    text-transform: uppercase;
+    color: #2c3e50;
+    font-weight: 900;
+    font-size: .95em;
+    padding: .5em 1.2em .5em .2em;
+    border: none;
+    border-bottom: 4px solid;
+    &.all, &.etc{
+      border-color: #2c3e50;
+      &:hover{
+        background-color: #2c3e50;
+      }
+    }
+    &.ri{
+      border-color: #9b22b4;
+      &:hover{
+        background-color: #9b22b4;
+      }
+    }
+    &.lti{
+      border-color: #3bb422;
+      &:hover{
+        background-color: #3bb422;
+      }
+    }
+    &.csd{
+      border-color: #22b49b;
+      &:hover{
+        background-color: #22b49b;
+      }
+    }
+    &.hcii{
+      border-color: #b49b22;
+      &:hover{
+        background-color: #b49b22;
+      }
+    }
+    &.compbio{
+      border-color: #b45222;
+      &:hover{
+        background-color: #b45222;
+      }
+    }
+    &.deans_office {
+      border-color: #C41230;
+      &:hover, .active{
+        background-color: #C41230;
+      }
+    }
+    &.isr{
+      border-color: #165574;
+      &:hover{
+        background-color: #165574;
+      }
+    }
+    &.mld{
+      border-color: #b42284;
+      &:hover{
+        background-color: #b42284;
+      }
+    }
+    &:hover{
+      text-decoration: none;
+      color white;
+    }
+  }
+  &.ri a.ri{
+    background-color: #9b22b4;
+    color white;
+  }
+  &.lti a.lti{
+    background-color: #3bb422;
+    color white;
+  }
+  &.csd a.csd{
+    background-color: #22b49b;
+    color white;
+  }
+  &.hcii a.hcii{
+    background-color: #b49b22;
+    color white;
+  }
+  &.compbio a.compbio {
+    background-color: #b45222;
+    color white;
+  }
+  & a.deans_office, &.scs a.scs{
+    background-color: #C41230;
+    color white;
+  }
+  &.isr a.isr {
+    background-color: #165574;
+    color white;
+  }
+  &.mld a.mld{
+    background-color: #b42284;
+    color white;
+  }
+}
+
+.level-buttons {
+  margin-top: 1em;
+
+  button {
+    -webkit-appearance: none;
+    cursor: pointer;
+    display: inline-block;
+    min-width: 50px;
+    background: #eee;
+    border: none;
+    font-size: 1em;
+    padding: 1em;
+    margin: 1em 1em 1em 0;
+    font-weight: bold;
+    letter-spacing: 0.25px;
+    border: 1px solid #fff;
+    font-family: Noto Sans;
+
+    &:hover {
+      border: 1px solid #c41230;
+    }
+  }
+
+  &.U {
+    .U {
+      color: #fff;
+      background: #c41230;
+    }
+  }
+
+  &.G {
+    .G {
+      color: #fff;     
+      background: #c41230; 
+    }
+  }
+
 }
 </style>
