@@ -5,11 +5,11 @@
       <div>
         <figure class="department-header" :style="{ 'background-image': 'url(' + department.mainimg + ')' }"></figure>
         <div class="content-container">
-          <img class="logo" :src="department.logo" />
+          <img class="logo" v-if="department.logo" :src="department.logo" />
           <h1>{{department.name}}</h1>
           <p>{{department.description}}</p>
           <h3 class="component-title">{{this.$route.params.department | upc}} Directory</h3>
-          <section class="card-holder">
+          <section class="card-holder department-card-holder">
             <DepartmentDirectory></DepartmentDirectory>
           </section>
           <router-link class="btn" :to="'/directory/department/' + this.$route.params.department">View Full {{this.$route.params.department | upc}} Directory</router-link>
@@ -18,7 +18,6 @@
             <Courses :semester="semester"></Courses>
           </section>
           <router-link class="btn" :to="'/courses/'">View Full {{this.$route.params.department | upc}} Course List</router-link>
-
         </div>
       </div>
     </transition>
@@ -87,11 +86,27 @@ export default {
 </script>
 
 <style lang="stylus">
+.department-card-holder .card:nth-child(3n+3) {
+  margin-right: 2.5%;
+  margin-right: 0;
+}
+
+.department-card-holder .card:nth-child(4n+4) {
+  margin-right: 2.5%;
+}
+
+.department-card-holder .card{
+  width:
+}
+
 .course-list article h2{
   display: none;
 }
 .course-list article > div >  h3{
   display: none;
+}
+.content-container .course-list h4{
+  color: #2c3e50;
 }
 
 </style>
@@ -121,6 +136,16 @@ h3{
   position: relative;
   top: 20.5em;
   margin-bottom: 20.5em;
+  @media screen and (max-width 82em) {
+    padding: 2em;
+    padding-top: 0;
+  }
+  h1{
+    margin-top: .5em;
+    @media screen and (max-width 82em) {
+      margin-top: 0;
+    }
+  }
 }
 
 .logo{
@@ -130,6 +155,12 @@ h3{
   left: -4em;
   position: absolute;
   border: 1px solid #eee;
+  @media screen and (max-width 82em) {
+    left: 0;
+    top: -1em;
+    margin: 0;
+    position: relative;
+  }
 }
 
 .department-header {
@@ -183,6 +214,7 @@ h2 {
   text-decoration: none;
   text-align: center;
   border: 2px solid;
+  margin-top: 2em;
   &:hover {
     background: white;
     color: #c41230;

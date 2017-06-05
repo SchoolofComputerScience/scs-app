@@ -4,7 +4,7 @@
       <Spinner class="spinner" v-if="!loaded" key="spinner"></Spinner>
       <div class="filter-toggle" v-if="loaded">
         <form class="search">
-          <input class="filter-input" v-model="query" placeholder="search" name="query" autocomplete="off">
+          <input class="filter-input" v-model="query" :placeholder="placeholder" name="query" autocomplete="off">
         </form>
         <div class="filter-title" :class="depTitle">
           <button class="Student" @click="titleFilter('Student')" name="student">Student</button>
@@ -100,7 +100,9 @@ export default {
   computed: {
     loaded() {
       if(this.$store.state.directory.list.length > 0){
-        this.directory = this.$store.state.directory.list
+        if(this.$store.state.route.params.department === undefined){
+          this.directory = this.$store.state.directory.list
+        }
         this.directoryLength = this.$store.state.directory.list.length
         this.directoryShown = this.$store.state.directory.list.length
         this.departmentFilter()
@@ -108,6 +110,9 @@ export default {
       }else{
         return false
       }
+    },
+    placeholder() {
+      return "search " + this.nav;
     }
   },
 
@@ -218,6 +223,7 @@ export default {
   flex-wrap: wrap;
   padding: 0;
   position: relative;
+  min-height: 20em;
 }
 
 .dep-buttons {
@@ -232,106 +238,117 @@ export default {
     -webkit-appearance: none;
     text-transform: uppercase;
     color: #2c3e50;
+    color: white;
     font-weight: 900;
-    font-size: .95em;
-    padding: .5em 1.2em .5em .2em;
+    font-size: .9em;
+    padding: .5em 1.2em .5em 1.2em;
     border: none;
     border-bottom: 4px solid;
     &.all{
-      border-color: #2c3e50;
+      background-color: #2c3e50;
       &:hover{
-        background-color: #2c3e50;
+        border-color: #2c3e50;
       }
     }
     &.ri{
-      border-color: #9b22b4;
+      background-color: #9b22b4;
       &:hover{
-        background-color: #9b22b4;
+        border-color: #9b22b4;
       }
     }
     &.lti{
-      border-color: #3bb422;
+      background-color: #3bb422;
       &:hover{
-        background-color: #3bb422;
+        border-color: #3bb422;
       }
     }
     &.csd{
-      border-color: #22b49b;
+      background-color: #22b49b;
       &:hover{
-        background-color: #22b49b;
+        border-color: #22b49b;
       }
     }
     &.hcii{
-      border-color: #b49b22;
+      background-color: #b49b22;
       &:hover{
-        background-color: #b49b22;
+        border-color: #b49b22;
       }
     }
     &.compbio{
-      border-color: #b45222;
+      background-color: #b45222;
       &:hover{
-        background-color: #b45222;
+        border-color: #b45222;
       }
     }
     &.deans_office, &.scs{
-      border-color: #C41230;
+      background-color: #C41230;
       &:hover, .active{
-        background-color: #C41230;
+        border-color: #C41230;
       }
     }
     &.isr{
-      border-color: #165574;
+      background-color: #165574;
       &:hover{
-        background-color: #165574;
+        border-color: #165574;
       }
     }
     &.mld{
-      border-color: #b42284;
+      background-color: #b42284;
       &:hover{
-        background-color: #b42284;
+        border-color: #b42284;
       }
     }
     &:hover{
       text-decoration: none;
-      color white;
+      color: #2c3e50;
+      background-color: white;
     }
   }
   &.all a.all{
-    background-color: #2c3e50;
-    color white;
+    background-color: transparent;
+    border-color: #2c3e50;
+    color: #2c3e50;
   }
   &.ri a.ri{
-    background-color: #9b22b4;
-    color white;
+    background-color: transparent;
+    border-color: #9b22b4;
+    color: #9b22b4;
   }
   &.lti a.lti{
-    background-color: #3bb422;
-    color white;
+    background-color: transparent;
+    border-color: #3bb422;
+    color: #3bb422;
   }
   &.csd a.csd{
-    background-color: #22b49b;
-    color white;
+    background-color: transparent;
+    border-color: #22b49b;
+    color: #22b49b;
   }
   &.hcii a.hcii{
-    background-color: #b49b22;
-    color white;
+    background-color: transparent;
+    border-color: #b49b22;
+    color: #b49b22;
   }
   &.compbio a.compbio {
-    background-color: #b45222;
-    color white;
+    background-color: transparent;
+    border-color: #b45222;
+    color: #b45222;
   }
   &.deans_office a.scs,
   &.scs a.scs{
-    background-color: #C41230;
-    color white;
+    background-color: transparent;
+    border-color: #C41230;
+    color: #C41230;
   }
   &.isr a.isr {
-    background-color: #165574;
-    color white;
+    background-color: transparent;
+    border-color: #165574;
+    color: #165574;
   }
   &.mld a.mld{
-    background-color: #b42284;
-    color white;
+    background-color: transparent;
+    border-color: #b42284;
+    color: #b42284;
   }
 }
 
@@ -403,20 +420,24 @@ export default {
     font-size: .9em;
     text-transform: uppercase;
     margin-right: .5em;
-    cursor:pointer;
-    background: #eee;
+    cursor: pointer;
+    border-bottom: 3px solid #eee;
+    background: #efefef;
+    &:hover{
+      background: #ddd
+    }
   }
   &.Staff button.Staff{
-    color: #C41230;
-    background: #ccc;
+    background: transparent;
+    border-bottom: 3px solid #C41230;
   }
   &.Faculty button.Faculty{
-    color: #C41230;
-    background: #ccc;
+    background: transparent;
+    border-bottom: 3px solid #C41230;
   }
   &.Student button.Student{
-    color: #C41230;
-    background: #ccc;
+    background: transparent;
+    border-bottom: 3px solid #C41230;
   }
 }
 form.search {

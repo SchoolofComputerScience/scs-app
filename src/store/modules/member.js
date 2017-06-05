@@ -17,6 +17,7 @@ export default {
                 email
                 employee_status
                 employee_status_desc
+                biography
                 family_name
                 fax_phone
                 given_name
