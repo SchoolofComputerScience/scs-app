@@ -52,7 +52,7 @@ export default {
                 }
                 news{
                   uid
-                  image
+                  title
                 }
                 gsProfile{
                   gs_affiliation

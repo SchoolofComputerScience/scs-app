@@ -57,10 +57,17 @@
             </div>
           </section>
 
-          <section v-if="gp">
-            <h2>Cited Publications</h2>
-            <p>Citations Amount: {{member.gsProfile[0].gs_citation_count}}</p>
-            <div v-for="pub in member.gsProfile[0].pub_year_agg">
+          <section v-if="news" class="news">
+            <p class="title">news articles</p>
+            <div class="article" v-for="article in member.news">
+              <router-link :to="'/news/' + article.uid">{{article.title}}</router-link>
+            </div>
+          </section>
+
+          <section v-if="gp" class="gp">
+            <p class="title">Cited Publications <span class="amount">(Amount: {{member.gsProfile[0].gs_citation_count}})</span>
+            </p>
+            <div class="list" v-for="pub in member.gsProfile[0].pub_year_agg">
               <h4>{{pub._id}}</h4>
               <div v-for="art in member.gsPublication">
                 <div v-if="art.pub_year == pub._id">
@@ -104,6 +111,9 @@ export default {
     },
     gp(){
       return this.$store.state.member.info[this.$route.params.name].gsPublication.length
+    },
+    news(){
+      return this.$store.state.member.info[this.$route.params.name].news.length
     }
   },
 
@@ -138,6 +148,46 @@ export default {
 <style lang="stylus" scoped>
 .member-view{
   font-size: 1.05em;
+}
+
+.title{
+  text-transform: uppercase;
+  font-size: .8em;
+  padding-bottom: .5em;
+  margin-bottom: .5em;
+  border-bottom: 1px solid #ccc;
+}
+
+.news{
+  margin-bottom: 2em;
+}
+
+.gp{
+  .title{
+    margin-bottom: 2.1em;
+  }
+  .list{
+    border-left: 1px solid #ccc;
+    margin-left: 3.2em;
+    padding-left: 1em;
+    position: relative;
+    margin-bottom: 1.6em;
+    > h4{
+      position: absolute;
+      left: -3.2em;
+      top: .2em;
+    }
+  }
+  .amount{
+    font-size: .8em;
+    font-style: italic;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+  a{
+    font-size: .8em;
+    margin-top: 2em;
+  }
 }
 
 .top-header{
