@@ -17,6 +17,7 @@ import CourseView from '../views/CourseView.vue'
 import CourseListView from '../views/CourseListView.vue'
 import CourseSelectView from '../views/CourseSelectView.vue'
 import ErrorView from '../views/ErrorView.vue'
+import ProgramsView from '../views/ProgramsView.vue'
 
 export default new Router({
   mode: 'history',
@@ -30,6 +31,7 @@ export default new Router({
     { path: '/courses/course/:course', component: CourseView },
     { path: '/courses/:semester', component: CourseListView },
     { path: '/departments/:department?', component: DepartmentView },
+    { path: '/programs', component: ProgramsView },
     { path: '/publication/:pubid?', component: PublicationView },
     { path: '/news/', component: NewsListView },
     { path: '/events/', component: EventsListView },

@@ -8,6 +8,7 @@
           <img class="logo" :src="department.logo" />
           <h1>{{department.name}}</h1>
           <p>{{department.description}}</p>
+          <Programs :condensed="true" :department="this.$route.params.department"></Programs>
           <h3 class="component-title">{{this.$route.params.department | upc}} Directory</h3>
           <section class="card-holder">
             <DepartmentDirectory></DepartmentDirectory>
@@ -31,6 +32,7 @@ import { router } from '../app'
 import CourseListView from '../views/CourseListView.vue'
 import DepartmentDirectory from '../components/DepartmentDirectory.vue'
 import Courses from '../components/Courses.vue'
+import Programs from '../components/Programs.vue'
 
 function fetchDepartment(store) {
   return store.dispatch('GET_DEPARTMENT_LIST')
@@ -61,7 +63,8 @@ export default {
     Spinner,
     CourseListView,
     DepartmentDirectory,
-    Courses
+    Courses,
+    Programs
   },
 
   data() {

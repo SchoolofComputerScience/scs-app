@@ -33,7 +33,15 @@ export function departmentTranslate (depId) {
     [ 'CS', 'Computer Science Department' ],
     [ 'ROB', 'The Robotics Institute' ],
     [ 'SE', 'Software Engineering' ],
-    [ 'ETC', 'Entertainment Technology Center' ]
+    [ 'ETC', 'Entertainment Technology Center' ],
+    [ 'compbio', 'Computational Biology Department' ],
+    [ 'hcii', 'Human-Computer Interaction Institute' ],
+    [ 'isr', 'Institute for Software Research' ],
+    [ 'mld', 'Machine Learning Department' ],
+    [ 'lti', 'Language Technologies Institute' ],
+    [ 'csd', 'Computer Science Department' ],
+    [ 'ri', 'The Robotics Institute' ],
+    [ 'etc', 'Entertainment Technology Center' ]
   ])
 
   return departmentMap.get(depId) || depId
