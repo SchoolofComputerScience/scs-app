@@ -25,7 +25,7 @@ function fetchCourses(store, semester) {
 }
 
 export default {
-  name: 'department-courses',
+  name: 'courses',
 
   props: ['semester', 'department', 'level'],
 
