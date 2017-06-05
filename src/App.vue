@@ -2,7 +2,7 @@
   <main id="app">
     <main-header></main-header>
     <main class="body">
-      <transition name="view" mode="out-in" appear>
+      <transition name="view" >
         <router-view class="view" :key="$route.fullPath"></router-view>
       </transition>
     </main>
@@ -13,6 +13,7 @@
 <script>
 import MainHeader from './components/MainHeader.vue'
 import MainFooter from './components/MainFooter.vue'
+import { router } from './app'
 
 export default {
   name: 'scsmain',
@@ -20,6 +21,10 @@ export default {
   components: {
     MainHeader,
     MainFooter,
+  },
+
+  data: {
+    transitionName: 'view'
   },
 
   computed: {
@@ -43,14 +48,6 @@ export default {
   margin: 0 auto;
   max-width: 62em;
   min-height: 100px;
-}
-
-.fade-enter-active, .fade-leave-active {
-  transition: all .2s ease;
-}
-
-.fade-enter, .fade-leave-active {
-  opacity: 0;
 }
 
 @media screen and (max-width 62em) {
