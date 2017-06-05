@@ -1,6 +1,6 @@
 <template>
   <header class="main-header">
-    <div id="cont" class="content">
+    <div id="cont" class="logo">
       <div>
         <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
       </div>
@@ -130,9 +130,12 @@ export default {
       padding-top: .2em;
     }
   }
-  .content {
+  .logo {
     max-width: 62em;
     margin: 0 auto;
+    @media screen and (max-width: 600px) {
+      padding: 1em;
+    }
   }
 }
 

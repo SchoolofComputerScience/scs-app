@@ -27,6 +27,10 @@
             </div>
           </section>
 
+          <section v-if="member.biography" class="biography">
+            <div v-html="member.biography"></div>
+          </section>
+
           <section class="directory-information">
             <div v-if="member.phone_full != '(null) null - null'">
               <p class="title">phone</p>
@@ -115,10 +119,27 @@ export default {
 }
 </script>
 
+<style lang="stylus">
+
+.biography{
+  font-size: .95em;
+  padding: 1em 0;
+  border-bottom: 1px solid #ccc;
+  p {
+    padding-top: 1em;
+    &:first-child{
+      padding-top: 0;
+    }
+  }
+}
+
+</style>
+
 <style lang="stylus" scoped>
 .member-view{
   font-size: 1.05em;
 }
+
 .top-header{
   display: flex;
   border-bottom: 1px solid #ccc;

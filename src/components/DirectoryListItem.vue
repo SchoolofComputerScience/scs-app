@@ -5,7 +5,7 @@
     </div>
     <router-link :to="'/directory/' + item.scid">
       <p class="name">{{ item.full_name }}</p>
-      <p class="title"><span>({{item.relationship_class}})</span> {{ item.position}}</p>
+      <p class="title"><span>{{item.relationship_class}} | </span> {{ item.position}}</p>
     </router-link>
   </li>
 </template>
@@ -68,8 +68,16 @@ export default {
   border: 1px solid #eee;
   height: 120px;
   max-width: 25%;
-  width: 22.5%;
+  width: 23%;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:nth-child(4n+4) {
+    margin-right: 0;
+  }
+
   &:hover {
     background: white;
     box-shadow: none;
@@ -86,7 +94,7 @@ export default {
     padding-top: .35em;
   }
   p.title {
-    font-size: .9em;
+    font-size: .8em;
     font-weight: 400;
     padding-top: 0;
     span {
@@ -101,6 +109,8 @@ export default {
   a {
     text-decoration: none;
     color: #131313;
+    width: 100%;
+    display: block;
   }
   p {
     margin-bottom: .4em;
