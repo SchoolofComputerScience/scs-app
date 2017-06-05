@@ -3,17 +3,17 @@ runtime: nodejs
 env: flex
 resources:
   cpu: 2
-  memory_gb: 1.8
+  memory_gb: 2.4
   disk_size_gb: 10
 skip_files:
   - ^(.*/)?.*/node_modules/.*$
 health_check:
   enable_health_check: False
 automatic_scaling:
-  min_num_instances: 1
-  max_num_instances: 2
+  min_num_instances: 2
+  max_num_instances: 8
   cool_down_period_sec: 60
   cpu_utilization:
-    target_utilization: 0.2
+    target_utilization: 0.4
 env_variables:
   NODE_ENV: production
