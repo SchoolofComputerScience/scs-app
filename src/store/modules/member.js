@@ -15,8 +15,6 @@ export default {
             {
               directory(scid:"${fields}"){
                 email
-                employee_status
-                employee_status_desc
                 biography
                 family_name
                 fax_phone
@@ -42,8 +40,6 @@ export default {
                   building
                   department
                   department_name
-                  employee_type
-                  full_part_time_indicator
                   hr_department
                   performance_supervisor
                   primary_position
