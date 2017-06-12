@@ -10,7 +10,7 @@
                 <div class="content">
                   <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
                   <h3>{{news_item.title}}</h3>
-                 </div>
+                </div>
               </router-link>
             </div>
           </div>
@@ -52,19 +52,21 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.page{
+  display: block;
+}
 .card-holder {
   display: flex;
-  flex-wrap: row wrap;
-  flex-flow: row wrap;
+  flex-wrap: row;
+  flex-flow: wrap;
   width: calc(100% + 2vw);
-  position: relative;
   left: -1vw;
-  /*h1 {
-    font-size: 1em;
-    a {
-      text-decoration: none;
-    }
-  }*/
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex-direction: row;
+  flex-direction: row;
   p {
     font-size: .8em;
     em {
@@ -77,7 +79,7 @@ export default {
   position: relative;
   background-position: center;
   background-size: cover;
-  flex: 1;
+  flex: 1 45%;
   padding: 2vw;
   transition: .4s all;
   display: flex;
@@ -86,6 +88,7 @@ export default {
   margin: 1vw;
   position: relative;
   z-index: 1;
+  max-width: calc(48% - 2vw)
   a {
     z-index: 9;
     text-decoration: none;
