@@ -10,7 +10,7 @@
             </div>
             <div>
               <h1 class="full_name">{{member.full_name}}</h1>
-              <p class="title">{{member.relationship_class}}</p>
+              <p class="full_title">{{member.relationship_class}}</p>
               <p v-if="member.homepage_url" class="homepage"><a :href="member.homepage_url">{{member.homepage_url}}</a></p>
             </div>
           </section>
@@ -64,6 +64,13 @@
             </div>
           </section>
 
+          <section v-if="events" class="news">
+            <p class="title">events</p>
+            <div class="article" v-for="event in member.events">
+              <router-link :to="'/events/' + event.uid">{{event.title}}</router-link>
+            </div>
+          </section>
+
           <section v-if="gp" class="gp">
             <p class="title">Cited Publications <span class="amount">(Amount: {{member.gsProfile[0].gs_citation_count}})</span>
             </p>
@@ -114,6 +121,9 @@ export default {
     },
     news(){
       return this.$store.state.member.info[this.$route.params.name].news.length
+    },
+    events(){
+      return this.$store.state.member.info[this.$route.params.name].events.length
     }
   },
 
@@ -200,7 +210,7 @@ export default {
     font-size: .8em;
     padding-top: 1em;
   }
-  .title{
+  .full_title{
     padding-top: .6em;
   }
   div{
