@@ -50,6 +50,10 @@ export default {
                   uid
                   title
                 }
+                events{
+                  uid
+                  title
+                }
                 gsProfile{
                   gs_affiliation
                   gs_areas

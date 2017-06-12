@@ -44,6 +44,7 @@ export default {
                 date
                 title
                 uid
+                tags
               }
             }
           `

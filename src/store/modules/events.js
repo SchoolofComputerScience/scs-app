@@ -55,6 +55,7 @@ export default {
                 title
                 speakerName
                 startDate
+                tags
               }
             }
           `
