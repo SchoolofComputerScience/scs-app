@@ -35,13 +35,11 @@ export default {
   computed: {
     directory() { 
       let filtered = [];
-      let count = 1;
       let departmentFilter = this.$store.state.route.params.department;
       let random_indexes = [];
       let directory_length = this.$store.state.directory.list.length;
 
-      while (filtered.length < 12 && directory_length !== 0 && count !== directory_length && departmentFilter !== 'deans_office') {
-        count++;
+      while (filtered.length < 12 && directory_length !== 0 && departmentFilter !== 'deans_office') {
         let rand_num = Math.floor(Math.random() * (directory_length - 1));
         let person = this.$store.state.directory.list[rand_num];
 
@@ -128,4 +126,18 @@ export default {
     text-align: center;
   }
 }
+
+@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+  .card {
+    position: relative;
+    flex: 1;
+    justify-content: space-between;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: block;
+    transition: none;
+    max-width: 100%;
+  }
+}
+
 </style>
