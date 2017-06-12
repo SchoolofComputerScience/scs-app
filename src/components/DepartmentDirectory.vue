@@ -33,7 +33,7 @@ export default {
   },
 
   computed: {
-    directory() { 
+    directory() {
       let filtered = [];
       let departmentFilter = this.$store.state.route.params.department;
       let random_indexes = [];
@@ -69,10 +69,13 @@ export default {
   display: block;
   transition: none;
   max-width: 31%;
-
+  &:hover{
+    border: 0;
+  }
   a {
     display: inline-block;
     text-align: center;
+
   }
 
   p.name {
@@ -105,7 +108,7 @@ export default {
     background: white;
     box-shadow: none;
     transition: none;
-    border: 1px solid #bbb;
+    // border: 1px solid #bbb;
   }
   p {
     margin-bottom: 0em;
@@ -122,7 +125,7 @@ export default {
     width: 15em;
     height: 15em;
     background-size: cover;
-    display: inline-block; 
+    display: inline-block;
     text-align: center;
   }
 }

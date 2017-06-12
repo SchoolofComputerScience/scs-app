@@ -8,7 +8,18 @@
           <img class="logo" v-if="department.logo" :src="department.logo" />
           <h1>{{department.name}}</h1>
           <p>{{department.description}}</p>
+
+          <h3 class="component-title">{{this.$route.params.department | upc}} News</h3>
+          <NewsList :department="this.$route.params.department"></NewsList>
+          <router-link class="btn" :to="'/news'">View Full News</router-link>
+
+          <h3 class="component-title">{{this.$route.params.department | upc}} Events</h3>
+          <EventsList :department="this.$route.params.department"></EventsList>
+          <router-link class="btn" :to="'/events'">View Full Events</router-link>
+
+          <h3 class="component-title">{{this.$route.params.department | upc}} Programs</h3>
           <Programs :condensed="true" :department="this.$route.params.department"></Programs>
+
           <h3 class="component-title">{{this.$route.params.department | upc}} Directory</h3>
           <section class="card-holder department-card-holder">
             <DepartmentDirectory></DepartmentDirectory>
@@ -30,6 +41,8 @@ import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import CourseListView from '../views/CourseListView.vue'
 import DepartmentDirectory from '../components/DepartmentDirectory.vue'
+import NewsList from '../components/NewsList.vue'
+import EventsList from '../components/EventsList.vue'
 import Courses from '../components/Courses.vue'
 import Programs from '../components/Programs.vue'
 
@@ -63,7 +76,9 @@ export default {
     CourseListView,
     DepartmentDirectory,
     Courses,
-    Programs
+    Programs,
+    NewsList,
+    EventsList
   },
 
   data() {

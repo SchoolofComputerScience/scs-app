@@ -3,8 +3,8 @@
     <div class="directory-list">
       <Spinner class="spinner" v-if="!loaded" key="spinner"></Spinner>
       <div class="filter-toggle" v-if="loaded">
-        <form class="search">
-          <input class="filter-input" v-model="query" :placeholder="placeholder" name="query" autocomplete="off">
+        <form class="search" v-on:submit.prevent>
+          <input class="filter-input" v-model="query" :placeholder="placeholder" v-on:submit.prevent name="query" autocomplete="off">
         </form>
         <div class="filter-title" :class="depTitle">
           <button class="Student" @click="titleFilter('Student')" name="student">Student</button>

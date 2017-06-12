@@ -51,6 +51,10 @@ export default {
 
   preFetch: fetchPrograms,
 
+  components: {
+    Spinner
+  },
+
   computed: {
     loaded() {
       return this.$store.state.programs.list.length;
