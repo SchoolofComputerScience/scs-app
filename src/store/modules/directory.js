@@ -25,6 +25,9 @@ export default {
                   primary_position
                 }
                 scid
+                image_url
+                research_areas
+                email
               }
             }
           `
