@@ -5,9 +5,38 @@ import gql from 'graphql-tag'
 export default {
   state: {
     articles: {},
-    list: []
+    list: [],
+    error: {}
   },
   actions: {
+    SEARCH_NEWS_ARTICLES: ({ commit, state }, fields = {}) => {
+      return apollo.query({
+          query: gql`
+            {
+              newsBySearch(query:"${fields}") {
+                title
+                date
+                uid
+                image
+              }
+            }
+          `
+        }).then((res,err) => {
+
+          console.log(res)
+          console.log(err)
+          if (res.data.newsBySearch.length == 0){
+            commit('SET_NEWS_LIST', {error: "No Matching Articles"})
+          }else {
+            commit('SET_NEWS_LIST', res.data)
+            return res.data
+          }
+        }).catch((err) =>{
+          console.log(err)
+          Promise.reject(":err :department graphql failed")
+          console.error(`GraphQL Error: ${err.message}`)
+        })
+    },
     GET_NEWS_ARTICLE: ({ commit, state }, fields = {}) => {
       return state.articles[fields]
         ? Promise.resolve(state.articles[fields])
@@ -40,11 +69,10 @@ export default {
           query: gql`
             {
               news {
-                image
-                date
                 title
+                date
                 uid
-                tags
+                image
               }
             }
           `
@@ -66,7 +94,12 @@ export default {
       Vue.set(state.articles, data.article[0].uid, data.article[0])
     },
     SET_NEWS_LIST: (state, data) => {
-      state.list = data.news
+      if(data.error){
+        state.error = data.error
+      }else{
+        state.error = ''
+        state.list = data.news || data.newsBySearch
+      }
     }
   }
 }
