@@ -19,6 +19,7 @@ export function seasonTranslate (seasonId) {
 export function tlc(str) {
   return str.toLowerCase()
 }
+
 export function upc(str) {
   return str.toUpperCase()
 }

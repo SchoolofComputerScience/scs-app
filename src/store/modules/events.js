@@ -73,9 +73,7 @@ export default {
         })
     },
     GET_EVENTS_LIST: ({ commit, state }, fields = {}) => {
-      return state.list.length
-        ? Promise.resolve(state.list)
-        : apollo.query({
+      return apollo.query({
           query: gql`
             {
               events {

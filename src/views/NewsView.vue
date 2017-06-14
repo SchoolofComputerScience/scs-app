@@ -8,6 +8,9 @@
           <div class="content-container">
             <h1>{{article.title}}</h1>
             <h2>{{article.date | moment("dddd, MMMM Do YYYY")}}</h2>
+            <div class="tags">
+              <router-link v-for="tag in article.tags" :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
+            </div>
             <article v-html="article.body" class="body"></article>
           </div>
         </div>
@@ -47,9 +50,19 @@ export default {
   },
 
   methods: {
+
     cleanHTML: function(data){
       return data
+    },
+
+    tagFilter: (tag) => {
+      if(tag.includes('_')) {
+        return '/directory/' + tag
+      }else{
+        return '/departments/' + tag.toLocaleLowerCase()
+      }
     }
+
   },
 
   beforeMount () {
@@ -68,6 +81,23 @@ h1 {
   font-size: 2em;
 }
 
+.tags{
+  a{
+    font-size: .85em;
+    display: inline-block;
+    margin-right: .7em;
+    margin-bottom: .7em;
+    border: 1px solid;
+    padding: .35em .6em;
+    text-decoration: none;
+    &:hover{
+      border: 1px solid;
+      background: #C41230;
+      color: white;
+    }
+  }
+}
+
 .content-container {
   background: white;
   margin: 1em;
@@ -78,12 +108,12 @@ h1 {
   border-left: 1px solid #eee;
   border-right: 1px solid #eee;
   position: relative;
-  top: 20.5em;
-  margin-bottom: 20.5em;
+  top: 25.5em;
+  margin-bottom: 25.5em;
 }
 
 .news-header {
-  min-height: 36em;
+  min-height: 32em;
   background-size: cover;
   background-position: center;
   position: absolute;
@@ -98,6 +128,8 @@ h2 {
   margin: 0;
   border-bottom: 1px solid #C41230;
   padding-bottom: .6em;
+  padding-top: 1em;
+  margin-bottom: 1em;
   font-weight: 300;
   position: relative;
   &:after {

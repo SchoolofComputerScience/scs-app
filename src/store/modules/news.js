@@ -18,13 +18,14 @@ export default {
                 date
                 uid
                 image
+                tags {
+                  tag
+                  name
+                }
               }
             }
           `
         }).then((res,err) => {
-
-          console.log(res)
-          console.log(err)
           if (res.data.newsBySearch.length == 0){
             commit('SET_NEWS_LIST', {error: "No Matching Articles"})
           }else {
@@ -33,6 +34,30 @@ export default {
           }
         }).catch((err) =>{
           console.log(err)
+          Promise.reject(":err :department graphql failed")
+          console.error(`GraphQL Error: ${err.message}`)
+        })
+    },
+    GET_DEPARTMENT_NEWS: ({ commit, state }, fields = {}) => {
+      return apollo.query({
+          query: gql`
+            {
+              newsByTag(department:"${fields}") {
+                title
+                date
+                uid
+                image
+                tags {
+                  tag
+                  name
+                }
+              }
+            }
+          `
+        }).then((res,err) => {
+          commit('SET_DEPARTMENT_NEWS_LIST', res.data)
+          return res.data
+        }).catch((err) =>{
           Promise.reject(":err :department graphql failed")
           console.error(`GraphQL Error: ${err.message}`)
         })
@@ -49,6 +74,10 @@ export default {
                 uid
                 image
                 body
+                tags {
+                  tag
+                  name
+                }
               }
             }
           `
@@ -63,9 +92,7 @@ export default {
         })
     },
     GET_NEWS_LIST: ({ commit, state }, fields = {}) => {
-      return state.list.length
-        ? Promise.resolve(state.list)
-        : apollo.query({
+      return apollo.query({
           query: gql`
             {
               news {
@@ -73,6 +100,10 @@ export default {
                 date
                 uid
                 image
+                tags {
+                  tag
+                  name
+                }
               }
             }
           `
@@ -100,6 +131,10 @@ export default {
         state.error = ''
         state.list = data.news || data.newsBySearch
       }
+    },
+    SET_DEPARTMENT_NEWS_LIST: (state, data) => {
+      console.log(data)
+      //state.department_list = data.news
     }
   }
 }
