@@ -1,12 +1,18 @@
 <template>
   <div class="card-holder">
     <div class="card" :style="{ 'background-image': 'url(' + data.image + ')' }">
-      <router-link  :to="'/news/' + data.uid">
-        <div class="content">
-          <h2>{{data.date | moment("dddd, MMMM Do YYYY")}}</h2>
-          <h3>{{data.title}}</h3>
+      <div>
+        <router-link  :to="'/news/' + news_item.uid">
+          <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
+          <div class="content">
+            <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
+            <h3>{{news_item.title}}</h3>
+          </div>
+        </router-link>
+        <div class="tags" v-for="tag in news_item.tags">
+          <router-link :to="tag.tag">{{tag.name}}</router-link>
         </div>
-      </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -35,7 +41,23 @@ export default {
     }
   }
 }
-
+.tags{
+  font-size: .7em;
+  display: inline-block;
+  margin-right: .7em;
+  margin-bottom: .7em;
+  position: relative;
+  a{
+    border: 1px solid;
+    padding: .35em .6em;
+    text-decoration: none;
+    &:hover{
+      border: 1px solid;
+      background: #C41230;
+      color: white;
+    }
+  }
+}
 .card {
   position: relative;
   background-position: center;

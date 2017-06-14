@@ -11,13 +11,19 @@
             <div v-if="error" class="error-message">
               <p>{{error}}</p>
             </div>
-            <div class="card" v-if="!error" :style="{ 'background-image': 'url(' + news_item.image + ')' }" v-for="news_item in news" :key="news_item.uid">
-              <router-link  :to="'/news/' + news_item.uid">
-                <div class="content">
-                  <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
-                  <h3>{{news_item.title}}</h3>
+            <div class="card" v-if="!error" v-for="news_item in news" :key="news_item.uid">
+              <div>
+                <router-link  :to="'/news/' + news_item.uid">
+                  <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
+                  <div class="content">
+                    <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
+                    <h3>{{news_item.title}}</h3>
+                  </div>
+                </router-link>
+                <div class="tags" v-for="tag in news_item.tags">
+                  <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
                 </div>
-              </router-link>
+              </div>
             </div>
           </div>
         </section>
@@ -71,9 +77,19 @@ export default {
   },
 
   methods: {
+
     searchNews: _.debounce(function(){
       this.$store.dispatch('SEARCH_NEWS_ARTICLES', this.query)
-    }, 500)
+    }, 500),
+
+    tagFilter: (tag) => {
+      if(tag.includes('_')) {
+        return '/directory/' + tag
+      }else{
+        return '/departments/' + tag.toLocaleLowerCase()
+      }
+    }
+
   },
 
   beforeMount () {
@@ -110,11 +126,31 @@ export default {
     padding-left: .4em
   }
 }
+
+.tags{
+  font-size: .7em;
+  display: inline-block;
+  margin-right: .7em;
+  margin-bottom: .7em;
+  position: relative;
+  a{
+    border: 1px solid;
+    padding: .35em .6em;
+    text-decoration: none;
+    &:hover{
+      border: 1px solid;
+      background: #C41230;
+      color: white;
+    }
+  }
+}
+
 .card-holder {
   display: flex;
   flex-wrap: row;
   flex-flow: wrap;
   width: calc(100% + 2vw);
+  position: relative;
   left: -1vw;
   display: -webkit-flex;
   display: flex;
@@ -135,55 +171,62 @@ export default {
   background-position: center;
   background-size: cover;
   flex: 1 45%;
-  padding: 2vw;
+  padding: 1vw;
   transition: .4s all;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1vw;
+  align-items: start;
+  justify-content: start;
   position: relative;
   z-index: 1;
-  max-width: calc(48% - 2vw)
-  a {
+  max-width: 50%;
+  > div{
+    width: 100%;
+  }
+  > div > a {
     z-index: 9;
     text-decoration: none;
+    width: 100%;
+    left: 0em;
+    top: 0em;
+    display: inline-block;
+    transition: .35s box-shadow, .35s top, .35s left;
+    position: relative;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    margin-bottom: 1em;
   }
   .content {
-    padding: 2vw;
-    min-width: 19em;
+    padding: 1.6em 2vw;
     display: block;
-    background: white;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  }
+  &:hover{
+    > div > a {
+      top: -.1em;
+      left: -.1em;
+      transition: .2s box-shadow, .2s top, .2s left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
   }
   aside {
     display: block;
     vertical-align: center;
     border-top: 1px solid #C41230;
   }
-  &:after {
+  figure{
     display: block;
-    background: rgba(255, 255, 255, 0);
-    width: 100%;
-    height: 100%;
-    content: ' ';
-    position: absolute;
-    transition: .4s background;
-  }
-  &:hover {
-    background: white;
     background-position: center;
     background-size: cover;
-    transition: .4s all;
-    &:after {
-      transition: .4s background;
-      background: rgba(255, 255, 255, 0.6);
-    }
+    width: 100%;
+    height: 12em;
+    transition: .4s background;
+    padding-left: 0;
   }
   h2 {
-    font-size: .8em;
+    font-size: .95em;
     margin: 0;
     border-bottom: 1px solid #C41230;
-    padding-bottom: .6em;
+    padding-bottom: .9em;
+    margin-top: .6em;
     font-weight: 300;
     position: relative;
     &:after {
@@ -197,7 +240,8 @@ export default {
     }
   }
   h3 {
-    font-size: 1.5em;
+    font-size: 1.2em;
+    padding-top: .8em;
     margin-bottom: .4em;
     font-weight: 300;
   }
