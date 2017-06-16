@@ -47,8 +47,6 @@ export default {
                   primary_position
                   room
                   title
-                  scs_position_class
-                  scs_position_desc
                 }
                 news{
                   uid
