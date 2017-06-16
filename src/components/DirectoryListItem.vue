@@ -5,7 +5,7 @@
     </div>
     <router-link :to="'/directory/' + item.scid">
       <p class="name">{{ item.full_name }}</p>
-      <p class="title"><span>{{item.relationship_class}} | </span> {{ item.position}}</p>
+      <p class="title"><span>{{item.scs_relationship_desc}} | </span> {{ item.position}}</p>
     </router-link>
   </li>
 </template>

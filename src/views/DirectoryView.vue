@@ -155,7 +155,7 @@ export default {
 
       for (var i = 0; i < departmentFilter.length; ++i) {
 
-        if(departmentFilter[i].relationship_class.includes(this.depTitle) || !this.depTitle){
+        if(departmentFilter[i].hr_relationship_class.includes(this.depTitle) || !this.depTitle){
           titleFilter.push(departmentFilter[i])
         }
       }
