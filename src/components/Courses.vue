@@ -35,7 +35,7 @@ export default {
 
   computed: {
     courseListByDepartment() {
-      let component_department = this.department || this.$store.state.route.params.department;
+      let component_department = this.department || this.$store.state.department.selected_department;
       let component_semester = this.semester || this.$store.state.route.params.semester;
       let component_level = this.level || this.$store.state.route.params.level;
       let courses_data = this.$store.state.courses.lists[component_semester] || [];

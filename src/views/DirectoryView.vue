@@ -1,7 +1,6 @@
 <template>
   <section class="page">
     <div class="directory-list">
-      <Spinner class="spinner" v-if="!loaded" key="spinner"></Spinner>
       <div class="filter-toggle" v-if="loaded">
         <form class="search">
           <input class="filter-input" v-model="query" :placeholder="placeholder" name="query" autocomplete="off">
@@ -12,17 +11,7 @@
           <button class="Staff" @click="titleFilter('Staff')" name="staff">Staff</button>
         </div>
 
-        <div class="dep-buttons" :class="nav">
-          <router-link :to="'/directory/'" class="all">all</router-link>
-          <router-link :to="'/directory/department/csd'" class="csd" name="csd">csd</router-link>
-          <router-link :to="'/directory/department/lti'" class="lti" name="lti">lti</router-link>
-          <router-link :to="'/directory/department/hcii'" class="hcii" name="hcii">hcii</router-link>
-          <router-link :to="'/directory/department/ri'" class="ri" name="ri">ri</router-link>
-          <router-link :to="'/directory/department/deans_office'" class="scs" name="scs">scs</router-link>
-          <router-link :to="'/directory/department/compbio'" class="compbio" name="compbio">cbd</router-link>
-          <router-link :to="'/directory/department/mld'" class="mld" name="mld">mld</router-link>
-          <router-link :to="'/directory/department/isr'" class="isr" name="isr">isr</router-link>
-        </div>
+        <DepartmentFilter :route_link="route_link" :types="scs_department_types" :excluded_departments="excluded_departments"></DepartmentFilter>
 
         <div class="count">showing : {{ directoryShown}} / {{directoryLength}}</div>
       </div>
@@ -39,10 +28,10 @@
 
 <script>
 import Vue from 'vue'
-import Spinner from '../components/Spinner.vue'
 import _ from 'lodash'
 import DirectoryListItem from '../components/DirectoryListItem.vue'
 import VirtualScroller from '../components/VirtualScroller.vue'
+import DepartmentFilter from '../components/DepartmentFilter.vue'
 
 const renderers = {
   person: DirectoryListItem
@@ -58,9 +47,9 @@ export default {
   preFetch: fetchDirectory,
 
   components: {
-    Spinner,
     DirectoryListItem,
-    VirtualScroller
+    VirtualScroller,
+    DepartmentFilter
   },
 
   data () {
@@ -70,7 +59,10 @@ export default {
       directory: [],
       directoryLength: 0,
       directoryShown: 0,
-      depTitle: ''
+      depTitle: '',
+      route_link: '/directory/department/',
+      scs_department_types: ['academic', 'admin', 'school'],
+      excluded_departments: ['scs_facilities']
     }
   },
 
@@ -224,132 +216,6 @@ export default {
   padding: 0;
   position: relative;
   min-height: 20em;
-}
-
-.dep-buttons {
-  margin-top: 1.6em;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  a {
-    display: inline-block;
-    margin-right: 2em;
-    margin-top: 1.6em;
-    margin-bottom: 1.6em;
-    -webkit-appearance: none;
-    text-transform: uppercase;
-    color: #2c3e50;
-    color: white;
-    font-weight: 900;
-    font-size: .9em;
-    padding: .5em 1.2em .5em 1.2em;
-    border: none;
-    border-bottom: 4px solid;
-    &.all{
-      background-color: #2c3e50;
-      &:hover{
-        border-color: #2c3e50;
-      }
-    }
-    &.ri{
-      background-color: #9b22b4;
-      &:hover{
-        border-color: #9b22b4;
-      }
-    }
-    &.lti{
-      background-color: #3bb422;
-      &:hover{
-        border-color: #3bb422;
-      }
-    }
-    &.csd{
-      background-color: #22b49b;
-      &:hover{
-        border-color: #22b49b;
-      }
-    }
-    &.hcii{
-      background-color: #b49b22;
-      &:hover{
-        border-color: #b49b22;
-      }
-    }
-    &.compbio{
-      background-color: #b45222;
-      &:hover{
-        border-color: #b45222;
-      }
-    }
-    &.deans_office, &.scs{
-      background-color: #C41230;
-      &:hover, .active{
-        border-color: #C41230;
-      }
-    }
-    &.isr{
-      background-color: #165574;
-      &:hover{
-        border-color: #165574;
-      }
-    }
-    &.mld{
-      background-color: #b42284;
-      &:hover{
-        border-color: #b42284;
-      }
-    }
-    &:hover{
-      text-decoration: none;
-      color: #2c3e50;
-      background-color: white;
-    }
-  }
-  &.all a.all{
-    background-color: transparent;
-    border-color: #2c3e50;
-    color: #2c3e50;
-  }
-  &.ri a.ri{
-    background-color: transparent;
-    border-color: #9b22b4;
-    color: #9b22b4;
-  }
-  &.lti a.lti{
-    background-color: transparent;
-    border-color: #3bb422;
-    color: #3bb422;
-  }
-  &.csd a.csd{
-    background-color: transparent;
-    border-color: #22b49b;
-    color: #22b49b;
-  }
-  &.hcii a.hcii{
-    background-color: transparent;
-    border-color: #b49b22;
-    color: #b49b22;
-  }
-  &.compbio a.compbio {
-    background-color: transparent;
-    border-color: #b45222;
-    color: #b45222;
-  }
-  &.deans_office a.scs,
-  &.scs a.scs{
-    background-color: transparent;
-    border-color: #C41230;
-    color: #C41230;
-  }
-  &.isr a.isr {
-    background-color: transparent;
-    border-color: #165574;
-    color: #165574;
-  }
-  &.mld a.mld{
-    background-color: transparent;
-    border-color: #b42284;
-    color: #b42284;
-  }
 }
 
 .filter{

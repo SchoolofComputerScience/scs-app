@@ -49,6 +49,10 @@ export default {
 
   props: ['degree_level', 'department', 'graduate_level', 'condensed'],
 
+  components: {
+    Spinner,
+  },
+
   preFetch: fetchPrograms,
 
   computed: {

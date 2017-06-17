@@ -10,17 +10,7 @@
     <p>
       And a survey by the editors of The Wall Street Journal ranked our undergraduate computer science program No. 1 in the United States among corporate recruiters.
     </p>
-    <div class="dep-buttons" :class="nav">
-      <a href="javascript:void(0);" v-on:click="filter" class="all" filter-name="department">all</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="csd" filter-name="department" filter-value="csd">csd</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="lti" filter-name="department" filter-value="lti">lti</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="hcii" filter-name="department" filter-value="hcii">hcii</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="ri" filter-name="department" filter-value="ri">ri</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="compbio" filter-name="department" filter-value="compbio">cbd</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="mld" filter-name="department" filter-value="mld">mld</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="isr" filter-name="department" filter-value="isr">isr</a>
-      <a href="javascript:void(0);" v-on:click="filter" class="etc" filter-name="department" filter-value="etc">etc</a>
-    </div>
+    <DepartmentFilter :types="scs_department_types"></DepartmentFilter>
     <div class="level-buttons" :class="graduate_level">
       <button class="U" v-on:click="filter" filter-name="graduate_level" filter-value="undergraduate">Undergraduate</button>
       <button class="G" v-on:click="filter" filter-name="graduate_level" filter-value="graduate">Graduate</button>
@@ -31,20 +21,28 @@
 
 <script>
 import Programs from '../components/Programs.vue'
+import DepartmentFilter from '../components/DepartmentFilter.vue'
 import { router } from '../app'
 
 export default {
   name: 'programs-view',
 
   components: {
-    Programs
+    Programs,
+    DepartmentFilter
   },
 
   data() {
     return {
-      department: '',
       graduate_level: '',
-      degree_level: ''
+      degree_level: '',
+      scs_department_types: ['academic']
+    }
+  },
+
+  computed: {
+    department() {
+      return this.$store.state.department.selected_department;
     }
   },
 
@@ -144,116 +142,6 @@ h4 {
 
 p {
   margin-bottom: 1em;
-}
-
-.dep-buttons {
-  margin-top: 1.6em;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  a {
-    display: inline-block;
-    margin-right: 2em;
-    margin-top: 1.6em;
-    margin-bottom: 1.6em;
-    -webkit-appearance: none;
-    text-transform: uppercase;
-    color: #2c3e50;
-    font-weight: 900;
-    font-size: .95em;
-    padding: .5em 1.2em .5em .2em;
-    border: none;
-    border-bottom: 4px solid;
-    &.all, &.etc{
-      border-color: #2c3e50;
-      &:hover{
-        background-color: #2c3e50;
-      }
-    }
-    &.ri{
-      border-color: #9b22b4;
-      &:hover{
-        background-color: #9b22b4;
-      }
-    }
-    &.lti{
-      border-color: #3bb422;
-      &:hover{
-        background-color: #3bb422;
-      }
-    }
-    &.csd{
-      border-color: #22b49b;
-      &:hover{
-        background-color: #22b49b;
-      }
-    }
-    &.hcii{
-      border-color: #b49b22;
-      &:hover{
-        background-color: #b49b22;
-      }
-    }
-    &.compbio{
-      border-color: #b45222;
-      &:hover{
-        background-color: #b45222;
-      }
-    }
-    &.deans_office {
-      border-color: #C41230;
-      &:hover, .active{
-        background-color: #C41230;
-      }
-    }
-    &.isr{
-      border-color: #165574;
-      &:hover{
-        background-color: #165574;
-      }
-    }
-    &.mld{
-      border-color: #b42284;
-      &:hover{
-        background-color: #b42284;
-      }
-    }
-    &:hover{
-      text-decoration: none;
-      color white;
-    }
-  }
-  &.ri a.ri{
-    background-color: #9b22b4;
-    color white;
-  }
-  &.lti a.lti{
-    background-color: #3bb422;
-    color white;
-  }
-  &.csd a.csd{
-    background-color: #22b49b;
-    color white;
-  }
-  &.hcii a.hcii{
-    background-color: #b49b22;
-    color white;
-  }
-  &.compbio a.compbio {
-    background-color: #b45222;
-    color white;
-  }
-  & a.deans_office, &.scs a.scs{
-    background-color: #C41230;
-    color white;
-  }
-  &.isr a.isr {
-    background-color: #165574;
-    color white;
-  }
-  &.mld a.mld{
-    background-color: #b42284;
-    color white;
-  }
 }
 
 .level-buttons {
