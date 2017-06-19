@@ -5,7 +5,9 @@ import gql from 'graphql-tag'
 export default {
   state: {
     department: {},
-    list: []
+    list: [],
+    scs_list: [],
+    selected_department: ''
   },
   actions: {
     GET_DEPARTMENT: ({ commit, state }, fields = {}) => {
@@ -58,6 +60,31 @@ export default {
           console.error(err.locations)
           console.error(`GraphQL Error: ${err.message}`)
         })
+    },
+    GET_SCS_DEPARTMENT_LIST: ({ commit, state }, fields = {}) => {
+      return state.scs_list.length
+        ? Promise.resolve(state.scs_list)
+        : apollo.query({
+          query: gql`
+            {
+              departments(college_id:"scs") {
+                department_id
+                department_name
+                scs_type
+              }
+            }
+          `
+        }).then((res,err) => {
+          if (res) {
+            commit('SET_SCS_DEPARTMENT_LIST', res.data)
+            return res.data
+          } else {
+            Promise.reject(":err :department graphql failed")
+          }
+        }).catch((err) =>{
+          console.error(err.locations)
+          console.error(`GraphQL Error: ${err.message}`)
+        })
     }
   },
   mutations: {
@@ -66,6 +93,12 @@ export default {
     },
     SET_DEPARTMENT_LIST: (state, data) => {
       state.list = data.directoryAggregate
+    },
+    SET_SCS_DEPARTMENT_LIST: (state, data) => {
+      state.scs_list = data.departments;
+    },
+    SET_SELECTED_DEPARTMENT: (state, department) => {
+      state.selected_department = department;
     }
   }
 }

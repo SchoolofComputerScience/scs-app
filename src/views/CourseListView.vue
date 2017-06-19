@@ -1,17 +1,6 @@
 <template>
   <div class="courses-view">
-    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <div class="dep-buttons" :class="nav">
-      <a href="#" v-on:click="filter" class="all" filter-name="department">all</a>
-      <a href="#" v-on:click="filter" class="csd" filter-name="department" filter-value="csd">csd</a>
-      <a href="#" v-on:click="filter" class="lti" filter-name="department" filter-value="lti">lti</a>
-      <a href="#" v-on:click="filter" class="hcii" filter-name="department" filter-value="hcii">hcii</a>
-      <a href="#" v-on:click="filter" class="ri" filter-name="department" filter-value="ri">ri</a>
-      <a href="#" v-on:click="filter" class="compbio" filter-name="department" filter-value="compbio">cbd</a>
-      <a href="#" v-on:click="filter" class="mld" filter-name="department" filter-value="mld">mld</a>
-      <a href="#" v-on:click="filter" class="isr" filter-name="department" filter-value="isr">isr</a>
-      <a href="#" v-on:click="filter" class="isr" filter-name="department" filter-value="etc">etc</a>
-    </div>
+    <DepartmentFilter :types="scs_department_types"></DepartmentFilter>
     <div class="level-buttons" :class="level">
       <button class="U" v-on:click="filter" filter-name="level" filter-value="U">Undergraduate</button>
       <button class="G" v-on:click="filter" filter-name="level" filter-value="G">Graduate</button>
@@ -21,8 +10,8 @@
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue'
 import Courses from '../components/Courses.vue'
+import DepartmentFilter from '../components/DepartmentFilter.vue'
 import { router } from '../app'
 
 function fetchCourses(store) {
@@ -33,8 +22,8 @@ export default {
   name: 'courses-list-view',
 
   components: {
-    Spinner,
-    Courses
+    Courses,
+    DepartmentFilter
   },
 
   data() {
@@ -42,7 +31,8 @@ export default {
       semester: this.$store.state.route.params.semester,
       department: '',
       level: '',
-      nav: ''
+      nav: '',
+      scs_department_types: ['academic']
     }
   },
 
