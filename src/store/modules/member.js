@@ -28,14 +28,16 @@ export default {
                 phone_exchange
                 phone_extension
                 phone_extension_secondary
-                relationship
-                relationship_class
-                relationship_desc
+                hr_relationship
+                hr_relationship_class
+                hr_relationship_desc
                 research_areas
                 full_name
                 phone_full_call
                 phone_full
                 scid
+                scs_relationship_class
+                scs_relationship_desc
                 positions {
                   building
                   department

@@ -43,7 +43,7 @@ export default {
         let rand_num = Math.floor(Math.random() * (directory_length - 1));
         let person = this.$store.state.directory.list[rand_num];
 
-        if (person.relationship_class !== 'Faculty' || !person.image_url || random_indexes.includes(rand_num)) {
+        if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
           continue;
         }
 

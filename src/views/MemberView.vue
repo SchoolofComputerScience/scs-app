@@ -10,7 +10,7 @@
             </div>
             <div>
               <h1 class="full_name">{{member.full_name}}</h1>
-              <p class="full_title">{{member.relationship_class}}</p>
+              <p class="full_title">{{member.scs_relationship_desc}}</p>
               <p v-if="member.homepage_url" class="homepage"><a :href="member.homepage_url">{{member.homepage_url}}</a></p>
             </div>
           </section>
