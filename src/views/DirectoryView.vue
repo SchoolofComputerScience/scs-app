@@ -154,8 +154,13 @@ export default {
         let hr_rel = departmentFilter[i].hr_relationship_class;
 
         pushEntry |= this.depTitle == "Faculty" &&
-          typeof(scs_rel) == "string" &&
-          scs_rel.includes(this.depTitle.toLowerCase());
+          (
+              hr_rel.includes(this.depTitle) ||
+              (
+                  typeof(scs_rel) == "string" &&
+                  scs_rel.includes(this.depTitle.toLowerCase())
+              )
+          );
         pushEntry |= this.depTitle !== "Faculty" && hr_rel.includes(this.depTitle);
         pushEntry |= !this.depTitle;
 
