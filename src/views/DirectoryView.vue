@@ -161,7 +161,9 @@ export default {
                   scs_rel.includes(this.depTitle.toLowerCase())
               )
           );
-        pushEntry |= this.depTitle !== "Faculty" && hr_rel.includes(this.depTitle);
+        pushEntry |= this.depTitle !== "Faculty" &&
+            scs_rel != "faculty" &&
+            hr_rel.includes(this.depTitle);
         pushEntry |= !this.depTitle;
 
         if(pushEntry){
