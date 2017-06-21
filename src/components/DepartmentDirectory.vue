@@ -38,18 +38,25 @@ export default {
       let departmentFilter = this.$store.state.route.params.department;
       let random_indexes = [];
       let directory_length = this.$store.state.directory.list.length;
+      let maxCount = 12;
 
-      while (filtered.length < 12 && directory_length !== 0 && departmentFilter !== 'deans_office') {
-        let rand_num = Math.floor(Math.random() * (directory_length - 1));
-        let person = this.$store.state.directory.list[rand_num];
+      if (directory_length > 0 && !filtered.length) {
+        for(let i = 0; i <= directory_length * 2; i++) {
+          if (filtered.length === maxCount) {
+            break;
+          }
+          
+          let rand_num = Math.floor(Math.random() * (directory_length - 1));
+          let person = this.$store.state.directory.list[rand_num];
 
-        if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
-          continue;
-        }
+          if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
+            continue;
+          }
 
-        if(person.departments.includes(departmentFilter) || !departmentFilter) {
-          filtered.push(person);
-          random_indexes.push(rand_num);
+          if(person.departments.includes(departmentFilter) || !departmentFilter) {
+            filtered.push(person);
+            random_indexes.push(rand_num);
+          }
         }
       }
 
