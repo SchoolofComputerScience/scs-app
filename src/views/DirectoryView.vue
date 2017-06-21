@@ -147,8 +147,27 @@ export default {
 
       for (var i = 0; i < departmentFilter.length; ++i) {
 
-        if(departmentFilter[i].relationship_class.includes(this.depTitle) || !this.depTitle){
-          titleFilter.push(departmentFilter[i])
+        // check if any of the boolean conditions are met before pushing
+
+        let pushEntry = 0;
+        let scs_rel = departmentFilter[i].scs_relationship_class;
+        let hr_rel = departmentFilter[i].hr_relationship_class;
+
+        pushEntry |= this.depTitle == "Faculty" &&
+          (
+              hr_rel.includes(this.depTitle) ||
+              (
+                  typeof(scs_rel) == "string" &&
+                  scs_rel.includes(this.depTitle.toLowerCase())
+              )
+          );
+        pushEntry |= this.depTitle !== "Faculty" &&
+            scs_rel != "faculty" &&
+            hr_rel.includes(this.depTitle);
+        pushEntry |= !this.depTitle;
+
+        if(pushEntry){
+          titleFilter.push(departmentFilter[i]);
         }
       }
 

@@ -18,13 +18,15 @@ export default {
               directory {
                 _id
                 full_name
-                relationship_class
+                hr_relationship_class
                 positions {
                   title
                   department
                   primary_position
                 }
                 scid
+                scs_relationship_class
+                scs_relationship_desc
                 image_url
                 research_areas
                 email
