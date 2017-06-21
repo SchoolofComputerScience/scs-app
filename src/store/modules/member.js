@@ -78,6 +78,13 @@ export default {
                   title
                   pub_year
                 }
+                courses{
+                  longTitle
+                  courseNumber
+                  courseCode
+                  level
+                  department
+                }
               }
             }
           `,
