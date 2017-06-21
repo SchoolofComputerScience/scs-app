@@ -20,7 +20,7 @@
                     <h3>{{news_item.title}}</h3>
                   </div>
                 </router-link>
-                <div class="tags" v-for="tag in news_item.tags">
+                <div class="tags" v-for="tag in news_item.tags" v-if="tag.name != ''">
                   <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
                 </div>
               </div>
