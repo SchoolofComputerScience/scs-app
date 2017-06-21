@@ -76,10 +76,8 @@ export default {
             inactivePositionsArray.push(pos)
         })
 
-        inactivePositionsArray.forEach((pos) => {
-          if(pos.position === '')
-            position = pos.title.toLowerCase()
-        })
+        if(position === '' && inactivePositionsArray.length > 0)
+            position = inactivePositionsArray[0].title.toLowerCase()
 
         updatedList.push(Object.assign({ departments, position } , item));
 
