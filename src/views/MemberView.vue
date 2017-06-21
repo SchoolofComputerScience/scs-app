@@ -50,6 +50,11 @@
             </div>
           </section>
 
+          <section v-if="member.courses.length > 0" class="courses">
+            <p class="title">Upcoming Courses</p>
+            <p v-for="course in member.courses"><router-link :to="'/courses/course/' + course.courseCode">{{course.courseNumber}} - {{course.longTitle}}</router-link></p>
+          </section>
+
           <section class="research directory-information">
             <div v-if="member.research_areas">
               <p class="title">Research Areas</p>
