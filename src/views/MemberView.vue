@@ -51,7 +51,7 @@
           </section>
 
           <section v-if="member.courses.length > 0" class="courses">
-            <p class="title">Upcoming Courses</p>
+            <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
             <p v-for="course in member.courses"><router-link :to="'/courses/course/' + course.courseCode">{{course.courseNumber}} - {{course.longTitle}}</router-link></p>
           </section>
 
@@ -99,6 +99,7 @@
 import Spinner from '../components/Spinner.vue'
 
 function fetchMember(store) {
+  store.dispatch('GET_SEMESTER_CODE');
   return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
 }
 
@@ -129,6 +130,9 @@ export default {
     },
     events(){
       return this.$store.state.member.info[this.$route.params.name].events.length
+    },
+    semesterCode(){
+      return this.$store.state.semesterCode.code;
     }
   },
 
