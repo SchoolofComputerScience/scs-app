@@ -9,7 +9,7 @@ export default {
   actions: {
     GET_PROGRAMS: ({ commit, state }, fields = {}) => {
       return state.list.length
-        ? Promise.resolve(state.programs)
+        ? Promise.resolve(state.list)
         : apollo.query({
           query: gql`
             {
