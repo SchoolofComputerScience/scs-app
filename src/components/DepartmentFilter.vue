@@ -1,10 +1,7 @@
 <template>
   <section>
     <div v-if="route_link" class="buttons" :class="selected_department">
-      <router-link v-on:click="filter" :to="'/directory/'" class="all" :key="all">all</router-link>
-      <div class="button-holder">
-        <button v-for="department in departments" v-on:click="filter"  :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
-      </div>
+      <button v-for="department in departments" v-on:click="filter"  :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
     </div>
     <div v-else class="buttons" :class="selected_department">
       <button v-for="department in departments" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
@@ -14,6 +11,7 @@
 
 <script>
 import Vue from 'vue'
+import { router } from '../app'
 
 function fetchDepartments(store) {
   store.dispatch('GET_SCS_DEPARTMENT_LIST');
@@ -39,7 +37,7 @@ export default {
       selectedDepartment: ''
     }
   },
-  
+
   computed: {
     departments() {
       let types = this.types || [];
@@ -58,11 +56,16 @@ export default {
     filter(event) {
       let filter_value = event.target.getAttribute('name');
 
-      if (filter_value === this.$store.state.department.selected_department)
-        this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
+      console.log(filter_value)
+      console.log(this.$store.state.department.selected_department)
 
-      else
+      if (filter_value === this.$store.state.department.selected_department){
+        router.push({ path: '/directory'})
         this.$store.commit("SET_SELECTED_DEPARTMENT", '');
+      } else {
+        router.push({ path: '/directory/department/' + filter_value})
+        this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
+      }
     }
   }
 }
@@ -73,9 +76,7 @@ export default {
   margin-top: 1.6em;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  .all{
-    display: inline-block;
-  }
+  cursor: pointer;
   .button-holder{
     display: inline-block;
   }
@@ -94,12 +95,6 @@ export default {
     border: none;
     border-bottom: 4px solid;
     font-family: Noto Sans,Helvetica,sans-serif;
-    &.all{
-      background-color: #2c3e50;
-      &:hover{
-        border-color: #2c3e50;
-      }
-    }
     &.ri{
       background-color: #9b22b4;
       &:hover{
