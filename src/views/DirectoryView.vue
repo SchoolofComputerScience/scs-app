@@ -5,6 +5,7 @@
         <form class="search" v-on:submit.prevent>
           <input class="filter-input" v-model="query" :placeholder="placeholder" v-on:submit.prevent name="query" autocomplete="off">
         </form>
+
         <div class="filter-title" :class="depTitle">
           <button class="Student" @click="titleFilter('Student')" name="student">Student</button>
           <button class="Faculty" @click="titleFilter('Faculty')" name="faculty">Faculty</button>
@@ -62,7 +63,7 @@ export default {
       depTitle: '',
       route_link: '/directory/department/',
       scs_department_types: ['academic', 'admin', 'school'],
-      excluded_departments: ['scs_facilities']
+      excluded_departments: ['scs_facilities', 'scs'],
     }
   },
 
@@ -80,6 +81,8 @@ export default {
 
   mounted () {
     Vue.nextTick(() => {
+      this.query = this.$store.state.directory.query;
+      this.depTitle = this.$store.state.directory.title_filter;
       window.scrollTo(0, this.$store.state.directory.y_position)
     })
   },
@@ -87,6 +90,7 @@ export default {
   beforeDestroy () {
     this.$store.commit('SET_POSITION', window.scrollY)
     this.$store.commit('SET_QUERY', this.query)
+    this.$store.commit('SET_TITLE_FILTER', this.depTitle)
   },
 
   computed: {
@@ -112,8 +116,10 @@ export default {
 
     titleFilter: function(val) {
       if(val === this.depTitle){
+        this.$store.commit('SET_TITLE_FILTER', '')
         this.depTitle = ''
       }else{
+        this.$store.commit('SET_TITLE_FILTER', this.depTitle)
         this.depTitle = val;
       }
       this.departmentFilter()
