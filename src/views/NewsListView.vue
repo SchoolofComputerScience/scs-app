@@ -207,6 +207,14 @@ export default {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
   }
+  &:active{
+    > div > a {
+      top: 0em;
+      left: 0em;
+      transition: 0s box-shadow, 0s top, 0s left;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
+  }
   aside {
     display: block;
     vertical-align: center;

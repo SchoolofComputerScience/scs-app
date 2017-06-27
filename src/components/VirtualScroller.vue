@@ -1,14 +1,40 @@
 <template>
-  <component :is="mainTag" class="virtual-scroller" :class="cssClass" @scroll="updateVisibleItems" v-observe-visibility="handleVisibilityChange">
+  <component
+    :is="mainTag"
+    class="virtual-scroller"
+    :class="cssClass"
+    @scroll="updateVisibleItems"
+    v-observe-visibility="handleVisibilityChange">
     <slot name="before-container"></slot>
-    <component :is="containerTag" class="item-container" :class="containerClass" :style="itemContainerStyle">
+    <component
+      :is="containerTag"
+      class="item-container"
+      :class="containerClass"
+      :style="itemContainerStyle">
       <slot name="before-content"></slot>
-      <component :is="contentTag" class="items" :class="contentClass" :style="itemsStyle">
+      <component
+        :is="contentTag"
+        class="items"
+        :class="contentClass"
+        :style="itemsStyle">
         <template v-if="renderers">
-          <component class="item" v-for="(item, index) in visibleItems" :key="keysEnabled && item[keyField]" :is="renderers[item[typeField]]" :item="item" :item-index="_startIndex + index"></component>
+          <component
+            class="item"
+            v-for="(item, index) in visibleItems"
+            :key="keysEnabled && item[keyField]"
+            :is="renderers[item[typeField]]"
+            :item="item"
+            :item-index="_startIndex + index">
+          </component>
         </template>
         <template v-else>
-          <slot class="item" v-for="(item, index) in visibleItems" :item="item" :item-index="_startIndex + index" :item-key="keysEnabled && item[keyField]"></slot>
+          <slot
+            class="item"
+            v-for="(item, index) in visibleItems"
+            :item="item"
+            :item-index="_startIndex + index"
+            :item-key="keysEnabled && item[keyField]">
+          </slot>
         </template>
       </component>
       <slot name="after-content"></slot>
@@ -89,7 +115,7 @@ export default {
     visibleItems: [],
     itemContainerStyle: null,
     itemsStyle: null,
-    keysEnabled: true,
+    keysEnabled: true
   }),
 
   computed: {
@@ -156,10 +182,10 @@ export default {
         let startIndex = Math.ceil( startIndex_start / rowIndex ) * rowIndex
         let endIndex = Math.ceil( endIndex_start / rowIndex ) * rowIndex
 
-        if (startIndex < 0) {
+        if (startIndex <= 0) {
           startIndex = 0
         }
-        if (endIndex > l) {
+        if (endIndex >= l) {
           endIndex = l
         }
         if (startIndex !== this._startIndex || endIndex !== this.endIndex) {
@@ -168,7 +194,7 @@ export default {
           this._endIndex = endIndex
           this.visibleItems = this.items.slice(startIndex, endIndex)
           this.itemContainerStyle = {
-            height: ((l * this.itemHeight) + 136 ) + 'px',
+            height: ((l * this.itemHeight) + 127 ) + 'px',
           }
           this.itemsStyle = {
             marginTop: startIndex * this.itemHeight + 'px',
@@ -230,5 +256,6 @@ export default {
 
 .items {
   width: 100%;
+  padding: 5px 0 0 5px;
 }
 </style>
