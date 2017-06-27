@@ -1,14 +1,17 @@
 <template>
-  <div v-if="route_link" class="buttons" :class="selected_department">
-    <router-link v-for="department in departments" :to="route_link + department.department_id" :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</router-link>
-  </div>
-  <div v-else class="buttons" :class="selected_department">
-    <button v-for="department in departments" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
-  </div>
+  <section>
+    <div v-if="route_link" class="buttons" :class="selected_department">
+      <button v-for="department in departments" v-on:click="filter"  :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
+    </div>
+    <div v-else class="buttons" :class="selected_department">
+      <button v-for="department in departments" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
+    </div>
+  </section>
 </template>
 
 <script>
 import Vue from 'vue'
+import { router } from '../app'
 
 function fetchDepartments(store) {
   store.dispatch('GET_SCS_DEPARTMENT_LIST');
@@ -29,6 +32,12 @@ export default {
     fetchDepartments(this.$store);
   },
 
+  data() {
+    return {
+      selectedDepartment: ''
+    }
+  },
+
   computed: {
     departments() {
       let types = this.types || [];
@@ -45,11 +54,18 @@ export default {
 
   methods: {
     filter(event) {
-      let filter_value = event.target.getAttribute('filter-value');
-      if (filter_value && this.$store.state.department.selected_department !== filter_value)
-        this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
-      else
+      let filter_value = event.target.getAttribute('name');
+
+      console.log(filter_value)
+      console.log(this.$store.state.department.selected_department)
+
+      if (filter_value === this.$store.state.department.selected_department){
+        router.push({ path: '/directory'})
         this.$store.commit("SET_SELECTED_DEPARTMENT", '');
+      } else {
+        router.push({ path: '/directory/department/' + filter_value})
+        this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
+      }
     }
   }
 }
@@ -60,6 +76,10 @@ export default {
   margin-top: 1.6em;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
+  cursor: pointer;
+  .button-holder{
+    display: inline-block;
+  }
   a, button {
     display: inline-block;
     margin-right: 2em;
@@ -75,12 +95,6 @@ export default {
     border: none;
     border-bottom: 4px solid;
     font-family: Noto Sans,Helvetica,sans-serif;
-    &.all{
-      background-color: #2c3e50;
-      &:hover{
-        border-color: #2c3e50;
-      }
-    }
     &.ri{
       background-color: #9b22b4;
       &:hover{
@@ -111,9 +125,9 @@ export default {
         border-color: #b45222;
       }
     }
-    &.deans_office, &.scs{
+    &.deans_office{
       background-color: #C41230;
-      &:hover, .active{
+      &:hover{
         border-color: #C41230;
       }
     }
@@ -160,8 +174,7 @@ export default {
     border-color: #b45222;
     color: #b45222;
   }
-  &.deans_office a.scs,
-  &.scs a.scs, &.deans_office button.deans_office, , &.scs button.scs{
+  &.deans_office a.deans_office, &.deans_office button.deans_office,{
     background-color: transparent;
     border-color: #C41230;
     color: #C41230;

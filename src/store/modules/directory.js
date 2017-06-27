@@ -6,7 +6,9 @@ export default {
   state: {
     list: [],
     y_position: 0,
-    query: ''
+    query: '',
+    title_filter: '',
+    selectedDepartment: ''
   },
   actions: {
     GET_DIRECTORY: ({ commit, state }) => {
@@ -53,6 +55,12 @@ export default {
     },
     SET_QUERY: (state, query) => {
       state.query = query
+    },
+    SET_SELECTED_DEPARTMENT: (state, query) => {
+      state.selectedDepartment = query
+    },
+    SET_TITLE_FILTER: (state, query) => {
+      state.title_filter = query
     },
     SET_DIRECTORY: (state, data) => {
 
