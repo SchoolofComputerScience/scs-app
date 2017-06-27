@@ -1,9 +1,6 @@
 <template>
   <div class="footer">
     <footer>
-      <div class="feedback">
-        <a class="typeform-share button" href="https://shaneckel.typeform.com/to/HnY2ps" data-mode="1" target="_blank">Feedback Survey</a>
-      </div>
       <figure>
         <a href="http://www.cmu.edu">
           <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
@@ -46,11 +43,6 @@ export default {
   border-top: 1px solid #eee;
   border-bottom: 0;
   margin-top: 1vw;
-  .feedback {
-    position: absolute;
-    right: 0;
-    top: 1em;
-  }
   footer {
     position: relative;
     margin: 0 auto;
@@ -71,9 +63,6 @@ export default {
 }
 
 @media screen and (max-width: 600px) {
-  .feedback {
-    display: none;
-  }
   .footer {
     margin-top: 2em;
     padding: 0;

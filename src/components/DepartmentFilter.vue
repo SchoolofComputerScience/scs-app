@@ -1,9 +1,9 @@
 <template>
-  <section>
-    <div v-if="route_link" class="buttons" :class="selected_department">
-      <button v-for="department in departments" v-on:click="filter"  :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
+  <section :class="selected_department">
+    <div v-if="route_link" class="buttons" >
+      <button v-for="department in departments" v-on:click="filter" :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
     </div>
-    <div v-else class="buttons" :class="selected_department">
+    <div v-else class="buttons">
       <button v-for="department in departments" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
     </div>
   </section>
@@ -55,10 +55,6 @@ export default {
   methods: {
     filter(event) {
       let filter_value = event.target.getAttribute('name');
-
-      console.log(filter_value)
-      console.log(this.$store.state.department.selected_department)
-
       if (filter_value === this.$store.state.department.selected_department){
         router.push({ path: '/directory'})
         this.$store.commit("SET_SELECTED_DEPARTMENT", '');
@@ -76,15 +72,15 @@ export default {
   margin-top: 1.6em;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
-  cursor: pointer;
   .button-holder{
     display: inline-block;
   }
+
   a, button {
     display: inline-block;
-    margin-right: 2em;
+    margin-right: 1.6em;
     margin-top: 1.6em;
-    margin-bottom: 1.6em;
+    margin-bottom: 1.4em;
     -webkit-appearance: none;
     text-transform: uppercase;
     color: #2c3e50;
@@ -95,99 +91,82 @@ export default {
     border: none;
     border-bottom: 4px solid;
     font-family: Noto Sans,Helvetica,sans-serif;
+    cursor: pointer;
+    &:focus {
+      outline:0;
+    }
     &.ri{
       background-color: #9b22b4;
       &:hover{
-        border-color: #9b22b4;
+        background-color: rgba(#9b22b4, 0.80);
+      }
+      &:active{
+        background-color: rgba(#9b22b4, 0.40);
       }
     }
     &.lti{
       background-color: #3bb422;
       &:hover{
-        border-color: #3bb422;
+        background-color: rgba(#3bb422, 0.80);
+      }
+      &:active{
+        background-color: rgba(#3bb422, 0.40);
       }
     }
     &.csd{
       background-color: #22b49b;
       &:hover{
-        border-color: #22b49b;
+        background-color: rgba(#22b49b, 0.80);
+      }
+      &:active{
+        background-color: rgba(#22b49b, 0.40);
       }
     }
     &.hcii{
       background-color: #b49b22;
       &:hover{
-        border-color: #b49b22;
+        background-color: rgba(#b49b22, 0.80);
+      }
+      &:active{
+        background-color: rgba(#b49b22, 0.40);
       }
     }
     &.compbio{
       background-color: #b45222;
       &:hover{
-        border-color: #b45222;
+        background-color: rgba(#b45222, 0.80);
+      }
+      &:active{
+        background-color: rgba(#b45222, 0.40);
       }
     }
     &.deans_office{
       background-color: #C41230;
       &:hover{
-        border-color: #C41230;
+        background-color: rgba(#C41230, 0.80);
+      }
+      &:active{
+        background-color: rgba(#C41230, 0.40);
       }
     }
     &.isr{
       background-color: #165574;
       &:hover{
-        border-color: #165574;
+        background-color: rgba(#165574, 0.80);
+      }
+      &:active{
+        background-color: rgba(#165574, 0.40);
       }
     }
     &.mld{
       background-color: #b42284;
       &:hover{
-        border-color: #b42284;
+        background-color: rgba(#b42284, 0.80);
+      }
+      &:active{
+        background-color: rgba(#b42284, 0.40);
       }
     }
-    &:hover{
-      text-decoration: none;
-      color: #2c3e50;
-      background-color: white;
-    }
-  }
-  &.ri a.ri, &.ri button.ri{
-    background-color: transparent;
-    border-color: #9b22b4;
-    color: #9b22b4;
-  }
-  &.lti a.lti, &.lti button.lti{
-    background-color: transparent;
-    border-color: #3bb422;
-    color: #3bb422;
-  }
-  &.csd a.csd, &.csd button.csd{
-    background-color: transparent;
-    border-color: #22b49b;
-    color: #22b49b;
-  }
-  &.hcii a.hcii, &.hcii button.hcii{
-    background-color: transparent;
-    border-color: #b49b22;
-    color: #b49b22;
-  }
-  &.compbio a.compbio, &.compbio button.compbio {
-    background-color: transparent;
-    border-color: #b45222;
-    color: #b45222;
-  }
-  &.deans_office a.deans_office, &.deans_office button.deans_office,{
-    background-color: transparent;
-    border-color: #C41230;
-    color: #C41230;
-  }
-  &.isr a.isr, &.isr button.isr {
-    background-color: transparent;
-    border-color: #165574;
-    color: #165574;
-  }
-  &.mld a.mld, &.mld button.mld{
-    background-color: transparent;
-    border-color: #b42284;
-    color: #b42284;
   }
 }
 </style>
