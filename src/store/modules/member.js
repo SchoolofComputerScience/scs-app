@@ -14,7 +14,7 @@ export default {
           query: gql`
             {
               directory(scid:"${fields}"){
-                email
+                display_email
                 biography
                 family_name
                 fax_phone

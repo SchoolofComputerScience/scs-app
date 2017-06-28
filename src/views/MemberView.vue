@@ -36,9 +36,9 @@
               <p class="title">phone</p>
               <p><a :to="'tel:' + member.phone_full_call" class="phone">{{member.phone_full}}</a></p>
             </div>
-            <div v-if="member.email">
+            <div v-if="member.display_email">
               <p class="title">email</p>
-              <p><a :to="'mailto:' + member.email">{{member.email}}</a></p>
+              <p><a :to="'mailto:' + member.display_email">{{member.display_email}}</a></p>
             </div>
             <div v-if="member.positions[0].building">
               <p class="title">building</p>
