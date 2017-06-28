@@ -15,24 +15,26 @@
             </div>
           </section>
 
-          <section class="main-positions" v-for="position in member.positions" v-if="position.primary_position == 'true'">
+          <section v-if="position.primary_position" v-for="position in member.positions" class="main-positions">
             <p><router-link :to="'/departments/' + position.department">{{position.department_name}}</router-link></p>
             <p class="job" v-if="position.title">{{position.title | tlc}}</p>
           </section>
 
           <section v-if="member.positions.length > 0" class="sub-positions">
-            <div v-for="position in member.positions" v-if="position.primary_position == 'false'">
+            <div v-for="position in member.positions" v-if="!position.primary_position">
               <p><router-link :to="'/departments/' + position.department">{{position.department_name}}</router-link></p>
               <p v-if="position.title" class="job">{{position.title | tlc}}</p>
             </div>
           </section>
 
-          <section v-if="member.biography" class="biography">
-            <div v-html="member.biography"></div>
+          <section v-if="member.biography || member.biography != null" class="biography">
+            <p class="title">Biography</p>
+            <div id="info" v-html="member.biography"></div>
+            <button @click="readMore()">Read More</button>
           </section>
 
           <section class="directory-information">
-            <div v-if="member.phone_full != '(null) null - null'">
+            <div v-if="!member.phone_full.includes('null') || !member.phone_full">
               <p class="title">phone</p>
               <p><a :to="'tel:' + member.phone_full_call" class="phone">{{member.phone_full}}</a></p>
             </div>
@@ -52,31 +54,31 @@
 
           <section v-if="member.courses.length > 0" class="courses">
             <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
-            <p v-for="course in member.courses"><router-link :to="'/courses/course/' + course.courseCode">{{course.courseNumber}} - {{course.longTitle}}</router-link></p>
+            <p v-for="course in member.courses">
+              <router-link :to="'/courses/course/' + course.courseCode">{{course.longTitle}} | <span>{{course.courseNumber}}</span></router-link>
+            </p>
           </section>
 
-          <section class="research directory-information">
-            <div v-if="member.research_areas">
-              <p class="title">Research Areas</p>
-              <p><span v-for="areas in member.research_areas">{{ areas }}<em>|</em></span></p>
-            </div>
+          <section v-if="member.research_areas" class="research">
+            <p class="title">Research Areas</p>
+            <p><span v-for="areas in member.research_areas">{{ areas }}<em>|</em></span></p>
           </section>
 
           <section v-if="news" class="news">
             <p class="title">news articles</p>
-            <div class="article" v-for="article in member.news">
-              <router-link :to="'/news/' + article.uid">{{article.title}}</router-link>
+            <div class="card-holder">
+              <NewsItem v-for="list in member.news" :key="list.uid" :data="list"></NewsItem>
             </div>
           </section>
 
-          <section v-if="events" class="news">
+          <section v-if="events" class="events">
             <p class="title">events</p>
-            <div class="article" v-for="event in member.events">
-              <router-link :to="'/events/' + event.uid">{{event.title}}</router-link>
-            </div>
+            <p v-for="event in member.events">
+              <router-link :to="'/events/' + event.uid">{{event.title}} | <span>{{event.date | moment("dddd, MMMM Do YYYY")}}</span></router-link>
+            </p>
           </section>
 
-          <section v-if="gp" class="gp">
+          <section v-if="gp" class="publications">
             <p class="title">Cited Publications <span class="amount">(Amount: {{member.gsProfile[0].gs_citation_count}})</span>
             </p>
             <div class="list" v-for="pub in member.gsProfile[0].pub_year_agg">
@@ -97,6 +99,7 @@
 
 <script>
 import Spinner from '../components/Spinner.vue'
+import NewsItem from '../components/NewsItem.vue'
 
 function fetchMember(store) {
   store.dispatch('GET_SEMESTER_CODE');
@@ -109,9 +112,10 @@ export default {
   preFetch: fetchMember,
 
   components: {
-    Spinner
+    Spinner,
+    NewsItem
   },
-
+  
   computed: {
     loaded() {
       return this.$store.state.member.info[this.$route.params.name] ? true : false
@@ -143,28 +147,42 @@ export default {
   methods: {
     oops () {
       this.$router.replace('/404')
+    },
+    readMore () {
+      let info = document.querySelector('#info')
+      if(!info.style.height.includes(info.scrollHeight))
+        info.style.height = info.scrollHeight + 'px'
+      else
+        info.style.height = '200px'
     }
   }
 }
 </script>
 
 <style lang="stylus">
-
 .biography{
   font-size: .95em;
-  padding: 1em 0;
-  border-bottom: 1px solid #ccc;
+  padding: 1.6em 0;
+  #info{
+    overflow-y: hidden;
+    transition: .3s height;
+    height: 200px
+  }
   p {
     padding-top: 1em;
     &:first-child{
       padding-top: 0;
     }
   }
+  ul{
+    display: none;
+  }
 }
-
 </style>
 
 <style lang="stylus" scoped>
+
+
 .member-view{
   font-size: 1.05em;
 }
@@ -177,11 +195,55 @@ export default {
   border-bottom: 1px solid #ccc;
 }
 
-.news{
-  margin-bottom: 2em;
+.card-holder {
+  font-size: .8em;
+  display: flex;
+  flex-wrap: row;
+  flex-flow: wrap;
+  width: 100%;
+  position: relative;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex-direction: row;
+  flex-direction: row;
+  p {
+    font-size: .8em;
+    em {
+      color: #C41230;
+    }
+  }
 }
 
-.gp{
+.events, .research, .courses, .news{
+  padding: 1.6em 0;
+  p{
+    line-height: 1.8em;
+  }
+  span{
+    font-size: .8em;
+    font-weight: 900;
+  }
+}
+
+.research{
+  #info{
+    transition:height 0.3s ease-out;
+  }
+  p:nth-child(2) > span > em{
+    color: #ccc;
+    padding: 0 .8em;
+  }
+  p:nth-child(2) > span:last-child{
+    em{
+      display: none;
+    }
+  }
+}
+
+.publications{
+  padding-top: 1.6em;
   .title{
     margin-bottom: 2.1em;
   }
@@ -230,33 +292,30 @@ export default {
       justify-content: center;
     }
   }
-
   .image{
     width: 8em;
     height: 8em;
     margin-right: 1em;
     background-size: cover;
     border: 1px solid #ccc;
+    border-radius: 8em;
+    border: .2em solid white;
+    background-size: cover;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 }
 
-.research{
-  p{
-    text-transform: capitalize;
-  }
-}
-
-.sub-positions, .main-positions{
-  border-bottom: 1px solid #ccc;
-  font-size: .95em;
+.sub-positions{
+  font-size: .85em;
   div{
     display: inline-block;
     margin-right: 2em;
     padding: 1em 0;
+    border-top: 1px solid #ccc;
+
     &:not(:last-child){
       padding-right: 1em;
       margin-right: 1em;
-      border-right: 1px solid #ccc;
     }
     p{
       padding: 0;
@@ -268,6 +327,7 @@ export default {
     }
   }
 }
+
 .main-positions{
   font-size: 1.1em;
   padding-top: 1.2em;
@@ -281,6 +341,25 @@ export default {
     text-transform: capitalize;
     &:nth-child(2){
       padding-top: 0;
+    }
+  }
+  div{
+    display: inline-block;
+    margin-right: 2em;
+    padding: 1em 0;
+    border-top: 1px solid #ccc;
+
+    &:not(:last-child){
+      padding-right: 1em;
+      margin-right: 1em;
+    }
+    p{
+      padding: 0;
+      padding-bottom: .5em;
+      text-transform: capitalize;
+      &:nth-child(2){
+        padding-bottom: 0;
+      }
     }
   }
 }
@@ -298,18 +377,6 @@ export default {
     padding-bottom: .5em;
     margin-bottom: .5em;
     border-bottom: 1px solid #ccc;
-  }
-}
-
-.directory-information{
-  p:nth-child(2) > span > em{
-    color: #ccc;
-    padding: 0 .8em;
-  }
-  p:nth-child(2) > span:last-child{
-    em{
-      display: none;
-    }
   }
 }
 

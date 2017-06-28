@@ -48,13 +48,20 @@ export default {
                   room
                   title
                 }
-                news{
-                  uid
+                news {
                   title
+                  date
+                  uid
+                  image
+                  tags {
+                    tag
+                    name
+                  }
                 }
                 events{
                   uid
                   title
+                  startDate
                 }
                 gsProfile{
                   gs_affiliation
