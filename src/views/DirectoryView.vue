@@ -1,10 +1,14 @@
 <template>
   <section class="page">
     <div class="directory-list">
+      <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
       <div class="filter-toggle" v-if="loaded">
+
         <form class="search" v-on:submit.prevent>
           <input class="filter-input" v-model="query" :placeholder="placeholder" v-on:submit.prevent name="query" autocomplete="off">
+          <button :class="clearToggle" class="clearQuery" v-on:click="clearQuery"></button>
         </form>
+
         <div class="filter-title" :class="depTitle">
           <button class="Student" @click="titleFilter('Student')" name="student">Student</button>
           <button class="Faculty" @click="titleFilter('Faculty')" name="faculty">Faculty</button>
@@ -16,7 +20,7 @@
         <div class="count">showing : {{ directoryShown}} / {{directoryLength}}</div>
       </div>
 
-      <VirtualScroller v-if="loaded" class="scroller card-holder" :items="directory" item-height="38" main-tag="section" content-tag="ul" page-mode>
+      <VirtualScroller v-if="loaded" class="scroller card-holder" :items="directory" item-height="64" main-tag="section" content-tag="ul" page-mode>
         <template scope="props">
           <DirectoryListItem :item="props.item"></DirectoryListItem>
         </template>
@@ -32,6 +36,7 @@ import _ from 'lodash'
 import DirectoryListItem from '../components/DirectoryListItem.vue'
 import VirtualScroller from '../components/VirtualScroller.vue'
 import DepartmentFilter from '../components/DepartmentFilter.vue'
+import Spinner from '../components/Spinner.vue'
 
 const renderers = {
   person: DirectoryListItem
@@ -49,26 +54,29 @@ export default {
   components: {
     DirectoryListItem,
     VirtualScroller,
-    DepartmentFilter
+    DepartmentFilter,
+    Spinner
   },
 
   data () {
     return {
       query: '',
       nav: '',
+      clearToggle: 'hide',
       directory: [],
       directoryLength: 0,
       directoryShown: 0,
       depTitle: '',
       route_link: '/directory/department/',
       scs_department_types: ['academic', 'admin', 'school'],
-      excluded_departments: ['scs_facilities']
+      excluded_departments: ['scs_facilities', 'scs'],
     }
   },
 
   watch: {
     query: function () {
       this.departmentFilter()
+      this.clearToggle = this.query ? 'active' : 'hide'
     }
   },
 
@@ -80,6 +88,8 @@ export default {
 
   mounted () {
     Vue.nextTick(() => {
+      this.query = this.$store.state.directory.query;
+      this.depTitle = this.$store.state.directory.title_filter;
       window.scrollTo(0, this.$store.state.directory.y_position)
     })
   },
@@ -87,6 +97,7 @@ export default {
   beforeDestroy () {
     this.$store.commit('SET_POSITION', window.scrollY)
     this.$store.commit('SET_QUERY', this.query)
+    this.$store.commit('SET_TITLE_FILTER', this.depTitle)
   },
 
   computed: {
@@ -103,17 +114,24 @@ export default {
         return false
       }
     },
+
     placeholder() {
-      return "search " + this.nav;
+      let depTitleHold = this.depTitle ? ' ' + this.depTitle.toLowerCase() : ''
+      return 'search ' + this.nav.replace('_', ' ') + depTitleHold + ' names';
     }
   },
 
   methods: {
+    clearQuery: function() {
+      this.query = '';
+    },
 
     titleFilter: function(val) {
       if(val === this.depTitle){
+        this.$store.commit('SET_TITLE_FILTER', '')
         this.depTitle = ''
       }else{
+        this.$store.commit('SET_TITLE_FILTER', this.depTitle)
         this.depTitle = val;
       }
       this.departmentFilter()
@@ -201,7 +219,6 @@ export default {
 </style>
 
 <style lang="stylus" scoped>
-
 .virtual-scroller:not(.page-mode) {
   overflow-y: auto;
   max-height: 40em;
@@ -211,9 +228,9 @@ export default {
   width: 100%;
   overflow: hidden;
 }
-.items {
-  width: 100%;
-}
+// .items {
+//   width: 100%;
+// }
 
 .resize-observer{
   position: absolute;
@@ -275,7 +292,7 @@ export default {
   width: 100%;
   &:focus{
     border-left: .2em solid #C41230;
-    background: white;
+    background: #f8f8f8;
     padding-left: .4em
   }
 }
@@ -306,10 +323,13 @@ export default {
     text-transform: uppercase;
     margin-right: .5em;
     cursor: pointer;
-    border-bottom: 3px solid #eee;
-    background: #efefef;
+    border-bottom: 3px solid white;
+    background: #dadada;
     &:hover{
-      background: #ddd
+      background: #e2e2e2;
+    }
+    &:active{
+      background: #f5f5f5
     }
   }
   &.Staff button.Staff{
@@ -325,10 +345,122 @@ export default {
     border-bottom: 3px solid #C41230;
   }
 }
+
 form.search {
   width: 58%;
   margin-right: 2%
   display: inline-block;
+  position: relative;
+  button.clearQuery{
+    position: absolute;
+    top: 0.1em;
+    right: 0;
+    bottom: 0;
+    width: 5em;
+    margin-top: 1em;
+    background: #C41230;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    &:after{
+      content: '+'
+      display: block;
+      color: white;
+      font-size: 2.8em;
+      line-height: 0;
+      transform: rotate(-45deg);
+    }
+    &.hide{
+      transition: .1s all;
+      opacity: 0;
+      width: 1em;
+    }
+    &.active{
+      transition: .1s all;
+      opacity: 1;
+      width: 5em;
+    }
+  }
+}
+</style>
+
+<style lang="stylus">
+section.ri .buttons > button.ri{
+  background-color: white;
+  color: #9b22b4
+  border-bottom: 3px solid #9b22b4;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
 }
 
+section.lti .buttons > button.lti{
+  background-color: white;
+  color: #3bb422
+  border-bottom: 3px solid #3bb422;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+
+section.csd .buttons > button.csd{
+  background-color: white;
+  color: #22b49b
+  border-bottom: 3px solid #22b49b;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+
+section.hcii .buttons > button.hcii{
+  background-color: white;
+  color: #b49b22
+  border-bottom: 3px solid #b49b22;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+
+section.compbio .buttons > button.compbio{
+  background-color: white;
+  color: #b45222
+  border-bottom: 3px solid #b45222;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+
+section.deans_office .buttons > button.deans_office{
+  background-color: white;
+  color: #C41230
+  border-bottom: 3px solid #C41230;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+
+section.isr .buttons > button.isr{
+  background-color: white;
+  color: #165574
+  border-bottom: 3px solid #165574;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
+section.mld .buttons > button.mld{
+  background-color: white;
+  color: #b42284
+  border-bottom: 3px solid #b42284;
+  &:hover{
+    background-color: white;
+    color: black;
+  }
+}
 </style>

@@ -8,8 +8,8 @@
           <div class="content-container">
             <h1>{{article.title}}</h1>
             <h2>{{article.date | moment("dddd, MMMM Do YYYY")}}</h2>
-            <div class="tags">
-              <router-link v-for="tag in article.tags" :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
+            <div v-for="tag in article.tags" class="tags" v-if="tag.name != ''">
+              <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
             </div>
             <article v-html="article.body" class="body"></article>
           </div>
@@ -82,11 +82,12 @@ h1 {
 }
 
 .tags{
+  margin-right: .7em;
+  margin-bottom: .7em;
+  display: inline-block;
   a{
     font-size: .85em;
     display: inline-block;
-    margin-right: .7em;
-    margin-bottom: .7em;
     border: 1px solid;
     padding: .35em .6em;
     text-decoration: none;

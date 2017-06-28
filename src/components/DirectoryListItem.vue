@@ -1,11 +1,19 @@
 <template>
   <li class="card">
-    <div class="dep-icons">
-      <span v-for="dep in item.positions" :class="dep.department" v-if="!qatar"></span>
-    </div>
     <router-link :to="'/directory/' + item.scid">
-      <p class="name">{{ item.full_name }}</p>
-      <p class="title"><span>{{item.scs_relationship_desc}} | </span> {{ item.position}}</p>
+      <div class="link-hold">
+        <div class="dep-icons">
+          <span v-for="dep in item.positions" :class="dep.department" v-if="!qatar"></span>
+        </div>
+
+        <div class="image" v-if="item.image_url" :style="{ 'background-image': 'url(' + item.image_url + ')' }"></div>
+
+        <div>
+          <p class="name">{{ item.full_name }}</p>
+          <p class="title">{{ item.position}}</p>
+          <p class="title"><span>{{item.scs_relationship_desc}}</span></p>
+        </div>
+      </div>
     </router-link>
   </li>
 </template>
@@ -56,23 +64,36 @@ export default {
   }
 }
 
+.image{
+  width: 4.2em;
+  height: 4.2em;
+  border-radius: 4em;
+  border: 2px solid white;
+  background-size: cover;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  margin: auto;
+}
+
 .card {
   position: relative;
   justify-content: space-between;
-  padding: 10px;
   margin-right: 2.5%;
   margin-top: 15px;
   margin-bottom: 15px;
   display: block;
   transition: none;
-  border: 1px solid #eee;
-  height: 120px;
+  height: 225px;
   max-width: 25%;
   width: 23%;
   overflow: hidden;
+
+  left: 0em;
+  top: 0em;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: .35s box-shadow, .35s top, .35s left;
+  position: relative;
+  background: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 
   &:nth-child(4n+4) {
     margin-right: 0;
@@ -82,8 +103,12 @@ export default {
     background: white;
     box-shadow: none;
     transition: none;
-    border: 1px solid #bbb;
+    top: -.1em;
+    left: -.1em;
+    transition: .2s box-shadow, .2s top, .2s left;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
   }
+
   p.name {
     font-weight: 900;
     border-bottom: 1px solid #eee;
@@ -111,6 +136,15 @@ export default {
     color: #131313;
     width: 100%;
     display: block;
+    height: 100%;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    .link-hold{
+      width: 100%;
+    }
   }
   p {
     margin-bottom: .4em;

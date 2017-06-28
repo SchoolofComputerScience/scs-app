@@ -35,7 +35,6 @@
 
 <script>
 import DirectoryListItem from '../components/DirectoryListItem.vue'
-import DepartmentFilter from '../components/DepartmentFilter.vue'
 import { router } from '../app'
 
 function fetchData(store) {
@@ -53,7 +52,6 @@ export default {
 
   components: {
     DirectoryListItem,
-    DepartmentFilter
   },
 
   data() {

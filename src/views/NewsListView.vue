@@ -20,7 +20,7 @@
                     <h3>{{news_item.title}}</h3>
                   </div>
                 </router-link>
-                <div class="tags" v-for="tag in news_item.tags">
+                <div class="tags" v-for="tag in news_item.tags" v-if="tag.name != ''">
                   <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
                 </div>
               </div>
@@ -205,6 +205,14 @@ export default {
       left: -.1em;
       transition: .2s box-shadow, .2s top, .2s left;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+  &:active{
+    > div > a {
+      top: 0em;
+      left: 0em;
+      transition: 0s box-shadow, 0s top, 0s left;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
     }
   }
   aside {
