@@ -9,7 +9,7 @@ export default {
     query: ''
   },
   actions: {
-    GET_DIRECTORY: ({ commit, state }) => {
+    GET_DIRECTORY: ({ commit, state }, fields = {}) => {
       return state.list.length
         ? Promise.resolve(state.list)
         : apollo.query({

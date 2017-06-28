@@ -58,7 +58,7 @@
           <section class="research directory-information">
             <div v-if="member.research_areas">
               <p class="title">Research Areas</p>
-              <p><span v-for="areas in member.research_areas">{{ areas }}<em>|</em></span></p>
+              <p><a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area="area">{{ area }}<em>|</em></a></p>
             </div>
           </section>
 
@@ -139,6 +139,11 @@ export default {
   methods: {
     oops () {
       this.$router.replace('/404')
+    },
+    setResearchArea(event) {
+      let area = event.target.getAttribute('area');
+      this.$store.commit("SET_SELECTED_RESEARCH_AREA", area); 
+      this.$router.push('/research_areas');
     }
   }
 }
@@ -298,14 +303,18 @@ export default {
 }
 
 .directory-information{
-  p:nth-child(2) > span > em{
+  p:nth-child(2) > a > em{
     color: #ccc;
     padding: 0 .8em;
   }
-  p:nth-child(2) > span:last-child{
+  p:nth-child(2) > a:last-child{
     em{
       display: none;
     }
+  }
+
+  em:hover {
+    text-decoration: none;
   }
 }
 

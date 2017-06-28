@@ -10,6 +10,7 @@ import news from './modules/news';
 import events from './modules/events';
 import courses from './modules/courses';
 import programs from './modules/programs';
+import researchAreas from './modules/researchAreas';
 
 Vue.use(Vuex)
 
@@ -23,7 +24,8 @@ const store = new Vuex.Store({
     events,
     publication,
     courses,
-    programs
+    programs,
+    researchAreas
   }
 })
 
