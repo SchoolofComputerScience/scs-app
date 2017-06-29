@@ -31,7 +31,7 @@ export default {
                 scs_relationship_desc
                 image_url
                 research_areas
-                email
+                display_email
               }
             }
           `
