@@ -48,7 +48,7 @@ export default {
                   room
                   title
                 }
-                news {
+                news(limit: 2){
                   title
                   date
                   uid

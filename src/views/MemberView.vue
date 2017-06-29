@@ -115,7 +115,13 @@ export default {
     Spinner,
     NewsItem
   },
-  
+
+  data () {
+    return {
+      biographyHeight: 0
+    }
+  },
+
   computed: {
     loaded() {
       return this.$store.state.member.info[this.$route.params.name] ? true : false
@@ -144,16 +150,18 @@ export default {
     fetchMember(this.$store)
   },
 
+  ready() {
+    console.log("swag")
+    this.biographyHeight = this.$el.offsetHeight;
+  },
+
   methods: {
-    oops () {
-      this.$router.replace('/404')
-    },
     readMore () {
       let info = document.querySelector('#info')
       if(!info.style.height.includes(info.scrollHeight))
         info.style.height = info.scrollHeight + 'px'
       else
-        info.style.height = '200px'
+        info.style.height = '120px'
     }
   }
 }
@@ -166,7 +174,6 @@ export default {
   #info{
     overflow-y: hidden;
     transition: .3s height;
-    height: 200px
   }
   p {
     padding-top: 1em;
@@ -181,8 +188,6 @@ export default {
 </style>
 
 <style lang="stylus" scoped>
-
-
 .member-view{
   font-size: 1.05em;
 }
@@ -196,7 +201,7 @@ export default {
 }
 
 .card-holder {
-  font-size: .8em;
+  font-size: .9em;
   display: flex;
   flex-wrap: row;
   flex-flow: wrap;
@@ -208,6 +213,16 @@ export default {
   flex-wrap: wrap;
   -webkit-flex-direction: row;
   flex-direction: row;
+  > div{
+    padding: 0;
+    padding-top 1em;
+    &:nth-child(1){
+      padding-right: 1em;
+    }
+    &:nth-child(2){
+      padding-left: 1em;
+    }
+  }
   p {
     font-size: .8em;
     em {
@@ -379,5 +394,4 @@ export default {
     border-bottom: 1px solid #ccc;
   }
 }
-
 </style>
