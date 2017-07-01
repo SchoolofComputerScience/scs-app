@@ -1,4 +1,4 @@
-template>
+<template>
   <div class="courses-view">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded" >
