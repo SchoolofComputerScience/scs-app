@@ -1,4 +1,4 @@
-<template>
+template>
   <div class="courses-view">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded" >
@@ -109,7 +109,7 @@ p.body {
   max-width: 6em;
   > p:nth-child(2) {
     word-wrap: break-word;
-    margin-top: 0;
+    margin-top: 2em;
     font-weight: 900;
   }
 }
