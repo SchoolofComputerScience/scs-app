@@ -109,7 +109,7 @@ p.body {
   max-width: 6em;
   > p:nth-child(2) {
     word-wrap: break-word;
-    margin-top: 0;
+    margin-top: 2em;
     font-weight: 900;
   }
 }
