@@ -1,20 +1,17 @@
 <template>
   <section class="research-area-view">
-    <section class="top-forty">
-      <h2>Top 40 Research Areas</h2>
-      <a href="javascript:void(0);" v-for="area in topForty" v-on:click="searchArea" :area="area.title">{{area.title}}</a>
-    </section>
-    <section class="faculty-members" v-if="selected_research_area">
+    <h1>{{selected_research_area}}</h1>
+    <section class="faculty-members" v-if="facultyInArea">
       <h2>Faculty Involved In {{selected_research_area}}</h2>
       <ul class="items"><DirectoryListItem  v-for="member in facultyInArea" :item="member"></DirectoryListItem></ul>
     </section>
-    <section class="research-news">
+    <section v-if="has_news" class="research-news">
       <h2>Latest News Articles On {{selected_research_area}}</h2>
       <div class="card-holder">
         <div v-if="error" class="error-message">
           <p>{{error}}</p>
         </div>
-        <div class="card" v-if="!error" v-for="news_item in news" :key="news_item.uid">
+        <div class="news-card" v-if="!error" v-for="news_item in news" :key="news_item.uid">
           <div>
             <router-link  :to="'/news/' + news_item.uid">
               <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
@@ -38,11 +35,16 @@ import DirectoryListItem from '../components/DirectoryListItem.vue'
 import { router } from '../app'
 
 function fetchData(store) {
-  if (store.state.researchAreas.area) {
-    store.dispatch('SEARCH_NEWS_ARTICLES', store.state.researchAreas.area);
-  }
-
-  return store.dispatch('GET_DIRECTORY') && store.dispatch('GET_RESEARCH_AREAS');
+  store.dispatch('GET_DIRECTORY');
+  return store.dispatch('GET_RESEARCH_AREAS').then(() => {
+    let area_id = store.state.route.params.research_area || store.state.researchAreas.area 
+    if (area_id) {
+      store.commit("SET_SELECTED_RESEARCH_AREA", area_id);
+      let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
+      if (research_area)
+        store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
+    }
+  });
 }
 
 export default {
@@ -63,13 +65,20 @@ export default {
 
   computed: {
     selected_research_area() {
-      return this.$store.state.researchAreas.area;
+      let research_area = this.$store.state.researchAreas.list.find((area) => area.area_id === this.$store.state.researchAreas.area);
+      if (research_area)
+        return research_area.title;
+      else
+        return '';
     },
     research_areas() {
       return this.$store.state.researchAreas.list;
     },
     news() {
       return this.$store.state.news.list
+    },
+    has_news() {
+      return this.$store.state.news.list.length > 0;
     },
     members() {
       return this.$store.state.directory.list;
@@ -92,7 +101,7 @@ export default {
       let faculty = [];
       if (this.$store.state.researchAreas.list.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area) {
         let selected_area = this.$store.state.researchAreas.area;
-        let research_area = this.$store.state.researchAreas.list.find((area) => area.title === selected_area);
+        let research_area = this.$store.state.researchAreas.list.find((area) => area.area_id === selected_area);
         let directory = this.$store.state.directory.list;
 
         research_area.members.map(function(member){
@@ -102,7 +111,10 @@ export default {
         });
       }
 
-      return faculty;
+      if (faculty.length)
+        return faculty;
+      else
+        return false;
     }
   },
 
@@ -136,6 +148,12 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+h1 {
+  text-align: center;
+  font-size: 1.7em;
+  padding: 0.5em 0;
+}
+
 h2 {
   margin-bottom: 0.5em;
 }
@@ -204,7 +222,7 @@ h2 {
   }
 }
 
-.card {
+.news-card {
   position: relative;
   background-position: center;
   background-size: cover;

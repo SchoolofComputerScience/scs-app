@@ -19,6 +19,7 @@ import CourseSelectView from '../views/CourseSelectView.vue'
 import ErrorView from '../views/ErrorView.vue'
 import ProgramsView from '../views/ProgramsView.vue'
 import ResearchAreasView from '../views/ResearchAreasView.vue'
+import ResearchAreasListView from '../views/ResearchAreasListView.vue'
 
 export default new Router({
   mode: 'history',
@@ -38,7 +39,8 @@ export default new Router({
     { path: '/events/', component: EventsListView },
     { path: '/news/:article?', component: NewsView },
     { path: '/events/:event?', component: EventView },
-    { path: '/research_areas/', component: ResearchAreasView },
+    { path: '/research_areas/', component: ResearchAreasListView },
+    { path: '/research_areas/:research_area', component: ResearchAreasView },
     { path: '/404', component: ErrorView },
     { path: '/:page', name: 'page', component: PageView },
   ]

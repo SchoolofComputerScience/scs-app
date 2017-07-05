@@ -98,15 +98,16 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 
-function fetchMember(store) {
+function fetchData(store) {
   store.dispatch('GET_SEMESTER_CODE');
+  store.dispatch('GET_RESEARCH_AREAS');
   return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
 }
 
 export default {
   name: 'member-view',
 
-  preFetch: fetchMember,
+  preFetch: fetchData,
 
   components: {
     Spinner
@@ -137,7 +138,7 @@ export default {
   },
 
   beforeMount () {
-    fetchMember(this.$store)
+    fetchData(this.$store)
   },
 
   methods: {
@@ -145,9 +146,10 @@ export default {
       this.$router.replace('/404')
     },
     setResearchArea(event) {
-      let area = event.target.getAttribute('area');
-      this.$store.commit("SET_SELECTED_RESEARCH_AREA", area); 
-      this.$router.push('/research_areas');
+      let selected_area = event.target.getAttribute('area');
+      let research_area = this.$store.state.researchAreas.list.find((area) => area.title === selected_area);
+      this.$store.commit("SET_SELECTED_RESEARCH_AREA", research_area.area_id); 
+      this.$router.push('/research_areas/'+ research_area.area_id);
     }
   }
 }
