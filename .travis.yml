@@ -6,6 +6,7 @@ cache:
   - "$HOME/gcloud/"
 env:
 - PATH=$PATH:$HOME/google-cloud-sdk/bin CLOUDSDK_CORE_DISABLE_PROMPTS=1
+filter_secrets: false
 branches:
   only:
   - master
