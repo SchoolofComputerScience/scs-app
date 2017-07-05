@@ -31,7 +31,10 @@ export default {
                 hr_relationship
                 hr_relationship_class
                 hr_relationship_desc
-                research_areas
+                research_areas {
+                  area_id
+                  title
+                }
                 full_name
                 phone_full_call
                 phone_full

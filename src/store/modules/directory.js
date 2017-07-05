@@ -11,7 +11,7 @@ export default {
     selectedDepartment: ''
   },
   actions: {
-    GET_DIRECTORY: ({ commit, state }) => {
+    GET_DIRECTORY: ({ commit, state }, fields = {}) => {
       return state.list.length
         ? Promise.resolve(state.list)
         : apollo.query({
@@ -30,7 +30,11 @@ export default {
                 scs_relationship_class
                 scs_relationship_desc
                 image_url
-                research_areas
+                research_areas {
+                  area_id
+                  title
+                }
+                email
                 display_email
               }
             }

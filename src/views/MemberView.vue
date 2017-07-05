@@ -58,7 +58,7 @@
           <section class="research directory-information">
             <div v-if="member.research_areas">
               <p class="title">Research Areas</p>
-              <p><span v-for="areas in member.research_areas">{{ areas }}<em>|</em></span></p>
+              <p><a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}<em>|</em></a></p>
             </div>
           </section>
 
@@ -98,15 +98,16 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 
-function fetchMember(store) {
+function fetchData(store) {
   store.dispatch('GET_SEMESTER_CODE');
+  store.dispatch('GET_RESEARCH_AREAS');
   return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
 }
 
 export default {
   name: 'member-view',
 
-  preFetch: fetchMember,
+  preFetch: fetchData,
 
   components: {
     Spinner
@@ -137,12 +138,22 @@ export default {
   },
 
   beforeMount () {
-    fetchMember(this.$store)
+    fetchData(this.$store)
   },
 
   methods: {
     oops () {
       this.$router.replace('/404')
+    },
+    setResearchArea(event) {
+      let area_id = event.target.getAttribute('area-id');
+      let area_title = event.target.getAttribute('area-title');
+      let research_area = {
+        area_id: area_id,
+        title: area_title
+      }
+      this.$store.commit("SET_SELECTED_RESEARCH_AREA", research_area); 
+      this.$router.push('/research_areas/'+ area_id);
     }
   }
 }
@@ -302,14 +313,18 @@ export default {
 }
 
 .directory-information{
-  p:nth-child(2) > span > em{
+  p:nth-child(2) > a > em{
     color: #ccc;
     padding: 0 .8em;
   }
-  p:nth-child(2) > span:last-child{
+  p:nth-child(2) > a:last-child{
     em{
       display: none;
     }
+  }
+
+  em:hover {
+    text-decoration: none;
   }
 }
 
