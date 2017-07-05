@@ -38,9 +38,9 @@
               <p class="title">phone</p>
               <p><a :to="'tel:' + member.phone_full_call" class="phone">{{member.phone_full}}</a></p>
             </div>
-            <div v-if="member.email">
+            <div v-if="member.display_email">
               <p class="title">email</p>
-              <p><a :to="'mailto:' + member.email">{{member.email}}</a></p>
+              <p><a :to="'mailto:' + member.display_email">{{member.display_email}}</a></p>
             </div>
             <div v-if="member.positions[0].building">
               <p class="title">building</p>
@@ -59,9 +59,11 @@
             </p>
           </section>
 
-          <section v-if="member.research_areas" class="research">
-            <p class="title">Research Areas</p>
-            <p><span v-for="areas in member.research_areas">{{ areas }}<em>|</em></span></p>
+          <section class="research directory-information">
+            <div v-if="member.research_areas">
+              <p class="title">Research Areas</p>
+              <p><a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a><em>|</em></p>
+            </div>
           </section>
 
           <section v-if="news" class="news">
@@ -102,15 +104,16 @@ import Vue from 'vue'
 import Spinner from '../components/Spinner.vue'
 import NewsItem from '../components/NewsItem.vue'
 
-function fetchMember(store) {
+function fetchData(store) {
   store.dispatch('GET_SEMESTER_CODE');
+  store.dispatch('GET_RESEARCH_AREAS');
   return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
 }
 
 export default {
   name: 'member-view',
 
-  preFetch: fetchMember,
+  preFetch: fetchData,
 
   components: {
     Spinner,
@@ -157,7 +160,7 @@ export default {
   },
 
   beforeMount () {
-    fetchMember(this.$store)
+    fetchData(this.$store)
   },
 
   methods: {
@@ -180,6 +183,17 @@ export default {
         this.height = this.$el.querySelector('.biographyInfo').scrollHeight + 'px';
       else
         this.height = '120px';
+    },
+
+    setResearchArea(event) {
+      let area_id = event.target.getAttribute('area-id');
+      let area_title = event.target.getAttribute('area-title');
+      let research_area = {
+        area_id: area_id,
+        title: area_title
+      }
+      this.$store.commit("SET_SELECTED_RESEARCH_AREA", research_area);
+      this.$router.push('/research_areas/'+ area_id);
     }
   }
 }
@@ -412,4 +426,21 @@ export default {
     border-bottom: 1px solid #ccc;
   }
 }
+
+.directory-information{
+  p:nth-child(2) > a > em{
+    color: #ccc;
+    padding: 0 .8em;
+  }
+  p:nth-child(2) > a:last-child{
+    em{
+      display: none;
+    }
+  }
+
+  em:hover {
+    text-decoration: none;
+  }
+}
+
 </style>

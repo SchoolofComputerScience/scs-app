@@ -14,7 +14,7 @@ export default {
           query: gql`
             {
               directory(scid:"${fields}"){
-                email
+                display_email
                 biography
                 family_name
                 fax_phone
@@ -31,7 +31,10 @@ export default {
                 hr_relationship
                 hr_relationship_class
                 hr_relationship_desc
-                research_areas
+                research_areas {
+                  area_id
+                  title
+                }
                 full_name
                 phone_full_call
                 phone_full
