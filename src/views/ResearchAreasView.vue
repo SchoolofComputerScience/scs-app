@@ -37,12 +37,13 @@ import { router } from '../app'
 function fetchData(store) {
   store.dispatch('GET_DIRECTORY');
   return store.dispatch('GET_RESEARCH_AREAS').then(() => {
-    let area_id = store.state.route.params.research_area || store.state.researchAreas.area 
+    let area_id = store.state.route.params.research_area || store.state.researchAreas.area_id 
     if (area_id) {
-      store.commit("SET_SELECTED_RESEARCH_AREA", area_id);
       let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
-      if (research_area)
+      if (research_area) {
         store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
+        store.commit("SET_SELECTED_RESEARCH_AREA", { area_id: research_area.area_id, title: research_area.title });
+      }
     }
   });
 }
@@ -65,11 +66,7 @@ export default {
 
   computed: {
     selected_research_area() {
-      let research_area = this.$store.state.researchAreas.list.find((area) => area.area_id === this.$store.state.researchAreas.area);
-      if (research_area)
-        return research_area.title;
-      else
-        return '';
+      return this.$store.state.researchAreas.title;
     },
     research_areas() {
       return this.$store.state.researchAreas.list;
@@ -83,24 +80,10 @@ export default {
     members() {
       return this.$store.state.directory.list;
     },
-    topForty(){
-      let topForty = [];
-      if (this.$store.state.researchAreas.list.length) {
-        let list = this.$store.state.researchAreas.list;
-        let sorted = _.sortBy(list, 'gs_count');
-        sorted = sorted.reverse();
-
-        for (let i = 0; i < 40; i++) {
-          topForty.push(sorted[i]);
-        }
-      }
-
-      return topForty;
-    },
     facultyInArea() {
       let faculty = [];
-      if (this.$store.state.researchAreas.list.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area) {
-        let selected_area = this.$store.state.researchAreas.area;
+      if (this.$store.state.researchAreas.list.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area_id) {
+        let selected_area = this.$store.state.researchAreas.area_id;
         let research_area = this.$store.state.researchAreas.list.find((area) => area.area_id === selected_area);
         let directory = this.$store.state.directory.list;
 
@@ -125,19 +108,6 @@ export default {
       }else{
         return '/departments/' + tag.toLocaleLowerCase()
       }
-    },
-    searchArea: function(event) {
-      let area = event.target.getAttribute('area');
-      let all_areas = event.target.parentElement.children;
-      
-      for(let i = 0, all_areas_length = all_areas.length; i < all_areas_length; i++) {
-        all_areas[i].classList.remove('selected');
-      }
-
-      event.target.classList.add('selected');
-      this.query = area;
-      this.$store.commit("SET_SELECTED_RESEARCH_AREA", area); 
-      this.$store.dispatch('SEARCH_NEWS_ARTICLES', area);
     }
   },
 

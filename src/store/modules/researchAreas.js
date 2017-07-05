@@ -5,7 +5,8 @@ import gql from 'graphql-tag'
 export default {
   state: {
     list: [],
-    area: ''
+    area_id: '',
+    title: ''
   },
   actions: {
     GET_RESEARCH_AREAS: ({ commit, state }) => {
@@ -41,7 +42,8 @@ export default {
       state.list = data.research_areas;
     },
     SET_SELECTED_RESEARCH_AREA: (state, researchArea) => {
-      state.area = researchArea;
+      state.area_id = researchArea.area_id;
+      state.title = researchArea.title;
     }
   }
 }

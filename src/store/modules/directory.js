@@ -30,7 +30,10 @@ export default {
                 scs_relationship_class
                 scs_relationship_desc
                 image_url
-                research_areas
+                research_areas {
+                  area_id
+                  title
+                }
                 email
               }
             }
