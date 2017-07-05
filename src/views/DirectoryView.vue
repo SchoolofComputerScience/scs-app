@@ -216,6 +216,9 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.item-container{
+  min-height: 30em;
+}
 </style>
 
 <style lang="stylus" scoped>
@@ -223,14 +226,12 @@ export default {
   overflow-y: auto;
   max-height: 40em;
 }
+
 .item-container {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
 }
-// .items {
-//   width: 100%;
-// }
 
 .resize-observer{
   position: absolute;
