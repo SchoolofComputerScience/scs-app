@@ -35,6 +35,7 @@ export default {
                   title
                 }
                 email
+                display_email
               }
             }
           `
