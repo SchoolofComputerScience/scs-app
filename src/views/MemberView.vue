@@ -29,8 +29,8 @@
 
           <section v-if="member.biography || member.biography != null" class="biography">
             <p class="title">Biography</p>
-            <div id="info" v-html="member.biography"></div>
-            <button @click="readMore()">Read More</button>
+            <div v-html="member.biography" v-bind:style="styleObject" class="biographyInfo"></div>
+            <button @click="readMore()" v-if="readMoreBio">Read More</button>
           </section>
 
           <section class="directory-information">
@@ -98,6 +98,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import Spinner from '../components/Spinner.vue'
 import NewsItem from '../components/NewsItem.vue'
 
@@ -118,7 +119,8 @@ export default {
 
   data () {
     return {
-      biographyHeight: 0
+      readMoreBio: true,
+      height: '0px',
     }
   },
 
@@ -143,6 +145,14 @@ export default {
     },
     semesterCode(){
       return this.$store.state.semesterCode.code;
+    },
+    activeBio() {
+      return this.member && this.member.biography !== 'undefined' ? true : false;
+    },
+    styleObject() {
+      return  {
+        height: this.height
+      }
     }
   },
 
@@ -150,18 +160,26 @@ export default {
     fetchMember(this.$store)
   },
 
-  ready() {
-    console.log("swag")
-    this.biographyHeight = this.$el.offsetHeight;
-  },
-
   methods: {
+    biographyInformation(arg){
+      if(arg == 'mount' || this.bioCalled){
+        if(this.$el && this.$el.querySelector('.biographyInfo') ){
+          if(this.$el.querySelector('.biographyInfo').scrollHeight < 120){
+            this.height = this.$el.querySelector('.biographyInfo').scrollHeight + 'px'
+            this.readMoreBio = false;
+          }else{
+            this.height = '120px';
+          }
+          this.bioCalled = true;
+        }
+      }
+    },
+
     readMore () {
-      let info = document.querySelector('#info')
-      if(!info.style.height.includes(info.scrollHeight))
-        info.style.height = info.scrollHeight + 'px'
+      if(this.height === '120px')
+        this.height = this.$el.querySelector('.biographyInfo').scrollHeight + 'px';
       else
-        info.style.height = '120px'
+        this.height = '120px';
     }
   }
 }
@@ -171,7 +189,7 @@ export default {
 .biography{
   font-size: .95em;
   padding: 1.6em 0;
-  #info{
+  .biographyInfo{
     overflow-y: hidden;
     transition: .3s height;
   }
