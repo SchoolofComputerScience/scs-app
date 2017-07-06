@@ -3,7 +3,9 @@
     <h1>{{selected_research_area}}</h1>
     <section class="faculty-members" v-if="facultyInArea">
       <h2>Faculty Involved In {{selected_research_area}}</h2>
-      <ul class="items"><DirectoryListItem  v-for="member in facultyInArea" :item="member"></DirectoryListItem></ul>
+      <ul class="items">
+        <DirectoryListItem  v-for="member in facultyInArea" :key="member.scid" :item="member"></DirectoryListItem>
+      </ul>
     </section>
     <section v-if="has_news" class="research-news">
       <h2>Latest News Articles On {{selected_research_area}}</h2>
@@ -37,7 +39,7 @@ import { router } from '../app'
 function fetchData(store) {
   store.dispatch('GET_DIRECTORY');
   return store.dispatch('GET_RESEARCH_AREAS').then(() => {
-    let area_id = store.state.route.params.research_area || store.state.researchAreas.area_id 
+    let area_id = store.state.route.params.research_area || store.state.researchAreas.area_id
     if (area_id) {
       let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
       if (research_area) {

@@ -29,7 +29,9 @@
 
           <section v-if="member.biography || member.biography != null" class="biography">
             <p class="title">Biography</p>
-            <div v-html="member.biography" v-bind:style="styleObject" class="biographyInfo"></div>
+            <div ref="biographyInfo" v-bind:style="styleObject" :class="{read: readMoreBio}" class="biographyInfo">
+              <div class="data" v-html="member.biography"></div>
+            </div>
             <button @click="readMore()" v-if="readMoreBio">Read More</button>
           </section>
 
@@ -62,7 +64,9 @@
           <section class="research directory-information">
             <div v-if="member.research_areas">
               <p class="title">Research Areas</p>
-              <p><a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a><em>|</em></p>
+              <p>
+                <a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
+              </p>
             </div>
           </section>
 
@@ -110,6 +114,8 @@ function fetchData(store) {
   return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
 }
 
+const bioHeight = 112
+
 export default {
   name: 'member-view',
 
@@ -129,22 +135,24 @@ export default {
 
   computed: {
     loaded() {
-      return this.$store.state.member.info[this.$route.params.name] ? true : false
+      if(this.$store.state.member[this.$route.params.name])
+        this.biographyInformation()
+      return this.$store.state.member[this.$route.params.name] ? true : false
     },
     member(){
-      return this.$store.state.member.info[this.$route.params.name]
+      return this.$store.state.member[this.$route.params.name]
     },
     gs(){
-      return this.$store.state.member.info[this.$route.params.name].gsProfile.length
+      return this.$store.state.member[this.$route.params.name].gsProfile.length
     },
     gp(){
-      return this.$store.state.member.info[this.$route.params.name].gsPublication.length
+      return this.$store.state.member[this.$route.params.name].gsPublication.length
     },
     news(){
-      return this.$store.state.member.info[this.$route.params.name].news.length
+      return this.$store.state.member[this.$route.params.name].news.length
     },
     events(){
-      return this.$store.state.member.info[this.$route.params.name].events.length
+      return this.$store.state.member[this.$route.params.name].events.length
     },
     semesterCode(){
       return this.$store.state.semesterCode.code;
@@ -163,26 +171,41 @@ export default {
     fetchData(this.$store)
   },
 
+  mounted () {
+    window.addEventListener('resize', this.bioResize);
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.bioResize);
+  },
+
   methods: {
-    biographyInformation(arg){
-      if(arg == 'mount' || this.bioCalled){
-        if(this.$el && this.$el.querySelector('.biographyInfo') ){
-          if(this.$el.querySelector('.biographyInfo').scrollHeight < 120){
+    biographyInformation(){
+      Vue.nextTick(() => {
+        if(this.$refs.biographyInfo){
+          if(this.$el.querySelector('.biographyInfo').scrollHeight < bioHeight){
             this.height = this.$el.querySelector('.biographyInfo').scrollHeight + 'px'
             this.readMoreBio = false;
           }else{
-            this.height = '120px';
+            this.height = bioHeight + 'px'
           }
-          this.bioCalled = true;
         }
+      })
+    },
+
+    bioResize(){
+      if(!this.readMoreBio){ 
+        this.height = this.$el.querySelector('.biographyInfo > div').scrollHeight + 'px'
       }
     },
 
     readMore () {
-      if(this.height === '120px')
+      if(this.height === bioHeight + 'px'){
         this.height = this.$el.querySelector('.biographyInfo').scrollHeight + 'px';
-      else
-        this.height = '120px';
+        this.readMoreBio = false;
+      }else{
+        this.height = bioHeight + 'px';
+      }
     },
 
     setResearchArea(event) {
@@ -206,17 +229,22 @@ export default {
   .biographyInfo{
     overflow-y: hidden;
     transition: .3s height;
-  }
-  p {
-    padding-top: 1em;
-    &:first-child{
-      padding-top: 0;
+    p:not(:first-child) {
+      padding-top: 1.45em;
+    }
+    p:first-child{
+      padding-top: .6em;
     }
   }
   ul{
     display: none;
   }
 }
+
+.biographyInfo .data{
+  max-width: 46em;
+}
+
 </style>
 
 <style lang="stylus" scoped>
@@ -230,6 +258,56 @@ export default {
   padding-bottom: .5em;
   margin-bottom: .5em;
   border-bottom: 1px solid #ccc;
+}
+
+.biography{
+  position: relative;
+  line-height: 1.58;
+  letter-spacing: -.003em;
+  width: 100%;
+
+  .biographyInfo{
+    &:not(.read){
+      &:before{
+        opacity: 0;
+        transition: .2s opacity;
+      }
+    }
+    &.read{
+      position: relative;
+      &:before{
+        content: ' ';
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+        height: 2em;
+        position: absolute;
+        display: block;
+        bottom: 0;
+        opacity: 1;
+      }
+    }
+  }
+  button{
+    -webkit-appearance: none;
+    cursor: pointer;
+    border: 0;
+    background-color: #c41230;
+    color: #fff;
+    font-weight: 900;
+    font-size: .7em;
+    padding: .5em 1.2em;
+    text-transform: uppercase;
+    font-family: Noto sans;
+    &:focus {
+      outline:0;
+    }
+    &:hover{
+      background-color: rgba(#C41230, 0.80);
+    }
+    &:active{
+      background-color: rgba(#C41230, 0.40);
+    }
+  }
 }
 
 .card-holder {
@@ -354,6 +432,7 @@ export default {
 
 .sub-positions{
   font-size: .85em;
+  margin-top: -1px;
   div{
     display: inline-block;
     margin-right: 2em;
