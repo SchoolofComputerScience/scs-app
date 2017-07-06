@@ -3,13 +3,11 @@ import apollo from '../api'
 import gql from 'graphql-tag'
 
 export default {
-  state: {
-    info: {},
-  },
+  state: { },
   actions: {
     FETCH_MEMBER: ({ commit, state }, fields = {}) => {
-      return state.info[fields]
-        ? Promise.resolve(state.info[fields])
+      return state[fields]
+        ? Promise.resolve(state[fields])
         : apollo.query({
           query: gql`
             {
@@ -51,13 +49,20 @@ export default {
                   room
                   title
                 }
-                news{
-                  uid
+                news(limit: 2){
                   title
+                  date
+                  uid
+                  image
+                  tags {
+                    tag
+                    name
+                  }
                 }
                 events{
                   uid
                   title
+                  startDate
                 }
                 gsProfile{
                   gs_affiliation
@@ -112,7 +117,7 @@ export default {
   },
   mutations: {
     SET_MEMBER: (state, data) => {
-      Vue.set(state.info, data[0].scid, data[0])
+      Vue.set(state, data[0].scid, data[0])
     }
   }
 }

@@ -194,7 +194,7 @@ export default {
           this._endIndex = endIndex
           this.visibleItems = this.items.slice(startIndex, endIndex)
           this.itemContainerStyle = {
-            height: ((l * this.itemHeight) + 127 ) + 'px',
+            height: ((l * this.itemHeight) + 207 ) + 'px',
           }
           this.itemsStyle = {
             marginTop: startIndex * this.itemHeight + 'px',
@@ -244,10 +244,6 @@ export default {
 </script>
 
 <style scoped>
-.virtual-scroller:not(.page-mode) {
-  overflow-y: auto;
-}
-
 .item-container {
   box-sizing: border-box;
   width: 100%;

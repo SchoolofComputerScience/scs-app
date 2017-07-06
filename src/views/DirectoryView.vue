@@ -216,21 +216,23 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.item-container{
+  min-height: 16em;
+}
 </style>
 
 <style lang="stylus" scoped>
+
 .virtual-scroller:not(.page-mode) {
   overflow-y: auto;
   max-height: 40em;
 }
+
 .item-container {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
 }
-// .items {
-//   width: 100%;
-// }
 
 .resize-observer{
   position: absolute;
@@ -251,7 +253,6 @@ export default {
   flex-wrap: wrap;
   padding: 0;
   position: relative;
-  min-height: 20em;
 }
 
 .filter{
