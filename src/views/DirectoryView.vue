@@ -171,16 +171,16 @@ export default {
         let scs_rel = departmentFilter[i].scs_relationship_class;
         let hr_rel = departmentFilter[i].hr_relationship_class;
 
+        // remove this once we have all of the scs_rel codes filled in the data
+        scs_rel = typeof(scs_rel) == "string" ? scs_rel : "";
+
         pushEntry |= this.depTitle == "Faculty" &&
           (
               hr_rel.includes(this.depTitle) ||
-              (
-                  typeof(scs_rel) == "string" &&
-                  scs_rel.includes(this.depTitle.toLowerCase())
-              )
+              scs_rel.includes(this.depTitle.toLowerCase())
           );
         pushEntry |= this.depTitle !== "Faculty" &&
-            scs_rel != "faculty" &&
+            !scs_rel.includes("faculty") &&
             hr_rel.includes(this.depTitle);
         pushEntry |= !this.depTitle;
 
