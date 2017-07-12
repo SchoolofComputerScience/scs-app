@@ -39,8 +39,8 @@ export default new Router({
     { path: '/events/', component: EventsListView },
     { path: '/news/:article?', component: NewsView },
     { path: '/events/:event?', component: EventView },
-    { path: '/research_areas/', component: ResearchAreasListView },
-    { path: '/research_areas/:research_area', component: ResearchAreasView },
+    { path: '/research/', component: ResearchAreasListView },
+    { path: '/research/:research_area', component: ResearchAreasView },
     { path: '/404', component: ErrorView },
     { path: '/:page', name: 'page', component: PageView },
   ]
