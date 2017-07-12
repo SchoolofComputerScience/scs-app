@@ -26,10 +26,10 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .project-status {
   border-top: 1px solid #eee;
-  color black;
+  color: black;
   font-size: .8em;
   padding: .5em;
   padding-left: 1em;

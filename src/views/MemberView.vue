@@ -61,13 +61,11 @@
             </p>
           </section>
 
-          <section class="research directory-information">
-            <div v-if="member.research_areas">
-              <p class="title">Research Areas</p>
-              <p>
-                <a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
-              </p>
-            </div>
+          <section v-if="member.research_areas" class="research directory-information">
+            <p class="title">Research Areas</p>
+            <p>
+              <a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
+            </p>
           </section>
 
           <section v-if="news" class="news">
@@ -194,7 +192,7 @@ export default {
     },
 
     bioResize(){
-      if(!this.readMoreBio){ 
+      if(!this.readMoreBio){
         this.height = this.$el.querySelector('.biographyInfo > div').scrollHeight + 'px'
       }
     },
@@ -216,13 +214,13 @@ export default {
         title: area_title
       }
       this.$store.commit("SET_SELECTED_RESEARCH_AREA", research_area);
-      this.$router.push('/research_areas/'+ area_id);
+      this.$router.push('/research/'+ area_id);
     }
   }
 }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 .biography{
   font-size: .95em;
   padding: 1.6em 0;
@@ -247,7 +245,9 @@ export default {
 
 </style>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
+
+
 .member-view{
   font-size: 1.05em;
 }
@@ -297,7 +297,7 @@ export default {
     font-size: .7em;
     padding: .5em 1.2em;
     text-transform: uppercase;
-    font-family: Noto sans;
+    font-family: Open Sans;
     &:focus {
       outline:0;
     }
@@ -325,7 +325,7 @@ export default {
   flex-direction: row;
   > div{
     padding: 0;
-    padding-top 1em;
+    padding-top: 1em;
     &:nth-child(1){
       padding-right: 1em;
     }
@@ -353,6 +353,11 @@ export default {
 }
 
 .research{
+  button{
+    font-size: .7em;
+    padding: .5em 1.2em;
+    text-transform: uppercase;
+  }
   #info{
     transition:height 0.3s ease-out;
   }

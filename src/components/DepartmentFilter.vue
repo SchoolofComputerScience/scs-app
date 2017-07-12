@@ -67,7 +67,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .buttons {
   margin-top: 1.6em;
   border-top: 1px solid #eee;
@@ -90,7 +90,7 @@ export default {
     padding: .5em 1.2em .5em 1.2em;
     border: none;
     border-bottom: 4px solid;
-    font-family: Noto Sans,Helvetica,sans-serif;
+    font-family: Open Sans,Helvetica,sans-serif;
     cursor: pointer;
     &:focus {
       outline:0;

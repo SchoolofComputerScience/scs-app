@@ -95,7 +95,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 
 h2 {
   margin-top: 1.6em;

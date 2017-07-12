@@ -211,7 +211,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 .items{
   display: flex;
   flex-wrap: wrap;
@@ -221,7 +221,7 @@ export default {
 }
 </style>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 
 .virtual-scroller:not(.page-mode) {
   overflow-y: auto;
@@ -349,7 +349,7 @@ export default {
 
 form.search {
   width: 58%;
-  margin-right: 2%
+  margin-right: 2%;
   display: inline-block;
   position: relative;
   button.clearQuery{
@@ -364,7 +364,7 @@ form.search {
     outline: 0;
     cursor: pointer;
     &:after{
-      content: '+'
+      content: '+';
       display: block;
       color: white;
       font-size: 2.8em;
@@ -385,10 +385,10 @@ form.search {
 }
 </style>
 
-<style lang="stylus">
+<style lang="scss">
 section.ri .buttons > button.ri{
   background-color: white;
-  color: #9b22b4
+  color: #9b22b4;
   border-bottom: 3px solid #9b22b4;
   &:hover{
     background-color: white;
@@ -398,7 +398,7 @@ section.ri .buttons > button.ri{
 
 section.lti .buttons > button.lti{
   background-color: white;
-  color: #3bb422
+  color: #3bb422;
   border-bottom: 3px solid #3bb422;
   &:hover{
     background-color: white;
@@ -408,7 +408,7 @@ section.lti .buttons > button.lti{
 
 section.csd .buttons > button.csd{
   background-color: white;
-  color: #22b49b
+  color: #22b49b;
   border-bottom: 3px solid #22b49b;
   &:hover{
     background-color: white;
@@ -418,7 +418,7 @@ section.csd .buttons > button.csd{
 
 section.hcii .buttons > button.hcii{
   background-color: white;
-  color: #b49b22
+  color: #b49b22;
   border-bottom: 3px solid #b49b22;
   &:hover{
     background-color: white;
@@ -428,7 +428,7 @@ section.hcii .buttons > button.hcii{
 
 section.compbio .buttons > button.compbio{
   background-color: white;
-  color: #b45222
+  color: #b45222;
   border-bottom: 3px solid #b45222;
   &:hover{
     background-color: white;
@@ -438,7 +438,7 @@ section.compbio .buttons > button.compbio{
 
 section.deans_office .buttons > button.deans_office{
   background-color: white;
-  color: #C41230
+  color: #C41230;
   border-bottom: 3px solid #C41230;
   &:hover{
     background-color: white;
@@ -448,7 +448,7 @@ section.deans_office .buttons > button.deans_office{
 
 section.isr .buttons > button.isr{
   background-color: white;
-  color: #165574
+  color: #165574;
   border-bottom: 3px solid #165574;
   &:hover{
     background-color: white;
@@ -457,7 +457,7 @@ section.isr .buttons > button.isr{
 }
 section.mld .buttons > button.mld{
   background-color: white;
-  color: #b42284
+  color: #b42284;
   border-bottom: 3px solid #b42284;
   &:hover{
     background-color: white;

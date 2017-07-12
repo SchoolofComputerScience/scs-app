@@ -5,55 +5,44 @@
         <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
       </div>
     </div>
-    <nav id="mnav" class="main-nav">
-      <ul class="nav">
-        <div>
-          <li class="item">
-            <router-link to="/" exact>Home</router-link>
-          </li>
-          <li class="item">
-            <router-link to="/directory">Directory</router-link>
-          </li>
-          <li class="item">
-            <router-link to="/news">News</router-link>
-          </li>
-          <li class="item">
-            <router-link to="/events">Events</router-link>
-          </li>
-        </div>
-        <div>
-          <li v-for="item in navigation" class="item" v-if="!item.nonav" :key="item.slug">
-            <router-link :to="item.path" v-text="item.label"></router-link>
-          </li>
-        </div>
-      </ul>
+
+    <nav class="main-nav">
+
+      <li class="item">
+        <router-link to="/" exact>Home</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/directory">Directory</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/research">Research</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/corporate">Corporate</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/courses">Courses</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/programs">Programs</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/alumni">Alumni</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/outreach">Outreach</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/donate">Donate</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/news">News</router-link>
+      </li>
+      <li class="item">
+        <router-link to="/events">Events</router-link>
+      </li>
     </nav>
-    <nav id="mobileNav">
-      <div class="box-shadow-menu menu-button" v-on:click="toggleMenu">
-        <span>Menu</span>
-      </div>
-      <ul class="nav">
-        <div>
-          <li class="item" v-on:click="toggleMenu">
-            <router-link to="/" exact>Home</router-link>
-          </li>
-          <li class="item" v-on:click="toggleMenu">
-            <router-link to="/directory">Directory</router-link>
-          </li>
-          <li class="item" v-on:click="toggleMenu">
-            <router-link to="/news">News</router-link>
-          </li>
-          <li class="item" v-on:click="toggleMenu">
-            <router-link to="/events">Events</router-link>
-          </li>
-        </div>
-        <div>
-          <li v-for="item in navigation" class="item" v-if="!item.nonav" v-on:click="toggleMenu">
-            <router-link :to="item.path" v-text="item.label"></router-link>
-          </li>
-        </div>
-      </ul>
-    </nav>
+
   </header>
 </template>
 
@@ -87,21 +76,19 @@ export default {
       }
     },
     toggleMenu() {
-      var menuButton = document.querySelector('.menu-button');
+      var menuButton = this.$el.querySelector('.menu-button');
       this.toggleClass('box-shadow-menu', menuButton);
       this.toggleClass('close', menuButton);
       this.toggleClass('opened', menuButton.parentNode);
       this.toggleClass('viewport-only', document.querySelector('body'));
     },
     scroll(){
-      const offsetTop = document.getElementById('mnav').getBoundingClientRect().top
+      const offsetTop = this.$el.querySelector('.main-nav').getBoundingClientRect().top
       if(offsetTop < -1 || window.scrollY > document.getElementById('cont').clientHeight) {
-        document.getElementById('mnav').classList.add('stuck');
-        document.getElementById('mobileNav').classList.add('stuck');
+        this.$el.querySelector('.main-nav').classList.add('stuck');
       }
       else {
-        document.getElementById('mnav').classList.remove('stuck');
-        document.getElementById('mobileNav').classList.remove('stuck');
+        this.$el.querySelector('.main-nav').classList.remove('stuck');
       }
     },
     scrollTest(){
@@ -117,7 +104,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .main-header{
   display: block;
   width: 100%;
@@ -126,7 +113,7 @@ export default {
     padding: 3vw 0 1vw;
     width: 20em;
     @media screen and (max-width: 600px) {
-      width: 15em
+      width: 15em;
       padding-top: .2em;
     }
   }
@@ -248,7 +235,7 @@ li {
   content: " ";
   border-bottom: 1px solid #eee;
   height: 1px;
-  width 100%;
+  width: 100%;
 }
 
 #mobileNav {

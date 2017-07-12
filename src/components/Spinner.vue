@@ -14,7 +14,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .spinner {
   width: 3em;
   position: absolute;

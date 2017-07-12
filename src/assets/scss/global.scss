@@ -1,3 +1,4 @@
+@import 'vars';
 
 *, *:before, *:after {
   box-sizing: border-box;
@@ -23,7 +24,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: scroll;
-  font-family: 'Noto Sans', Helvetica, sans-serif;
+  font-family: 'Open Sans', Helvetica, sans-serif;
   font-size: 15px;
   margin: 0 auto;
   background-image: url("./assets/img/geometry.png");

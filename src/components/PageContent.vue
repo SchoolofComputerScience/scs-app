@@ -38,12 +38,11 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@import '../assets/styles/content';
-@import '../assets/styles/markdown';
-</style>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
+
+@import '../assets/scss/content';
+
 .content-body{
   flex: 1;
   display: flex;
@@ -51,7 +50,7 @@ export default {
 }
 
 img{
-  width 100%
+  width: 100%
 }
 
 .content-title{

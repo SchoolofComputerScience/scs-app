@@ -19,9 +19,9 @@ export default {
 
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 
-.card
+.card {
   flex: 1 50%;
   margin: 1em;
   position: relative;
@@ -29,47 +29,51 @@ export default {
   border: 1px solid #eee;
   width: 50%;
   background: white;
-  a
-    width: 100%
-    z-index 9
-    text-decoration none
+  a{
+    width: 100%;
+    z-index: 9;
+    text-decoration: none;
     display: flex;
-    align-items: center
-    > div
-      width: 100%
-  h2
-    font-size .85em
-    margin .2rem 1rem
-    padding-bottom .6em
-    padding-top .6em
-    font-weight 300
-    position relative
-
-  h3
-    font-size 1.35em
-    padding-bottom: 1em
-    margin .2rem 1rem
-    border-top: 1px solid #eee
-    padding-top: .8em
-    font-weight 300
-  p
-    font-size .85em
-    margin-top 1em
-
+    align-items: center;
+    > div {
+      width: 100%;
+    }
+  }
+  h2{
+    font-size: .85em;
+    margin: .2rem 1rem;
+    padding-bottom: .6em;
+    padding-top: .6em;
+    font-weight: 300;
+    position: relative;
+  }
+  h3{
+    font-size: 1.35em;
+    padding-bottom: 1em;
+    margin: .2rem 1rem;
+    border-top: 1px solid #eee;
+    padding-top: .8em;
+    font-weight: 300;
+  }
+  p{
+    font-size: .85em;
+    margin-top: 1em;
+  }
+}
 // card colors
 .card .type{
-  text-transform: uppercase
+  text-transform: uppercase;
   color: white;
-  background: black
+  background: black;
   padding: .3rem 1rem;
   &.thesis{
-    background: #1289c4
+    background: #1289c4;
   }
   &.seminars, &.Seminars{
-    background: #30c412
+    background: #30c412;
   }
   &.talks {
-    background: #12c4a6
+    background: #12c4a6;
   }
 }
 

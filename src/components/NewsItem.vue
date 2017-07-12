@@ -22,7 +22,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .tags{
   font-size: .7em;
   display: inline-block;

@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .courses-view {
   margin-top: 1em;
 }
@@ -62,13 +62,13 @@ export default {
   h1{
     font-size: 1em;
     a{
-      text-decoration none;
+      text-decoration: none;
     }
   }
   p{
-    font-size .8em
+    font-size: .8em;
     em{
-      color #C41230
+      color: #C41230;
     }
   }
 }
@@ -97,7 +97,7 @@ export default {
   flex-wrap: wrap;
   .item {
     flex: 1 50%;
-    @media screen and (max-width 768px) {
+    @media screen and (max-width: 768px) {
       flex: none;
       width: 100%;
     }

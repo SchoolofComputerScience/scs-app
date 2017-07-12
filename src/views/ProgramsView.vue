@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .course-link {
   padding: .1em .8em;
   margin-right: .5em;
@@ -84,7 +84,7 @@ export default {
   flex-wrap: wrap;
   .item {
     flex: 1 50%;
-    @media screen and (max-width 768px) {
+    @media screen and (max-width: 768px) {
       flex: none;
       width: 100%;
     }
@@ -160,7 +160,7 @@ p {
     font-weight: bold;
     letter-spacing: 0.25px;
     border: 1px solid #fff;
-    font-family: Noto Sans;
+    font-family: Open Sans;
 
     &:hover {
       border: 1px solid #c41230;
@@ -176,8 +176,8 @@ p {
 
   &.graduate {
     .G {
-      color: #fff;     
-      background: #c41230; 
+      color: #fff;
+      background: #c41230;
     }
   }
 }

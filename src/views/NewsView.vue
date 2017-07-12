@@ -72,11 +72,9 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@import '../assets/styles/content';
-</style>
+<style lang="scss" scoped>
+@import '../assets/scss/content';
 
-<style lang="stylus" scoped>
 h1 {
   font-size: 2em;
 }

@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 
 .dep-icons{
   top: -3px;

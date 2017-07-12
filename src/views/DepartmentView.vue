@@ -49,7 +49,7 @@ import Programs from '../components/Programs.vue'
 function fetchDepartment(store) {
   return store.dispatch('GET_DEPARTMENT_LIST')
     .then(() => {
-      let departmentArray = ['compbio', 'csd',  'hcii', 'lti', 'mld', 'ri', 'isr', 'deans_office']
+      let departmentArray = ['compbio', 'csd',  'hcii', 'lti', 'mld', 'ri', 'isr', 'deans_office', 'ai']
       /*
         temp dep array
         WIP: ping the collection with department codes to verify department

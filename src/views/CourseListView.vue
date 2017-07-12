@@ -61,7 +61,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .course-link {
   padding: .1em .8em;
   margin-right: .5em;
@@ -86,7 +86,7 @@ export default {
   flex-wrap: wrap;
   .item {
     flex: 1 50%;
-    @media screen and (max-width 768px) {
+    @media screen and (max-width: 768px) {
       flex: none;
       width: 100%;
     }
@@ -215,40 +215,40 @@ h4 {
     }
     &:hover{
       text-decoration: none;
-      color white;
+      color: white;
     }
   }
   &.ri a.ri{
     background-color: #9b22b4;
-    color white;
+    color: white;
   }
   &.lti a.lti{
     background-color: #3bb422;
-    color white;
+    color: white;
   }
   &.csd a.csd{
     background-color: #22b49b;
-    color white;
+    color: white;
   }
   &.hcii a.hcii{
     background-color: #b49b22;
-    color white;
+    color: white;
   }
   &.compbio a.compbio {
     background-color: #b45222;
-    color white;
+    color: white;
   }
   & a.deans_office, &.scs a.scs{
     background-color: #C41230;
-    color white;
+    color: white;
   }
   &.isr a.isr {
     background-color: #165574;
-    color white;
+    color: white;
   }
   &.mld a.mld{
     background-color: #b42284;
-    color white;
+    color: white;
   }
 }
 
@@ -268,7 +268,7 @@ h4 {
     font-weight: bold;
     letter-spacing: 0.25px;
     border: 1px solid #fff;
-    font-family: Noto Sans;
+    font-family: Open Sans;
 
     &:hover {
       border: 1px solid #c41230;
@@ -284,8 +284,8 @@ h4 {
 
   &.G {
     .G {
-      color: #fff;     
-      background: #c41230; 
+      color: #fff;
+      background: #c41230;
     }
   }
 

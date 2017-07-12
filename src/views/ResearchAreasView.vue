@@ -119,7 +119,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 h1 {
   text-align: center;
   font-size: 1.7em;

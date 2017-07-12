@@ -35,11 +35,9 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@import './assets/styles/global';
-</style>
+<style lang="scss">
+@import './assets/scss/global';
 
-<style lang="stylus">
 .body {
   position: relative;
 }
@@ -50,13 +48,13 @@ export default {
   min-height: 100px;
 }
 
-@media screen and (max-width 62em) {
+@media screen and (max-width: 62em) {
   html{
     background: white;
   }
 }
 
-@media screen and (max-width 768px) {
+@media screen and (max-width: 768px) {
   body {
     font-size: 14px;
   }

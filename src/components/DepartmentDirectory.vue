@@ -45,7 +45,7 @@ export default {
           if (filtered.length === maxCount) {
             break;
           }
-          
+
           let rand_num = Math.floor(Math.random() * (directory_length - 1));
           let person = this.$store.state.directory.list[rand_num];
 
@@ -66,7 +66,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .card {
   position: relative;
   flex: 1 30%;
@@ -115,7 +115,6 @@ export default {
     background: white;
     box-shadow: none;
     transition: none;
-    // border: 1px solid #bbb;
   }
   p {
     margin-bottom: 0em;
@@ -137,7 +136,7 @@ export default {
   }
 }
 
-@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
   .card {
     position: relative;
     flex: 1;

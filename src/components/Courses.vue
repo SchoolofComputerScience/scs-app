@@ -87,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .courses-view {
   margin-top: 1em;
 }
@@ -116,7 +116,7 @@ export default {
   flex-wrap: wrap;
   .item {
     flex: 1 50%;
-    @media screen and (max-width 768px) {
+    @media screen and (max-width: 768px) {
       flex: none;
       width: 100%;
     }

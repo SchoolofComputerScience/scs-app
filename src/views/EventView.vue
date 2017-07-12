@@ -96,11 +96,9 @@ export default {
 }
 </script>
 
-<style lang="stylus">
-@import '../assets/styles/content';
-</style>
+<style lang="scss" scoped>
+@import '../assets/scss/content';
 
-<style lang="stylus" scoped>
 h1 {
   font-size: 2em;
   margin-bottom: 0;
@@ -113,7 +111,7 @@ h2 {
 
 .content-container {
   background: white;
-  margin: 1em
+  margin: 1em;
   padding: 3em 5em;
   display: block;
   z-index: 9;
@@ -182,7 +180,7 @@ section.location {
   margin-bottom: .2em;
   background: #c41230;
   color: #fff;
-  text-transform: uppercase
+  text-transform: uppercase;
   &:hover {
     background: #fff;
     color: #c41230;

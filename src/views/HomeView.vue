@@ -66,6 +66,15 @@
           </router-link>
         </div>
         <div class="card">
+          <router-link :to="'/departments/ai'">
+            <div>
+              <h1>(AI)</h1>
+              <h2>Artificial Intelligence</h2>
+              <p>CMU AI unites our interdisciplinary artificial intelligence research and education efforts to create an AI strategy for the planet.</p>
+            </div>
+          </router-link>
+        </div>
+        <div class="card">
           <router-link :to="'/departments/deans_office'">
             <div>
               <h1>(SCS)</h1>
@@ -88,7 +97,7 @@ export default {
 }
 </script>
 
-<style lang="stylus" scoped>
+<style lang="scss" scoped>
 .card-holder {
   display: flex;
   flex-wrap: row wrap;

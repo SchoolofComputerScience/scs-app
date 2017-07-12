@@ -87,7 +87,7 @@ export default {
 }
 </script>
 
-<style lang="stylus">
+<style lang="scss">
 .multiselect__option--highlight,
 .multiselect__option--highlight:after {
   background: #c41230!important
