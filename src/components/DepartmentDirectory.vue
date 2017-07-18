@@ -80,9 +80,8 @@ export default {
     border: 0;
   }
   a {
-    display: inline-block;
+    display: block;
     text-align: center;
-
   }
 
   p.name {

@@ -49,5 +49,9 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-
+  .page-body {
+    @media only screen and (max-width: 768px) {
+      margin: 1em;
+    }
+  }
 </style>

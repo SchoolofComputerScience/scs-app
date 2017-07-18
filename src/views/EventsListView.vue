@@ -99,10 +99,22 @@ export default {
     font-size .8em
     em
       color #C41230
+  @media only screen and (max-width: 768px) 
+    display: block
+    width: 100%
+    margin: 0
+    padding 0 1em
+    position: inherit
 
 .error-message{
   font-size: 1.6em;
   margin: 1em;
+}
+
+.search {
+  @media only screen and (max-width: 768px) {
+    padding: 0 1em;
+  }
 }
 .search-input{
   border: none;
@@ -110,7 +122,6 @@ export default {
   background: white;
   font-size: 1.5em;
   font-weight: 300;
-  padding-bottom: .4em;
   margin-top: 1.6em;
   outline: none;
   padding: .5em .2em .5em 1.2em;
@@ -158,6 +169,10 @@ export default {
   p
     font-size .85em
     margin-top 1em
+  @media only screen and (max-width: 768px) 
+    display: block
+    width: 100%
+    margin: 1em 0
 
 // card colors
 .card .type{

@@ -125,7 +125,7 @@ export default {
     height: auto;
     padding: 3vw 0 1vw;
     width: 20em;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       width: 15em
       padding-top: .2em;
     }
@@ -133,7 +133,7 @@ export default {
   .logo {
     max-width: 62em;
     margin: 0 auto;
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 768px) {
       padding: 1em;
     }
   }
@@ -257,7 +257,7 @@ li {
   border-bottom: 1px solid #eee;
   .box-shadow-menu {
     position: relative;
-    padding: 0.5em 2em;
+    padding: 0.6em 2em;
     text-align: center;
     color: #c41230;
     text-transform: uppercase;
@@ -269,19 +269,20 @@ li {
       content: "";
       position: absolute;
       right: 0;
-      top: .7em;
+      top: .8em;
       width: 1.3em;
       height: .14em;
       background: #c41230;
       box-shadow:
         0 0.4em 0 0 #c41230,
         0 0.8em 0 0 #c41230;
+      margin-right: 1em;
     }
   }
 
   .close {
     position: relative;
-    padding: 0.5em 2em;
+    padding: 0.6em 2em;
     text-align: center;
     color: #c41230;
     text-transform: uppercase;
@@ -293,10 +294,11 @@ li {
       content: '';
       position: absolute;
       right: .2em;
-      top: 1.1em;
+      top: 1.2em;
       width: 1em;
       background: #c41230;
       height: 2px;
+      margin-right: 1em;
     }
     &::before {
       transform: rotate(45deg);
@@ -361,6 +363,7 @@ li {
       width: 1em;
       height: 0.15em;
       background: #c41230;
+      margin-right: 1em;
     }
   }
 }
