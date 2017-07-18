@@ -5,7 +5,7 @@
   "version": "1.0.0",
   "repository": "https://github.com/SchoolofComputerScience/scs-app",
   "engines": {
-    "node": "8.0.0"
+    "node": "8.1.4"
   },
   "scripts": {
     "start": "node server.js",
