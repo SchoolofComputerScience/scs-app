@@ -173,8 +173,6 @@ export default {
   }
 
 }
-
-<<<<<<< HEAD
 .card {
   position: relative;
   background-position: center;
@@ -274,7 +272,4 @@ export default {
     margin-bottom: 3em;
   }
 }
-=======
-
->>>>>>> cd926e5baae137a888e8075194f43f446b777faf
 </style>
