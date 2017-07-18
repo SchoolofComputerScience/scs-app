@@ -19,7 +19,7 @@ before_install:
 - gcloud auth activate-service-account --key-file gce-key.json
 - echo "  SCS_API:" $SCS_API >> app.yaml
 - npm install
-- npm run build:prod
+- npm run build
 install:
 - gcloud config set compute/zone us-east1-b
 - gcloud config set project scs-shadow
