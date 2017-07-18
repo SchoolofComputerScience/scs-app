@@ -11,20 +11,6 @@
           <router-link class="btn" :to="'/courses/F17'">Fall 17</router-link>
         </li>
 
-        <h2 class="archived">Archived Course Listings</h2>
-
-        <div class="archive-find">
-          <div>
-            <multiselect v-model="year" placeholder="Select a Year..." track-by="_id" label="_id" :options="years"></multiselect>
-          </div>
-          <div>
-            <multiselect v-model="season" track-by="id" label="name" placeholder="Select a Season..." :options="[{ name: 'Fall', id: 'F' }, { name: 'Summer', id: 'M' }, { name: 'Spring', id: 'S' }]">
-            </multiselect>
-          </div>
-          <div>
-            <button v-bind:class="classObject"><router-link :to="navigate">View</router-link></button>
-          </div>
-        </div>
       </article>
     </transition>
   </div>
@@ -443,6 +429,23 @@ fieldset[disabled] .multiselect {
 h1 {
   padding-top: .7em;
   font-size: 2em;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.5em;
+    padding-bottom: .7em;
+  }
+}
+
+.current {
+  @media only screen and (max-width: 768px) {
+    margin: 1em 0 0 0;
+  }
+}
+
+.courses-view {
+  @media only screen and (max-width: 768px) {
+    margin: 0 1em;
+  }
 }
 
 h2.archived {
@@ -481,6 +484,14 @@ h2.archived {
       align-items: center;
       justify-content: center;
     }
+
+    @media only screen and (max-width: 768px) {
+      padding: 10px 0;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
   }
 }
 

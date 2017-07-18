@@ -23,10 +23,6 @@ export default {
     MainFooter,
   },
 
-  data: {
-    transitionName: 'view'
-  },
-
   computed: {
     title () {
       return this.$store.getters.title

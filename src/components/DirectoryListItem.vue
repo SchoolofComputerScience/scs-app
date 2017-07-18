@@ -3,7 +3,7 @@
     <router-link :to="'/directory/' + item.scid">
       <div class="link-hold">
         <div class="dep-icons">
-          <span v-for="dep in item.positions" :class="dep.department" v-if="!qatar"></span>
+          <span v-for="dep in item.positions" :class="dep.department" v-if="!'qatar'"></span>
         </div>
 
         <div class="image" v-if="item.image_url" :style="{ 'background-image': 'url(' + item.image_url + ')' }"></div>

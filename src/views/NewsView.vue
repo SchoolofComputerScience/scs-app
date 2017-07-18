@@ -50,7 +50,6 @@ export default {
   },
 
   methods: {
-
     cleanHTML: function(data){
       return data
     },
@@ -62,7 +61,6 @@ export default {
         return '/departments/' + tag.toLocaleLowerCase()
       }
     }
-
   },
 
   beforeMount () {

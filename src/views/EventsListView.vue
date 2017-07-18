@@ -110,13 +110,18 @@ export default {
   margin: 1em;
 }
 
+.search {
+  @media only screen and (max-width: 768px) {
+    padding: 0 1em;
+  }
+}
+
 .search-input{
   border: none;
   border-left: .1em solid #C41230;
   background: white;
   font-size: 1.5em;
   font-weight: 300;
-  padding-bottom: .4em;
   margin-top: 1.6em;
   outline: none;
   padding: .5em .2em .5em 1.2em;

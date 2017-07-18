@@ -81,7 +81,7 @@ export default {
     EventsList
   },
 
-  data() {
+  data () {
     return {
       semester: "F17"
     }
@@ -130,7 +130,10 @@ export default {
 </style>
 <style lang="stylus" scoped>
 h1 {
-  font-size 2em
+  font-size 2em;
+  @media screen and (max-width 768px) {
+    font-size 1.5em;
+  }
 }
 .directory-title{
   margin-top 2em;
@@ -154,13 +157,13 @@ h3{
   position: relative;
   top: 20.5em;
   margin-bottom: 20.5em;
-  @media screen and (max-width 82em) {
-    padding: 2em;
+  @media screen and (max-width 768px) {
+    padding: 1.5em;
     padding-top: 0;
   }
   h1{
     margin-top: .5em;
-    @media screen and (max-width 82em) {
+    @media screen and (max-width 768px) {
       margin-top: 0;
     }
   }
@@ -173,7 +176,7 @@ h3{
   left: -4em;
   position: absolute;
   border: 1px solid #eee;
-  @media screen and (max-width 82em) {
+  @media screen and (max-width 768px) {
     left: 0;
     top: -1em;
     margin: 0;

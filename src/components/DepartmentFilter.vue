@@ -54,13 +54,15 @@ export default {
 
   methods: {
     filter(event) {
-      let filter_value = event.target.getAttribute('name');
+      let filter_value = event.target.getAttribute('name') || event.target.getAttribute('filter-value');
       if (filter_value === this.$store.state.department.selected_department){
-        router.push({ path: '/directory'})
         this.$store.commit("SET_SELECTED_DEPARTMENT", '');
+        if (this.route_link)
+          router.push({ path: '/directory'})
       } else {
-        router.push({ path: '/directory/department/' + filter_value})
         this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
+        if (this.route_link)
+          router.push({ path: '/directory/department/' + filter_value})
       }
     }
   }

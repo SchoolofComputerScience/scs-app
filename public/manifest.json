@@ -3,7 +3,7 @@
   "name": "Carnegie Mellon University : School of Computer Science",
   "short_name": "CMU:SCS",
   "display": "standalone",
-  "start_url": "https://www.scs-shadow.com",
+  "start_url": "https://www.cs-dev.cmu.edu",
   "icons": [
     {
      "src": "/images/ficon/android-icon-192x192.png",

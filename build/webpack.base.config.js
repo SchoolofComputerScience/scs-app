@@ -1,18 +1,20 @@
 const path = require('path')
 const webpack = require('webpack')
 const vueConfig = require('./vue-loader.config')
-const utils = require('./utils')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+
+const isProd = process.env.NODE_ENV === 'production'
 
 module.exports = {
-  devtool: '#source-map',
+  devtool: isProd ? false : '#cheap-module-source-map',
   entry: {
-    app: './src/client-entry.js',
-    vendor: ['vue', 'vue-router', 'vuex', 'lru-cache', 'es6-promise', 'vue-multiselect']
+    app: './src/client-entry.js'
   },
   output: {
     path: path.resolve(__dirname, '../dist'),
     publicPath: '/dist/',
-    filename: 'client-bundle.js'
+    filename: '[name].[chunkhash].js'
   },
   resolve: {
     alias: {
@@ -23,10 +25,11 @@ module.exports = {
   module: {
     noParse: /es6-promise\.js$/,
     loaders: [
-      {
-        test: /\.json$/,
+      { test: /\.json$/,
         loader: "json-loader"
-      },
+      }
+    ],
+    rules: [
       {
         test: /\.vue$/,
         loader: 'vue-loader',
@@ -45,6 +48,23 @@ module.exports = {
           name: '[name].[ext]?[hash]'
         }
       }
+
     ]
-  }
+  },
+  performance: {
+    maxEntrypointSize: 300000,
+    hints: isProd ? 'warning' : false
+  },
+  plugins: isProd
+    ? [
+        new webpack.optimize.UglifyJsPlugin({
+          compress: { warnings: false }
+        }),
+        new ExtractTextPlugin({
+          filename: 'common.[chunkhash].css'
+        })
+      ]
+    : [
+        new FriendlyErrorsPlugin()
+      ]
 }

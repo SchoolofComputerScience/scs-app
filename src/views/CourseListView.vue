@@ -26,7 +26,7 @@ export default {
     DepartmentFilter
   },
 
-  data() {
+  data () {
     return {
       semester: this.$store.state.route.params.semester,
       department: '',

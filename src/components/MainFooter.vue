@@ -62,10 +62,10 @@ export default {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 82em) {
   .footer {
     margin-top: 2em;
-    padding: 0;
+    padding: 0 1em;
     img{
       margin-top: 1em;
       max-width: 16em;

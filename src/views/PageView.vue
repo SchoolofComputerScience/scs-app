@@ -25,9 +25,7 @@ export default {
 
   computed: {
     page () {
-
       const pages = this.$store.getters.navigation
-
       for (var i = 0; i < pages.length; i++) {
         if (pages[i].slug === this.$route.params.page) {
           return pages[i]
@@ -39,7 +37,6 @@ export default {
 
   created () {
     this.$store.dispatch('documentTitle', this.page.title)
-
   },
 
   beforeMount () {
@@ -47,3 +44,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .page-body {
+    @media only screen and (max-width: 768px) {
+      margin: 1em;
+    }
+  }
+</style>

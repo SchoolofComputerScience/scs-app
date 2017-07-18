@@ -13,7 +13,6 @@ import programs from './modules/programs';
 import researchAreas from './modules/researchAreas';
 import semesterCode from './modules/semesterCode';
 
-
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -31,5 +30,6 @@ const store = new Vuex.Store({
     semesterCode
   }
 })
+
 
 export default store

@@ -1,18 +1,28 @@
-import { app, router, store } from './app'
+import { app, store, router } from './app'
 
 export default context => {
-  router.push(context.url)
+  return new Promise((resolve, reject) => {
+    const { url } = context
+    const fullPath = router.resolve(url).route.fullPath
 
-  if (!router.getMatchedComponents().length) {
-    return Promise.reject({ code: '404' })
-  }
-
-  return Promise.all(router.getMatchedComponents().map(component => {
-    if (component.preFetch) {
-      return component.preFetch(store || {})
+    if (fullPath !== url) {
+      reject({ url: fullPath })
     }
-  })).then(() => {
-    context.initialState = store.state
-    return app
+
+    router.push(url)
+
+    router.onReady(() => {
+      const matchedComponents = router.getMatchedComponents()
+      if (!matchedComponents.length) {
+        reject({ code: 404 })
+      }
+      Promise.all(matchedComponents.map(({ asyncData }) => asyncData && asyncData({
+        store,
+        route: router.currentRoute
+      }))).then(() => {
+        context.state = store.state
+        resolve(app)
+      }).catch(reject)
+    }, reject)
   })
 }

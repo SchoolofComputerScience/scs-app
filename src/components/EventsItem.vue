@@ -20,7 +20,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 .card {
   flex: 1 50%;
   margin: 1em;
@@ -60,7 +59,9 @@ export default {
     margin-top: 1em;
   }
 }
+
 // card colors
+
 .card .type{
   text-transform: uppercase;
   color: white;

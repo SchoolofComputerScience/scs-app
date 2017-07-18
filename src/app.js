@@ -15,6 +15,10 @@ Object.keys(filters).forEach(key => {
 
 sync(store, router)
 
-const app = new Vue(Vue.util.extend({ router, store}, App ))
+const app = new Vue({
+  router,
+  store,
+  render: h => h(App)
+})
 
 export { app, router, store }

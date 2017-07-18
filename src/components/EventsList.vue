@@ -71,6 +71,12 @@ export default {
       color: #C41230;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
 }
 
 .course-link {
