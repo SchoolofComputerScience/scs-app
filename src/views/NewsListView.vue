@@ -11,20 +11,7 @@
             <div v-if="error" class="error-message">
               <p>{{error}}</p>
             </div>
-            <div class="card" v-if="!error" v-for="news_item in news" :key="news_item.uid">
-              <div>
-                <router-link  :to="'/news/' + news_item.uid">
-                  <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
-                  <div class="content">
-                    <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
-                    <h3>{{news_item.title}}</h3>
-                  </div>
-                </router-link>
-                <div class="tags" v-for="tag in news_item.tags" v-if="tag.name != ''">
-                  <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
-                </div>
-              </div>
-            </div>
+            <NewsItem v-if="!error" v-for="list in news" :key="list.uid" :data="list"></NewsItem>
           </div>
         </section>
       </transition>
@@ -34,6 +21,7 @@
 
 <script>
 import Spinner from '../components/Spinner.vue'
+import NewsItem from '../components/NewsItem.vue'
 import _ from 'lodash'
 
 function fetchNewsList(store) {
@@ -46,7 +34,8 @@ export default {
   preFetch: fetchNewsList,
 
   components: {
-    Spinner
+    Spinner,
+    NewsItem
   },
 
   data () {
@@ -185,6 +174,7 @@ export default {
 
 }
 
+<<<<<<< HEAD
 .card {
   position: relative;
   background-position: center;
@@ -284,4 +274,7 @@ export default {
     margin-bottom: 3em;
   }
 }
+=======
+
+>>>>>>> cd926e5baae137a888e8075194f43f446b777faf
 </style>

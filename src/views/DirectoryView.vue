@@ -67,7 +67,7 @@ export default {
       directoryLength: 0,
       directoryShown: 0,
       depTitle: '',
-      route_link: '/directory/department/',
+      route_link: 'true',
       scs_department_types: ['academic', 'admin', 'school'],
       excluded_departments: ['scs_facilities', 'scs'],
     }
@@ -171,16 +171,16 @@ export default {
         let scs_rel = departmentFilter[i].scs_relationship_class;
         let hr_rel = departmentFilter[i].hr_relationship_class;
 
+        // remove this once we have all of the scs_rel codes filled in the data
+        scs_rel = typeof(scs_rel) == "string" ? scs_rel : "";
+
         pushEntry |= this.depTitle == "Faculty" &&
           (
               hr_rel.includes(this.depTitle) ||
-              (
-                  typeof(scs_rel) == "string" &&
-                  scs_rel.includes(this.depTitle.toLowerCase())
-              )
+              scs_rel.includes(this.depTitle.toLowerCase())
           );
         pushEntry |= this.depTitle !== "Faculty" &&
-            scs_rel != "faculty" &&
+            !scs_rel.includes("faculty") &&
             hr_rel.includes(this.depTitle);
         pushEntry |= !this.depTitle;
 
@@ -216,21 +216,23 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+.item-container{
+  min-height: 16em;
+}
 </style>
 
 <style lang="stylus" scoped>
+
 .virtual-scroller:not(.page-mode) {
   overflow-y: auto;
   max-height: 40em;
 }
+
 .item-container {
   box-sizing: border-box;
   width: 100%;
   overflow: hidden;
 }
-// .items {
-//   width: 100%;
-// }
 
 .resize-observer{
   position: absolute;
@@ -251,7 +253,6 @@ export default {
   flex-wrap: wrap;
   padding: 0;
   position: relative;
-  min-height: 20em;
 }
 
 .filter{

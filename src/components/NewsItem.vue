@@ -1,29 +1,25 @@
 <template>
-  <div class="card-holder">
-    <div class="card" :style="{ 'background-image': 'url(' + data.image + ')' }">
-      <div>
-        <router-link  :to="'/news/' + news_item.uid">
-          <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
-          <div class="content">
-            <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
-            <h3>{{news_item.title}}</h3>
-          </div>
-        </router-link>
-        <div class="tags" v-for="tag in news_item.tags">
-          <router-link :to="tag.tag">{{tag.name}}</router-link>
+  <div class="card">
+    <div>
+      <router-link  :to="'/news/' + data.uid">
+        <figure :style="{ 'background-image': 'url(' + data.image + ')' }"></figure>
+        <div class="content">
+          <h2>{{data.date | moment("dddd, MMMM Do YYYY")}}</h2>
+          <h3>{{data.title}}</h3>
         </div>
+      </router-link>
+      <div class="tags" v-for="tag in data.tags" v-if="tag.name != ''">
+        <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'NewsItem',
   props: ['data'],
 }
-
 </script>
 
 <style lang="stylus" scoped>
@@ -47,6 +43,7 @@ export default {
     margin: 0;
   }
 }
+
 .tags{
   font-size: .7em;
   display: inline-block;
@@ -64,41 +61,76 @@ export default {
     }
   }
 }
+
 .card {
   position: relative;
   background-position: center;
   background-size: cover;
-  flex: 1;
-  padding: 2vw;
+  flex: 1 45%;
+  padding: 1vw;
   transition: .4s all;
   display: flex;
-  align-items: bottom;
-  justify-content: bottom;
-  margin: 1vw;
+  align-items: start;
+  justify-content: start;
   position: relative;
   z-index: 1;
-  a {
+  max-width: 50%;
+  > div{
+    width: 100%;
+  }
+  > div > a {
     z-index: 9;
     text-decoration: none;
+    width: 100%;
+    left: 0em;
+    top: 0em;
+    display: inline-block;
+    transition: .35s box-shadow, .35s top, .35s left;
+    position: relative;
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    margin-bottom: 1em;
   }
   .content {
-    padding: 2vw;
-    min-width: 19em;
+    padding: 1.6em 2vw;
     display: block;
-    background: white;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
+  }
+  &:hover{
+    > div > a {
+      top: -.1em;
+      left: -.1em;
+      transition: .2s box-shadow, .2s top, .2s left;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+  }
+  &:active{
+    > div > a {
+      top: 0em;
+      left: 0em;
+      transition: 0s box-shadow, 0s top, 0s left;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    }
   }
   aside {
     display: block;
     vertical-align: center;
     border-top: 1px solid #C41230;
   }
-
+  figure{
+    display: block;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 12em;
+    transition: .4s background;
+    padding-left: 0;
+  }
   h2 {
-    font-size: .8em;
+    font-size: .95em;
     margin: 0;
     border-bottom: 1px solid #C41230;
-    padding-bottom: .6em;
+    padding-bottom: .9em;
+    margin-top: .6em;
     font-weight: 300;
     position: relative;
     &:after {
@@ -112,7 +144,8 @@ export default {
     }
   }
   h3 {
-    font-size: 1.5em;
+    font-size: 1.2em;
+    padding-top: .8em;
     margin-bottom: .4em;
     font-weight: 300;
   }
