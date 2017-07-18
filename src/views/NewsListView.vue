@@ -106,6 +106,12 @@ export default {
   font-size: 1.6em;
   margin: 1em;
 }
+
+.search {
+  @media only screen and (max-width: 768px) {
+    padding: 0 1em;
+  }
+}
 .search-input{
   border: none;
   border-left: .1em solid #C41230;
@@ -143,6 +149,11 @@ export default {
       color: white;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    font-size: .9em;
+    margin-bottom: 1.4em;
+  }
 }
 
 .card-holder {
@@ -164,6 +175,14 @@ export default {
       color: #C41230;
     }
   }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    width: 100%;
+    left: 0;
+    padding: 1em;
+  }
+
 }
 
 .card {
@@ -256,6 +275,13 @@ export default {
   p {
     font-size: .85em;
     margin-top: 1em;
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 3em;
   }
 }
 </style>
