@@ -67,7 +67,7 @@ export default {
       directoryLength: 0,
       directoryShown: 0,
       depTitle: '',
-      route_link: '/directory/department/',
+      route_link: 'true',
       scs_department_types: ['academic', 'admin', 'school'],
       excluded_departments: ['scs_facilities', 'scs'],
     }
