@@ -55,6 +55,10 @@ export default {
   p
     font-size .85em
     margin-top 1em
+  @media only screen and (max-width: 768px) 
+    display: block;
+    width: 100%;
+    margin: 0 0 1em 0;
 
 // card colors
 .card .type{

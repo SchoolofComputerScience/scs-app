@@ -23,6 +23,27 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+.card-holder {
+  display: flex;
+  flex-wrap: row wrap;
+  flex-flow: row wrap;
+  width: calc(100% + 2vw);
+  position: relative;
+  left: -1vw;
+  p {
+    font-size: .8em;
+    em {
+      color: #C41230;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    width: 100%;
+    margin: 0;
+  }
+}
+
 .tags{
   font-size: .7em;
   display: inline-block;
@@ -131,6 +152,12 @@ export default {
   p {
     font-size: .85em;
     margin-top: 1em;
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+    width: 100%;
+    margin: 0;
   }
 }
 </style>

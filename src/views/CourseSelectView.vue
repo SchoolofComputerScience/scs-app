@@ -443,6 +443,23 @@ fieldset[disabled] .multiselect {
 h1 {
   padding-top: .7em;
   font-size: 2em;
+
+  @media only screen and (max-width: 768px) {
+    font-size: 1.5em;
+    padding-bottom: .7em;
+  }
+}
+
+.current {
+  @media only screen and (max-width: 768px) {
+    margin: 1em 0 0 0;
+  }
+}
+
+.courses-view {
+  @media only screen and (max-width: 768px) {
+    margin: 0 1em;
+  }
 }
 
 h2.archived {
@@ -481,6 +498,14 @@ h2.archived {
       align-items: center;
       justify-content: center;
     }
+
+    @media only screen and (max-width: 768px) {
+      padding: 10px 0;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
   }
 }
 
