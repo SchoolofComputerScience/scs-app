@@ -7,39 +7,41 @@
     </div>
 
     <nav class="main-nav">
-      <li class="item">
-        <router-link to="/" exact>Home</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/directory">Directory</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/research">Research</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/corporate">Corporate</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/courses">Courses</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/programs">Programs</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/alumni">Alumni</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/outreach">Outreach</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/donate">Donate</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/news">News</router-link>
-      </li>
-      <li class="item">
-        <router-link to="/events">Events</router-link>
-      </li>
+      <ul>
+        <li class="item">
+          <router-link to="/" exact>Home</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/directory">Directory</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/research">Research</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/corporate">Corporate</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/courses">Courses</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/programs">Programs</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/alumni">Alumni</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/outreach">Outreach</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/donate">Donate</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/news">News</router-link>
+        </li>
+        <li class="item">
+          <router-link to="/events">Events</router-link>
+        </li>
+      </ul>
     </nav>
 
   </header>
@@ -208,7 +210,7 @@ li {
     z-index: 100;
     max-width: 1520px;
   }
-  ul.nav {
+  ul {
     max-width: 62em;
     margin: 0 auto;
     height: 2.85em;
