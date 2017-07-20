@@ -27,49 +27,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.project-status {
-  border-top: 1px solid #eee;
-  color: black;
-  font-size: .8em;
-  padding: .5em;
-  padding-left: 1em;
-  text-align: center;
-  @media screen and (max-width: 600px) {
-    font-size: .6em;
-  }
-}
-
-.footer {
-  border-top: 1px solid #eee;
-  border-bottom: 0;
-  margin-top: 1vw;
-  footer {
-    position: relative;
-    margin: 0 auto;
-    max-width: 62em;
-    padding: 1em 0;
-  }
-  figure {
-    margin: 0;
-  }
-  img {
-    margin: 0;
-    margin-top: 1vw;
-    padding-bottom: 0;
-    width: 16em;
-    left: -2px;
-    position: relative;
-  }
-}
-
-@media screen and (max-width: 82em) {
-  .footer {
-    margin-top: 2em;
-    padding: 0 1em;
-    img{
-      margin-top: 1em;
-      max-width: 16em;
-    }
-  }
-}
+// .project-status {
+//   border-top: 1px solid #eee;
+//   color: black;
+//   font-size: .8em;
+//   padding: .5em;
+//   padding-left: 1em;
+//   text-align: center;
+//   @media screen and (max-width: 600px) {
+//     font-size: .6em;
+//   }
+// }
+//
+// .footer {
+//   border-top: 1px solid #eee;
+//   border-bottom: 0;
+//   margin-top: 1vw;
+//   footer {
+//     position: relative;
+//     margin: 0 auto;
+//     max-width: 62em;
+//     padding: 1em 0;
+//   }
+//   figure {
+//     margin: 0;
+//   }
+//   img {
+//     margin: 0;
+//     margin-top: 1vw;
+//     padding-bottom: 0;
+//     width: 16em;
+//     left: -2px;
+//     position: relative;
+//   }
+// }
+//
+// @media screen and (max-width: 82em) {
+//   .footer {
+//     margin-top: 2em;
+//     padding: 0 1em;
+//     img{
+//       margin-top: 1em;
+//       max-width: 16em;
+//     }
+//   }
+// }
 </style>

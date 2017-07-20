@@ -1,0 +1,103 @@
+
+// TYPOGRAPHY
+
+html, body {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background: $primary-grey;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: $font;
+}
+
+body{
+  @include breakpoint(break-3) {
+    @include maxwidth(3);
+  }
+
+  @include breakpoint(break-4) {
+    @include maxwidth(4);
+  }
+}
+
+body {
+  @include fontsize(zeta, all);
+  font-family: unquote(map-get($bodytype, font-family));
+  font-style: normal;
+  font-weight: map-get($bodytype, regular);
+  line-height: 2rem;
+}
+
+a {
+  color: $red;
+  text-decoration: none;
+  transition: color .1s, background-color .1s;
+  &:hover, &:active, &:focus {
+    text-decoration: underline;
+  }
+}
+
+p {
+  @include baseline($fontsize: zeta, $font: $bodytype, $lineheight: 2, $below: 2, $breakpoint: all);
+  font-feature-settings: 'kern', 'onum', 'liga';
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $black;
+  font-family: unquote(map-get($headingtype, font-family));
+  font-feature-settings: 'dlig', 'liga', 'lnum', 'kern';
+  font-style: normal;
+  font-weight: map-get($headingtype, bold);
+}
+
+h1, .alpha {
+  @include sassline($fontsize: alpha, $font: $headingtype, $lineheight: 3, $below: 1, $breakpoint: all);
+}
+
+h2, .beta {
+  @include sassline(beta, $headingtype, 3, 1, all);
+}
+
+h3, .gamma {
+  @include sassline(gamma, $headingtype, 3, 1, all);
+}
+
+h4, .delta {
+  @include sassline(delta, $headingtype, 2, 0, all);
+}
+
+h5, .epsilon {
+  @include sassline(epsilon, $headingtype, 2, 0, all);
+}
+
+h6, .zeta {
+  @include sassline(zeta, $headingtype, 2, 0, all);
+}
+
+ul, ol {
+  @include baseline(zeta, $bodytype, 2, 2, all);
+
+  li {
+    font-feature-settings: 'kern', 'onum', 'liga';
+    margin-left: 2rem;
+
+    @include breakpoint(break-1) {
+      margin-left: 0;
+    }
+
+    ol, ul {
+      padding-top: 1rem;
+      margin-bottom: 1rem;
+      margin-left: 2rem;
+    }
+  }
+}
+
+b, strong, .bold {
+  font-weight: map-get($bodytype, bold);
+}
+
+em, i, .italic {
+  font-style: map-get($bodytype, italic);
+}

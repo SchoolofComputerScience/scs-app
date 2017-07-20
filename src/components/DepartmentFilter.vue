@@ -70,105 +70,105 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.buttons {
-  margin-top: 1.6em;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  .button-holder{
-    display: inline-block;
-  }
-
-  a, button {
-    display: inline-block;
-    margin-right: 1.6em;
-    margin-top: 1.6em;
-    margin-bottom: 1.4em;
-    -webkit-appearance: none;
-    text-transform: uppercase;
-    color: #2c3e50;
-    color: white;
-    font-weight: 900;
-    font-size: .9em;
-    padding: .5em 1.2em .5em 1.2em;
-    border: none;
-    border-bottom: 4px solid;
-    font-family: Open Sans,Helvetica,sans-serif;
-    cursor: pointer;
-    &:focus {
-      outline:0;
-    }
-    &.ri{
-      background-color: #9b22b4;
-      &:hover{
-        background-color: rgba(#9b22b4, 0.80);
-      }
-      &:active{
-        background-color: rgba(#9b22b4, 0.40);
-      }
-    }
-    &.lti{
-      background-color: #3bb422;
-      &:hover{
-        background-color: rgba(#3bb422, 0.80);
-      }
-      &:active{
-        background-color: rgba(#3bb422, 0.40);
-      }
-    }
-    &.csd{
-      background-color: #22b49b;
-      &:hover{
-        background-color: rgba(#22b49b, 0.80);
-      }
-      &:active{
-        background-color: rgba(#22b49b, 0.40);
-      }
-    }
-    &.hcii{
-      background-color: #b49b22;
-      &:hover{
-        background-color: rgba(#b49b22, 0.80);
-      }
-      &:active{
-        background-color: rgba(#b49b22, 0.40);
-      }
-    }
-    &.compbio{
-      background-color: #b45222;
-      &:hover{
-        background-color: rgba(#b45222, 0.80);
-      }
-      &:active{
-        background-color: rgba(#b45222, 0.40);
-      }
-    }
-    &.deans_office{
-      background-color: #C41230;
-      &:hover{
-        background-color: rgba(#C41230, 0.80);
-      }
-      &:active{
-        background-color: rgba(#C41230, 0.40);
-      }
-    }
-    &.isr{
-      background-color: #165574;
-      &:hover{
-        background-color: rgba(#165574, 0.80);
-      }
-      &:active{
-        background-color: rgba(#165574, 0.40);
-      }
-    }
-    &.mld{
-      background-color: #b42284;
-      &:hover{
-        background-color: rgba(#b42284, 0.80);
-      }
-      &:active{
-        background-color: rgba(#b42284, 0.40);
-      }
-    }
-  }
-}
+// .buttons {
+//   margin-top: 1.6em;
+//   border-top: 1px solid #eee;
+//   border-bottom: 1px solid #eee;
+//   .button-holder{
+//     display: inline-block;
+//   }
+//
+//   a, button {
+//     display: inline-block;
+//     margin-right: 1.6em;
+//     margin-top: 1.6em;
+//     margin-bottom: 1.4em;
+//     -webkit-appearance: none;
+//     text-transform: uppercase;
+//     color: #2c3e50;
+//     color: white;
+//     font-weight: 900;
+//     font-size: .9em;
+//     padding: .5em 1.2em .5em 1.2em;
+//     border: none;
+//     border-bottom: 4px solid;
+//     font-family: Open Sans,Helvetica,sans-serif;
+//     cursor: pointer;
+//     &:focus {
+//       outline:0;
+//     }
+//     &.ri{
+//       background-color: #9b22b4;
+//       &:hover{
+//         background-color: rgba(#9b22b4, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#9b22b4, 0.40);
+//       }
+//     }
+//     &.lti{
+//       background-color: #3bb422;
+//       &:hover{
+//         background-color: rgba(#3bb422, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#3bb422, 0.40);
+//       }
+//     }
+//     &.csd{
+//       background-color: #22b49b;
+//       &:hover{
+//         background-color: rgba(#22b49b, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#22b49b, 0.40);
+//       }
+//     }
+//     &.hcii{
+//       background-color: #b49b22;
+//       &:hover{
+//         background-color: rgba(#b49b22, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#b49b22, 0.40);
+//       }
+//     }
+//     &.compbio{
+//       background-color: #b45222;
+//       &:hover{
+//         background-color: rgba(#b45222, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#b45222, 0.40);
+//       }
+//     }
+//     &.deans_office{
+//       background-color: #C41230;
+//       &:hover{
+//         background-color: rgba(#C41230, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#C41230, 0.40);
+//       }
+//     }
+//     &.isr{
+//       background-color: #165574;
+//       &:hover{
+//         background-color: rgba(#165574, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#165574, 0.40);
+//       }
+//     }
+//     &.mld{
+//       background-color: #b42284;
+//       &:hover{
+//         background-color: rgba(#b42284, 0.80);
+//       }
+//       &:active{
+//         background-color: rgba(#b42284, 0.40);
+//       }
+//     }
+//   }
+// }
 </style>

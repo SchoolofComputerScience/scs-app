@@ -120,176 +120,176 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  text-align: center;
-  font-size: 1.7em;
-  padding: 0.5em 0;
-}
-
-h2 {
-  margin-bottom: 0.5em;
-}
-
-.faculty-members, .research-news {
-  margin: 1em 0;
-}
-
-.search-input{
-  border: none;
-  border-left: .1em solid #C41230;
-  background: white;
-  font-size: 1.5em;
-  font-weight: 300;
-  padding-bottom: .4em;
-  margin-top: 1.6em;
-  outline: none;
-  padding: .5em .2em .5em 1.2em;
-  background: #efefef;
-  transition: border-left .1s, background .1s;
-  width: 100%;
-  margin-bottom: 1em;
-  &:focus{
-    border-left: .2em solid #C41230;
-    background: white;
-    padding-left: .4em
-  }
-}
-
-.tags{
-  font-size: .7em;
-  display: inline-block;
-  margin-right: .7em;
-  margin-bottom: .7em;
-  position: relative;
-  a{
-    border: 1px solid;
-    padding: .35em .6em;
-    text-decoration: none;
-    &:hover{
-      border: 1px solid;
-      background: #C41230;
-      color: white;
-    }
-  }
-}
-
-.card-holder {
-  display: flex;
-  flex-wrap: row;
-  flex-flow: wrap;
-  width: calc(100% + 2vw);
-  position: relative;
-  left: -1vw;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  p {
-    font-size: .8em;
-    em {
-      color: #C41230;
-    }
-  }
-}
-
-.news-card {
-  position: relative;
-  background-position: center;
-  background-size: cover;
-  flex: 1 45%;
-  padding: 1vw;
-  transition: .4s all;
-  display: flex;
-  align-items: start;
-  justify-content: start;
-  position: relative;
-  z-index: 1;
-  max-width: 50%;
-  > div{
-    width: 100%;
-  }
-  > div > a {
-    z-index: 9;
-    text-decoration: none;
-    width: 100%;
-    left: 0em;
-    top: 0em;
-    display: inline-block;
-    transition: .35s box-shadow, .35s top, .35s left;
-    position: relative;
-    background: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-    margin-bottom: 1em;
-  }
-  .content {
-    padding: 1.6em 2vw;
-    display: block;
-  }
-  &:hover{
-    > div > a {
-      top: -.1em;
-      left: -.1em;
-      transition: .2s box-shadow, .2s top, .2s left;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    }
-  }
-  aside {
-    display: block;
-    vertical-align: center;
-    border-top: 1px solid #C41230;
-  }
-  figure{
-    display: block;
-    background-position: center;
-    background-size: cover;
-    width: 100%;
-    height: 12em;
-    transition: .4s background;
-    padding-left: 0;
-  }
-  h2 {
-    font-size: .95em;
-    margin: 0;
-    border-bottom: 1px solid #C41230;
-    padding-bottom: .9em;
-    margin-top: .6em;
-    font-weight: 300;
-    position: relative;
-    &:after {
-      content: " ";
-      display: block;
-      width: 2em;
-      height: 2px;
-      position: absolute;
-      bottom: -2px;
-      background: rgb(196, 18, 48);
-    }
-  }
-  h3 {
-    font-size: 1.2em;
-    padding-top: .8em;
-    margin-bottom: .4em;
-    font-weight: 300;
-  }
-  p {
-    font-size: .85em;
-    margin-top: 1em;
-  }
-}
-
-.top-forty {
-  a {
-    display: inline-block;
-    width: 33%;
-    padding: 0.35em;
-  }
-
-  .selected {
-    background: #c41230;
-    color: white;
-    font-weight: 600;
-  }
-}
+// h1 {
+//   text-align: center;
+//   font-size: 1.7em;
+//   padding: 0.5em 0;
+// }
+//
+// h2 {
+//   margin-bottom: 0.5em;
+// }
+//
+// .faculty-members, .research-news {
+//   margin: 1em 0;
+// }
+//
+// .search-input{
+//   border: none;
+//   border-left: .1em solid #C41230;
+//   background: white;
+//   font-size: 1.5em;
+//   font-weight: 300;
+//   padding-bottom: .4em;
+//   margin-top: 1.6em;
+//   outline: none;
+//   padding: .5em .2em .5em 1.2em;
+//   background: #efefef;
+//   transition: border-left .1s, background .1s;
+//   width: 100%;
+//   margin-bottom: 1em;
+//   &:focus{
+//     border-left: .2em solid #C41230;
+//     background: white;
+//     padding-left: .4em
+//   }
+// }
+//
+// .tags{
+//   font-size: .7em;
+//   display: inline-block;
+//   margin-right: .7em;
+//   margin-bottom: .7em;
+//   position: relative;
+//   a{
+//     border: 1px solid;
+//     padding: .35em .6em;
+//     text-decoration: none;
+//     &:hover{
+//       border: 1px solid;
+//       background: #C41230;
+//       color: white;
+//     }
+//   }
+// }
+//
+// .card-holder {
+//   display: flex;
+//   flex-wrap: row;
+//   flex-flow: wrap;
+//   width: calc(100% + 2vw);
+//   position: relative;
+//   left: -1vw;
+//   display: -webkit-flex;
+//   display: flex;
+//   -webkit-flex-wrap: wrap;
+//   flex-wrap: wrap;
+//   -webkit-flex-direction: row;
+//   flex-direction: row;
+//   p {
+//     font-size: .8em;
+//     em {
+//       color: #C41230;
+//     }
+//   }
+// }
+//
+// .news-card {
+//   position: relative;
+//   background-position: center;
+//   background-size: cover;
+//   flex: 1 45%;
+//   padding: 1vw;
+//   transition: .4s all;
+//   display: flex;
+//   align-items: start;
+//   justify-content: start;
+//   position: relative;
+//   z-index: 1;
+//   max-width: 50%;
+//   > div{
+//     width: 100%;
+//   }
+//   > div > a {
+//     z-index: 9;
+//     text-decoration: none;
+//     width: 100%;
+//     left: 0em;
+//     top: 0em;
+//     display: inline-block;
+//     transition: .35s box-shadow, .35s top, .35s left;
+//     position: relative;
+//     background: white;
+//     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+//     margin-bottom: 1em;
+//   }
+//   .content {
+//     padding: 1.6em 2vw;
+//     display: block;
+//   }
+//   &:hover{
+//     > div > a {
+//       top: -.1em;
+//       left: -.1em;
+//       transition: .2s box-shadow, .2s top, .2s left;
+//       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+//     }
+//   }
+//   aside {
+//     display: block;
+//     vertical-align: center;
+//     border-top: 1px solid #C41230;
+//   }
+//   figure{
+//     display: block;
+//     background-position: center;
+//     background-size: cover;
+//     width: 100%;
+//     height: 12em;
+//     transition: .4s background;
+//     padding-left: 0;
+//   }
+//   h2 {
+//     font-size: .95em;
+//     margin: 0;
+//     border-bottom: 1px solid #C41230;
+//     padding-bottom: .9em;
+//     margin-top: .6em;
+//     font-weight: 300;
+//     position: relative;
+//     &:after {
+//       content: " ";
+//       display: block;
+//       width: 2em;
+//       height: 2px;
+//       position: absolute;
+//       bottom: -2px;
+//       background: rgb(196, 18, 48);
+//     }
+//   }
+//   h3 {
+//     font-size: 1.2em;
+//     padding-top: .8em;
+//     margin-bottom: .4em;
+//     font-weight: 300;
+//   }
+//   p {
+//     font-size: .85em;
+//     margin-top: 1em;
+//   }
+// }
+//
+// .top-forty {
+//   a {
+//     display: inline-block;
+//     width: 33%;
+//     padding: 0.35em;
+//   }
+//
+//   .selected {
+//     background: #c41230;
+//     color: white;
+//     font-weight: 600;
+//   }
+// }
 </style>

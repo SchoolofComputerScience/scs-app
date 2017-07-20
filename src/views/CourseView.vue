@@ -96,57 +96,57 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-h2 {
-  margin-top: 1.6em;
-}
-
-p.body {
-  margin-bottom: 2.2em;
-}
-
-.units {
-  max-width: 6em;
-  > p:nth-child(2) {
-    word-wrap: break-word;
-    margin-top: 2em;
-    font-weight: 900;
-  }
-}
-
-.breadcrumbs {
-  margin-top: 1em;
-}
-
-.top-bar {
-  margin-top: 1.8em;
-  border-bottom: 1px dashed #ccc;
-  border-top: 1px solid #ccc;
-  span {
-    font-weight: 900;
-  }
-}
-
-.course-information {
-  display: flex;
-  margin-top: 2em;
-  flex-wrap: wrap;
-
-  > div {
-    margin-right: 3.5rem;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-
-  p {
-    margin-top: .8em;
-  }
-
-  .title {
-    text-transform: uppercase;
-    font-size: .8em;
-    border-bottom: 1px solid #ccc;
-  }
-}
+//
+// h2 {
+//   margin-top: 1.6em;
+// }
+//
+// p.body {
+//   margin-bottom: 2.2em;
+// }
+//
+// .units {
+//   max-width: 6em;
+//   > p:nth-child(2) {
+//     word-wrap: break-word;
+//     margin-top: 2em;
+//     font-weight: 900;
+//   }
+// }
+//
+// .breadcrumbs {
+//   margin-top: 1em;
+// }
+//
+// .top-bar {
+//   margin-top: 1.8em;
+//   border-bottom: 1px dashed #ccc;
+//   border-top: 1px solid #ccc;
+//   span {
+//     font-weight: 900;
+//   }
+// }
+//
+// .course-information {
+//   display: flex;
+//   margin-top: 2em;
+//   flex-wrap: wrap;
+//
+//   > div {
+//     margin-right: 3.5rem;
+//     &:last-child {
+//       margin-right: 0;
+//     }
+//   }
+//
+//   p {
+//     margin-top: .8em;
+//   }
+//
+//   .title {
+//     text-transform: uppercase;
+//     font-size: .8em;
+//     border-bottom: 1px solid #ccc;
+//   }
+// }
 </style>

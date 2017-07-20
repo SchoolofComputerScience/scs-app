@@ -1,4 +1,3 @@
-const browserSyncPlugin = require('browser-sync-webpack-plugin');
 const glob = require('glob')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
