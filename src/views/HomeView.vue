@@ -98,6 +98,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/mixins.scss';
+@import '../assets/scss/vars.scss';
+
+.card{
+  outline: 1px solid green;
+  margin: $base-line-height;
+}
 // .card-holder {
 //   display: flex;
 //   flex-wrap: row wrap;

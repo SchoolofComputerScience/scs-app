@@ -1,49 +1,45 @@
 <template>
-  <header class="main-header">
-    <div id="cont" class="logo">
-      <div>
-        <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
-      </div>
+  <header>
+    <div class="logo">
+      <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
     </div>
-
     <nav class="main-nav">
       <ul>
         <li class="item">
-          <router-link to="/" exact>Home</router-link>
+          <p><router-link to="/" exact>Home</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/directory">Directory</router-link>
+          <p><router-link to="/directory">Directory</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/research">Research</router-link>
+          <p><router-link to="/research">Research</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/corporate">Corporate</router-link>
+          <p><router-link to="/corporate">Corporate</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/courses">Courses</router-link>
+          <p><router-link to="/courses">Courses</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/programs">Programs</router-link>
+          <p><router-link to="/programs">Programs</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/alumni">Alumni</router-link>
+          <p><router-link to="/alumni">Alumni</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/outreach">Outreach</router-link>
+          <p><router-link to="/outreach">Outreach</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/donate">Donate</router-link>
+          <p><router-link to="/donate">Donate</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/news">News</router-link>
+          <p><router-link to="/news">News</router-link></p>
         </li>
         <li class="item">
-          <router-link to="/events">Events</router-link>
+          <p><router-link to="/events">Events</router-link></p>
         </li>
       </ul>
     </nav>
-
   </header>
 </template>
 
@@ -107,13 +103,24 @@ export default {
 
 <style lang="scss" scoped>
 
-img{
-  max-width: 200px;
-}
+@import '../assets/scss/vars.scss';
+@import '../assets/scss/mixins.scss';
+
 ul > li{
   display: inline-block;
 }
-// .main-header{
+
+.logo, .logo a {
+  height: $base-line-height * 2;
+  img{
+    max-height: $base-line-height * 2;
+  }
+}
+
+.main-nav{
+  height: $base-line-height * 2;
+}
+
 //   display: block;
 //   width: 100%;
 //   img {
