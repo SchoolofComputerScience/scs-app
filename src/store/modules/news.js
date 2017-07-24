@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import apollo from '../api'
+import apollo from '../../api'
 import gql from 'graphql-tag'
 
 export default {

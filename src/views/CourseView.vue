@@ -31,7 +31,7 @@
             <p class="title" v-if="course.instructors.length === 1">Instructor</p>
             <p class="title" v-if="course.instructors.length > 1">Instructors</p>
             <p v-for="instructor in course.instructors">
-              <router-link :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
+              <a href="javascript:void(0);" v-on:click="validatePerson(instructor.scid)">{{ instructor.firstName + " " + instructor.lastName }}</a>
             </p>
           </div>
 
@@ -65,6 +65,7 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
+import scidAPI from '../api_requests/scid'
 
 function fetchCourse(store) {
   return store.dispatch('FETCH_COURSE',  store.state.route.params.course)
@@ -86,6 +87,19 @@ export default {
     },
     course(){
       return this.$store.state.courses.course[this.$route.params.course]
+    }
+  },
+
+  methods: {
+    validatePerson(scid) {
+      scidAPI.find(scid).then((valid) => {
+        if (valid) {
+          router.push({ path: '/directory/' + scid});
+        }
+        else {
+          alert("Unfortunately, more information cannot be found about this instructor.");
+        }
+      });
     }
   },
 
