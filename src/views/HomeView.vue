@@ -102,7 +102,6 @@ export default {
 @import '../assets/scss/vars.scss';
 
 .card{
-  outline: 1px solid green;
   margin: $base-line-height;
 }
 // .card-holder {

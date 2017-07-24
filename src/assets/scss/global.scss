@@ -9,43 +9,25 @@
 // site
 
 html, body {
-  margin: 0;
-  padding: 0;
-  position: relative;
   background: $primary-grey;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   font-family: $font;
 }
 
-@each $breakpoint, $em in $breakpoints {
-  @media (min-width: $em) {
-    body:before {
-      content: 'Breakpoint "#{$breakpoint}" at #{$em} triggered.';
-      padding: 5px 10px;
-      border: 1px solid yellow - 20;
-      background: yellow;
-      position: absolute;
-      top: 0;
-    }
-  }
-}
-
-body{
+html{
   @include breakpoint(phone) {
     font-size: 1em;
   }
   @include breakpoint(tablet) {
-    font-size: 1.15em;
+    font-size: 1.125em;
   }
   @include breakpoint(laptop) {
     font-size: 1.2em;
   }
   @include breakpoint(desktop) {
-    font-size: 1.4em;
+    font-size: 1.35em;
   }
   @include breakpoint(full) {
-    font-size: 1.6em;
+    font-size: 1.5em;
   }
 }
 
@@ -58,88 +40,3 @@ body{
 .loading-enter, .loading-leave-active {
   opacity: 0;
 }
-
-// temp grid
-
-.baseline-grid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 1;
-  z-index: 2;
-  transition: opacity 0.2s ease-out;
-}
-
-.guide {
-  margin-bottom: $base-line-height;
-  &, &:before, &:after {
-    height: $base-line-height;
-    width: 100%;
-    outline: 1px solid turquoise;
-  }
-}
-
-// .heading-2 {
-//   @include type-setting(-1);
-//   font-weight: 400;
-//   text-transform: uppercase;
-//   margin: 0;
-//   letter-spacing: 4px;
-//   // color: recipe-color('gray');
-// }
-//
-// .heading-1 {
-//   @include type-setting(2);
-//   font-weight: 200;
-//   text-transform: uppercase;
-//   letter-spacing: 1px;
-//   margin: 1 * $base-line-height 0;
-// }
-//
-// .paragraph {
-//   @include type-setting(0);
-//   margin: 0 0 $base-line-height 0;
-// }
-//
-// .recipe-list {
-//   list-style-type: none;
-//   padding: 0;
-//   margin: 0;
-//
-//   &.meta {
-//     > .recipe-item {
-//       display: inline-block;
-//       padding-right: 2rem;
-//     }
-//   }
-// }
-//
-// .recipe-item {
-//   padding: 0 1rem;
-//
-//   &:first-child {
-//     padding-left: 0;
-//   }
-//
-//   > .recipe-value {
-//     @include type-setting(1);
-//     font-weight: bold;
-//   }
-//
-//   > .recipe-text {
-//     @include type-setting(-1);
-//   }
-//
-//   // & + & {
-//   //   border-left: 1px solid recipe-color('border');
-//   // }
-// }
-//
-// .recipe-stars {
-//   line-height: $base-line-height * 2;
-//   margin: $base-line-height * 1 0;
-//   font-size: type-scale(0);
-//   line-height: line-height(0) * 2;
-// }

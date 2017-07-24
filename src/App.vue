@@ -1,67 +1,5 @@
 <template>
   <main id="app" class="app-shell">
-    <div class="baseline-grid">
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-      <div class="guide"></div>
-    </div>
     <main-header class="main-header"></main-header>
     <main class="main-body">
       <transition name="loading" >
@@ -83,12 +21,6 @@ export default {
   components: {
     MainHeader,
     MainFooter,
-  },
-
-  computed: {
-    title () {
-      return this.$store.getters.title
-    },
   }
 }
 </script>
@@ -96,30 +28,27 @@ export default {
 <style lang="scss">
 @import './assets/scss/global';
 
-.main-body, .main-header, .main-footer{
-  // margin: $base-line-height auto;
-  // @include breakpoint(phone) {
-  //   outline:1px solid yellow;
-  //   width: 100%;
-  // }
-  // @include breakpoint(tablet) {
-  //   border: 1px solid orange;
-  // }
-  // @include breakpoint(laptop) {
-  //   border: 1px solid red;
-  // }
-  // @include breakpoint(desktop) {
-  //   border: 1px solid blue;
-  // }
-  // @include breakpoint(full) {
-  //   border: 1px solid green;
-  // }
-  max-width: 80%;
+.main-body{
+  margin: 0 auto;
+  padding: $base-line-height;
+  background: white;
 }
-// .body {
-//   position: relative;
-// }
-//
+
+.main-footer{
+  margin: 0 auto $base-line-height auto;
+  padding:$base-line-height;
+  // max-width: map-get($breakpoints, full);
+  background: white;
+}
+
+.main-header{
+  margin: $base-line-height auto;
+  padding: 0 $base-line-height;
+  // max-width: map-get($breakpoints, full);
+  margin-top: 0;
+  margin-bottom: $base-line-height * 2;
+  background: white;
+}
 // .view {
 //   margin: 0 auto;
 //   max-width: 62em;

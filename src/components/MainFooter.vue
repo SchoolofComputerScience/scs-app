@@ -1,23 +1,21 @@
 <template>
-  <div class="footer">
-    <footer>
-      <figure>
-        <a href="http://www.cmu.edu">
-          <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
-        </a>
-      </figure>
-      <div>
-        <a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a> |
-        <a href="http://www.cmu.edu/silicon-valley/" target="new">Silicon Valley Campus</a>
-      </div>
-      <div>
-        <br>
-        <p>School of Computer Science <br>5000 Forbes Avenue <br>Pittsburgh, PA 15213</p>
-        <p>2017</p>
-      </div>
-    </footer>
+  <footer>
+    <figure>
+      <a href="http://www.cmu.edu">
+        <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
+      </a>
+    </figure>
+    <div>
+      <a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a> |
+      <a href="http://www.cmu.edu/silicon-valley/" target="new">Silicon Valley Campus</a>
+    </div>
+    <div>
+      <br>
+      <p>School of Computer Science <br>5000 Forbes Avenue <br>Pittsburgh, PA 15213</p>
+      <p>2017</p>
+    </div>
     <div class="project-status"><b>pre-alpha</b> | to watch the progress or contribute visit our <a href="https://github.com/SchoolofComputerScience/scs-app">github</a>.</div>
-  </div>
+  </footer>
 </template>
 
 <script>

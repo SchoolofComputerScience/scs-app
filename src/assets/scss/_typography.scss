@@ -9,37 +9,39 @@ a {
   }
 }
 
-p {
-  font-feature-settings: 'kern', 'onum', 'liga';
-  // @include type-setting(0);
-  // margin: 1 * $base-line-height 0;
-}
-
 h1, h2, h3, h4, h5, h6 {
   color: $black;
   font-feature-settings: 'dlig', 'liga', 'lnum', 'kern';
   font-style: normal;
+  margin: 0;
+  padding: 0;
 }
 
-// h1 {
-//   @include type-setting(3);
-//   margin: 1 * $base-line-height 0;
-// }
-//
-// h2 {
-//   @include type-setting(2);
-//   margin: 1 * $base-line-height 0;
-// }
-//
-// h3 {
-//   @include type-setting(1);
-//   margin: 1 * $base-line-height 0;
-// }
-//
-// h4 {
-//   @include type-setting(-1);
-//   margin: 1 * $base-line-height 0;
-// }
+h1 {
+  @include type-setting(3);
+  padding: 0 0 $base-line-height 0;
+  font-weight: 900;
+}
+
+h2 {
+  @include type-setting(2);
+}
+
+h3 {
+  @include type-setting(1);
+  padding: 0 0 $base-line-height * .5 0;
+}
+
+h4, h5 {
+  @include type-setting(-1);
+  padding: 0 0 $base-line-height * .5 0;
+}
+
+p {
+  @include type-setting(0);
+  font-feature-settings: 'kern', 'onum', 'liga';
+  padding: 0 0 $base-line-height 0;
+}
 
 b, strong, .bold {
   font-weight: bold;
@@ -47,4 +49,12 @@ b, strong, .bold {
 
 em, i, .italic {
   font-style: italic;
+}
+
+hr{
+  background: $black;
+  border:0;
+  height: .1rem;
+  width: 100%;
+  margin: $base-line-height 0;
 }
