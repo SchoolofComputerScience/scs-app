@@ -61,7 +61,7 @@
             </p>
           </section>
 
-          <section v-if="member.research_areas" class="research directory-information">
+          <section v-if="member.research_areas" class="research">
             <p class="title">Research Areas</p>
             <p>
               <a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
@@ -353,22 +353,9 @@ export default {
 }
 
 .research{
-  button{
-    font-size: .7em;
-    padding: .5em 1.2em;
-    text-transform: uppercase;
-  }
-  #info{
-    transition:height 0.3s ease-out;
-  }
-  p:nth-child(2) > span > em{
-    color: #ccc;
-    padding: 0 .8em;
-  }
-  p:nth-child(2) > span:last-child{
-    em{
-      display: none;
-    }
+  a {
+    display: inline-block;
+    margin-right: 2em;
   }
 }
 
