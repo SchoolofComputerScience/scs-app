@@ -20,7 +20,7 @@ export default {
 
   components: {
     MainHeader,
-    MainFooter,
+    MainFooter
   }
 }
 </script>
@@ -31,23 +31,21 @@ export default {
 .main-body{
   margin: 0 auto;
   padding: $base-line-height;
-  background: white;
 }
 
 .main-footer{
   margin: 0 auto $base-line-height auto;
   padding:$base-line-height;
-  // max-width: map-get($breakpoints, full);
   background: white;
 }
 
 .main-header{
   margin: $base-line-height auto;
   padding: 0 $base-line-height;
-  // max-width: map-get($breakpoints, full);
   margin-top: 0;
   margin-bottom: $base-line-height * 2;
   background: white;
+  box-shadow: $box-shadow-inert;
 }
 // .view {
 //   margin: 0 auto;
@@ -72,4 +70,48 @@ export default {
 //     font-size: 18px;
 //   }
 // }
+
+
+//
+
+.slideout-menu {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: 256px;
+  height: 100vh;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 0;
+  display: none;
+  background-color: #1D1F20;
+  color: white;
+}
+
+.slideout-menu-left {
+  left: 0;
+}
+
+.slideout-menu-right {
+  right: 0;
+}
+
+.slideout-panel {
+  background-color: #4B5;
+  color: white;
+  position: relative;
+  z-index: 1;
+  will-change: transform;
+  min-height: 100vh;
+}
+
+.slideout-open,
+.slideout-open body,
+.slideout-open .slideout-panel {
+  overflow: hidden;
+}
+
+.slideout-open .slideout-menu {
+  display: block;
+}
 </style>

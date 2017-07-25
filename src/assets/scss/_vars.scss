@@ -11,7 +11,8 @@ $breakpoints: (
   tablet: 768px,
   laptop: 1024px,
   desktop: 1280px,
-  full: 1440px
+  full: 1440px,
+  max: 1680px
 );
 
 // colors
@@ -51,3 +52,8 @@ $type-settings: (
     line-height: $base-line-height * 2
   ),
 );
+
+// shadows
+
+$box-shadow-inert: 0 .1rem .15rem rgba(0,0,0,.2);
+$box-shadow-hover: 0 .2rem .5rem rgba(0,0,0,.3);

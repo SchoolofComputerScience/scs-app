@@ -14,19 +14,19 @@ html, body {
 }
 
 html{
-  @include breakpoint(phone) {
+  @include breakpoint-min(phone) {
     font-size: 1em;
   }
-  @include breakpoint(tablet) {
+  @include breakpoint-min(tablet) {
     font-size: 1.125em;
   }
-  @include breakpoint(laptop) {
+  @include breakpoint-min(laptop) {
     font-size: 1.2em;
   }
-  @include breakpoint(desktop) {
+  @include breakpoint-min(desktop) {
     font-size: 1.35em;
   }
-  @include breakpoint(full) {
+  @include breakpoint-min(full) {
     font-size: 1.5em;
   }
 }
