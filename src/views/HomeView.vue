@@ -101,9 +101,6 @@ export default {
 @import '../assets/scss/mixins.scss';
 @import '../assets/scss/vars.scss';
 
-.card{
-  margin: $base-line-height;
-}
 // .card-holder {
 //   display: flex;
 //   flex-wrap: row wrap;

@@ -10,10 +10,10 @@
           <router-link to="/" exact>Home</router-link>
         </li>
         <li>
-          <router-link to="/research">Research</router-link>
+          <router-link to="/directory">Directory</router-link>
         </li>
         <li>
-          <router-link to="/directory">Directory</router-link>
+          <router-link to="/research">Research</router-link>
         </li>
         <nav-drop navlink="/corporate" navtitle="Corporate">
           <li><router-link to="/alumni">test</router-link></li>
