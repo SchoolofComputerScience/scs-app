@@ -14,10 +14,6 @@ import Courses from '../components/Courses.vue'
 import DepartmentFilter from '../components/DepartmentFilter.vue'
 import { router } from '../app'
 
-function fetchCourses(store) {
-  return store.dispatch('FETCH_COURSE_LIST', store.state.route.semester)
-}
-
 export default {
   name: 'courses-list-view',
 
@@ -36,16 +32,14 @@ export default {
     }
   },
 
-  preFetch: fetchCourses,
+  asyncData ({ store, route: { params: {semester}}} ) {
+    return store.dispatch('FETCH_COURSE_LIST', { semester })
+  },
 
   computed: {
     loaded() {
       return this.$store.state.courses.lists[this.semester] ? true : false
     }
-  },
-
-  beforeMount () {
-    fetchCourses(this.$store)
   },
 
   methods: {

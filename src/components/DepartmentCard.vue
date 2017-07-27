@@ -1,11 +1,23 @@
 <template>
   <div class="card">
-    <router-link :to="'/departments/csd'">
+    <router-link :to="'/departments/' + departmentData.uid">
       <div>
-        <h1>(CSD)</h1>
-        <h2>Computer Science</h2>
-        <p>Lead in computer science research and education that has real-world impact.</p>
+        <div class="circle image" :style="{ 'background-image': 'url(' + departmentData.logo + ')' }"></div>
+        <h2>{{departmentData.name}}</h2>
+        <p>{{departmentData.short_description}}</p>
       </div>
     </router-link>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'department-card',
+  props: ['departmentData']
+}
+</script>
+
+<style lang="scss" scoped>
+@import '../assets/scss/circle.scss';
+
+</style>

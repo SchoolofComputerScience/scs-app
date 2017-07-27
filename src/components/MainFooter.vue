@@ -35,11 +35,14 @@ export default {
   b{
     color: $red;
   }
+  > p {
+    @include type-setting(-1)
+  }
   img {
     margin: 0;
     margin-top: $base-line-height;
     padding-bottom: 0;
-    width: 16em;
+    width: 12em;
     left: -2px;
     position: relative;
   }

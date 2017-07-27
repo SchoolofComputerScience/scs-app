@@ -3,7 +3,7 @@
     <li v-for="person in directory" class="card">
       <router-link :to="'/directory/' + person.scid">
         <div class="image" :style="{ 'background-image': 'url(' + person.image_url + ')' }"></div>
-        <p class="name">{{ person.full_name }}</p>
+        <p class="name">{{ person.display_name }}</p>
         <p class="title">{{person.position}}</p>
       </router-link>
     </li>
@@ -14,22 +14,15 @@
 import Vue from 'vue'
 import DirectoryListItem from '../components/DirectoryListItem.vue'
 
-
-function fetchDirectory(store) {
-  store.dispatch('GET_DIRECTORY', store.state.route.params.department);
-}
-
 export default {
   name: 'department-directory',
-
-  preFetch: fetchDirectory,
 
   components: {
     DirectoryListItem
   },
 
-  beforeMount () {
-    fetchDirectory(this.$store);
+  asyncData ({ store, route: { params: { department }}} ) {
+    return store.dispatch('GET_DIRECTORY', { department });
   },
 
   computed: {
@@ -59,7 +52,6 @@ export default {
           }
         }
       }
-
       return filtered;
     }
   }

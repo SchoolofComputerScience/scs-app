@@ -1,6 +1,7 @@
 <template>
   <section class="department-view">
-    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
+    <h1>department</h1>
+    <!-- <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded" >
       <div>
         <figure class="department-header" :style="{ 'background-image': 'url(' + department.mainimg + ')' }"></figure>
@@ -32,53 +33,53 @@
           <router-link class="btn" :to="'/courses/'">View Full {{this.$route.params.department | upc}} Course List</router-link>
         </div>
       </div>
-    </transition>
+    </transition> -->
   </section>
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue'
-import { router } from '../app'
-import CourseListView from '../views/CourseListView.vue'
-import DepartmentDirectory from '../components/DepartmentDirectory.vue'
-import NewsList from '../components/NewsList.vue'
-import EventsList from '../components/EventsList.vue'
-import Courses from '../components/Courses.vue'
-import Programs from '../components/Programs.vue'
+// import Spinner from '../components/Spinner.vue'
+// import { router } from '../app'
+// import CourseListView from '../views/CourseListView.vue'
+// import DepartmentDirectory from '../components/DepartmentDirectory.vue'
+// import NewsList from '../components/NewsList.vue'
+// import EventsList from '../components/EventsList.vue'
+// import Courses from '../components/Courses.vue'
+// import Programs from '../components/Programs.vue'
 
-function fetchDepartment(store) {
-  return store.dispatch('GET_DEPARTMENT_LIST')
-    .then(() => {
-      let departmentArray = ['compbio', 'csd',  'hcii', 'lti', 'mld', 'ri', 'isr', 'deans_office', 'ai']
-      /*
-        temp dep array
-        WIP: ping the collection with department codes to verify department
-        let isDepartment = store.state.department.list.some((n) => n._id === store.state.route.params.department)
-      */
-      let isDepartment = departmentArray.some((n) => n == store.state.route.params.department)
-      isDepartment
-        ? getDeparmentData(store)
-        : router.push('/')
-    })
-}
+// function fetchDepartment(store) {
+//   return store.dispatch('GET_DEPARTMENT_LIST')
+//     .then(() => {
+//       let departmentArray = ['compbio', 'csd',  'hcii', 'lti', 'mld', 'ri', 'isr', 'deans_office', 'ai']
+//       /*
+//         temp dep array
+//         WIP: ping the collection with department codes to verify department
+//         let isDepartment = store.state.department.list.some((n) => n._id === store.state.route.params.department)
+//       */
+//       let isDepartment = departmentArray.some((n) => n == store.state.route.params.department)
+//       isDepartment
+//         ? getDeparmentData(store)
+//         : router.push('/')
+//     })
+// }
 
-function getDeparmentData(store){
-  return store.dispatch('GET_DEPARTMENT', store.state.route.params.department)
-}
+// function getDeparmentData(store){
+//   return store.dispatch('GET_DEPARTMENT', store.state.route.params.department)
+// }
 
 export default {
   name: 'department-view',
 
-  preFetch: fetchDepartment,
+  // preFetch: fetchDepartment,
 
   components: {
-    Spinner,
-    CourseListView,
-    DepartmentDirectory,
-    Courses,
-    Programs,
-    NewsList,
-    EventsList
+    // Spinner,
+    // CourseListView,
+    // DepartmentDirectory,
+    // Courses,
+    // Programs,
+    // NewsList,
+    // EventsList
   },
 
   data () {
@@ -96,9 +97,9 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchDepartment(this.$store)
-  }
+  // beforeMount () {
+  //   fetchDepartment(this.$store)
+  // }
 
 }
 </script>

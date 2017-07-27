@@ -33,7 +33,7 @@ export default {
                   area_id
                   title
                 }
-                full_name
+                display_name
                 phone_full_call
                 phone_full
                 scid

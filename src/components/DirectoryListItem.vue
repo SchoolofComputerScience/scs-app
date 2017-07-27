@@ -5,11 +5,9 @@
         <div class="dep-icons">
           <span v-for="dep in item.positions" :class="dep.department" v-if="!'qatar'"></span>
         </div>
-
         <div class="image" v-if="item.image_url" :style="{ 'background-image': 'url(' + item.image_url + ')' }"></div>
-
         <div>
-          <p class="name">{{ item.full_name }}</p>
+          <p class="name">{{ item.display_name }}</p>
           <p class="title">{{ item.position}}</p>
           <p class="title"><span>{{item.scs_relationship_desc}}</span></p>
         </div>

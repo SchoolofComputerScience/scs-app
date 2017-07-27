@@ -6,6 +6,7 @@
 @import 'mixins';
 @import 'typography';
 @import 'card';
+@import 'circle';
 
 // site
 
@@ -40,4 +41,14 @@ html{
 
 .loading-enter, .loading-leave-active {
   opacity: 0;
+}
+
+.page-transition-enter, .page-transition-active{
+  padding-top: 10px;
+  transition: padding-top 1s ease;
+}
+
+.page-transition-leave, .page-transition-leave-active{
+  padding-top: 20px;
+  transition: padding-top 1s ease;
 }

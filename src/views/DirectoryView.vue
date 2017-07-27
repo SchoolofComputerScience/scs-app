@@ -42,14 +42,8 @@ const renderers = {
   person: DirectoryListItem
 }
 
-function fetchDirectory(store) {
-  store.dispatch('GET_DIRECTORY', store.state.route.params.department);
-}
-
 export default {
   name: 'directory-list',
-
-  preFetch: fetchDirectory,
 
   components: {
     DirectoryListItem,
@@ -80,9 +74,12 @@ export default {
     }
   },
 
+  asyncData ({ store, route: {params: {department}}} ) {
+    return store.dispatch('GET_DIRECTORY', { department })
+  },
+
   beforeMount () {
     this.query = this.$store.state.directory.query
-    fetchDirectory(this.$store)
     this.departmentFilter()
   },
 

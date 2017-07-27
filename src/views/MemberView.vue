@@ -9,7 +9,7 @@
             <div class="image" v-if="member.image_url" :style="{ 'background-image': 'url(' + member.image_url + ')' }">
             </div>
             <div>
-              <h1 class="full_name">{{member.full_name}}</h1>
+              <h1 class="full_name">{{member.display_name}}</h1>
               <p class="full_title">{{member.scs_relationship_desc}}</p>
               <p v-if="member.homepage_url" class="homepage"><a :href="member.homepage_url">{{member.homepage_url}}</a></p>
             </div>
