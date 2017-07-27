@@ -11,7 +11,7 @@ export default {
         : apollo.query({
           query: gql`
             {
-              directory(scid:"${fields}"){
+              members(scid:"${fields}"){
                 display_email
                 biography
                 family_name
@@ -64,7 +64,7 @@ export default {
                   title
                   startDate
                 }
-                gsProfile{
+                profile{
                   gs_affiliation
                   gs_areas
                   gs_citation_count
@@ -83,7 +83,7 @@ export default {
                     _id
                   }
                 }
-                gsPublication{
+                publications{
                   _id
                   title
                   pub_year
@@ -103,8 +103,8 @@ export default {
           }
         }).then((res,err) => {
           if (res) {
-            commit('SET_MEMBER', res.data.directory)
-            return res.data.directory
+            commit('SET_MEMBER', res.data.members)
+            return res.data.members
           } else {
             Promise.reject(":err :directory graphql failed")
           }

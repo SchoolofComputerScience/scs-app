@@ -16,7 +16,7 @@ export default {
         : apollo.query({
         query: gql`
           {
-            courseYearAggregate{
+            courseIntAgg(field:"year") {
               _id
             }
           }
@@ -39,7 +39,7 @@ export default {
         : apollo.query({
           query: gql`
             {
-              courseDepartmentAggregate{
+              courseStringAgg(field:"department") {
                 _id
               }
               courses(semesterCode:"${fields}"){
@@ -131,7 +131,7 @@ export default {
   },
   mutations: {
     SET_COURSE_YEARS: (state, data) => {
-      state.years = data.courseYearAggregate;
+      state.years = data.courseIntAgg;
     },
     SET_COURSE_LIST: (state, data) => {
       Vue.set(state.lists, data.fields, data.data.courses)
