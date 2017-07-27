@@ -15,7 +15,7 @@ export default {
         : apollo.query({
           query: gql`
             {
-            	research_areas {
+            	researchAreas {
                 area_id
                 title
                 members
@@ -39,7 +39,7 @@ export default {
   },
   mutations: {
     SET_RESEARCH_AREAS: (state, data) => {
-      state.list = data.research_areas;
+      state.list = data.researchAreas;
     },
     SET_SELECTED_RESEARCH_AREA: (state, researchArea) => {
       state.area_id = researchArea.area_id;

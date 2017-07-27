@@ -44,7 +44,7 @@ export default {
         : apollo.query({
           query: gql`
             {
-              directoryAggregate(field:"department"){
+              courseStringAgg(field:"department"){
                 _id
               }
             }
@@ -92,7 +92,7 @@ export default {
       Vue.set(state.department, data.department.uid, data.department)
     },
     SET_DEPARTMENT_LIST: (state, data) => {
-      state.list = data.directoryAggregate
+      state.list = data.courseStringAgg
     },
     SET_SCS_DEPARTMENT_LIST: (state, data) => {
       state.scs_list = data.departments;

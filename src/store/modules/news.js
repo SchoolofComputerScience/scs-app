@@ -68,7 +68,7 @@ export default {
         : apollo.query({
           query: gql`
             {
-              article(uid:"${fields}") {
+              newsArticle(uid:"${fields}") {
                 title
                 date
                 uid
@@ -122,7 +122,7 @@ export default {
   },
   mutations: {
     SET_NEWS_ARTICLE: (state, data) => {
-      Vue.set(state.articles, data.article[0].uid, data.article[0])
+      Vue.set(state.articles, data.newsArticle[0].uid, data.newsArticle[0])
     },
     SET_NEWS_LIST: (state, data) => {
       if(data.error){

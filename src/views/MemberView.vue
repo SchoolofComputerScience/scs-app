@@ -83,11 +83,11 @@
           </section>
 
           <section v-if="gp" class="publications">
-            <p class="title">Cited Publications <span class="amount">(Amount: {{member.gsProfile[0].gs_citation_count}})</span>
+            <p class="title">Cited Publications <span class="amount">(Amount: {{member.profile[0].gs_citation_count}})</span>
             </p>
-            <div class="list" v-for="pub in member.gsProfile[0].pub_year_agg">
+            <div class="list" v-for="pub in member.profile[0].pub_year_agg">
               <h4>{{pub._id}}</h4>
-              <div v-for="art in member.gsPublication">
+              <div v-for="art in member.publications">
                 <div v-if="art.pub_year == pub._id">
                   <p><router-link :to="'/publication/' + art._id">{{art.title}}</router-link></p>
                 </div>
@@ -141,10 +141,10 @@ export default {
       return this.$store.state.member[this.$route.params.name]
     },
     gs(){
-      return this.$store.state.member[this.$route.params.name].gsProfile.length
+      return this.$store.state.member[this.$route.params.name].profile.length
     },
     gp(){
-      return this.$store.state.member[this.$route.params.name].gsPublication.length
+      return this.$store.state.member[this.$route.params.name].publications.length
     },
     news(){
       return this.$store.state.member[this.$route.params.name].news.length
