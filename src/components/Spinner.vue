@@ -15,42 +15,43 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .spinner {
-//   width: 3em;
-//   position: absolute;
-//   display: inline;
-//   top: 3em;
-// }
-//
-// .spinner > div{
-//   width: 6px;
-//   height: 24px;
-//   margin-right: 2px;
-//   background: #C41230;
-//   display: inline-block;
-//   -webkit-animation: bouncedelay 1s infinite ease-in-out both;
-//   animation: bouncedelay 1s infinite ease-in-out both;
-// }
-//
-// .spinner{
-//   .b1{
-//     -webkit-animation-delay: -0.32s;
-//     animation-delay: -0.32s;
-//   }
-//   .b2{
-//     -webkit-animation-delay: -0.16s;
-//     animation-delay: -0.16s;
-//   }
-// }
-//
-// @keyframes bouncedelay{
-//   0%, 80%, 100%{
-//     -webkit-transform: scale(0.4);
-//     transform: scale(0.4);
-//   }
-//   40%{
-//     -webkit-transform: scale(1);
-//     transform: scale(1);
-//   }
-// }
+@import '../assets/scss/vars.scss';
+
+.spinner {
+  margin: $base-line-height 0;
+  text-align: center;
+}
+
+.spinner div {
+  width: 26px;
+  height: 26px;
+  background-color: $red;
+  border-radius: 100%;
+  display: inline-block;
+  animation: sk-bouncedelay 1.7s infinite ease-in-out both;
+  margin-right: 8px;
+}
+
+.spinner .b1 {
+  animation-delay: -0.60s;
+}
+
+.spinner .b2 {
+  animation-delay: -0.40s;
+}
+
+.spinner .b3 {
+  animation-delay: -0.20s;
+}
+
+@keyframes sk-bouncedelay {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  } 40% {
+    transform: scale(1.0);
+    opacity: 1;
+  }
+}
+
 </style>

@@ -123,12 +123,12 @@ export default {
   border-top: 1px solid $primary-grey;
   box-shadow: $box-shadow-inert;
 
-  a{
+  a {
     @include type-setting(0);
     color: $black;
     display: block;
     padding: $base-line-height / 2 0;
-    &:hover{
+    &:hover, &.router-link-active {
       color: $red;
     }
   }
@@ -174,6 +174,10 @@ export default {
       transition: all .2s;
       z-index: 100;
       top: $base-line-height;
+    }
+    a.router-link-active{
+      color: white;
+      font-weight: 900;
     }
     > ul {
       z-index: 10;

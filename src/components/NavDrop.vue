@@ -30,7 +30,7 @@ a{
   color: $black;
   display: block;
   padding: $base-line-height / 2 0;
-  &:hover{
+  &:hover, &.router-link-active{
     color: $red;
   }
 }
@@ -111,6 +111,10 @@ a{
     display: block;
     &:hover{
       color: white;
+    }
+    &.router-link-active{
+      color: white;
+      font-weight: 900;
     }
   }
 }
