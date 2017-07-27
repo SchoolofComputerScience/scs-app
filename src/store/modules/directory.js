@@ -17,7 +17,7 @@ export default {
         : apollo.query({
           query: gql`
             {
-              directory {
+              members {
                 _id
                 full_name
                 hr_relationship_class
@@ -69,7 +69,7 @@ export default {
     SET_DIRECTORY: (state, data) => {
 
       let updatedList = []
-      data.directory.forEach(function(item){
+      data.members.forEach(function(item){
 
         let position = ''
         let departments = []
