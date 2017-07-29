@@ -25,6 +25,7 @@ h1 {
 
 h2 {
   @include type-setting(2);
+  padding: 0 0 $base-line-height * .5 0;
 }
 
 h3 {
@@ -35,6 +36,11 @@ h3 {
 h4, h5 {
   @include type-setting(-1);
   padding: 0 0 $base-line-height * .5 0;
+}
+
+h6{
+  @include type-setting(4);
+  padding-bottom: $base-line-height;
 }
 
 p {

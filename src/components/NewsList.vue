@@ -36,9 +36,7 @@ export default {
             break;
           }
         }
-
       }
-
       return dep_news;
     }
   },

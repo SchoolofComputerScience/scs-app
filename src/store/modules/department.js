@@ -23,6 +23,24 @@ export default {
                 mainimg
                 logo
                 url
+                # course_count(semesterCode: "F17") {
+                #   _id
+                # }
+                member_count {
+                  _id
+                }
+                programs_count{
+                  _id
+                }
+                news(limit:1) {
+                  title
+                  date
+                  uid
+                  image
+                }
+                events(limit:2) {
+                  id
+                }
               }
             }
           `
