@@ -12,7 +12,7 @@
     <div class="card-container">
       <div class="card-content-top">
         <router-link :to="'/courses'" class="card">
-          <h6>?</h6>
+          <h6>0</h6>
           <h4>Courses</h4>
         </router-link>
         <router-link :to="'/directory/department/' + departmentData.uid" class="card">
@@ -30,7 +30,8 @@
           :to="'/news/' + departmentData.news[0].uid"
           :style="{ 'background-image': 'url(' + departmentData.news[0].image + ')' }"
           class="news-card card">
-          <p v-if="departmentData.news[0]">{{departmentData.news[0].title}}</p>
+          <h4>{{timeFix(departmentData.news[0].date)}}</h4>
+          <h3 v-if="departmentData.news[0]">{{departmentData.news[0].title}}</h3>
         </router-link>
         <div class="events-card card">
           <router-link :to="'/events'" v-if="departmentData.events[0]">{{departmentData.events[0].id}}</router-link>
@@ -42,16 +43,23 @@
 </template>
 
 <script>
+import format from 'date-fns/format'
+
 export default {
   name: 'department-card',
-  props: ['departmentData']
+  props: ['departmentData'],
+
+  methods: {
+    timeFix (arg) {
+      return format(arg, 'MMMM DD, YYYY')
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/vars.scss';
 @import '../assets/scss/circle.scss';
-
 
 .card{
   overflow: hidden;
@@ -60,9 +68,43 @@ export default {
 .news-card{
   background-position: center;
   background-size: cover;
-  p{
+  position: relative;
+  h3, h4{
+    z-index: 100;
+    opacity: .8;
     color: white;
+    transition: .2s;
   }
+  &:after{
+    background: rgba(255,255,255,.9);
+    width: 100%;
+    height: 100%;
+    content: ' ';
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: .2s opacity;
+    opacity: 0;
+    z-index: -10;
+  }
+  &:hover{
+    h3, h4{
+      color: black;
+      transition: .2s opacity;
+      opacity: 1;
+    }
+  }
+  &:hover:after{
+    transition: .2s;
+    opacity: 1;
+  }
+}
+
+.card-content-bottom .card{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .department-card{

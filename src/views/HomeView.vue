@@ -1,7 +1,7 @@
 <template>
   <transition name="page-transition" mode="out-in" appear>
     <section class="page">
-      <department-card v-for="department in departments" :departmentData="department" :key="department.uid"></department-card>
+      <department-card v-for="department in departments" v-if="department.uid != 'deans_office'" :departmentData="department" :key="department.uid"></department-card>
     </section>
   </transition>
 </template>
