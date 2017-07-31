@@ -23,9 +23,9 @@ export default {
                 mainimg
                 logo
                 url
-                # course_count(semesterCode: "F17") {
-                #   _id
-                # }
+                course_count(semesterCode: "F17") {
+                  _id
+                }
                 member_count {
                   _id
                 }
@@ -39,7 +39,12 @@ export default {
                   image
                 }
                 events(limit:2) {
-                  id
+                  uid
+                  talkTitle
+                  type
+                  title
+                  speakerName
+                  startDate
                 }
               }
             }

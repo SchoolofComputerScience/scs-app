@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div>
-      <router-link  :to="'/news/' + data.uid">
+      <router-link :to="'/news/' + data.uid">
         <figure :style="{ 'background-image': 'url(' + data.image + ')' }"></figure>
         <div class="content">
           <h2>{{data.date | moment("dddd, MMMM Do YYYY")}}</h2>

@@ -24,6 +24,7 @@
     "dotenv": "^4.0.0",
     "es6-promise": "^4.1.1",
     "express": "^4.15.3",
+    "express-robots": "^0.1.6",
     "graphql-tag": "^2.4.2",
     "helmet": "^3.6.1",
     "isomorphic-fetch": "^2.2.1",

@@ -2,14 +2,14 @@
   <section class="page">
     <div class="directory-list">
       <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-      <div class="filter-toggle" v-if="loaded">
+    <div class="filter-toggle" v-if="loaded">
 
         <form class="search" v-on:submit.prevent>
           <input class="filter-input" v-model="query" :placeholder="placeholder" v-on:submit.prevent name="query" autocomplete="off">
           <button :class="clearToggle" class="clearQuery" v-on:click="clearQuery"></button>
         </form>
 
-        <div class="filter-title" :class="depTitle">
+          <!-- <div class="filter-title" :class="depTitle">
           <button class="Student" @click="titleFilter('Student')" name="student">Student</button>
           <button class="Faculty" @click="titleFilter('Faculty')" name="faculty">Faculty</button>
           <button class="Staff" @click="titleFilter('Staff')" name="staff">Staff</button>
@@ -17,7 +17,7 @@
 
         <DepartmentFilter :route_link="route_link" :types="scs_department_types" :excluded_departments="excluded_departments"></DepartmentFilter>
 
-        <div class="count">showing : {{ directoryShown}} / {{directoryLength}}</div>
+        <div class="count">showing : {{ directoryShown}} / {{directoryLength}}</div>-->
       </div>
 
       <VirtualScroller v-if="loaded" class="scroller card-holder" :items="directory" item-height="64" main-tag="section" content-tag="ul" page-mode>
@@ -40,6 +40,10 @@ import Spinner from '../components/Spinner.vue'
 
 const renderers = {
   person: DirectoryListItem
+}
+
+function fetchDirectory(store) {
+  store.dispatch('GET_DIRECTORY', store.state.route.params.department);
 }
 
 export default {
@@ -74,12 +78,9 @@ export default {
     }
   },
 
-  asyncData ({ store, route: {params: {department}}} ) {
-    return store.dispatch('GET_DIRECTORY', { department })
-  },
-
   beforeMount () {
     this.query = this.$store.state.directory.query
+    fetchDirectory(this.$store)
     this.departmentFilter()
   },
 
@@ -190,7 +191,7 @@ export default {
 
       if(this.query !== '') {
         for (var i = 0; i < titleFilter.length; ++i) {
-          let normalised = titleFilter[i].full_name.toString().toLowerCase();
+          let normalised = titleFilter[i].display_name.toString().toLowerCase();
           if (normalised.indexOf(this.query.toLowerCase()) > -1) {
             textFilter.push(titleFilter[i])
           }
@@ -209,10 +210,10 @@ export default {
 </script>
 
 <style lang="scss">
-// .items{
-//   display: flex;
-//   flex-wrap: wrap;
-// }
+.items{
+  display: flex;
+  flex-wrap: wrap;
+}
 // .item-container{
 //   min-height: 16em;
 // }
@@ -231,19 +232,19 @@ export default {
 //   overflow: hidden;
 // }
 //
-// .resize-observer{
-//   position: absolute;
-//   top: 0;
-//   left: 0;
-//   z-index: -1;
-//   width: 100%;
-//   height: 100%;
-//   border: none;
-//   background-color: transparent;
-//   pointer-events: none;
-//   display: block;
-//   overflow: hidden;
-// }
+.resize-observer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  pointer-events: none;
+  display: block;
+  overflow: hidden;
+}
 //
 // .card-holder {
 //   display: flex;
@@ -275,40 +276,40 @@ export default {
 //   margin-top: 2.2em;
 // }
 //
-// .filter-input{
-//   border: none;
-//   border-left: .1em solid #C41230;
-//   background: white;
-//   font-size: 1.5em;
-//   font-weight: 300;
-//   padding-bottom: .4em;
-//   margin-top: .5em;
-//   outline: none;
-//   padding: .5em .2em .5em 1.2em;
-//   background: #efefef;
-//   transition: border-left .1s, background .1s;
-//   width: 100%;
-//   &:focus{
-//     border-left: .2em solid #C41230;
-//     background: #f8f8f8;
-//     padding-left: .4em
-//   }
-// }
+.filter-input{
+  border: none;
+  border-left: .1em solid #C41230;
+  background: white;
+  font-size: 1.5em;
+  font-weight: 300;
+  padding-bottom: .4em;
+  margin-top: .5em;
+  outline: none;
+  padding: .5em .2em .5em 1.2em;
+  background: #efefef;
+  transition: border-left .1s, background .1s;
+  width: 100%;
+  &:focus{
+    border-left: .2em solid #C41230;
+    background: #f8f8f8;
+    padding-left: .4em
+  }
+}
 //
-// .filter-input::placeholder{
-//   font-weight:300;
-//   color: #aaa;
-//   font-style: italic;
-// }
-//
-// .main .filter-input{
-//   margin-top: 0;
-// }
-//
-// .main.filter{
-//   border: 0;
-//   border-bottom: 1px solid #e0e0e0;
-// }
+.filter-input::placeholder{
+  font-weight:300;
+  color: #aaa;
+  font-style: italic;
+}
+
+.main .filter-input{
+  margin-top: 0;
+}
+
+.main.filter{
+  border: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
 // .filter-title {
 //   width: 38%;
 //   display: inline-block;
@@ -344,42 +345,42 @@ export default {
 //   }
 // }
 //
-// form.search {
-//   width: 58%;
-//   margin-right: 2%;
-//   display: inline-block;
-//   position: relative;
-//   button.clearQuery{
-//     position: absolute;
-//     top: 0.1em;
-//     right: 0;
-//     bottom: 0;
-//     width: 5em;
-//     margin-top: 1em;
-//     background: #C41230;
-//     border: 0;
-//     outline: 0;
-//     cursor: pointer;
-//     &:after{
-//       content: '+';
-//       display: block;
-//       color: white;
-//       font-size: 2.8em;
-//       line-height: 0;
-//       transform: rotate(-45deg);
-//     }
-//     &.hide{
-//       transition: .1s all;
-//       opacity: 0;
-//       width: 1em;
-//     }
-//     &.active{
-//       transition: .1s all;
-//       opacity: 1;
-//       width: 5em;
-//     }
-//   }
-// }
+form.search {
+  width: 58%;
+  margin-right: 2%;
+  display: inline-block;
+  position: relative;
+  button.clearQuery{
+    position: absolute;
+    top: 0.1em;
+    right: 0;
+    bottom: 0;
+    width: 5em;
+    margin-top: 1em;
+    background: #C41230;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    &:after{
+      content: '+';
+      display: block;
+      color: white;
+      font-size: 2.8em;
+      line-height: 0;
+      transform: rotate(-45deg);
+    }
+    &.hide{
+      transition: .1s all;
+      opacity: 0;
+      width: 1em;
+    }
+    &.active{
+      transition: .1s all;
+      opacity: 1;
+      width: 5em;
+    }
+  }
+}
 // </style>
 //
 // <style lang="scss">
