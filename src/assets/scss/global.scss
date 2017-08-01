@@ -7,6 +7,7 @@
 @import 'typography';
 @import 'card';
 @import 'circle';
+@import 'button';
 
 // site
 
@@ -35,20 +36,38 @@ html{
 
 // animations
 
-.loading-enter-active, .loading-leave-active {
-  transition: opacity 0.2s ease;
+.fade-enter-active, .fade-leave-active {
+  transition-property: opacity;
+  transition-duration: .15s;
 }
 
-.loading-enter, .loading-leave-active {
-  opacity: 0;
+.fade-enter-active {
+  transition-delay: .15s;
 }
 
-.page-transition-enter, .page-transition-active{
-  padding-top: 10px;
-  transition: padding-top 1s ease;
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 
-.page-transition-leave, .page-transition-leave-active{
-  padding-top: 20px;
-  transition: padding-top 1s ease;
+// container Restraints
+
+.content-page{
+  padding: $base-line-height;
+  &:hover{
+    top: 0;
+    left: 0;
+    box-shadow: $box-shadow-inert;
+  }
+  @include breakpoint-min(desktop) {
+    padding: $base-line-height * 2;
+    margin: $base-line-height auto;
+    max-width: 1440px;
+  }
+}
+
+.display-page{
+  @include breakpoint-min(desktop) {
+    margin: $base-line-height auto;
+    max-width: 1440px;
+  }
 }

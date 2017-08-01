@@ -1,18 +1,14 @@
 <template>
   <div class="courses-view">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <transition name="fade" mode="out-in" v-if="loaded" >
-      <article>
-
-        <h1>Course Listings</h1>
-        <p>The Carnegie Mellon School of Computer Science is recognized around the world as a leader in all facets of computer science and robotics education.</p>
-        <li class="current">
-          <router-link class="btn" :to="'/courses/M17'">Summer 17</router-link>
-          <router-link class="btn" :to="'/courses/F17'">Fall 17</router-link>
-        </li>
-
-      </article>
-    </transition>
+    <article>
+      <h1>Course Listings</h1>
+      <p>The Carnegie Mellon School of Computer Science is recognized around the world as a leader in all facets of computer science and robotics education.</p>
+      <li class="current">
+        <router-link class="btn" :to="'/courses/M17'">Summer 17</router-link>
+        <router-link class="btn" :to="'/courses/F17'">Fall 17</router-link>
+      </li>
+    </article>
   </div>
 </template>
 

@@ -1,0 +1,45 @@
+
+
+// BUTTONS
+
+@import 'vars';
+
+.buttons {
+  margin-top: $base-line-height;
+  font-size: .65rem;
+}
+
+.button{
+  display: inline-block;
+  -webkit-appearance: none;
+  text-transform: uppercase;
+  border: 1px solid $red;
+  background: white;
+  box-shadow: $box-shadow-inert;
+  color: $red;
+  font-weight: 900;
+  padding: $base-line-height / 2;
+  font-family: $font;
+  border-radius: 2px;
+  margin-right: $base-line-height / 4;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  transition: .2s;
+  &:focus {
+    outline: 0;
+  }
+  &:hover{
+    cursor: pointer;
+    box-shadow: $box-shadow-hover;
+    position: relative;
+    top: -.1em;
+    left: -.1em;
+  }
+}
+
+.button-small{
+  @extend .button;
+  font-size: $base-line-height / 2;
+  padding: $base-line-height / 4;
+}

@@ -1,9 +1,7 @@
 <template>
-  <transition name="fade" mode="out-in" appear>
-    <div class="page content-container">
-      <page-content class="page-body" :metadata="page"></page-content>
-    </div>
-  </transition>
+  <div class="card content-page">
+    <page-content class="page-body" :metadata="page"></page-content>
+  </div>
 </template>
 
 <script>
@@ -44,11 +42,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  // .page-body {
-  //   @media only screen and (max-width: 768px) {
-  //     margin: 1em;
-  //   }
-  // }
-</style>

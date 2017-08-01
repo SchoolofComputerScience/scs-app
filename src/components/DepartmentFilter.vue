@@ -1,10 +1,10 @@
 <template>
   <section :class="selected_department">
     <div v-if="route_link" class="buttons" >
-      <button v-for="department in departments" v-on:click="filter" :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
+      <button v-for="department in departments" v-on:click="filter" class="button" :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
     </div>
     <div v-else class="buttons">
-      <button v-for="department in departments" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
+      <button v-for="department in departments" class="button" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
     </div>
   </section>
 </template>
@@ -70,105 +70,49 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-// .buttons {
-//   margin-top: 1.6em;
-//   border-top: 1px solid #eee;
-//   border-bottom: 1px solid #eee;
-//   .button-holder{
-//     display: inline-block;
-//   }
-//
-//   a, button {
-//     display: inline-block;
-//     margin-right: 1.6em;
-//     margin-top: 1.6em;
-//     margin-bottom: 1.4em;
-//     -webkit-appearance: none;
-//     text-transform: uppercase;
-//     color: #2c3e50;
-//     color: white;
-//     font-weight: 900;
-//     font-size: .9em;
-//     padding: .5em 1.2em .5em 1.2em;
-//     border: none;
-//     border-bottom: 4px solid;
-//     font-family: Open Sans,Helvetica,sans-serif;
-//     cursor: pointer;
-//     &:focus {
-//       outline:0;
-//     }
-//     &.ri{
-//       background-color: #9b22b4;
-//       &:hover{
-//         background-color: rgba(#9b22b4, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#9b22b4, 0.40);
-//       }
-//     }
-//     &.lti{
-//       background-color: #3bb422;
-//       &:hover{
-//         background-color: rgba(#3bb422, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#3bb422, 0.40);
-//       }
-//     }
-//     &.csd{
-//       background-color: #22b49b;
-//       &:hover{
-//         background-color: rgba(#22b49b, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#22b49b, 0.40);
-//       }
-//     }
-//     &.hcii{
-//       background-color: #b49b22;
-//       &:hover{
-//         background-color: rgba(#b49b22, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#b49b22, 0.40);
-//       }
-//     }
-//     &.compbio{
-//       background-color: #b45222;
-//       &:hover{
-//         background-color: rgba(#b45222, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#b45222, 0.40);
-//       }
-//     }
-//     &.deans_office{
-//       background-color: #C41230;
-//       &:hover{
-//         background-color: rgba(#C41230, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#C41230, 0.40);
-//       }
-//     }
-//     &.isr{
-//       background-color: #165574;
-//       &:hover{
-//         background-color: rgba(#165574, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#165574, 0.40);
-//       }
-//     }
-//     &.mld{
-//       background-color: #b42284;
-//       &:hover{
-//         background-color: rgba(#b42284, 0.80);
-//       }
-//       &:active{
-//         background-color: rgba(#b42284, 0.40);
-//       }
-//     }
-//   }
-// }
+@import '../assets/scss/vars';
+
+.buttons {
+  margin-top: $base-line-height;
+  margin-bottom: $base-line-height;
+  font-size: .7rem;
+  .button-holder{
+    display: inline-block;
+  }
+  a, button {
+    display: inline-block;
+    -webkit-appearance: none;
+    text-transform: uppercase;
+    border: 1px solid $red;
+    background: white;
+    box-shadow: $box-shadow-inert;
+    color: $red;
+    font-weight: 900;
+    font-size: .9em;
+    padding: $base-line-height / 2;
+    font-family: Open Sans, Helvetica, sans-serif;
+    border-radius: 2px;
+    margin-right: $base-line-height / 4;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    transition: .2s;
+    &:focus {
+      outline: 0;
+    }
+    &:hover{
+      cursor: pointer;
+      box-shadow: $box-shadow-hover;
+      position: relative;
+      top: -.1em;
+      left: -.1em;
+    }
+  }
+}
+section{
+  &.hcii .hcii, &.compbio .compbio, &.csd .csd, &.lti .lti, &.mld .mld, &.ri .ri, &.deans_office .deans_office, &.isr .isr{
+    background: $red;
+    color: white;
+  }
+}
 </style>

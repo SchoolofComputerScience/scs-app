@@ -9,43 +9,44 @@
         <li>
           <router-link to="/" exact>Home</router-link>
         </li>
+        <nav-drop navtitle="Departments">
+          <li><router-link to="/departments/compbio">Computational Biology Department</router-link></li>
+          <li><router-link to="/departments/csd">Computer Science Department</router-link></li>
+          <li><router-link to="/departments/hcii">Human-Computer Interaction Institute</router-link></li>
+          <li><router-link to="/departments/isr">Institute for Software Research</router-link></li>
+          <li><router-link to="/departments/lti">Language Technologies Institute</router-link></li>
+          <li><router-link to="/departments/mld">Machine Learning Department</router-link></li>
+          <li><router-link to="/departments/ri">Robotics Institute</router-link></li>
+          <li><router-link to="/departments/deans_office">Dean's Business Office</router-link></li>
+        </nav-drop>
+
         <li>
           <router-link to="/directory">Directory</router-link>
         </li>
-        <li>
-          <router-link to="/research">Research</router-link>
-        </li>
-        <nav-drop navlink="/corporate" navtitle="Corporate">
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
+        <nav-drop navlink="/about" navtitle="About">
+          <li><router-link to="/alumni">Alumni Engagement</router-link></li>
+          <li><router-link to="/donate">Donate</router-link></li>
+          <li><router-link to="/outreach">Outreach</router-link></li>
+          <li><router-link to="/corporate">Corporate Relations</router-link></li>
+          <li><a href="http://www.cs.cmu.edu/~help/">Computing Facilities</a></li>
         </nav-drop>
-        <li>
-          <router-link to="/courses">Courses</router-link>
-        </li>
         <li>
           <router-link to="/programs">Programs</router-link>
         </li>
-        <li>
-          <router-link to="/alumni">Alumni</router-link>
-        </li>
-        <li>
-          <router-link to="/outreach">Outreach</router-link>
-        </li>
-        <nav-drop navlink="/donate" navtitle="Donate">
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
-          <li><router-link to="/alumni">test</router-link></li>
+        <nav-drop to="/admissions" navtitle="Admissions">
+          <li><router-link to="/departments/compbio">Computational Biology Department</router-link></li>
         </nav-drop>
+        <li>
+          <router-link to="/courses/F17">Courses</router-link>
+        </li>
         <li>
           <router-link to="/news">News</router-link>
         </li>
         <li>
           <router-link to="/events">Events</router-link>
+        </li>
+        <li>
+          <router-link to="/research">Research</router-link>
         </li>
       </ul>
     </nav>
@@ -142,8 +143,8 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @include breakpoint-min(full) {
-      max-width: map-get($breakpoints, full);
+    @include breakpoint-min(desktop) {
+      max-width: map-get($breakpoints, desktop);
     }
   }
   li {

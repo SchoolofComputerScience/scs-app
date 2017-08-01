@@ -2,7 +2,7 @@
   <main id="app" class="app-shell">
     <main-header class="main-header"></main-header>
     <main class="main-body">
-      <transition name="loading" >
+      <transition name="fade">
         <router-view class="main-view" :key="$route.fullPath"></router-view>
       </transition>
     </main>
@@ -13,11 +13,9 @@
 <script>
 import MainHeader from './components/MainHeader.vue'
 import MainFooter from './components/MainFooter.vue'
-import { router } from './app'
 
 export default {
   name: 'scsmain',
-
   components: {
     MainHeader,
     MainFooter
@@ -31,6 +29,7 @@ export default {
 .main-body{
   margin: 0 auto;
   padding: $base-line-height;
+  top: 0;
 }
 
 .main-footer{

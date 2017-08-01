@@ -6,6 +6,10 @@
 .circle {
   width: $base-line-height * 5;
   height: $base-line-height * 5;
+  &.large-circle{
+    width: $base-line-height * 8;
+    height: $base-line-height * 8;
+  }
   margin: 0 0 $base-line-height 0;
   background-color: white;
   border-radius: 8em;

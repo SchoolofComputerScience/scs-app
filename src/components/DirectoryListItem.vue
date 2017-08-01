@@ -5,11 +5,10 @@
         <div class="dep-icons">
           <span v-for="dep in item.positions" :class="dep.department" v-if="!'qatar'"></span>
         </div>
-        <div class="image" v-if="item.image_url" :style="{ 'background-image': 'url(' + item.image_url + ')' }"></div>
+        <div class="image circle" v-if="item.image_url" :style="{ 'background-image': 'url(' + item.image_url + ')' }"></div>
         <div>
           <p class="name">{{ item.display_name }}</p>
           <p class="title">{{ item.position}}</p>
-          <p class="title"><span>{{item.scs_relationship_desc}}</span></p>
         </div>
       </div>
     </router-link>
@@ -23,78 +22,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-//
-.dep-icons{
-  top: -3px;
-  left: 9px;
-  position: absolute;
-  line-height: 0;
-  span{
-    display: inline-block;
-    width: 36px;
-    height: 4px;
-    line-height: 0;
-    margin-right: 7px;
-    &.ri{
-      background-color: #9b22b4;
-    }
-    &.lti{
-      background-color: #3bb422;
-    }
-    &.csd{
-      background-color: #22b49b;
-    }
-    &.hcii{
-      background-color: #b49b22;
-    }
-    &.compbio{
-      background-color: #b45222;
-    }
-    &.deans_office, &.scs{
-      background-color: #C41230;
-    }
-    &.isr{
-      background-color: #165574;
-    }
-    &.mld{
-      background-color: #b42284;
-    }
-  }
-}
-//
+@import '../assets/scss/vars.scss';
+@import '../assets/scss/circle.scss';
+
 .image{
-  width: 4.2em;
-  height: 4.2em;
-  border-radius: 4em;
-  border: 2px solid white;
+  width: $base-line-height * 4;
+  height: $base-line-height * 4;
   background-size: cover;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   margin: auto;
 }
-//
+
 .card {
-  position: relative;
-  justify-content: space-between;
-  margin-right: 2.5%;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: block;
-  transition: none;
-  height: 225px;
+  margin-right: 2.6%;
+  &:nth-child(4n+4) {
+    margin-right: 0;
+  }
+  margin-top: 6px;
+  margin-bottom: 22px;
+  padding: 0;
+  height: 75px * 4;
+  min-height: 75px * 4;
   max-width: 25%;
   width: 23%;
   overflow: hidden;
-
   left: 0em;
   top: 0em;
-  display: flex;
   transition: .35s box-shadow, .35s top, .35s left;
   position: relative;
   background: white;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-
-  &:nth-child(4n+4) {
-    margin-right: 0;
+  display: inline-block;
+  vertical-align: top;
+  
+  @include breakpoint-max(laptop) {
+    max-width: 50%;
+    width: 48.5%;
+    height: 106px * 2;
+    min-height: 106px * 2;
+    margin-bottom: 6px;
+    &:nth-child(2n+2) {
+      margin-right: 0;
+    }
+  }
+  p{
+    padding-bottom: 0;
   }
 
   &:hover {

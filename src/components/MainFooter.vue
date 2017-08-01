@@ -1,12 +1,14 @@
 <template>
   <footer>
-    <figure>
-      <a href="http://www.cmu.edu">
-        <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
-      </a>
-    </figure>
-    <p><a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a> | <a href="http://www.cmu.edu/silicon-valley/" target="new">Silicon Valley Campus</a></p>
-    <p>School of Computer Science <br>5000 Forbes Avenue <br>Pittsburgh, PA 15213</p>
+    <div class="footer-container">
+      <figure>
+        <a href="http://www.cmu.edu">
+          <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
+        </a>
+        <p><a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a> | <a href="http://www.cmu.edu/silicon-valley/" target="new">Silicon Valley Campus</a></p>
+      </figure>
+      <p><b>Carnegie Mellon School of Computer Science</b><br>5000 Forbes Avenue<br>Pittsburgh, PA 15213</p>
+    </div>
     <div class="project-status"><b>ALPHA</b> | to watch the progress or contribute visit our <a href="https://github.com/SchoolofComputerScience/scs-app">github</a>.</div>
   </footer>
 </template>
@@ -27,20 +29,39 @@ export default {
   @include type-setting(-1);
 }
 
+.footer-container{
+  display: flex;
+  justify-content: space-between;
+  @include breakpoint-max(tablet) {
+    display: block;
+  }
+  p {
+    @include type-setting(-1)
+  }
+  > p {
+    text-align: right;
+    @include breakpoint-max(tablet) {
+      text-align: left;
+    }
+    b{
+      color: $black;
+      letter-spacing: -.02rem;
+    }
+  }
+}
+
 .main-footer {
   box-shadow: $box-shadow-inert;
+  color: $black;
   figure {
     margin: 0;
   }
   b{
     color: $red;
   }
-  > p {
-    @include type-setting(-1)
-  }
   img {
     margin: 0;
-    margin-top: $base-line-height;
+    margin-top: $base-line-height / 2;
     padding-bottom: 0;
     width: 12em;
     left: -2px;

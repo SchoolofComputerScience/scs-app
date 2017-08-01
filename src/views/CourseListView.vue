@@ -1,5 +1,5 @@
 <template>
-  <div class="courses-view">
+  <div class="courses-view content-page card">
     <DepartmentFilter :types="scs_department_types"></DepartmentFilter>
     <div class="level-buttons" :class="level">
       <button class="U" v-on:click="filter" filter-name="level" filter-value="U">Undergraduate</button>

@@ -11,7 +11,7 @@
     </router-link>
     <div class="card-container">
       <div class="card-content-top">
-        <router-link :to="'/courses'" class="card">
+        <router-link :to="'/courses/F17'" class="card">
           <h6>{{departmentData.course_count._id}}</h6>
           <h4>Courses</h4>
         </router-link>

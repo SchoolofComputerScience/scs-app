@@ -1,5 +1,5 @@
 <template>
-  <section class="research-areas">
+  <section class="content-page card">
     <h1>Top 40 Research Areas</h1>
     <div class="card-holder">
       <div v-for="area in topForty" class="research-area-card">

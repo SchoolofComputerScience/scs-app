@@ -1,5 +1,5 @@
 <template>
-  <section class="research-area-view">
+  <section class="content-page card">
     <h1>{{selected_research_area}}</h1>
     <section class="faculty-members" v-if="facultyInArea">
       <h2>Faculty Involved In {{selected_research_area}}</h2>

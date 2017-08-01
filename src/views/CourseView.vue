@@ -1,64 +1,62 @@
 <template>
   <div class="courses-view">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <transition name="fade" mode="out-in" v-if="loaded" >
-      <div>
+    <div>
 
-        <div class="breadcrumbs">
-          <router-link :to="'/courses'">Courses</router-link> / <router-link :to="'/courses/' + course.semesterCode"> {{course.semesterCode | seasonTranslate}} </router-link>
+      <div class="breadcrumbs">
+        <router-link :to="'/courses'">Courses</router-link> / <router-link :to="'/courses/' + course.semesterCode"> {{course.semesterCode | seasonTranslate}} </router-link>
+      </div>
+
+      <div class="top-bar">
+        <p>{{course.college}} |
+          {{course.s3Department | departmentTranslate}} |
+          <span v-if="course.level === 'G'">Graduate</span>
+          <span v-if="course.level === 'U'">Undergraduate</span>
+        </p>
+      </div>
+
+      <h2>{{course.longTitle}}</h2>
+
+      <p class="body">{{course.description}}</p>
+
+      <section class="course-information">
+
+        <div class="units" v-if="course.units">
+          <p class="title">Units</p>
+          <p>{{course.units}}</p>
         </div>
 
-        <div class="top-bar">
-          <p>{{course.college}} |
-            {{course.s3Department | departmentTranslate}} |
-            <span v-if="course.level === 'G'">Graduate</span>
-            <span v-if="course.level === 'U'">Undergraduate</span>
+        <div v-if="course.instructors[0]">
+          <p class="title" v-if="course.instructors.length === 1">Instructor</p>
+          <p class="title" v-if="course.instructors.length > 1">Instructors</p>
+          <p v-for="instructor in course.instructors">
+            <router-link :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
           </p>
         </div>
 
-        <h2>{{course.longTitle}}</h2>
+        <div v-if="course.meetings[0]">
+          <p class="title">Building</p>
+          <p>{{course.meetings[0].building | buildingTranslate}}</p>
+        </div>
 
-        <p class="body">{{course.description}}</p>
-
-        <section class="course-information">
-
-          <div class="units" v-if="course.units">
-            <p class="title">Units</p>
-            <p>{{course.units}}</p>
-          </div>
-
-          <div v-if="course.instructors[0]">
-            <p class="title" v-if="course.instructors.length === 1">Instructor</p>
-            <p class="title" v-if="course.instructors.length > 1">Instructors</p>
-            <p v-for="instructor in course.instructors">
-              <router-link :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
-            </p>
-          </div>
-
-          <div v-if="course.meetings[0]">
-            <p class="title">Building</p>
-            <p>{{course.meetings[0].building | buildingTranslate}}</p>
-          </div>
-
-          <div v-if="course.meetings[0]">
-            <p class="title">Room Number</p>
-            <p>{{course.meetings[0].room}}</p>
-          </div>
+        <div v-if="course.meetings[0]">
+          <p class="title">Room Number</p>
+          <p>{{course.meetings[0].room}}</p>
+        </div>
 
 
-          <div v-if="course.meetings[0].startTime">
-            <p class="title">Time</p>
-            <p v-if="course.meetings[0].startTime">{{course.meetings[0].startTime}} - {{course.meetings[0].endTime}}</p>
-          </div>
+        <div v-if="course.meetings[0].startTime">
+          <p class="title">Time</p>
+          <p v-if="course.meetings[0].startTime">{{course.meetings[0].startTime}} - {{course.meetings[0].endTime}}</p>
+        </div>
 
-          <div v-if="course.meetings[0]">
-            <p class="title">Days</p>
-            <p v-if="course.meetings[0].days">{{course.meetings[0].days | dayTranslate}}</p>
-          </div>
-        </section>
+        <div v-if="course.meetings[0]">
+          <p class="title">Days</p>
+          <p v-if="course.meetings[0].days">{{course.meetings[0].days | dayTranslate}}</p>
+        </div>
+      </section>
 
-      </div>
-    </transition>
+    </div>
   </div>
 </template>
 

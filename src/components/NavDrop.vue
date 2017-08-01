@@ -1,6 +1,7 @@
 <template>
   <li v-on:mouseover="active = !active" v-on:mouseout="active = !active" class="drop-container">
-    <router-link :to="navlink">{{navtitle}}</router-link>
+    <router-link v-on:click="active = false" v-if='navlink' :to="navlink" exact>{{navtitle}}</router-link>
+    <p v-if='!navlink'>{{navtitle}}</p>
     <ul class="drop-inner" v-bind:class="{ active: active }">
       <slot></slot>
     </ul>
@@ -25,7 +26,7 @@ export default {
 @import '../assets/scss/vars';
 @import '../assets/scss/mixins.scss';
 
-a{
+a, p{
   @include type-setting(0);
   color: $black;
   display: block;
@@ -37,10 +38,11 @@ a{
 
 .drop-container{
   position: relative;
+  border-bottom: 2px solid $red;
 }
 
 .drop-inner{
-  border-bottom: 4px solid $red;
+  border-bottom: 2px solid $red;
   border-top: 0;
   padding: $base-line-height;
   position: absolute;
@@ -50,10 +52,15 @@ a{
   opacity: 0;
   pointer-events: none;
   box-shadow: $box-shadow-inert;
+  padding-bottom: $base-line-height / 2;
+  padding-top: 0;
   li{
     display: block;
     transition: .2s;
-    min-width: $base-line-height * 6;
+    min-width: $base-line-height * 12;
+    a{
+      font-size: .85rem;
+    }
   }
   &.active{
     opacity: 1;
@@ -67,6 +74,9 @@ a{
 }
 
 @include breakpoint-max(tablet) {
+  .drop-container{
+    border: none;
+  }
   .drop-inner{
     border: none;
     position: relative;
@@ -104,7 +114,7 @@ a{
       left: 0;
     }
   }
-  a{
+  a, p{
     @include type-setting(0);
     padding: $base-line-height / 2 $base-line-height;
     color: white;

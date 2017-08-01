@@ -1,15 +1,9 @@
 <template>
-  <div class="programs-view">
+  <div class="programs-view content-page card">
     <h1>Overview of Programs</h1>
-    <p>
-      The Carnegie Mellon School of Computer Science is recognized around the world as a leader in all facets of computer science and robotics education.
-    </p>
-    <p>
-      Respected international surveys have consistently ranked CMU's graduate programs in computer science among the best in the United States. SCS also is ranked highly in specialty areas such as programming languages, artificial intelligence, systems and theory.
-    </p>
-    <p>
-      And a survey by the editors of The Wall Street Journal ranked our undergraduate computer science program No. 1 in the United States among corporate recruiters.
-    </p>
+    <p>The Carnegie Mellon School of Computer Science is recognized around the world as a leader in all facets of computer science and robotics education.</p>
+    <p>Respected international surveys have consistently ranked CMU's graduate programs in computer science among the best in the United States. SCS also is ranked highly in specialty areas such as programming languages, artificial intelligence, systems and theory.</p>
+    <p>And a survey by the editors of The Wall Street Journal ranked our undergraduate computer science program No. 1 in the United States among corporate recruiters.</p>
     <DepartmentFilter :types="scs_department_types"></DepartmentFilter>
     <div class="level-buttons" :class="graduate_level">
       <button class="U" v-on:click="filter" filter-name="graduate_level" filter-value="undergraduate">Undergraduate</button>
@@ -143,7 +137,19 @@ export default {
 // p {
 //   margin-bottom: 1em;
 // }
+//   &.undergraduate {
+//     .U {
+//       color: #fff;
+//       background: #c41230;
+//     }
+//   }
 //
+//   &.graduate {
+//     .G {
+//       color: #fff;
+//       background: #c41230;
+//     }
+//   }
 // .level-buttons {
 //   margin-top: 1em;
 //
