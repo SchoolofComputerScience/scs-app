@@ -90,7 +90,7 @@ export default {
         let directory = this.$store.state.directory.list;
 
         research_area.members.map(function(member){
-          let research_member = _.find(directory, function(person){ return person.scid === member })
+          let research_member = _.find(directory, function(person){ return person.scid === member.scid })
           if (research_member)
             faculty.push(research_member);
         });

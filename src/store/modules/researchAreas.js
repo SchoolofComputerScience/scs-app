@@ -18,9 +18,20 @@ export default {
             	researchAreas {
                 area_id
                 title
-                members
                 description
                 gs_count
+                members {
+                  scid
+                  display_name
+                }
+                programs {
+                  program_id
+                  program_name
+                  tracks {
+                    track_id
+                    track_name
+                  }
+                }
               }
             }
           `
