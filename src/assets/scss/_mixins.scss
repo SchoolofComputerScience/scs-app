@@ -1,0 +1,33 @@
+
+// MIXINS
+
+// typography
+
+@function type-scale($level) {
+  @return map-get(
+    map-get($type-settings, $level), 'font-size');
+}
+
+@function line-height($level) {
+  @return map-get(
+    map-get($type-settings, $level), 'line-height');
+}
+
+@mixin type-setting($level) {
+  font-size: type-scale($level);
+  line-height: line-height($level);
+}
+
+// breakpoints
+
+@mixin breakpoint-min($point) {
+  @media (min-width: map-get($breakpoints, $point)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-max($point) {
+  @media (max-width: map-get($breakpoints, $point)) {
+    @content;
+  }
+}

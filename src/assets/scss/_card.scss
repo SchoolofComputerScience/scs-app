@@ -1,0 +1,30 @@
+
+// CARD
+
+@import 'vars';
+
+.card {
+  position: relative;
+  background: white;
+  transition: .4s all;
+  position: relative;
+  z-index: 1;
+  box-shadow: $box-shadow-inert;
+  transition: .2s box-shadow, .2s top, .2s left;
+  top: 0em;
+  left: 0em;
+  padding: $base-line-height;
+  margin-bottom: $base-line-height;
+  &:hover{
+    box-shadow: $box-shadow-hover;
+    top: -.1em;
+    left: -.1em;
+    transition: .2s box-shadow, .2s top, .2s left;
+  }
+  &:active{
+    top: 0em;
+    left: 0em;
+    transition: 0s box-shadow, 0s top, 0s left;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  }
+}

@@ -129,68 +129,68 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-h3 {
-  text-transform: capitalize;
-  background: #eee;
-  padding: 0.25em;
-  margin-bottom: 0.5em;
-}
-
-#csd {
-  border-bottom: 4px solid #22b49b;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#ri {
-  border-bottom: 4px solid #9b22b4;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#mld {
-  border-bottom: 4px solid #b42284;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#compbio {
-  border-bottom: 4px solid #b45222;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#isr {
-  border-bottom: 4px solid #165574;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#etc {
-  border-bottom: 4px solid #2c3e50;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#lti {
-  border-bottom: 4px solid #3bb422;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-#hcii {
-  border-bottom: 4px solid #b49b22;
-  margin: 1em 0 .5em 0;
-  padding-bottom: 0.25em;
-}
-
-.degree, .level {
-  margin-bottom: 2em;
-}
-
-.program {
-  margin-bottom: 1em;
-}
+//
+// h3 {
+//   text-transform: capitalize;
+//   background: #eee;
+//   padding: 0.25em;
+//   margin-bottom: 0.5em;
+// }
+//
+// #csd {
+//   border-bottom: 4px solid #22b49b;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #ri {
+//   border-bottom: 4px solid #9b22b4;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #mld {
+//   border-bottom: 4px solid #b42284;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #compbio {
+//   border-bottom: 4px solid #b45222;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #isr {
+//   border-bottom: 4px solid #165574;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #etc {
+//   border-bottom: 4px solid #2c3e50;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #lti {
+//   border-bottom: 4px solid #3bb422;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// #hcii {
+//   border-bottom: 4px solid #b49b22;
+//   margin: 1em 0 .5em 0;
+//   padding-bottom: 0.25em;
+// }
+//
+// .degree, .level {
+//   margin-bottom: 2em;
+// }
+//
+// .program {
+//   margin-bottom: 1em;
+// }
 
 </style>

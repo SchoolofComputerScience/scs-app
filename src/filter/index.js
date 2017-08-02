@@ -109,17 +109,3 @@ export function dayTranslate (dayCode) {
 
   return dayTranslate.join(', ') || dayCode
 }
-
-export function dateTranslate(date){
-  if(!isNaN(Date.parse(date))){
-    return Vue.moment(date).format('MMMM Do YYYY, h:mm a');
-  }
-  return date
-}
-
-export function timeTranslate(date){
-  if(!isNaN(Date.parse(date))){
-    return Vue.moment(date).format('h:mm a');
-  }
-  return date
-}

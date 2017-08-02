@@ -3,7 +3,7 @@
     <li v-for="person in directory" class="card">
       <router-link :to="'/directory/' + person.scid">
         <div class="image" :style="{ 'background-image': 'url(' + person.image_url + ')' }"></div>
-        <p class="name">{{ person.full_name }}</p>
+        <p class="name">{{ person.display_name }}</p>
         <p class="title">{{person.position}}</p>
       </router-link>
     </li>
@@ -14,22 +14,15 @@
 import Vue from 'vue'
 import DirectoryListItem from '../components/DirectoryListItem.vue'
 
-
-function fetchDirectory(store) {
-  store.dispatch('GET_DIRECTORY', store.state.route.params.department);
-}
-
 export default {
   name: 'department-directory',
-
-  preFetch: fetchDirectory,
 
   components: {
     DirectoryListItem
   },
 
-  beforeMount () {
-    fetchDirectory(this.$store);
+  asyncData ({ store, route: { params: { department }}} ) {
+    return store.dispatch('GET_DIRECTORY', { department });
   },
 
   computed: {
@@ -59,7 +52,6 @@ export default {
           }
         }
       }
-
       return filtered;
     }
   }
@@ -67,85 +59,85 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card {
-  position: relative;
-  flex: 1 30%;
-  justify-content: space-between;
-  margin-top: 15px;
-  margin-bottom: 15px;
-  display: block;
-  transition: none;
-  max-width: 31%;
-  &:hover{
-    border: 0;
-  }
-  a {
-    display: block;
-    text-align: center;
-  }
-
-  p.name {
-    font-weight: 900;
-    font-size: 1em;
-    text-transform: capitalize;
-    color: #C41230;
-    padding-bottom: .2em;
-    padding-top: .35em;
-    text-align: center;
-  }
-  p.title {
-    font-size: .9em;
-    font-weight: 400;
-    text-align: center;
-    span {
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-  }
-  span.department {
-    font-weight: 900;
-    text-transform: uppercase;
-  }
-  a {
-    text-decoration: none;
-    color: #131313;
-  }
-  &:hover {
-    background: white;
-    box-shadow: none;
-    transition: none;
-  }
-  p {
-    margin-bottom: 0em;
-    margin-top: 0;
-    text-transform: capitalize;
-    padding: 0;
-  }
-  p.room {
-    font-size: .7em;
-    text-transform: uppercase;
-    font-weight: 300;
-  }
-  .image {
-    width: 15em;
-    height: 15em;
-    background-size: cover;
-    display: inline-block;
-    text-align: center;
-  }
-}
-
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-  .card {
-    position: relative;
-    flex: 1;
-    justify-content: space-between;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    display: block;
-    transition: none;
-    max-width: 100%;
-  }
-}
+// .card {
+//   position: relative;
+//   flex: 1 30%;
+//   justify-content: space-between;
+//   margin-top: 15px;
+//   margin-bottom: 15px;
+//   display: block;
+//   transition: none;
+//   max-width: 31%;
+//   &:hover{
+//     border: 0;
+//   }
+//   a {
+//     display: block;
+//     text-align: center;
+//   }
+//
+//   p.name {
+//     font-weight: 900;
+//     font-size: 1em;
+//     text-transform: capitalize;
+//     color: #C41230;
+//     padding-bottom: .2em;
+//     padding-top: .35em;
+//     text-align: center;
+//   }
+//   p.title {
+//     font-size: .9em;
+//     font-weight: 400;
+//     text-align: center;
+//     span {
+//       font-weight: 900;
+//       text-transform: uppercase;
+//     }
+//   }
+//   span.department {
+//     font-weight: 900;
+//     text-transform: uppercase;
+//   }
+//   a {
+//     text-decoration: none;
+//     color: #131313;
+//   }
+//   &:hover {
+//     background: white;
+//     box-shadow: none;
+//     transition: none;
+//   }
+//   p {
+//     margin-bottom: 0em;
+//     margin-top: 0;
+//     text-transform: capitalize;
+//     padding: 0;
+//   }
+//   p.room {
+//     font-size: .7em;
+//     text-transform: uppercase;
+//     font-weight: 300;
+//   }
+//   .image {
+//     width: 15em;
+//     height: 15em;
+//     background-size: cover;
+//     display: inline-block;
+//     text-align: center;
+//   }
+// }
+//
+// @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+//   .card {
+//     position: relative;
+//     flex: 1;
+//     justify-content: space-between;
+//     margin-top: 15px;
+//     margin-bottom: 15px;
+//     display: block;
+//     transition: none;
+//     max-width: 100%;
+//   }
+// }
 
 </style>

@@ -2,7 +2,6 @@
   <component
     :is="mainTag"
     class="virtual-scroller"
-    :class="cssClass"
     @scroll="updateVisibleItems"
     v-observe-visibility="handleVisibilityChange">
     <slot name="before-container"></slot>
@@ -67,10 +66,6 @@ export default {
     renderers: {
       default: null,
     },
-    itemHeight: {
-      type: [Number, String],
-      required: true,
-    },
     typeField: {
       type: String,
       default: 'type',
@@ -108,23 +103,18 @@ export default {
     poolSize: {
       type: [Number, String],
       default: 1,
-    },
+    }
   },
 
   data: () => ({
     visibleItems: [],
     itemContainerStyle: null,
     itemsStyle: null,
-    keysEnabled: true
+    keysEnabled: true,
+    windowWidth: 0,
+    rowIndex: 4,
+    itemHeight: 0
   }),
-
-  computed: {
-    cssClass () {
-      return {
-        'page-mode': this.pageMode,
-      }
-    },
-  },
 
   watch: {
     items () {
@@ -133,7 +123,7 @@ export default {
     pageMode () {
       this.applyPageMode()
       this.updateVisibleItems()
-    },
+    }
   },
 
   methods: {
@@ -141,26 +131,20 @@ export default {
       const el = this.$el
       let scroll
 
-      if (this.pageMode) {
-        const rect = el.getBoundingClientRect()
-        let top = -rect.top
-        let height = window.innerHeight
-        if (top < 0) {
-          height += top
-          top = 0
-        }
-        if (top + height > rect.height) {
-          height = rect.height - top
-        }
-        scroll = {
-          top: top,
-          bottom: top + height,
-        }
-      } else {
-        scroll = {
-          top: el.scrollTop,
-          bottom: el.scrollTop + el.clientHeight,
-        }
+      const rect = el.getBoundingClientRect()
+
+      let top = -rect.top
+      let height = window.innerHeight
+      if (top < 0) {
+        height += top
+        top = 0
+      }
+      if (top + height > rect.height) {
+        height = rect.height - top
+      }
+      scroll = {
+        top: top,
+        bottom: top + height,
       }
 
       if (scroll.bottom >= 0 && scroll.top <= scroll.bottom) {
@@ -177,10 +161,8 @@ export default {
         let startIndex_start = Math.floor((Math.floor(scroll.top / this.itemHeight) - this.buffer) / this.poolSize) * this.poolSize
         let endIndex_start = Math.floor((Math.ceil(scroll.bottom / this.itemHeight) + this.buffer) / this.poolSize) * this.poolSize
 
-        let rowIndex = 4
-
-        let startIndex = Math.ceil( startIndex_start / rowIndex ) * rowIndex
-        let endIndex = Math.ceil( endIndex_start / rowIndex ) * rowIndex
+        let startIndex = Math.ceil( startIndex_start / this.rowIndex ) * this.rowIndex
+        let endIndex = Math.ceil( endIndex_start / this.rowIndex ) * this.rowIndex
 
         if (startIndex <= 0) {
           startIndex = 0
@@ -194,7 +176,7 @@ export default {
           this._endIndex = endIndex
           this.visibleItems = this.items.slice(startIndex, endIndex)
           this.itemContainerStyle = {
-            height: ((l * this.itemHeight) + 207 ) + 'px',
+            height: ((l * this.itemHeight) + 400 ) + 'px',
           }
           this.itemsStyle = {
             marginTop: startIndex * this.itemHeight + 'px',
@@ -230,28 +212,54 @@ export default {
     removeWindowScroll () {
       window.removeEventListener('scroll', this.updateVisibleItems, true)
     },
+
+    rowIndexSet(){
+      if(this.windowWidth < 1024){
+        this.itemHeight = (106 + 10)
+        this.rowIndex = 2
+      }else{
+        this.itemHeight = 82
+        this.rowIndex = 4
+      }
+    },
+
+    windowResize (e) {
+      if(e){
+        this.windowWidth = e.currentTarget.innerWidth;
+        this.rowIndexSet()
+      }else{
+        this.windowWidth = window.innerWidth;
+        this.rowIndexSet()
+      }
+    }
   },
 
   mounted () {
     this.updateVisibleItems()
     this.applyPageMode()
+    this.windowResize()
+    window.addEventListener('resize', this.windowResize);
+
   },
 
   beforeDestroy () {
     this.removeWindowScroll()
+    window.removeEventListener('resize', this.windowResize);
   },
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 .item-container {
   box-sizing: border-box;
   width: 100%;
-  overflow: hidden;
+  min-height: 60em;
+  display: flex;
+  justify-content: space-between;
 }
 
-.items {
+.items{
   width: 100%;
-  padding: 5px 0 0 5px;
+  line-height: 0;
 }
 </style>

@@ -1,23 +1,16 @@
 <template>
-  <div class="footer">
-    <footer>
+  <footer>
+    <div class="footer-container">
       <figure>
         <a href="http://www.cmu.edu">
           <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
         </a>
+        <p><a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a> | <a href="http://www.cmu.edu/silicon-valley/" target="new">Silicon Valley Campus</a></p>
       </figure>
-      <div>
-        <a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a> |
-        <a href="http://www.cmu.edu/silicon-valley/" target="new">Silicon Valley Campus</a>
-      </div>
-      <div>
-        <br>
-        <p>School of Computer Science <br>5000 Forbes Avenue <br>Pittsburgh, PA 15213</p>
-        <p>2017</p>
-      </div>
-    </footer>
-    <div class="project-status"><b>pre-alpha</b> | to watch the progress or contribute visit our <a href="https://github.com/SchoolofComputerScience/scs-app">github</a>.</div>
-  </div>
+      <p><b>Carnegie Mellon School of Computer Science</b><br>5000 Forbes Avenue<br>Pittsburgh, PA 15213</p>
+    </div>
+    <div class="project-status"><b>ALPHA</b> | to watch the progress or contribute visit our <a href="https://github.com/SchoolofComputerScience/scs-app">github</a>.</div>
+  </footer>
 </template>
 
 <script>
@@ -27,49 +20,52 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/vars.scss';
+@import '../assets/scss/mixins.scss';
+
 .project-status {
-  border-top: 1px solid #eee;
-  color: black;
-  font-size: .8em;
-  padding: .5em;
-  padding-left: 1em;
-  text-align: center;
-  @media screen and (max-width: 600px) {
-    font-size: .6em;
+  border-top: 1px solid $primary-grey;
+  padding-top: $base-line-height;
+  @include type-setting(-1);
+}
+
+.footer-container{
+  display: flex;
+  justify-content: space-between;
+  @include breakpoint-max(tablet) {
+    display: block;
+  }
+  p {
+    @include type-setting(-1)
+  }
+  > p {
+    text-align: right;
+    @include breakpoint-max(tablet) {
+      text-align: left;
+    }
+    b{
+      color: $black;
+      letter-spacing: -.02rem;
+    }
   }
 }
 
-.footer {
-  border-top: 1px solid #eee;
-  border-bottom: 0;
-  margin-top: 1vw;
-  footer {
-    position: relative;
-    margin: 0 auto;
-    max-width: 62em;
-    padding: 1em 0;
-  }
+.main-footer {
+  box-shadow: $box-shadow-inert;
+  color: $black;
   figure {
     margin: 0;
   }
+  b{
+    color: $red;
+  }
   img {
     margin: 0;
-    margin-top: 1vw;
+    margin-top: $base-line-height / 2;
     padding-bottom: 0;
-    width: 16em;
+    width: 12em;
     left: -2px;
     position: relative;
-  }
-}
-
-@media screen and (max-width: 82em) {
-  .footer {
-    margin-top: 2em;
-    padding: 0 1em;
-    img{
-      margin-top: 1em;
-      max-width: 16em;
-    }
   }
 }
 </style>

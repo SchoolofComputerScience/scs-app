@@ -38,25 +38,10 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
-
-@import '../assets/scss/content';
-
-.content-body{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
 img{
   width: 100%
 }
-
-.content-title{
-  margin-bottom: 0;
-}
-
 .content-title a{
   transition: color .3s ease;
   &:hover{
@@ -67,9 +52,5 @@ img{
 .content-meta{
   margin-top: .5em;
   margin-bottom: 0;
-}
-
-.content-container{
-  flex: 1;
 }
 </style>

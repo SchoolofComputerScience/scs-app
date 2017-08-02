@@ -1,0 +1,66 @@
+
+// TYPOGRAPHY
+
+a {
+  color: $red;
+  text-decoration: none;
+  &:hover, &:active, &:focus {
+    text-decoration: none;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: $black;
+  font-feature-settings: 'dlig', 'liga', 'lnum', 'kern';
+  font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  @include type-setting(3);
+  padding: 0 0 $base-line-height 0;
+  font-weight: 900;
+}
+
+h2 {
+  @include type-setting(2);
+  padding: 0 0 $base-line-height * .5 0;
+}
+
+h3 {
+  @include type-setting(1);
+  padding: 0 0 $base-line-height * .5 0;
+}
+
+h4, h5 {
+  @include type-setting(-1);
+  padding: 0 0 $base-line-height * .5 0;
+}
+
+h6{
+  @include type-setting(4);
+  padding-bottom: $base-line-height;
+}
+
+p {
+  @include type-setting(0);
+  font-feature-settings: 'kern', 'onum', 'liga';
+  padding: 0 0 $base-line-height 0;
+}
+
+b, strong, .bold {
+  font-weight: bold;
+}
+
+em, i, .italic {
+  font-style: italic;
+}
+
+hr{
+  background: $black;
+  border:0;
+  height: .1rem;
+  width: 100%;
+  margin: $base-line-height 0;
+}

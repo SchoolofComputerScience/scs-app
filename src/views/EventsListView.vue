@@ -1,11 +1,11 @@
 <template>
-  <section>
+  <section class="data-page">
     <div class="events-view">
       <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
       <transition name="fade" mode="out-in" v-if="loaded">
         <section class="page">
-          <form class="search" v-on:submit.prevent>
-            <input class="search-input" v-model="query" placeholder="Search Events" @keyup.enter="searchEvents" name="query" autocomplete="off">
+          <form v-on:submit.prevent>
+            <input class="event-search" v-model="query" placeholder="Search Events" @keyup.enter="searchEvents" name="query" autocomplete="off">
           </form>
           <div class="card-holder">
             <div v-if="error" class="error-message">
@@ -15,7 +15,7 @@
               <div :class="event.type" class="type">{{event.type}}</div>
               <router-link  :to="'/events/' + event.uid">
                 <div>
-                  <h2>{{event.startDate | dateTranslate}}</h2>
+                  <p><b>{{timeFix(event.startDate)}}</b> / {{dateFix(event.startDate)}}</p>
                   <h3>{{event.title}}</h3>
                 </div>
               </router-link>
@@ -29,6 +29,7 @@
 
 <script>
 import Spinner from '../components/Spinner.vue'
+import format from 'date-fns/format'
 
 function fetchEventsList(store) {
   return store.dispatch('GET_EVENTS_LIST')
@@ -58,13 +59,11 @@ export default {
 
   computed: {
     loaded() {
-
       if(this.$store.state.events.error.length > 0){
         this.error = this.$store.state.events.error
       }else{
         this.error = false;
       }
-
       return this.$store.state.events.list.length > 0 ? true : false
     },
     events() {
@@ -75,7 +74,13 @@ export default {
   methods: {
     searchEvents: _.debounce(function(){
       this.$store.dispatch('SEARCH_EVENTS', this.query)
-    }, 500)
+    }, 500),
+    timeFix (arg) {
+      return format(arg, 'h:mm a')
+    },
+    dateFix (arg) {
+      return format(arg, 'MMMM Do YYYY')
+    }
   },
 
   beforeMount () {
@@ -85,65 +90,80 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.card-holder{
-  display: flex;
-  flex-wrap: wrap;
-  position: relative;
-  left: -1vw;
-  margin-top: 2em;
-  h1{
-    font-size: 1em;
-    a{
-      text-decoration: none;
-    }
-  }
-  p{
-    font-size: .8em;
-    em{
-      color: #C41230;
-    }
-  }
-}
+@import '../assets/scss/vars';
 
-.error-message{
-  font-size: 1.6em;
-  margin: 1em;
-}
-
-.search {
-  @media only screen and (max-width: 768px) {
-    padding: 0 1em;
-  }
-}
-
-.search-input{
+.event-search{
   border: none;
-  border-left: .1em solid #C41230;
-  background: white;
+  border-left: .1em solid $red;
   font-size: 1.5em;
   font-weight: 300;
-  margin-top: 1.6em;
+  margin-top: $base-line-height / 2;
   outline: none;
   padding: .5em .2em .5em 1.2em;
-  background: #efefef;
+  background: white;
   transition: border-left .1s, background .1s;
   width: 100%;
-  margin-bottom: 0em;
   &:focus{
-    border-left: .2em solid #C41230;
+    border-left: .2em solid $red;
     background: white;
     padding-left: .4em
   }
 }
+
+.type{
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: white;
+  font-size: .8rem;
+  background: $red;
+  padding-bottom: 0;
+  padding: $base-line-height / 4;
+  text-transform: uppercase;
+}
+
+.event-search::placeholder{
+  font-weight: 300;
+  color: #aaa;
+  font-style: italic;
+}
+
+.card-holder{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  position: relative;
+}
+
+.error-message{
+  margin: $base-line-height 0;
+}
+
 .card{
-  flex: 1 calc(50% - 2em);
-  margin: 1em;
+  width: 30%;
   position: relative;
   z-index: 1;
-  border: 1px solid #eee;
-  width: calc(50% - 2em);
-  background: white;
+  margin: 0;
+  margin-top: $base-line-height;
+  &:nth-child(3n -2),
+  &:nth-child(3n -1){
+    margin-right: $base-line-height;
+  }
+  @include breakpoint-max(tablet) {
+    &:nth-child(3n -2),
+    &:nth-child(3n -1){
+      margin-right: 0;
+    }
+    &:nth-child(2n -1){
+      margin-right: $base-line-height;
+    }
+    width: 47%;
+  }
+  p{
+    color: $black;
+  }
   a{
+    padding-top: $base-line-height;
     width: 100%;
     z-index: 9;
     text-decoration: none;
@@ -153,43 +173,9 @@ export default {
       width: 100%;
     }
   }
-  h2{
-    font-size: .85em;
-    margin: .2rem 1rem;
-    padding-bottom: .6em;
-    padding-top: .6em;
-    font-weight: 300;
-    position: relative;
-  }
   h3{
-    font-size: 1.35em;
-    padding-bottom: 1em;
-    margin: .2rem 1rem;
-    border-top: 1px solid #eee;
-    padding-top: .8em;
-    font-weight: 300;
-  }
-  p{
-    font-size: .85em;
-    margin-top: 1em;
-  }
-}
-
-// card colors
-
-.card .type{
-  text-transform: uppercase;
-  color: white;
-  background: black;
-  padding: .3rem 1rem;
-  &.thesis{
-    background: #1289c4;
-  }
-  &.seminars, &.Seminars{
-    background: #30c412;
-  }
-  &.talks{
-    background: #12c4a6;
+    padding-top: $base-line-height;
+    border-top: 1px solid $primary-grey;
   }
 }
 

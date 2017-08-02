@@ -4,54 +4,54 @@ import gql from 'graphql-tag'
 
 export default {
   state: {
-    department: {},
     list: [],
     scs_list: [],
     selected_department: ''
   },
   actions: {
-    GET_DEPARTMENT: ({ commit, state }, fields = {}) => {
-      return state.department.length
-        ? Promise.resolve(state.department)
-        : apollo.query({
-          query: gql`
-            {
-            	department(uid:"${fields}"){
-                uid
-                name
-                description
-                mainimg
-                logo
-                url
-              }
-            }
-          `
-        }).then((res,err) => {
-          if (res) {
-            commit('SET_DEPARTMENT', res.data)
-            return res.data
-          } else {
-            Promise.reject(":err :department graphql failed")
-          }
-        }).catch((err) =>{
-          console.error(err.locations)
-          console.error(`GraphQL Error: ${err.message}`)
-        })
-    },
-    GET_DEPARTMENT_LIST: ({ commit, state }, fields = {}) => {
+    GET_DEPARTMENTS: ({ commit, state }, fields = {}) => {
       return state.list.length
         ? Promise.resolve(state.list)
         : apollo.query({
           query: gql`
             {
-              courseStringAgg(field:"department"){
-                _id
+              departmentsContent {
+                uid
+                name
+                description
+                short_description
+                mainimg
+                logo
+                url
+                course_count(semesterCode: "F17") {
+                  _id
+                }
+                member_count {
+                  _id
+                }
+                programs_count{
+                  _id
+                }
+                news(limit:1) {
+                  title
+                  date
+                  uid
+                  image
+                }
+                events(limit:2) {
+                  uid
+                  talkTitle
+                  type
+                  title
+                  speakerName
+                  startDate
+                }
               }
             }
           `
         }).then((res,err) => {
           if (res) {
-            commit('SET_DEPARTMENT_LIST', res.data)
+            commit('SET_DEPARTMENTS', res.data)
             return res.data
           } else {
             Promise.reject(":err :department graphql failed")
@@ -88,11 +88,8 @@ export default {
     }
   },
   mutations: {
-    SET_DEPARTMENT: (state, data) => {
-      Vue.set(state.department, data.department.uid, data.department)
-    },
-    SET_DEPARTMENT_LIST: (state, data) => {
-      state.list = data.courseStringAgg
+    SET_DEPARTMENTS: (state, data) => {
+      state.list = data.departmentsContent
     },
     SET_SCS_DEPARTMENT_LIST: (state, data) => {
       state.scs_list = data.departments;

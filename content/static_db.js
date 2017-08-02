@@ -97,6 +97,12 @@ global.STATIC_DB = {
       title: 'Donate to SCS',
       slug: 'donate',
       path: '/donate'
+    },
+    {
+      label: 'For International Students',
+      title: 'For International Students',
+      slug: 'international-students',
+      path: '/international-students'
     }
   ]
 }
