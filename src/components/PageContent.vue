@@ -38,35 +38,19 @@ export default {
 }
 </script>
 
-
 <style lang="scss" scoped>
-// .content-body{
-//   flex: 1;
-//   display: flex;
-//   flex-direction: column;
-// }
-//
-// img{
-//   width: 100%
-// }
-//
-// .content-title{
-//   margin-bottom: 0;
-// }
-//
-// .content-title a{
-//   transition: color .3s ease;
-//   &:hover{
-//     text-decoration: none;
-//   }
-// }
-//
-// .content-meta{
-//   margin-top: .5em;
-//   margin-bottom: 0;
-// }
-//
-// .content-container{
-//   flex: 1;
-// }
+img{
+  width: 100%
+}
+.content-title a{
+  transition: color .3s ease;
+  &:hover{
+    text-decoration: none;
+  }
+}
+
+.content-meta{
+  margin-top: .5em;
+  margin-bottom: 0;
+}
 </style>

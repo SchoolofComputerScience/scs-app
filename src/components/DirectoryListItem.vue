@@ -50,10 +50,10 @@ export default {
   transition: .35s box-shadow, .35s top, .35s left;
   position: relative;
   background: white;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+  box-shadow: $box-shadow-inert;
   display: inline-block;
   vertical-align: top;
-  
+
   @include breakpoint-max(laptop) {
     max-width: 50%;
     width: 48.5%;
@@ -75,7 +75,7 @@ export default {
     top: -.1em;
     left: -.1em;
     transition: .2s box-shadow, .2s top, .2s left;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: $box-shadow-hover;
   }
 
   p.name {

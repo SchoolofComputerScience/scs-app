@@ -1,30 +1,31 @@
 <template>
-  <section class="department-view">
-    <h1>department</h1>
-    <!-- <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
+  <section class="content-page card">
+    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded" >
       <div>
-        <figure class="department-header" :style="{ 'background-image': 'url(' + department.mainimg + ')' }"></figure>
+        <figure class="department-header" :style="{ 'background-image': 'url(' + department[0].mainimg + ')' }">
+          <img class="logo circle large-circle" v-if="department[0].logo" :src="department[0].logo" />
+        </figure>
         <div class="content-container">
-          <img class="logo" v-if="department.logo" :src="department.logo" />
-          <h1>{{department.name}}</h1>
-          <p>{{department.description}}</p>
+          <h1>{{department[0].name}}</h1>
+          <p>{{department[0].description}}</p>
+          <p><a class="button-small" :href="department[0].url">{{department[0].uid}} website</a></p>
 
-          <h3 class="component-title">{{this.$route.params.department | upc}} News</h3>
-          <NewsList :department="this.$route.params.department"></NewsList>
-          <router-link class="btn" :to="'/news'">View Full News</router-link>
-
-          <h3 class="component-title">{{this.$route.params.department | upc}} Events</h3>
-          <EventsList :department="this.$route.params.department"></EventsList>
-          <router-link class="btn" :to="'/events'">View Full Events</router-link>
-
-          <h3 class="component-title">{{this.$route.params.department | upc}} Programs</h3>
+          <h2 class="component-title">{{this.$route.params.department | upc}} Programs</h2>
           <Programs :condensed="true" :department="this.$route.params.department"></Programs>
+
+          <h3 class="component-title">News</h3>
+          <NewsList :department="this.$route.params.department"></NewsList>
+
+          <h3 class="component-title">Events</h3>
+          <EventsList :department="this.$route.params.department"></EventsList>
+
 
           <h3 class="component-title">{{this.$route.params.department | upc}} Directory</h3>
           <section class="card-holder department-card-holder">
             <DepartmentDirectory></DepartmentDirectory>
           </section>
+
           <router-link class="btn" :to="'/directory/department/' + this.$route.params.department">View Full {{this.$route.params.department | upc}} Directory</router-link>
           <h3 class="component-title">{{this.$route.params.department | upc}} Course Listing</h3>
           <section class="course-list">
@@ -33,53 +34,35 @@
           <router-link class="btn" :to="'/courses/'">View Full {{this.$route.params.department | upc}} Course List</router-link>
         </div>
       </div>
-    </transition> -->
+    </transition>
   </section>
 </template>
 
 <script>
-// import Spinner from '../components/Spinner.vue'
-// import { router } from '../app'
-// import CourseListView from '../views/CourseListView.vue'
-// import DepartmentDirectory from '../components/DepartmentDirectory.vue'
-// import NewsList from '../components/NewsList.vue'
-// import EventsList from '../components/EventsList.vue'
-// import Courses from '../components/Courses.vue'
-// import Programs from '../components/Programs.vue'
-
-// function fetchDepartment(store) {
-//   return store.dispatch('GET_DEPARTMENT_LIST')
-//     .then(() => {
-//       let departmentArray = ['compbio', 'csd',  'hcii', 'lti', 'mld', 'ri', 'isr', 'deans_office', 'ai']
-//       /*
-//         temp dep array
-//         WIP: ping the collection with department codes to verify department
-//         let isDepartment = store.state.department.list.some((n) => n._id === store.state.route.params.department)
-//       */
-//       let isDepartment = departmentArray.some((n) => n == store.state.route.params.department)
-//       isDepartment
-//         ? getDeparmentData(store)
-//         : router.push('/')
-//     })
-// }
-
-// function getDeparmentData(store){
-//   return store.dispatch('GET_DEPARTMENT', store.state.route.params.department)
-// }
+import Spinner from '../components/Spinner.vue'
+import { router } from '../app'
+import CourseListView from '../views/CourseListView.vue'
+import DepartmentDirectory from '../components/DepartmentDirectory.vue'
+import NewsList from '../components/DepartmentNewsList.vue'
+import EventsList from '../components/DepartmentEventsList.vue'
+import Courses from '../components/Courses.vue'
+import Programs from '../components/Programs.vue'
 
 export default {
   name: 'department-view',
 
-  // preFetch: fetchDepartment,
+  asyncData ({ store }) {
+    return store.dispatch('GET_DEPARTMENTS')
+  },
 
   components: {
-    // Spinner,
-    // CourseListView,
-    // DepartmentDirectory,
-    // Courses,
-    // Programs,
-    // NewsList,
-    // EventsList
+    Spinner,
+    CourseListView,
+    DepartmentDirectory,
+    Courses,
+    Programs,
+    NewsList,
+    EventsList
   },
 
   data () {
@@ -90,21 +73,27 @@ export default {
 
   computed: {
     loaded() {
-      return this.$store.state.department.department[this.$route.params.department] ? true : false
+      if(this.$store.state.department.list){
+        if(!this.$store.state.department.list.some((n) => n.uid === this.$route.params.department))
+          router.push('/')
+        return true;
+      }
     },
     department(){
-      return this.$store.state.department.department[this.$route.params.department]
+      let param = this.$route.params.department;
+      let departments = this.$store.state.department.list;
+      return departments.filter(function(el){
+        if(el.uid === param)
+          return el
+      })
     }
-  },
-
-  // beforeMount () {
-  //   fetchDepartment(this.$store)
-  // }
-
+  }
 }
 </script>
 
 <style lang="scss">
+
+
 // .department-card-holder .card:nth-child(3n+3) {
 //   margin-right: 2.5%;
 //   margin-right: 0;
@@ -124,15 +113,9 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-// h1 {
-//   font-size: 2em;
-//   @media screen and (max-width: 768px) {
-//     font-size: 1.5em;
-//   }
-// }
-// .directory-title{
-//   margin-top: 2em;
-// }
+@import '../assets/scss/vars';
+@import '../assets/scss/circle';
+
 // h3{
 //   border-top: 1px solid #eee;
 //   border-bottom: 1px dashed #eee;
@@ -179,16 +162,21 @@ export default {
 //   }
 // }
 //
-// .department-header {
-//   min-height: 36em;
-//   background-size: cover;
-//   background-position: center;
-//   position: absolute;
-//   width: 100%;
-//   left: 0;
-//   top: -0.55em;
-//   margin: 0;
-// }
+.department-header {
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  width: 100%;
+  left: 0;
+  top: -$base-line-height * 2;
+  margin: 0;
+  margin-left: -$base-line-height * 2;
+  width: calc(100% + #{$base-line-height  * 4});
+  margin-bottom: $base-line-height;
+  .logo{
+    margin: $base-line-height;
+  }
+}
 // .comp-spin{
 //   border: 1px solid blue;
 // }

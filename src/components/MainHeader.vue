@@ -19,7 +19,6 @@
           <li><router-link to="/departments/ri">Robotics Institute</router-link></li>
           <li><router-link to="/departments/deans_office">Dean's Business Office</router-link></li>
         </nav-drop>
-
         <li>
           <router-link to="/directory">Directory</router-link>
         </li>
@@ -28,13 +27,20 @@
           <li><router-link to="/donate">Donate</router-link></li>
           <li><router-link to="/outreach">Outreach</router-link></li>
           <li><router-link to="/corporate">Corporate Relations</router-link></li>
+          <li><router-link to="/international-students">International Students</router-link></li>
           <li><a href="http://www.cs.cmu.edu/~help/">Computing Facilities</a></li>
+          <li><a href="http://www.cs.cmu.edu/~scsfacts/awards.html">Faculty Awards</a></li>
+          <li><a href="http://www.cs.cmu.edu/~scsfacts/studentawards.html">Student Awards</a></li>
         </nav-drop>
-        <li>
-          <router-link to="/programs">Programs</router-link>
-        </li>
+        <nav-drop navlink="/programs" navtitle="Programs">
+          <li><router-link to="/undergraduate-programs">Undergraduate</router-link></li>
+          <li><router-link to="/masters-programs">Masters</router-link></li>
+          <li><router-link to="/doctoral-programs">Doctoral</router-link></li>
+        </nav-drop>
         <nav-drop to="/admissions" navtitle="Admissions">
-          <li><router-link to="/departments/compbio">Computational Biology Department</router-link></li>
+          <li><router-link to="/undergraduate-admissions">Undergraduate</router-link></li>
+          <li><router-link to="/masters-admissions">Masters</router-link></li>
+          <li><router-link to="/doctoral-admissions">Doctoral</router-link></li>
         </nav-drop>
         <li>
           <router-link to="/courses/F17">Courses</router-link>
@@ -45,9 +51,9 @@
         <li>
           <router-link to="/events">Events</router-link>
         </li>
-        <li>
+        <!-- <li>
           <router-link to="/research">Research</router-link>
-        </li>
+        </li> -->
       </ul>
     </nav>
   </header>

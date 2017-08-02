@@ -84,7 +84,6 @@ export default {
     align-items: center;
   }
   .type{
-    border: 1p solid red;
     position: absolute;
     top: 0;
     right: 0;

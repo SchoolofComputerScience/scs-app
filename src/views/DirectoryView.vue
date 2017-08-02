@@ -3,7 +3,7 @@
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <div class="filter-toggle" v-if="loaded">
       <form class="search" v-on:submit.prevent>
-        <input class="filter-input"
+        <input class="filter-search"
           v-model="query"
           :placeholder="placeholder"
           v-on:submit.prevent
@@ -216,7 +216,7 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/vars';
 
-.filter-input{
+.filter-search{
   border: none;
   border-left: .1em solid $red;
   background: white;
@@ -244,13 +244,13 @@ export default {
   }
 }
 
-.filter-input::placeholder{
+.filter-search::placeholder{
   font-weight: 300;
   color: #aaa;
   font-style: italic;
 }
 
-.main .filter-input{
+.main .filter-search{
   margin-top: 0;
 }
 

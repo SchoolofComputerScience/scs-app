@@ -40,6 +40,12 @@
 
 .button-small{
   @extend .button;
+  font-weight: 300;
+  border: 0;
   font-size: $base-line-height / 2;
   padding: $base-line-height / 4;
+  &:hover{
+    color: white;
+    background-color: $red;
+  }
 }

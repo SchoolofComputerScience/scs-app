@@ -5,9 +5,6 @@ import router from './router'
 import * as filters from './filter'
 import { sync } from 'vuex-router-sync'
 import 'isomorphic-fetch'
-import moment from 'vue-moment'
-
-Vue.use(moment)
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

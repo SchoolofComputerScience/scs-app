@@ -59,10 +59,10 @@
             </p>
           </section>
 
-          <section v-if="member.research_areas" class="research directory-information">
+          <section v-if="member.research_areas" class="research">
             <p class="title">Research Areas</p>
             <p>
-              <a href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
+              <a class="button-small" href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in member.research_areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
             </p>
           </section>
 
@@ -283,30 +283,6 @@ export default {
       }
     }
   }
-  // .button-small{
-  //   font-size: .5em;
-  // }
-  // button{
-    // -webkit-appearance: none;
-    // cursor: pointer;
-    // border: 0;
-    // background-color: #c41230;
-    // color: #fff;
-    // font-weight: 900;
-    // font-size: .7em;
-    // padding: .5em 1.2em;
-    // text-transform: uppercase;
-    // font-family: Open Sans;
-    // &:focus {
-    //   outline:0;
-    // }
-    // &:hover{
-    //   background-color: rgba(#C41230, 0.80);
-    // }
-    // &:active{
-    //   background-color: rgba(#C41230, 0.40);
-    // }
-  // }
 }
 
 .card-holder {
@@ -331,30 +307,7 @@ export default {
   }
 }
 
-.events, .research, .courses, .news{
-  padding: 1.6em 0;
-  p{
-    line-height: 1.8em;
-  }
-  span{
-    font-size: .8em;
-    font-weight: 900;
-  }
-}
-
 .research{
-  button{
-    font-size: .7em;
-    padding: .5em 1.2em;
-    text-transform: uppercase;
-  }
-  #info{
-    transition:height 0.3s ease-out;
-  }
-  p:nth-child(2) > span > em{
-    color: #ccc;
-    padding: 0 .8em;
-  }
   p:nth-child(2) > span:last-child{
     em{
       display: none;
