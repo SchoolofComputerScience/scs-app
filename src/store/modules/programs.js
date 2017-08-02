@@ -22,6 +22,14 @@ export default {
                 graduate_level
                 degree_level
                 additional_degree
+                learning_outcomes {
+                  track_id
+                  outcomes
+                }
+                goals {
+                  track_id
+                  goal
+                }
               }
             }
           `
