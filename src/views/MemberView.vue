@@ -1,16 +1,14 @@
 <template>
-  <section class="page">
+  <section >
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <div class="member-view" v-if="loaded">
+    <div class="member-view content-page card" v-if="loaded">
       <transition name="fade" mode="out-in" appear>
         <div>
 
           <section class="top-header">
-            <div class="image" v-if="member.image_url" :style="{ 'background-image': 'url(' + member.image_url + ')' }">
-            </div>
+            <div class="image circle large-circle" v-if="member.image_url" :style="{ 'background-image': 'url(' + member.image_url + ')' }"></div>
             <div>
-              <h1 class="full_name">{{member.full_name}}</h1>
-              <p class="full_title">{{member.scs_relationship_desc}}</p>
+              <h1 class="full_name">{{member.display_name}}</h1>
               <p v-if="member.homepage_url" class="homepage"><a :href="member.homepage_url">{{member.homepage_url}}</a></p>
             </div>
           </section>
@@ -32,17 +30,17 @@
             <div ref="biographyInfo" v-bind:style="styleObject" :class="{read: readMoreBio}" class="biographyInfo">
               <div class="data" v-html="member.biography"></div>
             </div>
-            <button @click="readMore()" v-if="readMoreBio">Read More</button>
+            <button @click="readMore()" v-if="readMoreBio" class="button-small">Read More</button>
           </section>
 
           <section class="directory-information">
             <div v-if="!member.phone_full.includes('null') || !member.phone_full">
               <p class="title">phone</p>
-              <p><a :to="'tel:' + member.phone_full_call" class="phone">{{member.phone_full}}</a></p>
+              <p><a :href="'tel:' + member.phone_full_call" class="phone">{{member.phone_full}}</a></p>
             </div>
             <div v-if="member.display_email">
               <p class="title">email</p>
-              <p><a :to="'mailto:' + member.display_email">{{member.display_email}}</a></p>
+              <p><a :href="'mailto:' + member.display_email">{{member.display_email}}</a></p>
             </div>
             <div v-if="member.positions[0].building">
               <p class="title">building</p>
@@ -221,9 +219,11 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../assets/scss/vars';
+@import '../assets/scss/circle';
+
 .biography{
-  font-size: .95em;
-  padding: 1.6em 0;
+  @include type-setting(0);
   .biographyInfo{
     overflow-y: hidden;
     transition: .3s height;
@@ -246,11 +246,7 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-
-
-.member-view{
-  font-size: 1.05em;
-}
+@import '../assets/scss/vars';
 
 .title{
   text-transform: uppercase;
@@ -287,41 +283,38 @@ export default {
       }
     }
   }
-  button{
-    -webkit-appearance: none;
-    cursor: pointer;
-    border: 0;
-    background-color: #c41230;
-    color: #fff;
-    font-weight: 900;
-    font-size: .7em;
-    padding: .5em 1.2em;
-    text-transform: uppercase;
-    font-family: Open Sans;
-    &:focus {
-      outline:0;
-    }
-    &:hover{
-      background-color: rgba(#C41230, 0.80);
-    }
-    &:active{
-      background-color: rgba(#C41230, 0.40);
-    }
-  }
+  // .button-small{
+  //   font-size: .5em;
+  // }
+  // button{
+    // -webkit-appearance: none;
+    // cursor: pointer;
+    // border: 0;
+    // background-color: #c41230;
+    // color: #fff;
+    // font-weight: 900;
+    // font-size: .7em;
+    // padding: .5em 1.2em;
+    // text-transform: uppercase;
+    // font-family: Open Sans;
+    // &:focus {
+    //   outline:0;
+    // }
+    // &:hover{
+    //   background-color: rgba(#C41230, 0.80);
+    // }
+    // &:active{
+    //   background-color: rgba(#C41230, 0.40);
+    // }
+  // }
 }
 
 .card-holder {
   font-size: .9em;
-  display: flex;
-  flex-wrap: row;
-  flex-flow: wrap;
   width: 100%;
   position: relative;
-  display: -webkit-flex;
   display: flex;
-  -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex-direction: row;
   flex-direction: row;
   > div{
     padding: 0;
@@ -333,11 +326,8 @@ export default {
       padding-left: 1em;
     }
   }
-  p {
-    font-size: .8em;
-    em {
-      color: #C41230;
-    }
+  p > em {
+    color: #C41230;
   }
 }
 
@@ -382,6 +372,9 @@ export default {
     margin-bottom: 2rem;
     text-transform: uppercase;
   }
+  p{
+    padding-bottom: 0;
+  }
   a{
     font-size: .8em;
     margin-top: 2em;
@@ -391,18 +384,9 @@ export default {
 .top-header{
   display: flex;
   border-bottom: 1px solid #ccc;
-  font-size: 1.4em;
-  padding-bottom: 2em;
-  padding-top: 2em;
-  .homepage{
-    font-size: .8em;
-    padding-top: 1em;
-  }
-  .full_title{
-    padding-top: .6em;
-  }
-  div{
-    display: inline-block
+  padding-bottom: $base-line-height;
+  div {
+    display: inline-block;
     &:nth-child(2){
       display: flex;
       flex-direction: column;
@@ -410,15 +394,9 @@ export default {
     }
   }
   .image{
-    width: 8em;
-    height: 8em;
-    margin-right: 1em;
+    margin-right: $base-line-height;
     background-size: cover;
-    border: 1px solid #ccc;
-    border-radius: 8em;
-    border: .2em solid white;
-    background-size: cover;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+    margin-bottom: 0;
   }
 }
 
@@ -427,17 +405,16 @@ export default {
   margin-top: -1px;
   div{
     display: inline-block;
-    margin-right: 2em;
-    padding: 1em 0;
+    margin-right: $base-line-height * 2;
+    padding: $base-line-height 0;
     border-top: 1px solid #ccc;
-
     &:not(:last-child){
-      padding-right: 1em;
-      margin-right: 1em;
+      padding-right: $base-line-height;
+      margin-right: $base-line-height;
     }
     p{
       padding: 0;
-      padding-bottom: .5em;
+      padding-bottom: $base-line-height / 2;
       text-transform: capitalize;
       &:nth-child(2){
         padding-bottom: 0;
@@ -508,7 +485,6 @@ export default {
       display: none;
     }
   }
-
   em:hover {
     text-decoration: none;
   }

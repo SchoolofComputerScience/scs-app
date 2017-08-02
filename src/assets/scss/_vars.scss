@@ -1,6 +1,63 @@
-$red: #c41230;
 
-$phone: "only screen and (max-width: 767px)"; // phones
-$tab: "only screen and (min-width: 768px)";   // tablet
-$desk: "only screen and (min-width: 1025px)"; // desktop
-$cap: "only screen and (min-width: 1140px)";  // capped
+// VARS
+
+@import 'mixins';
+@import '~modularscale-sass/stylesheets/modularscale';
+
+// breaks
+
+$breakpoints: (
+  phone: 0,
+  tablet: 768px,
+  laptop: 1024px,
+  desktop: 1280px,
+  full: 1440px,
+  max: 1680px
+);
+
+// colors
+
+$red: #c41230;
+$black: #34495e;
+$primary-grey: #eee;
+
+// typography
+
+$font: 'Open Sans', Helvetica, sans-serif;
+$base-font-size: 1rem;
+$modularscale: (
+  base: $base-font-size,
+  ratio: 1.333
+);
+$base-line-height: 1.333rem;
+$type-settings: (
+  -1: (
+    font-size: ms(-1),
+    line-height: $base-line-height
+  ),
+  0: (
+    font-size: ms(0),
+    line-height: $base-line-height
+  ),
+  1: (
+    font-size: ms(1),
+    line-height: $base-line-height * 1.5
+  ),
+  2: (
+    font-size: ms(2),
+    line-height: $base-line-height * 2
+  ),
+  3: (
+    font-size: ms(3),
+    line-height: $base-line-height * 2
+  ),
+  4: (
+    font-size: ms(5),
+    line-height: $base-line-height * 2
+  ),
+);
+
+// shadows
+
+$box-shadow-inert: 0 .1rem .15rem rgba(0,0,0,.2);
+$box-shadow-hover: 0 .2rem .5rem rgba(0,0,0,.3);

@@ -10,6 +10,7 @@ const resolve = file => path.resolve(__dirname, file)
 const { createBundleRenderer } = require('vue-server-renderer')
 const dotenv = require('dotenv');
 const fetch = require('isomorphic-fetch')
+const robots = require('express-robots')
 
 dotenv.load({ path: '.env' });
 
@@ -54,6 +55,7 @@ const serve = (path, cache) => express.static(resolve(path), {
 })
 
 app.use(compression({ threshold: 0 }))
+app.use(robots({UserAgent: '*', Disallow: '/'}))
 app.use('/dist', serve('./dist', true))
 app.use('/public', serve('./public', true))
 app.use('/content', serve('./content'))

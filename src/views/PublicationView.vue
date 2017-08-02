@@ -1,6 +1,6 @@
 <template>
   <section class="page">
-    <div class="publication-view" >
+    <div class="publication-view">
       <spinner class="spinner" v-if="!pbset" key="spinner"></spinner>
       <transition name="loading" mode="out-in" appear v-if="pbset">
         <div>

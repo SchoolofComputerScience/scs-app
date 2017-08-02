@@ -12,6 +12,7 @@ import courses from './modules/courses';
 import programs from './modules/programs';
 import researchAreas from './modules/researchAreas';
 import semesterCode from './modules/semesterCode';
+import navigation from './modules/navigation';
 
 Vue.use(Vuex)
 
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
     courses,
     programs,
     researchAreas,
-    semesterCode
+    semesterCode,
+    navigation
   }
 })
 

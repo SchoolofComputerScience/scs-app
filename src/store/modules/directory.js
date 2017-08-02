@@ -19,7 +19,7 @@ export default {
             {
               members {
                 _id
-                full_name
+                display_name
                 hr_relationship_class
                 positions {
                   title
