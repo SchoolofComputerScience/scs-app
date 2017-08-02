@@ -63,6 +63,7 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
+import scidAPI from '../api_requests/scid'
 
 function fetchCourse(store) {
   return store.dispatch('FETCH_COURSE',  store.state.route.params.course)
@@ -84,6 +85,19 @@ export default {
     },
     course(){
       return this.$store.state.courses.course[this.$route.params.course]
+    }
+  },
+
+  methods: {
+    validatePerson(scid) {
+      scidAPI.find(scid).then((valid) => {
+        if (valid) {
+          router.push({ path: '/directory/' + scid});
+        }
+        else {
+          alert("Unfortunately, more information cannot be found about this instructor.");
+        }
+      });
     }
   },
 
