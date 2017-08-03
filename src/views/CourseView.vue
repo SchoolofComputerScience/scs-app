@@ -30,7 +30,8 @@
           <p class="title" v-if="course.instructors.length === 1">Instructor</p>
           <p class="title" v-if="course.instructors.length > 1">Instructors</p>
           <p v-for="instructor in course.instructors">
-            <a href="javascript:void(0);" v-on:click="validatePerson(instructor.scid)">{{ instructor.firstName + " " + instructor.lastName }}</a>
+            <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
+            <span v-else>{{ instructor.firstName + " " + instructor.lastName }}</span>
           </p>
         </div>
 
@@ -85,19 +86,6 @@ export default {
     },
     course(){
       return this.$store.state.courses.course[this.$route.params.course]
-    }
-  },
-
-  methods: {
-    validatePerson(scid) {
-      scidAPI.find(scid).then((data) => {
-        if (data.members.length > 0) {
-          router.push({ path: '/directory/' + scid});
-        }
-        else {
-          alert("Unfortunately, more information cannot be found about this instructor.");
-        }
-      });
     }
   },
 
