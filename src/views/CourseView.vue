@@ -1,10 +1,10 @@
 <template>
-  <div class="courses-view">
+  <div class="content-page card">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <div>
+    <div v-if="loaded">
 
       <div class="breadcrumbs">
-        <router-link :to="'/courses'">Courses</router-link> / <router-link :to="'/courses/' + course.semesterCode"> {{course.semesterCode | seasonTranslate}} </router-link>
+        <router-link :to="'/courses/' + course.semesterCode"> {{course.semesterCode | seasonTranslate}} </router-link>
       </div>
 
       <div class="top-bar">
@@ -44,7 +44,6 @@
           <p>{{course.meetings[0].room}}</p>
         </div>
 
-
         <div v-if="course.meetings[0].startTime">
           <p class="title">Time</p>
           <p v-if="course.meetings[0].startTime">{{course.meetings[0].startTime}} - {{course.meetings[0].endTime}}</p>
@@ -55,7 +54,6 @@
           <p v-if="course.meetings[0].days">{{course.meetings[0].days | dayTranslate}}</p>
         </div>
       </section>
-
     </div>
   </div>
 </template>

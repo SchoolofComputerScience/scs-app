@@ -38,30 +38,6 @@ export default {
           console.error(`GraphQL Error: ${err.message}`)
         })
     },
-    GET_DEPARTMENT_NEWS: ({ commit, state }, fields = {}) => {
-      return apollo.query({
-          query: gql`
-            {
-              newsByTag(department:"${fields}") {
-                title
-                date
-                uid
-                image
-                tags {
-                  tag
-                  name
-                }
-              }
-            }
-          `
-        }).then((res,err) => {
-          commit('SET_DEPARTMENT_NEWS_LIST', res.data)
-          return res.data
-        }).catch((err) =>{
-          Promise.reject(":err :department graphql failed")
-          console.error(`GraphQL Error: ${err.message}`)
-        })
-    },
     GET_NEWS_ARTICLE: ({ commit, state }, fields = {}) => {
       return state.articles[fields]
         ? Promise.resolve(state.articles[fields])
@@ -131,10 +107,6 @@ export default {
         state.error = ''
         state.list = data.news || data.newsBySearch
       }
-    },
-    SET_DEPARTMENT_NEWS_LIST: (state, data) => {
-      console.log(data)
-      //state.department_list = data.news
     }
   }
 }

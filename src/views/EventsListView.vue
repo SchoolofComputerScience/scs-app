@@ -5,21 +5,24 @@
       <transition name="fade" mode="out-in" v-if="loaded">
         <section class="page">
           <form v-on:submit.prevent>
-            <input class="event-search" v-model="query" placeholder="Search Events" @keyup.enter="searchEvents" name="query" autocomplete="off">
+            <input
+              class="event-search"
+              v-model="query"
+              placeholder="Search Events"
+              @keyup.enter="searchEvents"
+              name="query"
+              autocomplete="off">
           </form>
           <div class="card-holder">
             <div v-if="error" class="error-message">
               <p>{{error}}</p>
             </div>
-            <div class="card" v-if="!error" v-for="event in events" :key="event.uid" >
-              <div :class="event.type" class="type">{{event.type}}</div>
-              <router-link  :to="'/events/' + event.uid">
-                <div>
-                  <p><b>{{timeFix(event.startDate)}}</b> / {{dateFix(event.startDate)}}</p>
-                  <h3>{{event.title}}</h3>
-                </div>
-              </router-link>
-            </div>
+            <EventsItem
+              class="card"
+              v-if="!error"
+              v-for="event in events"
+              :data="event"
+              :key="event.uid"></EventsItem>
           </div>
         </section>
       </transition>
@@ -29,7 +32,7 @@
 
 <script>
 import Spinner from '../components/Spinner.vue'
-import format from 'date-fns/format'
+import EventsItem from '../components/EventsItem.vue'
 
 function fetchEventsList(store) {
   return store.dispatch('GET_EVENTS_LIST')
@@ -41,7 +44,8 @@ export default {
   preFetch: fetchEventsList,
 
   components: {
-    Spinner
+    Spinner,
+    EventsItem
   },
 
   data () {
@@ -74,13 +78,7 @@ export default {
   methods: {
     searchEvents: _.debounce(function(){
       this.$store.dispatch('SEARCH_EVENTS', this.query)
-    }, 500),
-    timeFix (arg) {
-      return format(arg, 'h:mm a')
-    },
-    dateFix (arg) {
-      return format(arg, 'MMMM Do YYYY')
-    }
+    }, 500)
   },
 
   beforeMount () {
@@ -110,18 +108,6 @@ export default {
   }
 }
 
-.type{
-  position: absolute;
-  top: 0;
-  right: 0;
-  color: white;
-  font-size: .8rem;
-  background: $red;
-  padding-bottom: 0;
-  padding: $base-line-height / 4;
-  text-transform: uppercase;
-}
-
 .event-search::placeholder{
   font-weight: 300;
   color: #aaa;
@@ -137,46 +123,6 @@ export default {
 
 .error-message{
   margin: $base-line-height 0;
-}
-
-.card{
-  width: 30%;
-  position: relative;
-  z-index: 1;
-  margin: 0;
-  margin-top: $base-line-height;
-  &:nth-child(3n -2),
-  &:nth-child(3n -1){
-    margin-right: $base-line-height;
-  }
-  @include breakpoint-max(tablet) {
-    &:nth-child(3n -2),
-    &:nth-child(3n -1){
-      margin-right: 0;
-    }
-    &:nth-child(2n -1){
-      margin-right: $base-line-height;
-    }
-    width: 47%;
-  }
-  p{
-    color: $black;
-  }
-  a{
-    padding-top: $base-line-height;
-    width: 100%;
-    z-index: 9;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    > div{
-      width: 100%;
-    }
-  }
-  h3{
-    padding-top: $base-line-height;
-    border-top: 1px solid $primary-grey;
-  }
 }
 
 </style>

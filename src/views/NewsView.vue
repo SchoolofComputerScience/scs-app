@@ -87,9 +87,8 @@ export default {
 .tags{
   margin-bottom: $base-line-height / 4;
 }
-
 .news-header {
-  min-height: 16rem;
+  min-height: $base-line-height * 12;
   left: -$base-line-height * 2;
   top: -$base-line-height * 2;
   margin-bottom: $base-line-height;
@@ -101,6 +100,15 @@ export default {
   display: flex;
   padding-left: $base-line-height * 2;
   align-items: flex-end;
+  @include breakpoint-max(desktop) {
+    left: -$base-line-height;
+    top: -$base-line-height;
+    padding-left: $base-line-height;
+    width: calc(100% + #{$base-line-height} * 2);
+  }
+  @include breakpoint-max(tablet){
+    min-height: $base-line-height * 8;
+  }
 }
 
 </style>

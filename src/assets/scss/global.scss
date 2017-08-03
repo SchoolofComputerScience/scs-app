@@ -66,6 +66,9 @@ html{
     margin: $base-line-height auto;
     max-width: 1440px;
   }
+  @include breakpoint-max(full){
+    margin: $base-line-height auto;    
+  }
 }
 
 .display-page{

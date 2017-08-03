@@ -11,7 +11,7 @@ export function seasonTranslate (seasonId) {
     [ 'F', 'Fall' ]
   ])
   let month = seasonId.substr(seasonId, 1)
-  let year = seasonId.slice(-2)
+  let year = '20' + seasonId.slice(-2)
 
   return `${seasonMap.get(month)} ${year}`
 }

@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div v-for="list in newsListByDepartment">
-      <NewsItem :data="list"></NewsItem>
-    </div>
+  <div class="card-holder data-page">
+    <NewsItem v-for="list in newsListByDepartment" :data="list" :key="list.uid"></NewsItem>
   </div>
 </template>
 
@@ -27,15 +25,12 @@ export default {
     newsListByDepartment() {
       let news_data = this.$store.state.news.list || [];
       let dep_news = []
-      let count = 0;
       for (let i = 0; i < news_data.length; i++) {
-        if(news_data[i].tags.includes(this.department.toUpperCase())){
-          dep_news.push(news_data[i])
-          count++;
-          if (count === 2) {
-            break;
+        news_data[i].tags.map((tag) => {
+          if(this.department.toUpperCase() == tag.name){
+            dep_news.push(news_data[i])
           }
-        }
+        })
       }
       return dep_news;
     }
@@ -48,6 +43,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+.card-holder {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  // TEMP
+  .news-item{
+    display: none;
+    &:nth-child(1), &:nth-child(2){
+      display: flex;
+    }
+  }
+}
+
+
+
 // .courses-view {
 //   margin-top: 1em;
 // }
