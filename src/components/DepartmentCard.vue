@@ -13,15 +13,15 @@
       <div class="card-content-top">
         <router-link :to="'/courses/F17'" class="card">
           <h6>{{departmentData.course_count._id}}</h6>
-          <h4>Courses</h4>
+          <h4>{{departmentData.uid}} Courses</h4>
         </router-link>
         <router-link :to="'/directory/department/' + departmentData.uid" class="card">
           <h6>{{departmentData.member_count._id}}</h6>
-          <h4>Members</h4>
+          <h4>{{departmentData.uid}} Members</h4>
         </router-link>
         <router-link :to="'/programs'" class="card">
           <h6>{{departmentData.programs_count._id}}</h6>
-          <h4>Programs</h4>
+          <h4>{{departmentData.uid}} Programs</h4>
         </router-link>
       </div>
       <div class="card-content-bottom">
@@ -108,6 +108,9 @@ export default {
     z-index: 100;
     color: white;
     transition: .2s;
+    @include breakpoint-max(tablet) {
+      padding-top: $base-line-height * 4;
+    }
   }
   &:after{
     background: rgba(255,255,255,.9);
@@ -147,6 +150,9 @@ export default {
   display: flex;
   flex-direction: column;
   margin: 0 0 $base-line-height $base-line-height;
+  @include breakpoint-max(tablet) {
+    margin: 0 0 $base-line-height 0;
+  }
   a{
     width: 100%;
     flex: 1;
@@ -262,6 +268,11 @@ export default {
     flex: 1;
     justify-content: space-around;
   }
+  .card-content-bottom{
+    @include breakpoint-max(tablet) {
+      display: block;
+    }
+  }
   .card-content-top{
     text-transform: uppercase;
     .card{
@@ -269,9 +280,17 @@ export default {
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      @include breakpoint-max(tablet) {
+        h6{
+          font-size: 2.2em;
+          padding-bottom: 0;
+        }
+      }
       h4{
+        font-size: .5em;
         padding-bottom: 0;
-        letter-spacing: .1rem;
+        letter-spacing: .05rem;
+        text-align: center;
       }
     }
   }
@@ -279,9 +298,17 @@ export default {
 
 .department-card{
   display: flex;
-  margin-bottom: $base-line-height;
+  margin-bottom: $base-line-height * 2;
+  padding-bottom: $base-line-height ;
+  margin-top: $base-line-height;
   border-bottom: 1px solid darken($primary-grey, 10%);
   width: 100%;
+
+  @include breakpoint-min(full) {
+    padding-left: $base-line-height;
+    padding-right: $base-line-height;
+  }
+
   @include breakpoint-max(laptop) {
     flex-direction: column;
   }

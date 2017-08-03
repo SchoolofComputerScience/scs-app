@@ -2,7 +2,7 @@
   <section class="content-page card">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded" >
-      <div>
+      <div v-if="department[0]">
         <figure class="department-header" :style="{ 'background-image': 'url(' + department[0].mainimg + ')' }">
           <img class="logo circle large-circle" v-if="department[0].logo" :src="department[0].logo" />
         </figure>
@@ -80,12 +80,14 @@ export default {
       }
     },
     department(){
-      let param = this.$route.params.department;
-      let departments = this.$store.state.department.list;
-      return departments.filter(function(el){
-        if(el.uid === param)
-          return el
-      })
+      if(this.$store.state.department.list){
+        let param = this.$route.params.department;
+        let departments = this.$store.state.department.list;
+        return departments.filter(function(el){
+          if(el.uid === param)
+            return el
+        })
+      }
     }
   }
 }

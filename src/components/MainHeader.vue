@@ -26,7 +26,7 @@
           <li><router-link to="/alumni">Alumni Engagement</router-link></li>
           <li><router-link to="/donate">Donate</router-link></li>
           <li><router-link to="/outreach">Outreach</router-link></li>
-          <li><router-link to="/corporate">Corporate Relations</router-link></li>
+          <li><router-link to="/corporate">SCS Partnerships</router-link></li>
           <li><router-link to="/international-students">International Students</router-link></li>
           <li><a href="http://www.cs.cmu.edu/~help/">Computing Facilities</a></li>
           <li><a href="http://www.cs.cmu.edu/~scsfacts/awards.html">Faculty Awards</a></li>
@@ -115,6 +115,9 @@ export default {
   max-height: $base-line-height * 4;
   width: 15rem;
   padding: $base-line-height 0;
+  @include breakpoint-max(phone) {
+    width: 14rem;
+  }
   img{
     max-height: $base-line-height * 2;
   }
