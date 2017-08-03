@@ -90,8 +90,8 @@ export default {
 
   methods: {
     validatePerson(scid) {
-      scidAPI.find(scid).then((valid) => {
-        if (valid) {
+      scidAPI.find(scid).then((data) => {
+        if (data.members.length > 0) {
           router.push({ path: '/directory/' + scid});
         }
         else {
