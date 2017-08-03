@@ -112,6 +112,7 @@ export default {
                   lastName
                   firstName
                   email
+                  valid
                 }
                 college
                 section
