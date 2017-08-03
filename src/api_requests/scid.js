@@ -7,14 +7,14 @@ export default {
       apollo.query({
         query: gql`
           {
-            findScid(scid:"${scid}") {
-              exists
+            members(scid:"${scid}") {
+              scid
             }
           }
         `
       }).then((res,err) => {
         if (res) {
-          resolve(res.data.findScid.exists);
+          resolve(res.data);
         } else {
           reject(":err :find scid graphql failed")
         }
