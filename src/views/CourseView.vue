@@ -62,7 +62,6 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
-import scidAPI from '../api_requests/scid'
 
 function fetchCourse(store) {
   return store.dispatch('FETCH_COURSE',  store.state.route.params.course)
