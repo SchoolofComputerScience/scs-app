@@ -113,7 +113,7 @@ export default {
     }
   }
   &:after{
-    background: rgba(255,255,255,.9);
+    background: linear-gradient(to bottom, rgba($black, 0), $black);
     width: 100%;
     height: 100%;
     content: ' ';
@@ -121,20 +121,17 @@ export default {
     top: 0;
     left: 0;
     transition: .2s opacity;
-    opacity: 0;
+    opacity: .7;
     z-index: -10;
   }
   &:hover{
     h3{
-      color: black;
       transition: .2s opacity;
-      opacity: 1;
-      text-shadow: none;
     }
   }
   &:hover:after{
     transition: .2s;
-    opacity: 1;
+    opacity: .8;
   }
 }
 

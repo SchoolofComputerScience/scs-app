@@ -51,9 +51,9 @@
         <li>
           <router-link to="/events">Events</router-link>
         </li>
-        <!-- <li>
+        <li>
           <router-link to="/research">Research</router-link>
-        </li> -->
+        </li>
       </ul>
     </nav>
   </header>

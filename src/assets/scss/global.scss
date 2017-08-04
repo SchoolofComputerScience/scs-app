@@ -18,22 +18,22 @@ html, body {
 
 html{
   @include breakpoint-max(phone) {
-    font-size: .9em;
+    font-size: .8em;
   }
   @include breakpoint-min(phone) {
-    font-size: 1em;
+    font-size: .9em;
   }
   @include breakpoint-min(tablet) {
-    font-size: 1.125em;
+    font-size: 1em;
   }
   @include breakpoint-min(laptop) {
-    font-size: 1.2em;
+    font-size: 1.05em;
   }
   @include breakpoint-min(desktop) {
-    font-size: 1.35em;
+    font-size: 1.15em;
   }
   @include breakpoint-min(full) {
-    font-size: 1.5em;
+    font-size: 1.25em;
   }
 }
 
@@ -67,7 +67,7 @@ html{
     max-width: 1440px;
   }
   @include breakpoint-max(full){
-    margin: $base-line-height auto;    
+    margin: $base-line-height auto;
   }
 }
 

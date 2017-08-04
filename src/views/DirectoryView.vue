@@ -1,5 +1,5 @@
 <template>
-  <section>
+  <section class="data-page">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <div class="filter-toggle" v-if="loaded">
       <form class="search" v-on:submit.prevent>
