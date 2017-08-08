@@ -30,6 +30,13 @@ export default {
                   track_id
                   goal
                 }
+                areas {
+                  track_id
+                  areas {
+                    title
+                    area_id
+                  }
+                }
               }
             }
           `
