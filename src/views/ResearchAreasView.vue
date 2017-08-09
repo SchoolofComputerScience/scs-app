@@ -4,7 +4,7 @@
     <section class="area-section" v-if="facultyInArea">
       <h2>Programs That Include {{selected_research_area}}</h2>
       <ul class="items">
-        <li class="program" v-for="program in programs" :key="program.program_id">{{program.program_name}}</li>
+        <li v-for="program in programs" :key="program.program_id">{{program.program_name}}</li>
       </ul>
     </section>
     <section class="faculty-members area-section" v-if="facultyInArea">
@@ -138,9 +138,6 @@ export default {
 }
 
 .items {
-  .program {
-    margin-bottom: 0.35em;
-    display: block;
-  }
+  line-height: 1.5;
 }
 </style>
