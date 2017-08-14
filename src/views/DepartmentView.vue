@@ -9,7 +9,7 @@
           </figure>
           <h1>{{department[0].name}}</h1>
           <p>{{department[0].description}}</p>
-          <p><a class="button-small" :href="department[0].url">{{department[0].uid}} website</a></p>
+          <p><a class="button-small" :href="department[0].url" target="_blank">{{department[0].name}} website</a></p>
         </div>
         <Programs :condensed="true" :department="this.$route.params.department" class="content-page card"></Programs>
         <NewsList :department="this.$route.params.department"></NewsList>
