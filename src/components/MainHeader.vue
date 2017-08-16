@@ -28,6 +28,7 @@
           <li><router-link to="/outreach">Outreach</router-link></li>
           <li><router-link to="/corporate">SCS Partnerships</router-link></li>
           <li><router-link to="/international-students">International Students</router-link></li>
+          <li><router-link to="/diversity-and-inclusion">Diversity and Inclusion</router-link></li>
           <li><a href="http://www.cs.cmu.edu/~help/">Computing Facilities</a></li>
           <li><a href="http://www.cs.cmu.edu/~scsfacts/awards.html">Faculty Awards</a></li>
           <li><a href="http://www.cs.cmu.edu/~scsfacts/studentawards.html">Student Awards</a></li>
