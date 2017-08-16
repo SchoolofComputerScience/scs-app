@@ -117,6 +117,9 @@ export default {
   padding: $base-line-height 0;
   @include breakpoint-max(phone) {
     width: 14rem;
+    padding: $base-line-height / 2;
+    padding-left: 0;
+    padding-right: 0;
   }
   img{
     max-height: $base-line-height * 2;
@@ -164,7 +167,6 @@ export default {
     display: none;
   }
 }
-
 @include breakpoint-max(tablet) {
   .main-header {
     margin-bottom: 0;
@@ -258,4 +260,78 @@ export default {
     }
   }
 }
+@include breakpoint-max(tablet) {
+  .main-nav {
+    // right: calc(#{$base-line-height} - 4px);
+    &.stuck:hover{
+      top: calc(#{$base-line-height} - 2px);
+      right: calc(#{$base-line-height} + 2px);
+      transition: .2s linear;
+    }
+    &:hover.stuck:after{
+      box-shadow: $box-shadow-hover;
+    }
+
+    &:after{
+      content: ' ';
+      opacity: 0;
+      transition: .2s linear;
+    }
+    &.stuck {
+      // top: 2px;
+      &:after{
+        transition: .2s linear;
+        opacity: 1;
+        content: ' ';
+        width: $base-line-height * 3.2;
+        height: $base-line-height * 3.2;
+        background: white;
+        position: absolute;
+        left: -1em;
+        top: -.7em;
+        box-shadow: $box-shadow-inert;
+        border-radius: 100%;
+      }
+    }
+  }
+}
+
+@include breakpoint-max(phone) {
+
+  .main-nav {
+    width: 2.2rem;
+    top: 3px;
+    right: calc(#{$base-line-height} - 4px);
+    &.stuck:hover{
+      top: 3px;
+      right: calc(#{$base-line-height} - 4px);
+      transition: none;
+    }
+    &:hover.stuck:after{
+      box-shadow: $box-shadow-inert;
+    }
+    &:after{
+      content: ' ';
+      opacity: 0;
+      transition: .2s linear;
+    }
+    &.stuck {
+      top: 3px;
+      &:after{
+        transition: .2s linear;
+        opacity: 1;
+        content: ' ';
+        width: $base-line-height * 2.7;
+        height: $base-line-height * 2.7;
+        background: white;
+        position: absolute;
+        left: -11px;
+        box-shadow: $box-shadow-inert;
+        top: -1px;
+        border-radius: 100%;
+      }
+    }
+  }
+}
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="programs-view">
+  <div class="programs-view content-page card">
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in">
 
