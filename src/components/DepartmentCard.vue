@@ -309,6 +309,13 @@ export default {
   @include breakpoint-max(laptop) {
     flex-direction: column;
   }
+
+  @include breakpoint-max(phone) {
+    &:first-child{
+      margin-top: 0;
+    }
+  }
+
   &:last-child{
     border-bottom: 0;
     margin-bottom: 0;

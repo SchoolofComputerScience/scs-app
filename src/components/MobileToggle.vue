@@ -50,6 +50,9 @@ export default {
   background: none;
   outline: none;
   z-index: 200;
+  @include breakpoint-max(phone) {
+    width: 1.9em;
+  }
 }
 
 span {
@@ -63,18 +66,31 @@ span {
   left: 0;
   transform: rotate(0deg);
   transition: .25s ease-in-out;
+  @include breakpoint-max(phone) {
+    height: 3px;
+    border-radius: 3px;
+  }
 }
 
 span:nth-child(1) {
   top: 6px;
+  @include breakpoint-max(phone) {
+    top: 10px;
+  }
 }
 
 span:nth-child(2), span:nth-child(3) {
   top: 19px;
+  @include breakpoint-max(phone) {
+    top:20px;
+  }
 }
 
 span:nth-child(4) {
   top: 32px;
+  @include breakpoint-max(phone) {
+    top: 30px;
+  }
 }
 .open span{
   background: white;
