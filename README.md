@@ -15,7 +15,7 @@ Main Application
 
 3. `npm run build`
 
-4. Create a .env file and add: `SCS_API=https://scs-api-dot-scs-shadow.appspot.com/graph`
+4. Request the `.env` file
 
 5. Optionally add `PORT=` with preferred port number, it defaults to 4000
 
