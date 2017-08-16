@@ -9,7 +9,7 @@ Main Application
 
 ## Getting Started
 
-`cd scs-app`.
+`cd scs-app`
 
 `npm install`
 
