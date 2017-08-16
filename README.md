@@ -5,12 +5,20 @@ Main Application
 [![Build Status](https://travis-ci.org/SchoolofComputerScience/scs-app.svg?branch=master)](https://travis-ci.org/SchoolofComputerScience/scs-app)
 
 ## Requirements
-[Node.js 8.1.4](https://nodejs.org/en/)
+[Node.js 8.4.x](https://nodejs.org/en/)
 
 ## Getting Started
 
-`cd scs-app`.
+1. `cd scs-app`.
 
-`npm install`
+2. `npm install`
 
-`npm run dev`
+3. `npm run build`
+
+4. Create a .env file and add: `SCS_API=https://scs-api-dot-scs-shadow.appspot.com/graph`
+
+5. Optionally add `PORT=` with preferred port number, it defaults to 4000
+
+6. `npm run start:prod`
+
+7. Visit `http://localhost:4000` (or whatever port number you provided).
