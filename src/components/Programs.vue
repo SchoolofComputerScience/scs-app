@@ -4,14 +4,14 @@
     <transition name="fade" mode="out-in">
 
       <article v-if="!condensed">
-        <div v-for="(department, departmentID) in programs">
+        <div v-for="(department, departmentID) in programs" :key="departmentID">
           <h2 :id="departmentID.toLowerCase()">{{departmentID | departmentTranslate}}</h2>
           <section class="container">
-            <div class="degree" v-for="(degree_level, graduate_level) in department">
+            <div class="degree" v-for="(degree_level, graduate_level) in department" :key="graduate_level">
               <h2>{{graduate_level}} Programs</h2>
-              <div v-for="degree in degree_level" class="level">
-                <div v-for="program in degree" class="program">
-                  <h3>{{program.program_name}} - <a :href="program.url" target="_blank">Learn More</a></h3>
+              <div v-for="(degree, index) in degree_level" class="level" :key="index">
+                <div v-for="program in degree" class="program" :key="program.program_id">
+                  <h3><router-link v-if="program.description && program.areas_count > 0" :to="'/programs/' + program.program_id">{{program.program_name}}</router-link><a v-else :href="program.url" target="_blank">{{program.program_name}}</a></h3>
                   <p>{{program.description}}</p>
                 </div>
               </div>
@@ -21,13 +21,13 @@
       </article>
 
       <article v-if="condensed">
-        <div v-for="department in programs">
+        <div v-for="(department, departmentID) in programs" :key="departmentID">
           <section class="container condensed">
-            <div class="degree" v-for="(degree_level, graduate_level) in department">
+            <div class="degree" v-for="(degree_level, graduate_level) in department" :key="graduate_level">
               <h2>{{graduate_level}} Programs</h2>
-              <ul v-for="degree in degree_level">
-                <li v-for="program in degree" class="program">
-                  <p><a :href="program.url" target="_blank">{{program.program_name}}</a></p>
+              <ul v-for="(degree, index) in degree_level" :key="index">
+                <li v-for="program in degree" class="program" :key="program.program_id">
+                  <p><router-link v-if="program.description && program.areas_count > 0" :to="'/programs/' + program.program_id">{{program.program_name}}</router-link><a v-else :href="program.url" target="_blank">{{program.program_name}}</a></p>
                 </li>
               </ul>
             </div>
@@ -113,9 +113,11 @@ export default {
 
             final_list[department][program.graduate_level][program.degree_level].push({
               program_name: program.program_name,
+              program_id: program.program_id,
               url: program.url,
               description: program.description,
-              department: program.department
+              department: program.department,
+              areas_count: program.areas ? program.areas.length : 0
             });
           }
         }
