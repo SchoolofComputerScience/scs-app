@@ -262,7 +262,6 @@ export default {
 }
 @include breakpoint-max(tablet) {
   .main-nav {
-    // right: calc(#{$base-line-height} - 4px);
     &.stuck:hover{
       top: calc(#{$base-line-height} - 2px);
       right: calc(#{$base-line-height} + 2px);
@@ -278,7 +277,6 @@ export default {
       transition: .2s linear;
     }
     &.stuck {
-      // top: 2px;
       &:after{
         transition: .2s linear;
         opacity: 1;
@@ -297,7 +295,6 @@ export default {
 }
 
 @include breakpoint-max(phone) {
-
   .main-nav {
     width: 2.2rem;
     top: 3px;
