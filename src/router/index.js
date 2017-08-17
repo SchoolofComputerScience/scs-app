@@ -18,6 +18,7 @@ import CourseListView from '../views/CourseListView.vue'
 import CourseSelectView from '../views/CourseSelectView.vue'
 import ErrorView from '../views/ErrorView.vue'
 import ProgramsView from '../views/ProgramsView.vue'
+import ProgramView from '../views/ProgramView.vue'
 import ResearchAreasView from '../views/ResearchAreasView.vue'
 import ResearchAreasListView from '../views/ResearchAreasListView.vue'
 
@@ -34,6 +35,7 @@ export default new Router({
     { path: '/courses/:semester', component: CourseListView },
     { path: '/departments/:department?', component: DepartmentView },
     { path: '/programs', component: ProgramsView },
+    { path: '/programs/:program', component: ProgramView },
     { path: '/publication/:pubid?', component: PublicationView },
     { path: '/news/', component: NewsListView },
     { path: '/events/', component: EventsListView },
