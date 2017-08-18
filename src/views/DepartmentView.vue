@@ -90,6 +90,10 @@ export default {
   margin-left: -$base-line-height * 2;
   width: calc(100% + #{$base-line-height  * 4});
   margin-bottom: $base-line-height;
+  @include breakpoint-max(desktop) {
+    margin-left: -$base-line-height;
+    width: calc(100% + #{$base-line-height  * 2});
+  }
   .logo{
     margin: $base-line-height;
   }
