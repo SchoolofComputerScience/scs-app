@@ -44,17 +44,17 @@ export default {
 }
 
 .news-item{
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  position: relative;
   width: 50%;
   max-width: 50%;
   @include breakpoint-max(laptop) {
     width: 100%;
     max-width: 100%;
   }
-  display: flex;
-  align-items: start;
-  justify-content: start;
-  position: relative;
-  flex-direction: column;
   &:nth-child(even){
     padding-left: $base-line-height;
     @include breakpoint-max(laptop) {
@@ -66,11 +66,13 @@ export default {
 
 .card {
   position: relative;
+  z-index: 1;
+  flex-grow: 1;
+  width: 100%;
   background-position: center;
   background-size: cover;
   transition: .4s all;
-  z-index: 1;
-  width: 100%;
+  margin-bottom: $base-line-height * 0.562;
   > div > a {
     z-index: 9;
     text-decoration: none;
