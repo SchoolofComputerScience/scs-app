@@ -9,7 +9,7 @@
       </figure>
       <p><b>Carnegie Mellon School of Computer Science</b><br>5000 Forbes Avenue<br>Pittsburgh, PA 15213</p>
     </div>
-    <div class="project-status"><b>ALPHA</b> | to watch the progress or contribute visit our <a href="https://github.com/SchoolofComputerScience/scs-app">github</a>.</div>
+    <div class="project-status"><b>ALPHA</b> | to contribute an issue, visit our <a href="https://github.com/SchoolofComputerScience/scs-issues/issues">github issues</a> page.</div>
   </footer>
 </template>
 
