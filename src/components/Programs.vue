@@ -68,7 +68,7 @@ export default {
     },
 
     programs() {
-      let component_department = this.department || this.$store.state.route.params.department;
+      let component_department = this.department || this.$store.state.route.params.department || this.$store.state.department.selected_department;
       let component_degree_level = this.degree_level || this.$store.state.route.params.degree_level;
       let component_graduate_level = this.graduate_level || this.$store.state.route.params.graduate_level;
       let programs_data = this.$store.state.programs.list || [];
