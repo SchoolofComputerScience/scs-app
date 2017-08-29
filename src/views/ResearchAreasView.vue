@@ -24,7 +24,7 @@
             <router-link  :to="'/news/' + news_item.uid">
               <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
               <div class="content">
-                <h2>{{news_item.date | moment("dddd, MMMM Do YYYY")}}</h2>
+                <h2>{{news_item.date}}</h2>
                 <h3>{{news_item.title}}</h3>
               </div>
             </router-link>
@@ -92,7 +92,7 @@ export default {
       selected_area.programs.forEach(function(program) {
         programs.push(program);
       });
-      
+
       return programs;
     },
     facultyInArea() {
