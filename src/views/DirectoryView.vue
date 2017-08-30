@@ -170,11 +170,8 @@ export default {
         // check if any of the boolean conditions are met before pushing
 
         let pushEntry = 0;
-        let scs_rel = departmentFilter[i].scs_relationship_class;
-        let hr_rel = departmentFilter[i].hr_relationship_class;
-
-        // remove this once we have all of the scs_rel codes filled in the data
-        scs_rel = typeof(scs_rel) == "string" ? scs_rel : "";
+        let scs_rel = departmentFilter[i].scs_relationship_class || '';
+        let hr_rel = departmentFilter[i].hr_relationship_class || '';
 
         pushEntry |= this.depTitle == "Faculty" &&
           (
@@ -275,7 +272,7 @@ form.search {
     right: 0;
     bottom: 0;
     width: 5em;
-    margin-top: $base-line-height;
+    margin-top: $base-line-height / 2;
     background: $red;
     border: 0;
     outline: 0;
