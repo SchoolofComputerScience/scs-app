@@ -1,7 +1,6 @@
 <template>
   <section class="data-page">
-    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <div class="filter-toggle" v-if="loaded">
+    <div class="filter-toggle">
       <form class="search" v-on:submit.prevent>
         <input class="filter-search"
           v-model="query"
@@ -20,6 +19,7 @@
         </div>
       </div>
     </div>
+    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
 
     <VirtualScroller
       v-if="loaded"
