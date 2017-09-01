@@ -103,6 +103,12 @@ global.STATIC_DB = {
       title: 'For International Students',
       slug: 'international-students',
       path: '/international-students'
+    },
+    {
+      label: 'Diversity and Inclusion',
+      title: 'Diversity and Inclusion',
+      slug: 'diversity-and-inclusion',
+      path: '/diversity-and-inclusion'
     }
   ]
 }
