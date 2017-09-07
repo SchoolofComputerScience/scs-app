@@ -7,6 +7,7 @@ import HomeView from '../views/HomeView.vue'
 import DirectoryView from '../views/DirectoryView.vue'
 import PublicationView from '../views/PublicationView.vue'
 import DepartmentView from '../views/DepartmentView.vue'
+import DepartmentsView from '../views/DepartmentsView.vue'
 import MemberView from '../views/MemberView.vue'
 import NewsListView from '../views/NewsListView.vue'
 import EventsListView from '../views/EventsListView.vue'
@@ -33,6 +34,7 @@ export default new Router({
     { path: '/courses/', component: CourseSelectView },
     { path: '/courses/course/:course', component: CourseView },
     { path: '/courses/:semester', component: CourseListView },
+    { path: '/departments', component: DepartmentsView },
     { path: '/departments/:department?', component: DepartmentView },
     { path: '/programs', component: ProgramsView },
     { path: '/programs/:program', component: ProgramView },
