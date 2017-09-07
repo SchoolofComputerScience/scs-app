@@ -25,16 +25,16 @@ Main Application
 
 ## Adding Content
 
-### Adding simple markdown pages
+### Simple markdown pages
 1. Add Markdown file in: [scs-content/pages](https://github.com/SchoolofComputerScience/scs-content/tree/master/pages)
 
 2. When that page is accepted into the repository add a new path to pages in [scs-app/content/static_db.js](https://github.com/SchoolofComputerScience/scs-app/blob/master/content/static_db.js)
 
-### Adding new custom .vue pages
+### New custom .vue pages
 1. Add new .vue page in [scs-app/src/views](https://github.com/SchoolofComputerScience/scs-app/tree/master/src/views)
 
 2. Import the 'view' and add new route entry in [scs-app\src\router\index.js](https://github.com/SchoolofComputerScience/scs-app/blob/master/src/router/index.js)
 
-### @todo Adding Events
+### @todo Events
 
-### @todo Adding News
+### @todo News
