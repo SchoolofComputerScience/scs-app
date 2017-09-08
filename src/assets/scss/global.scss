@@ -16,13 +16,7 @@ html, body {
   font-family: $font;
 }
 
-html{
-  @include breakpoint-max(phone) {
-    font-size: .8em;
-  }
-  @include breakpoint-min(phone) {
-    font-size: .9em;
-  }
+body {
   @include breakpoint-min(tablet) {
     font-size: 1em;
   }
@@ -84,4 +78,19 @@ html{
     margin-right: auto;
     max-width: 1440px;
   }
+}
+
+// Utility classes
+// For screen readers only (visually hidden but accessible)
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  -webkit-clip-path: inset(50%);
+  clip-path: inset(50%);
+  border: 0;
 }

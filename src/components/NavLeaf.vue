@@ -1,9 +1,22 @@
 <template>
-  <li v-on:mouseover="active = !active" v-on:mouseout="active = !active" class="drop-container">
-    <router-link v-on:click="active = false" v-if='navlink' :to="navlink" exact>{{navtitle}}</router-link>
-    <p v-if='!navlink'>{{navtitle}}</p>
-    <ul class="drop-inner" v-bind:class="{ active: active }">
-      <slot></slot>
+  <li v-on:mouseover="open" v-on:mouseout="setcurrentleaf(null)" class="nav-leaf">
+    <!-- Handle top level items, may or may not be links -->
+    <router-link v-if="childitems.navlink" :to="childitems.navlink" exact v-on:click="active = false" @focus.native="open">
+      {{navtitle}}
+    </router-link>
+    <span v-if="!childitems.navlink" tabindex="0" v-on:focus="open">
+      {{navtitle}}
+    </span>
+    <!-- Handle dropdowns -->
+    <ul v-if="Object.keys(childitems).length > 1" class="drop-inner" v-bind:class="{ active: active }">
+      <li
+        v-for="(subnavlink, subnavtitle) in childitems"
+        :key="subnavtitle"
+        v-if="subnavtitle !== 'navlink'">
+        <router-link :to="subnavlink" @mouseover.native="open" @focus.native="open">
+          {{ subnavtitle }}
+        </router-link>
+      </li>
     </ul>
   </li>
 </template>
@@ -12,12 +25,20 @@
 export default {
   name: 'nav-drop',
 
-  props: ['navlink', 'navtitle'],
+  props: ['navtitle', 'currentleaf', 'setcurrentleaf', 'childitems'],
 
-  data: function () {
-    return {
-      active: false
+  computed: {
+    active: function() {
+      return this.currentleaf === this.navtitle
     }
+  },
+
+  methods: {
+    open: function(event) {
+      this.active = true;
+      // Set parent component's state so all other dropdowns know if they should be active
+      this.setcurrentleaf(this.navtitle);
+    },
   }
 }
 </script>
@@ -26,55 +47,58 @@ export default {
 @import '../assets/scss/vars';
 @import '../assets/scss/mixins.scss';
 
-a, p{
+a,
+span {
   @include type-setting(0);
   color: $black;
   display: block;
-  padding: $base-line-height / 2 0;
+  padding: $base-line-height / 2;
   &:hover, &.router-link-active{
     color: $red;
   }
 }
 
-.drop-container{
+.nav-leaf{
   position: relative;
-  border-bottom: 2px solid $red;
+  > .router-link-active {
+    border-bottom: 0.125rem solid $red;
+  }
+
 }
 
 .drop-inner{
   border-bottom: 2px solid $red;
   border-top: 0;
-  padding: $base-line-height;
   position: absolute;
   background: white;
-  left: -$base-line-height * 1.2;
+  left: 0;
   transition: .2s;
   opacity: 0;
   pointer-events: none;
   box-shadow: $box-shadow-inert;
   padding-bottom: $base-line-height / 2;
   padding-top: 0;
-  li{
-    display: block;
-    transition: .2s;
-    min-width: $base-line-height * 12;
-    a{
-      font-size: .85rem;
-    }
-  }
   &.active{
     opacity: 1;
     transition: .2s;
-    left: -$base-line-height;
+    left: 0;
     pointer-events: all;
     li{
       transition: .2s;
     }
   }
+  li{
+    display: block;
+    transition: .2s;
+    min-width: $base-line-height * 12;
+    a{
+      font-size: 1rem;
+    }
+  }
 }
 
-@include breakpoint-max(tablet) {
-  .drop-container{
+.main-nav-is-burger {
+  .nav-leaf{
     border: none;
   }
   .drop-inner{
@@ -114,7 +138,7 @@ a, p{
       left: 0;
     }
   }
-  a, p{
+  a, span {
     @include type-setting(0);
     padding: $base-line-height / 2 $base-line-height;
     color: white;

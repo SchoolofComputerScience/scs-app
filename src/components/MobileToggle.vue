@@ -4,12 +4,15 @@
     <span></span>
     <span></span>
     <span></span>
+    <span class="sr-only">Toggle Menu</span>
   </button>
 </template>
 
 <script>
 export default {
   name: 'mobile-toggle',
+
+  props: ['scrollhandler'],
 
   computed: {
     open () {
@@ -29,7 +32,8 @@ export default {
 
   methods: {
     openNav(){
-      this.$store.commit('SET_NAVIGATION_STATE', !this.$store.state.navigation.navState)
+      this.scrollhandler();
+      this.$store.commit('SET_NAVIGATION_STATE', !this.$store.state.navigation.navState);
     }
   }
 }
@@ -39,62 +43,50 @@ export default {
 @import '../assets/scss/vars.scss';
 
 .mobile-toggle {
-  width: $base-line-height * 1.75;
-  height: $base-line-height * 1.75;
+  $width: $base-line-height * 2.625;
   position: relative;
+  width: $width;
+  height: $width;
+  z-index: 200;
   transform: rotate(0deg);
   transition: .5s ease-in-out;
   cursor: pointer;
   border: 0;
   -webkit-appearance: none;
-  background: none;
+  appearance: none;
+  background: transparent;
   outline: none;
-  z-index: 200;
-  @include breakpoint-max(phone) {
-    width: 1.9em;
-  }
-}
-
-span {
-  display: block;
-  position: absolute;
-  height: 5px;
-  width: 100%;
-  background: $red;
-  border-radius: 6px;
-  opacity: 1;
-  left: 0;
-  transform: rotate(0deg);
-  transition: .25s ease-in-out;
-  @include breakpoint-max(phone) {
-    height: 3px;
-    border-radius: 3px;
+  span {
+    $burger-width: $base-line-height * 1.75;
+    display: block;
+    position: absolute;
+    left: ($width - $burger-width) / 2; // Center burger bits
+    height: 5px;
+    width: $burger-width;
+    background: $red;
+    border-radius: 6px;
+    opacity: 1;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out;
   }
 }
 
 span:nth-child(1) {
-  top: 6px;
-  @include breakpoint-max(phone) {
-    top: 10px;
-  }
+  top: 14px;
 }
 
 span:nth-child(2), span:nth-child(3) {
-  top: 19px;
-  @include breakpoint-max(phone) {
-    top:20px;
-  }
+  top: 26px;
 }
 
 span:nth-child(4) {
-  top: 32px;
-  @include breakpoint-max(phone) {
-    top: 30px;
-  }
+  top: 39px;
 }
-.open span{
-  background: white;
+
+.open span {
+  background: #fff;
 }
+
 .open span:nth-child(1) {
   top: 19px;
   width: 0%;

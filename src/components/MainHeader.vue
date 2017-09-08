@@ -1,74 +1,35 @@
 <template>
-  <header>
+  <header v-bind:class="{ 'main-nav-is-burger': isMenuHamburger }">
     <div class="logo">
       <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
     </div>
     <nav class="main-nav">
-      <mobile-toggle></mobile-toggle>
-      <ul v-bind:class="{ open: open}">
-        <li>
-          <router-link to="/" exact>Home</router-link>
-        </li>
-        <nav-drop navtitle="Departments">
-          <li><router-link to="/departments/compbio">Computational Biology Department</router-link></li>
-          <li><router-link to="/departments/csd">Computer Science Department</router-link></li>
-          <li><router-link to="/departments/hcii">Human-Computer Interaction Institute</router-link></li>
-          <li><router-link to="/departments/isr">Institute for Software Research</router-link></li>
-          <li><router-link to="/departments/lti">Language Technologies Institute</router-link></li>
-          <li><router-link to="/departments/mld">Machine Learning Department</router-link></li>
-          <li><router-link to="/departments/ri">Robotics Institute</router-link></li>
-          <li><router-link to="/departments/deans_office">Dean's Business Office</router-link></li>
-        </nav-drop>
-        <li>
-          <router-link to="/directory">Directory</router-link>
-        </li>
-        <nav-drop navlink="/about" navtitle="About">
-          <li><router-link to="/alumni">Alumni Engagement</router-link></li>
-          <li><router-link to="/donate">Donate</router-link></li>
-          <li><router-link to="/outreach">Outreach</router-link></li>
-          <li><router-link to="/corporate">SCS Partnerships</router-link></li>
-          <li><router-link to="/international-students">International Students</router-link></li>
-          <li><router-link to="/diversity-and-inclusion">Diversity and Inclusion</router-link></li>
-          <li><a href="http://www.cs.cmu.edu/~help/">Computing Facilities</a></li>
-          <li><a href="http://www.cs.cmu.edu/~scsfacts/awards.html">Faculty Awards</a></li>
-          <li><a href="http://www.cs.cmu.edu/~scsfacts/studentawards.html">Student Awards</a></li>
-        </nav-drop>
-        <nav-drop navlink="/programs" navtitle="Programs">
-          <li><router-link to="/undergraduate-programs">Undergraduate</router-link></li>
-          <li><router-link to="/masters-programs">Masters</router-link></li>
-          <li><router-link to="/doctoral-programs">Doctoral</router-link></li>
-        </nav-drop>
-        <nav-drop to="/admissions" navtitle="Admissions">
-          <li><router-link to="/undergraduate-admissions">Undergraduate</router-link></li>
-          <li><router-link to="/masters-admissions">Masters</router-link></li>
-          <li><router-link to="/doctoral-admissions">Doctoral</router-link></li>
-        </nav-drop>
-        <li>
-          <router-link to="/courses/F17">Courses</router-link>
-        </li>
-        <li>
-          <router-link to="/news">News</router-link>
-        </li>
-        <li>
-          <router-link to="/events">Events</router-link>
-        </li>
-        <li>
-          <router-link to="/research">Research</router-link>
-        </li>
+      <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
+      <ul v-bind:class="{ open: open}" class="main-nav-list">
+        <!-- Passes currentleaf from state down -->
+        <!-- Passes a method to change this components currentleaf state -->
+        <nav-leaf
+          v-for="(childitems, navtitle) in navlinks"
+          :key="navtitle"
+          :navtitle="navtitle"
+          :currentleaf="currentleaf"
+          :setcurrentleaf="setcurrentleaf"
+          :childitems="childitems">
+        </nav-leaf>
       </ul>
     </nav>
   </header>
 </template>
 
 <script>
-import NavDrop from '../components/NavDrop.vue'
+import NavLeaf from '../components/NavLeaf.vue'
 import MobileToggle from '../components/MobileToggle.vue'
 
 export default {
   name: 'main-header',
 
   components: {
-    NavDrop,
+    NavLeaf,
     MobileToggle
   },
 
@@ -78,32 +39,126 @@ export default {
     }
   },
 
+  data: function () {
+    return {
+      currentleaf: null,
+      isMenuHamburger: false,
+      // Menu links as an object
+      // Each top level section is an object
+      // If that item is a link include the "navlink" key with the URL as a value
+      // Child items should have link text as key and link URL as value
+      navlinks: {
+        "Home": {
+          "navlink": "/",
+        },
+        "Departments": {
+          "Computational Biology Department": "/departments/compbio",
+          "Computer Science Department": "/departments/csd",
+          "Human-Computer Interaction Institute": "/departments/hcii",
+          "Institute for Software Research": "/departments/isr",
+          "Language Technologies Institute": "/departments/lti ",
+          "Machine Learning Department": "/departments/mld",
+          "Robotics Institute": "/departments/ri",
+          "Dean's Business Office": "/departments/deans_office",
+        },
+        "Directory": {
+          "navlink": "/directory",
+        },
+        "About": {
+          "navlink": "/about",
+          "Alumni Engagement": "/alumni",
+          "Donate": "/donate",
+          "Outreach": "/outreach",
+          "SCS Partnerships": "/corporate",
+          "International Students": "/international-students",
+          "Diversity and Inclusion": "/diversity-and-inclusion",
+          "Computing Facilities": "http://www.cs.cmu.edu/~help/",
+          "Faculty Awards": "http://www.cs.cmu.edu/~scsfacts/awards.html",
+          "Student Awards": "http://www.cs.cmu.edu/~scsfacts/studentawards.html",
+        },
+        "Programs": {
+          "navlink": "/programs",
+          "Undergraduate": "/undergraduate-programs",
+          "Masters": "/masters-programs",
+          "Doctoral": "/doctoral-programs",
+        },
+        "Admissions": {
+          "navlink": "/admissions",
+          "Undergraduate": "/undergraduate-admissions",
+          "Masters": "/masters-admissions",
+          "Doctoral": "/doctoral-admissions",
+        },
+        "Courses":  {
+          "navlink": "/courses/F17",
+        },
+        "News": {
+          "navlink": "/news",
+        },
+        "Events": {
+          "navlink": "/events"
+        },
+        "Research": {
+          "navlink": "/research",
+        }
+      }
+    }
+  },
+
   watch: {
     '$route' (to, from) {
-      this.$store.commit('SET_NAVIGATION_STATE', false)
+      this.$store.commit('SET_NAVIGATION_STATE', false);
     }
   },
 
   methods:{
-    scroll(){
-      let offsetTop = this.$el.querySelector('.main-nav').getBoundingClientRect().top
-      let logoHeight = document.querySelector('.logo').clientHeight
-      if(offsetTop < -1 || window.scrollY > logoHeight)
-        this.$el.querySelector('.main-nav').classList.add('stuck')
-      else
-        this.$el.querySelector('.main-nav').classList.remove('stuck')
+    scroll: function() {
+      const offsetTop = this.$el.querySelector('.main-nav').getBoundingClientRect().top;
+      const logoHeight = document.querySelector('.logo').clientHeight;
+      if (offsetTop < -1 || window.scrollY > logoHeight) {
+        this.$el.querySelector('.main-nav').classList.add('stuck');
+      } else {
+        this.$el.querySelector('.main-nav').classList.remove('stuck');
+      }
     },
     scrollTest(){
-      window.requestAnimationFrame(this.scroll)
+      window.requestAnimationFrame(this.scroll);
+    },
+    resize: function() {
+      const header = this.$el;
+      const menu = header.querySelector('.main-nav');
+      const lastMenuItemBoundingRect = header.querySelector('.main-nav-list > li:last-child').getBoundingClientRect();
+
+      // If the last menu item is popping out of the header, then it's burger time
+      if (lastMenuItemBoundingRect.x + lastMenuItemBoundingRect.width > header.clientWidth + header.getBoundingClientRect().x) {
+        this.isMenuHamburger = true;
+        // Make sure the nav is stuck with appropriate styling based on the page
+        this.scrollTest();
+        // Unable to revert back to desktop menu since nav will be skinnier than viewport in mobile mode,
+        // So adding an else will cause the menu to flip back and forth between burger/not burger rapidly
+        // So kill our listener
+        window.addEventListener('resize', this.resizeTest);
+      }
+    },
+    resizeTest() {
+      window.requestAnimationFrame(this.resize);
+    },
+    setcurrentleaf: function(currentleaf) {
+      // This function exists so child components can manipulate this components data
+      this.currentleaf = currentleaf;
     }
   },
 
   mounted () {
     window.addEventListener('scroll', this.scrollTest);
+    window.addEventListener('resize', this.resizeTest);
+    // Fire the functions once on load
+    this.scrollTest();
+    this.resizeTest();
   },
 
   beforeDestroy() {
     window.removeEventListener('scroll', this.scrollTest);
+    window.removeEventListener('resize', this.resizeTest);
   }
 }
 </script>
@@ -141,7 +196,7 @@ export default {
     @include type-setting(0);
     color: $black;
     display: block;
-    padding: $base-line-height / 2 0;
+    padding: $base-line-height / 2;
     &:hover, &.router-link-active {
       color: $red;
     }
@@ -168,25 +223,64 @@ export default {
     display: none;
   }
 }
-@include breakpoint-max(tablet) {
-  .main-header {
+
+/**
+ * Burger styles
+ * Triggered by class that's added when nav doesn't fit in it's space
+ */
+.main-nav-is-burger {
+  &.main-header {
     margin-bottom: 0;
     border-bottom: 1px solid $primary-grey;
   }
   .main-nav {
-    border: 0;
-    position: absolute;
-    top: $base-line-height;
-    right: $base-line-height;
-    width: $base-line-height * 2;
-    padding: 0;
-    background: none;
     position: fixed;
+    top: $base-line-height;
+    right: 0;
+    width: $base-line-height * 2.625; // Corresponds to burger size in MobileToggle.vue
+    padding: 0;
+    border: 0;
+    background: none;
     box-shadow: none;
+
+    &:after{
+      content: ' ';
+      opacity: 0;
+      transition: .2s linear;
+    }
+
     &.stuck {
-      transition: all .2s;
       z-index: 100;
       top: $base-line-height;
+      transition: all .2s;
+
+      &:hover{
+        top: calc(#{$base-line-height} - 2px);
+        transition: .2s linear;
+      }
+
+      .mobile-toggle:before{
+        content: ' ';
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: $base-line-height * 3.2;
+        height: $base-line-height * 3.2;
+        transform: translate(-50%, -50%);
+        background: white;
+        box-shadow: $box-shadow-inert;
+        border-radius: 100%;
+        transition: .2s linear;
+        opacity: 1;
+      }
+
+      .mobile-toggle.open:before {
+        display: none;
+      }
+    }
+
+    &:hover.stuck:after{
+      box-shadow: $box-shadow-hover;
     }
     a.router-link-active{
       color: white;
@@ -204,7 +298,6 @@ export default {
       overflow-y: auto;
       opacity: 0;
       pointer-events: none;
-      transition: .25s opacity ease-in-out;
       &.open{
         opacity: 1;
         pointer-events: all;
@@ -261,48 +354,12 @@ export default {
     }
   }
 }
-@include breakpoint-max(tablet) {
-  .main-nav {
-    &.stuck:hover{
-      top: calc(#{$base-line-height} - 2px);
-      right: calc(#{$base-line-height} + 2px);
-      transition: .2s linear;
-    }
-    &:hover.stuck:after{
-      box-shadow: $box-shadow-hover;
-    }
-
-    &:after{
-      content: ' ';
-      opacity: 0;
-      transition: .2s linear;
-    }
-    &.stuck {
-      &:after{
-        transition: .2s linear;
-        opacity: 1;
-        content: ' ';
-        width: $base-line-height * 3.2;
-        height: $base-line-height * 3.2;
-        background: white;
-        position: absolute;
-        left: -1em;
-        top: -.7em;
-        box-shadow: $box-shadow-inert;
-        border-radius: 100%;
-      }
-    }
-  }
-}
 
 @include breakpoint-max(phone) {
   .main-nav {
-    width: 2.2rem;
     top: 3px;
-    right: calc(#{$base-line-height} - 4px);
     &.stuck:hover{
       top: 3px;
-      right: calc(#{$base-line-height} - 4px);
       transition: none;
     }
     &:hover.stuck:after{
@@ -314,20 +371,8 @@ export default {
       transition: .2s linear;
     }
     &.stuck {
-      top: 3px;
-      &:after{
-        transition: .2s linear;
-        opacity: 1;
-        content: ' ';
-        width: $base-line-height * 2.7;
-        height: $base-line-height * 2.7;
-        background: white;
-        position: absolute;
-        left: -11px;
-        box-shadow: $box-shadow-inert;
-        top: -1px;
-        border-radius: 100%;
-      }
+      top: 13px;
+      right: 10px;
     }
   }
 }
