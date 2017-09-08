@@ -6,15 +6,13 @@
     <nav class="main-nav">
       <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
       <ul v-bind:class="{ open: open}" class="main-nav-list">
-        <!-- Passes currentleaf from state down -->
-        <!-- Passes a method to change this components currentleaf state -->
         <nav-leaf
-          v-for="(childitems, navtitle) in navlinks"
-          :key="navtitle"
-          :navtitle="navtitle"
-          :currentleaf="currentleaf"
-          :setcurrentleaf="setcurrentleaf"
-          :childitems="childitems">
+          v-for="(childItems, navTitle) in navLinks"
+          :key="navTitle"
+          :navTitle="navTitle"
+          :currentLeaf="currentLeaf"
+          :childItems="childItems"
+          v-on:updateCurrentLeaf="setCurrentLeaf">
         </nav-leaf>
       </ul>
     </nav>
@@ -41,15 +39,15 @@ export default {
 
   data: function () {
     return {
-      currentleaf: null,
+      currentLeaf: null,
       isMenuHamburger: false,
       // Menu links as an object
       // Each top level section is an object
-      // If that item is a link include the "navlink" key with the URL as a value
+      // If that item is a link include the "navLink" key with the URL as a value
       // Child items should have link text as key and link URL as value
-      navlinks: {
+      navLinks: {
         "Home": {
-          "navlink": "/",
+          "navLink": "/",
         },
         "Departments": {
           "Computational Biology Department": "/departments/compbio",
@@ -62,10 +60,10 @@ export default {
           "Dean's Business Office": "/departments/deans_office",
         },
         "Directory": {
-          "navlink": "/directory",
+          "navLink": "/directory",
         },
         "About": {
-          "navlink": "/about",
+          "navLink": "/about",
           "Alumni Engagement": "/alumni",
           "Donate": "/donate",
           "Outreach": "/outreach",
@@ -77,28 +75,28 @@ export default {
           "Student Awards": "http://www.cs.cmu.edu/~scsfacts/studentawards.html",
         },
         "Programs": {
-          "navlink": "/programs",
+          "navLink": "/programs",
           "Undergraduate": "/undergraduate-programs",
           "Masters": "/masters-programs",
           "Doctoral": "/doctoral-programs",
         },
         "Admissions": {
-          "navlink": "/admissions",
+          "navLink": "/admissions",
           "Undergraduate": "/undergraduate-admissions",
           "Masters": "/masters-admissions",
           "Doctoral": "/doctoral-admissions",
         },
         "Courses":  {
-          "navlink": "/courses/F17",
+          "navLink": "/courses/F17",
         },
         "News": {
-          "navlink": "/news",
+          "navLink": "/news",
         },
         "Events": {
-          "navlink": "/events"
+          "navLink": "/events"
         },
         "Research": {
-          "navlink": "/research",
+          "navLink": "/research",
         }
       }
     }
@@ -142,9 +140,8 @@ export default {
     resizeTest() {
       window.requestAnimationFrame(this.resize);
     },
-    setcurrentleaf: function(currentleaf) {
-      // This function exists so child components can manipulate this components data
-      this.currentleaf = currentleaf;
+    setCurrentLeaf: function(currentLeaf) {
+      this.currentLeaf = currentLeaf;
     }
   },
 

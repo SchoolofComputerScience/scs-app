@@ -1,20 +1,20 @@
 <template>
-  <li v-on:mouseover="open" v-on:mouseout="setcurrentleaf(null)" class="nav-leaf">
+  <li v-on:mouseover="open" v-on:mouseout="close" class="nav-leaf">
     <!-- Handle top level items, may or may not be links -->
-    <router-link v-if="childitems.navlink" :to="childitems.navlink" exact v-on:click="active = false" @focus.native="open">
-      {{navtitle}}
+    <router-link v-if="childItems.navLink" :to="childItems.navLink" exact v-on:click="active = false" @focus.native="open">
+      {{navTitle}}
     </router-link>
-    <span v-if="!childitems.navlink" tabindex="0" v-on:focus="open">
-      {{navtitle}}
+    <span v-if="!childItems.navLink" tabindex="0" v-on:focus="open">
+      {{navTitle}}
     </span>
     <!-- Handle dropdowns -->
-    <ul v-if="Object.keys(childitems).length > 1" class="drop-inner" v-bind:class="{ active: active }">
+    <ul v-if="Object.keys(childItems).length > 1" class="drop-inner" v-bind:class="{ active: active }">
       <li
-        v-for="(subnavlink, subnavtitle) in childitems"
-        :key="subnavtitle"
-        v-if="subnavtitle !== 'navlink'">
-        <router-link :to="subnavlink" @mouseover.native="open" @focus.native="open">
-          {{ subnavtitle }}
+        v-for="(subNavLink, subnavTitle) in childItems"
+        :key="subnavTitle"
+        v-if="subnavTitle !== 'navLink'">
+        <router-link :to="subNavLink" @mouseover.native="open" @focus.native="open">
+          {{ subnavTitle }}
         </router-link>
       </li>
     </ul>
@@ -25,20 +25,22 @@
 export default {
   name: 'nav-drop',
 
-  props: ['navtitle', 'currentleaf', 'setcurrentleaf', 'childitems'],
+  props: ['navTitle', 'currentLeaf', 'childItems'],
 
   computed: {
     active: function() {
-      return this.currentleaf === this.navtitle
+      return this.currentLeaf === this.navTitle
     }
   },
 
   methods: {
-    open: function(event) {
-      this.active = true;
+    open: function() {
       // Set parent component's state so all other dropdowns know if they should be active
-      this.setcurrentleaf(this.navtitle);
+      this.$emit('updateCurrentLeaf', this.navTitle);
     },
+    close: function() {
+      this.$emit('updateCurrentLeaf', null);
+    }
   }
 }
 </script>
