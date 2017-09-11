@@ -122,20 +122,32 @@ export default {
       window.requestAnimationFrame(this.scroll);
     },
     resize: function() {
-      const header = this.$el;
-      const menu = header.querySelector('.main-nav');
-      const lastMenuItemBoundingRect = header.querySelector('.main-nav-list > li:last-child').getBoundingClientRect();
+      var header = this.$el;
+      var headerBoundingRect = header.getBoundingClientRect();
+      var menu = header.querySelector('.main-nav');
+      var menuBoundingRect = menu.getBoundingClientRect();
+      var lastMenuItemBoundingRect = header.querySelector('.main-nav-list > li:last-child').getBoundingClientRect();
+      var shouldHamburger = true;
+
+      if (typeof lastMenuItemBoundingRect.x !== 'undefined' && lastMenuItemBoundingRect.x + lastMenuItemBoundingRect.width < menu.clientWidth + menu.getBoundingClientRect().x) {
+        shouldHamburger = false;
+      } else if (typeof lastMenuItemBoundingRect.left !== 'undefined' && lastMenuItemBoundingRect.left + lastMenuItemBoundingRect.width < menu.clientWidth + menu.getBoundingClientRect().left) {
+        shouldHamburger = false;
+      }
+
+      console.log('shouldHamburger', shouldHamburger);
 
       // If the last menu item is popping out of the header, then it's burger time
-      if (lastMenuItemBoundingRect.x + lastMenuItemBoundingRect.width > header.clientWidth + header.getBoundingClientRect().x) {
+      if (shouldHamburger) {
         this.isMenuHamburger = true;
         // Make sure the nav is stuck with appropriate styling based on the page
         this.scrollTest();
         // Unable to revert back to desktop menu since nav will be skinnier than viewport in mobile mode,
         // So adding an else will cause the menu to flip back and forth between burger/not burger rapidly
         // So kill our listener
-        window.addEventListener('resize', this.resizeTest);
+        window.removeEventListener('resize', this.resizeTest);
       }
+      console.log('resize!!');
     },
     resizeTest() {
       window.requestAnimationFrame(this.resize);
