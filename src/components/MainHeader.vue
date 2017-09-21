@@ -244,9 +244,9 @@ export default {
   }
   .main-nav {
     position: fixed;
-    top: $base-line-height;
+    top: $base-line-height * 0.75;
     right: 0;
-    width: $base-line-height * 2.625; // Corresponds to burger size in MobileToggle.vue
+    width: $base-line-height * 3; // Should be greater than burger size in MobileToggle.vue
     padding: 0;
     border: 0;
     background: none;
