@@ -1,7 +1,15 @@
 <template>
   <header v-bind:class="{ 'main-nav-is-burger': isMenuHamburger }">
-    <div class="logo">
-      <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
+    <!-- On Homepage Logo should be H1 -->
+    <h1 class="logo" v-if="$route.fullPath === '/'">
+      <router-link to="/">
+        <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+      </router-link>
+    </h1>
+    <div class="logo" v-else>
+      <router-link to="/">
+        <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+      </router-link>
     </div>
     <nav class="main-nav">
       <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
@@ -183,19 +191,30 @@ export default {
     padding-left: 0;
     padding-right: 0;
   }
-  img{
-    max-height: $base-line-height * 2;
+  a {
+    display: block;
+    background: url(../assets/img/cmu-school-main.svg) no-repeat;
+    background-size: 100% auto;
+
+    &:before {
+      content: '';
+      display: block;
+      box-sizing: content-box;
+      width: 100%;
+      height: 0;
+      padding-bottom: 43 / 240 * 100%;
+    }
   }
 }
 
 .main-nav {
-  width: 100%;
   position: absolute;
   z-index: 200;
-  background: white;
+  width: 100%;
+  margin-left: $default-gutter * -1;
   padding: 0 $base-line-height;
-  margin-left: -$base-line-height;
   border-top: 1px solid $primary-grey;
+  background: white;
   box-shadow: $box-shadow-inert;
 
   a {

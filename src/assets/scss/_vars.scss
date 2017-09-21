@@ -1,14 +1,15 @@
-
+///
 // VARS
+///
 
 @import 'mixins';
 @import '~modularscale-sass/stylesheets/modularscale';
 
-// breaks
-
+// Breakpoints
 $breakpoints: (
   zero: 0,
   phone: 413px,
+  phablet: 550px,
   tablet: 768px,
   laptop: 1024px,
   desktop: 1280px,
@@ -16,20 +17,19 @@ $breakpoints: (
   max: 1680px
 );
 
-// colors
-
+// Colors
 $red: #c41230;
 $black: #34495e;
 $primary-grey: #eee;
 
-// typography
-
+// Typography
 $font: 'Open Sans', Helvetica, sans-serif;
 $base-font-size: 1rem;
 $modularscale: (
   base: $base-font-size,
   ratio: 1.333
 );
+
 $base-line-height: 1.333rem;
 $type-settings: (
   -1: (
@@ -58,7 +58,10 @@ $type-settings: (
   ),
 );
 
-// shadows
-
+// Shadows
 $box-shadow-inert: 0 .1rem .15rem rgba(0,0,0,.2);
 $box-shadow-hover: 0 .2rem .5rem rgba(0,0,0,.3);
+
+// Layout variables
+$max-width: map-get($breakpoints, full);
+$default-gutter: $base-line-height * 1.5;

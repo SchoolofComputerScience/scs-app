@@ -4,7 +4,7 @@
     <span></span>
     <span></span>
     <span></span>
-    <span class="sr-only">Toggle Menu</span>
+    <span class="u-sr-only">Toggle Menu</span>
   </button>
 </template>
 
