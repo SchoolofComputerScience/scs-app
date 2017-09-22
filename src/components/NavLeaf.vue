@@ -1,11 +1,19 @@
 <template>
   <li v-on:mouseover="open" v-on:mouseout="close" class="nav-leaf">
     <!-- Handle top level items, may or may not be links -->
-    <router-link v-if="childItems.navLink" :to="childItems.navLink" exact v-on:click="active = false" @focus.native="open">
-      {{navTitle}}
+    <router-link
+      v-if="childItems.navLink && isInternalLink(childItems.navLink)"
+      :to="childItems.navLink"
+      exact
+      v-on:click="active = false"
+      @focus.native="open">
+      {{ navTitle }}
     </router-link>
-    <span v-if="!childItems.navLink" tabindex="0" v-on:focus="open">
-      {{navTitle}}
+    <a v-else-if="childItems.navLink" :href="childItems.navLink" v-on:mouseover="open" v-on:focus="open">
+      {{ navTitle }}
+    </a>
+    <span v-else tabindex="0" v-on:focus="open">
+      {{ navTitle }}
     </span>
     <!-- Handle dropdowns -->
     <ul v-if="Object.keys(childItems).length > 1" class="drop-inner" v-bind:class="{ active: active }">
@@ -13,9 +21,16 @@
         v-for="(subNavLink, subnavTitle) in childItems"
         :key="subnavTitle"
         v-if="subnavTitle !== 'navLink'">
-        <router-link :to="subNavLink" @mouseover.native="open" @focus.native="open">
+        <router-link
+          v-if="isInternalLink(subNavLink)"
+          :to="subNavLink"
+          @mouseover.native="open"
+          @focus.native="open">
           {{ subnavTitle }}
         </router-link>
+        <a v-else :href="subNavLink" v-on:mouseover="open" v-on:focus="open">
+          {{ subnavTitle }}
+        </a>
       </li>
     </ul>
   </li>
@@ -40,6 +55,12 @@ export default {
     },
     close: function() {
       this.$emit('updateCurrentLeaf', null);
+    },
+    isInternalLink: function(linkURL) {
+      if (linkURL.substring(0, 4) === 'http' || linkURL.substring(0, 2) === '//' || linkURL.substring(0, 1) === '#') {
+        return false;
+      }
+      return true;
     }
   }
 }

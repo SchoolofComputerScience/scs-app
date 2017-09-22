@@ -135,8 +135,6 @@ export default {
         shouldHamburger = false;
       }
 
-      console.log('shouldHamburger', shouldHamburger);
-
       // If the last menu item is popping out of the header, then it's burger time
       if (shouldHamburger) {
         this.isMenuHamburger = true;
@@ -147,7 +145,6 @@ export default {
         // So kill our listener
         window.removeEventListener('resize', this.resizeTest);
       }
-      console.log('resize!!');
     },
     resizeTest() {
       window.requestAnimationFrame(this.resize);
