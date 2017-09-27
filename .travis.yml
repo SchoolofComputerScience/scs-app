@@ -10,6 +10,7 @@ filter_secrets: false
 branches:
   only:
   - master
+  - stage
 before_install:
 - openssl aes-256-cbc -K $encrypted_4d75f9e9b759_key -iv $encrypted_4d75f9e9b759_iv
   -in gce-key.json.enc -out gce-key.json -d
