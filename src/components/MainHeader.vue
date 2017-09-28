@@ -249,6 +249,10 @@ export default {
     background: none;
     box-shadow: none;
 
+    @include breakpoint-max(phone) {
+      top: $base-line-height * 0.1875;
+    }
+
     &:after{
       content: ' ';
       opacity: 0;
