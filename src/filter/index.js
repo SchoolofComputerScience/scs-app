@@ -26,15 +26,6 @@ export function upc(str) {
 
 export function departmentTranslate (depId) {
   let departmentMap = new Map([
-    [ 'CB', 'Computational Biology Department' ],
-    [ 'HCI', 'Human-Computer Interaction Institute' ],
-    [ 'ISR', 'Institute for Software Research' ],
-    [ 'MLG', 'Machine Learning Department' ],
-    [ 'LTI', 'Language Technologies Institute' ],
-    [ 'CS', 'Computer Science Department' ],
-    [ 'ROB', 'The Robotics Institute' ],
-    [ 'SE', 'Software Engineering' ],
-    [ 'ETC', 'Entertainment Technology Center' ],
     [ 'compbio', 'Computational Biology Department' ],
     [ 'hcii', 'Human-Computer Interaction Institute' ],
     [ 'isr', 'Institute for Software Research' ],

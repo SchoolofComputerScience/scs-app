@@ -5,9 +5,9 @@
         <div v-for="(department, departmentID) in courseListByDepartment" class="content-page card">
           <h3 :id="departmentID.toLowerCase()">{{departmentID | departmentTranslate}}</h3>
           <section class="container">
-            <div class="item" v-for="(course, courseNumber) in department">
+            <div class="item" v-for="(course, course_number) in department">
               <router-link class="course-link" v-for="item in course.courseCodes" :key="item.code" :to="'/courses/course/' + item.code">
-                <h4><span>{{course.longTitle}}</span> | <em>{{courseNumber}}</em> | {{course.level}}</h4>
+                <!-- <h4><span>{{course.longTitle}}</span> | --> <em>{{course_number}}</em> | {{course.level}}</h4>
               </router-link>
             </div>
           </section>
@@ -53,24 +53,24 @@ export default {
           continue;
         }
 
-        departments[course.s3Department] = departments[course.s3Department] || {};
-        departments[course.s3Department][course.courseNumber] = departments[course.s3Department][course.courseNumber] || {};
+        departments[course.s3_department] = departments[course.s3_department] || {};
+        departments[course.s3_department][course.course_number] = departments[course.s3_department][course.course_number] || {};
 
-        if (departments[course.s3Department][course.courseNumber].courseCodes) {
-          departments[course.s3Department][course.courseNumber].courseCodes.push({
-            code: course.courseCode,
+        if (departments[course.s3_department][course.course_number].courseCodes) {
+          departments[course.s3_department][course.course_number].courseCodes.push({
+            code: course.course_id,
             section: course.section
           });
         }
         else {
-          departments[course.s3Department][course.courseNumber] = {
-            longTitle: course.longTitle,
-            level: course.level,
+          departments[course.s3_department][course.course_number] = {
+            // longTitle: course.longTitle,
+            level: course.graduate_level,
             courseCodes: [{
-              code: course.courseCode,
+              code: course.course_id,
               section: course.section
             }],
-            s3Department: course.s3Department,
+            s3_department: course.s3_department,
             department: course.department,
             section: course.section
           };
