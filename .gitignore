@@ -16,3 +16,5 @@ node_modules
 
 # google build and environment variables
 .env
+app.yaml
+api.js
