@@ -169,21 +169,9 @@ export default {
 
         // check if any of the boolean conditions are met before pushing
 
-        let pushEntry = 0;
-        let scs_rel = departmentFilter[i].scs_relationship_class || '';
-        let hr_rel = departmentFilter[i].hr_relationship_class || '';
+        let scs_rel = departmentFilter[i].scs_relationship_class;
 
-        pushEntry |= this.depTitle == "Faculty" &&
-          (
-              hr_rel.includes(this.depTitle) ||
-              scs_rel.includes(this.depTitle.toLowerCase())
-          );
-        pushEntry |= this.depTitle !== "Faculty" &&
-            !scs_rel.includes("faculty") &&
-            hr_rel.includes(this.depTitle);
-        pushEntry |= !this.depTitle;
-
-        if(pushEntry){
+        if(scs_rel.includes(this.depTitle.toLowerCase())) {
           titleFilter.push(departmentFilter[i]);
         }
       }
