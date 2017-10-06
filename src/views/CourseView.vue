@@ -4,18 +4,18 @@
     <div v-if="loaded">
 
       <div class="breadcrumbs">
-        <router-link :to="'/courses/' + course.semesterCode"> {{course.semesterCode | seasonTranslate}} </router-link>
+        <router-link :to="'/courses/' + course.semester_code"> {{course.semester_code | seasonTranslate}} </router-link>
       </div>
 
       <div class="top-bar">
         <p>{{course.college}} |
-          {{course.s3Department | departmentTranslate}} |
-          <span v-if="course.level === 'G'">Graduate</span>
-          <span v-if="course.level === 'U'">Undergraduate</span>
+          {{course.s3_department | departmentTranslate}} |
+          <span v-if="course.graduate_level === 'G'">Graduate</span>
+          <span v-if="course.graduate_level === 'U'">Undergraduate</span>
         </p>
       </div>
 
-      <h2>{{course.longTitle}}</h2>
+      <h2>{{course.sections[0].long_title}}</h2>
 
       <p class="body">{{course.description}}</p>
 
@@ -27,32 +27,32 @@
         </div>
 
         <div v-if="course.instructors[0]">
-          <p class="title" v-if="course.instructors.length === 1">Instructor</p>
-          <p class="title" v-if="course.instructors.length > 1">Instructors</p>
-          <p v-for="instructor in course.instructors">
+          <p class="title" v-if="course.sections[0].instructors.length === 1">Instructor</p>
+          <p class="title" v-if="course.sections[0].instructors.length > 1">Instructors</p>
+          <p v-for="instructor in course.sections[0].instructors">
             <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
             <span v-else>{{ instructor.firstName + " " + instructor.lastName }}</span>
           </p>
         </div>
 
-        <div v-if="course.meetings[0]">
+        <div v-if="course.sections[0].meetings[0]">
           <p class="title">Building</p>
-          <p>{{course.meetings[0].building | buildingTranslate}}</p>
+          <p>{{course.sections[0].meetings[0].building | buildingTranslate}}</p>
         </div>
 
-        <div v-if="course.meetings[0]">
+        <div v-if="course.sections[0].meetings[0]">
           <p class="title">Room Number</p>
-          <p>{{course.meetings[0].room}}</p>
+          <p>{{course.sections[0].meetings[0].room}}</p>
         </div>
 
-        <div v-if="course.meetings[0].startTime">
+        <div v-if="course.sections[0].meetings[0].start_time">
           <p class="title">Time</p>
-          <p v-if="course.meetings[0].startTime">{{course.meetings[0].startTime}} - {{course.meetings[0].endTime}}</p>
+          <p v-if="course.sections[0].meetings[0].start_time">{{course.sections[0].meetings[0].start_time}} - {{course.sections[0].meetings[0].end_time}}</p>
         </div>
 
         <div v-if="course.meetings[0]">
           <p class="title">Days</p>
-          <p v-if="course.meetings[0].days">{{course.meetings[0].days | dayTranslate}}</p>
+          <p v-if="course.meetings[0].days">{{course.sections[0].meetings[0].days | dayTranslate}}</p>
         </div>
       </section>
     </div>

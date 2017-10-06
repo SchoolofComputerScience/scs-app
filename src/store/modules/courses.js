@@ -53,8 +53,45 @@ export default {
                 s3_department
                 semester
                 semester_code
+                sections{
+                  course_section_id
+                  delivery_mode
+                  location
+                  long_title
+                  presence_required
+                  title
 
-                sections
+                  child_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  cross_listed_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  instructors{
+                    andrew_id
+                    email
+                    first_name
+                    last_name
+                    scid
+                    valid
+                  }
+                  meetings{
+                    building
+                    days
+                    end_time
+                    room
+                    start_time
+                  }
+                  parent_course{
+                    course_number
+                    section
+                    semester_code
+                  }
+                }
               }
             }
           `
@@ -82,52 +119,50 @@ export default {
                 course_id
                 course_number
                 department
-            	description
+                description
                 graduate_level
                 s3_department
                 semester
                 semester_code
-                title
                 units
                 sections{
-                    course_section_id
-                    delivery_mode
-                    level
-                    location
-                    long_title
-                    presence_required
-                    title
+                  course_section_id
+                  delivery_mode
+                  location
+                  long_title
+                  presence_required
+                  title
 
-                    child_courses{
-                      course_number
-                      section
-                      semester_code
-                    }
-                    cross_listed_courses{
-                      course_number
-                      section
-                      semester_code
-                    }
-                    instructors{
-                      andrew_id
-                      email
-                      first_name
-                      last_name
-                      scid
-                      valid
-                    }
-                    meetings{
-                      building
-                      days
-                      end_time
-                      room
-                      start_time
-                    }
-                    parent_course{
-                      course_number
-                      section
-                      semester_code
-                    }
+                  child_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  cross_listed_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  instructors{
+                    andrew_id
+                    email
+                    first_name
+                    last_name
+                    scid
+                    valid
+                  }
+                  meetings{
+                    building
+                    days
+                    end_time
+                    room
+                    start_time
+                  }
+                  parent_course{
+                    course_number
+                    section
+                    semester_code
+                  }
                 }
               }
             }

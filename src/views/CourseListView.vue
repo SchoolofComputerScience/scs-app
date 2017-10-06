@@ -7,13 +7,13 @@
     <div class="data-page">
       <div class="filters">
         <DepartmentFilter :types="scs_department_types"></DepartmentFilter>
-        <div class="buttons" :class="level">
-          <button class="button U" v-on:click="filter" filter-name="level" filter-value="U">Undergraduate</button>
-          <button class="button G" v-on:click="filter" filter-name="level" filter-value="G">Graduate</button>
+        <div class="buttons" :class="graduate_level">
+          <button class="button U" v-on:click="filter" filter-name="graduate_level" filter-value="U">Undergraduate</button>
+          <button class="button G" v-on:click="filter" filter-name="graduate_level" filter-value="G">Graduate</button>
         </div>
       </div>
       <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-      <Courses :semester="semester" :level="level" :department="department"></Courses>
+      <Courses :semester="semester" :graduate_level="graduate_level" :department="department"></Courses>
     </div>
   </div>
 </template>
@@ -37,7 +37,7 @@ export default {
     return {
       semester: this.$store.state.route.params.semester,
       department: '',
-      level: '',
+      graduate_level: '',
       nav: '',
       scs_department_types: ['academic']
     }
