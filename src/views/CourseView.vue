@@ -15,45 +15,53 @@
         </p>
       </div>
 
-      <h2>{{course.sections[0].long_title}}</h2>
+      <h2>{{course.long_title}}</h2>
 
       <p class="body">{{course.description}}</p>
 
       <section class="course-information">
 
-        <div class="units" v-if="course.units">
-          <p class="title">Units</p>
-          <p>{{course.units}}</p>
-        </div>
+        <p class="units" v-if="course.units">Units: {{course.units}}</p>
 
-        <div v-if="course.instructors[0]">
-          <p class="title" v-if="course.sections[0].instructors.length === 1">Instructor</p>
-          <p class="title" v-if="course.sections[0].instructors.length > 1">Instructors</p>
-          <p v-for="instructor in course.sections[0].instructors">
-            <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
-            <span v-else>{{ instructor.firstName + " " + instructor.lastName }}</span>
-          </p>
-        </div>
+        <h3>Sections</h3>
 
-        <div v-if="course.sections[0].meetings[0]">
-          <p class="title">Building</p>
-          <p>{{course.sections[0].meetings[0].building | buildingTranslate}}</p>
-        </div>
+        <div class="item" v-for="section in course.sections">
 
-        <div v-if="course.sections[0].meetings[0]">
-          <p class="title">Room Number</p>
-          <p>{{course.sections[0].meetings[0].room}}</p>
-        </div>
+          <p v-if="section.section">Section: {{section.section}}</p>
+          <div class="instructors" v-if="section.instructors.length > 1">
+            <p v-if="section.instructors.length === 1">Instructor</p>
+            <p v-else-if="section.instructors.length > 1">Instructors</p>
 
-        <div v-if="course.sections[0].meetings[0].start_time">
-          <p class="title">Time</p>
-          <p v-if="course.sections[0].meetings[0].start_time">{{course.sections[0].meetings[0].start_time}} - {{course.sections[0].meetings[0].end_time}}</p>
-        </div>
 
-        <div v-if="course.meetings[0]">
-          <p class="title">Days</p>
-          <p v-if="course.meetings[0].days">{{course.sections[0].meetings[0].days | dayTranslate}}</p>
-        </div>
+            <p v-for="instructor in section.instructors">
+              <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.first_name + " " + instructor.last_name }}</router-link>
+              <span v-else>{{ instructor.first_name + " " + instructor.last_name }}</span>
+            </p>
+          </div>
+          <p v-else>No instructors listed.</p>
+
+          <!--
+          <div v-if="course.sections[0].meetings[0]">
+            <p class="title">Building</p>
+            <p>{{course.sections[0].meetings[0].building | buildingTranslate}}</p>
+          </div>
+
+          <div v-if="course.sections[0].meetings[0]">
+            <p class="title">Room Number</p>
+            <p>{{course.sections[0].meetings[0].room}}</p>
+          </div>
+
+          <div v-if="course.sections[0].meetings[0].start_time">
+            <p class="title">Time</p>
+            <p v-if="course.sections[0].meetings[0].start_time">{{course.sections[0].meetings[0].start_time}} - {{course.sections[0].meetings[0].end_time}}</p>
+          </div>
+
+          <div v-if="course.sections[0].meetings[0]">
+            <p class="title">Days</p>
+            <p v-if="course.sections[0].meetings[0].days">{{course.sections[0].meetings[0].days | dayTranslate}}</p>
+          </div>
+          -->
+        </div> <!-- end course sections -->
       </section>
     </div>
   </div>

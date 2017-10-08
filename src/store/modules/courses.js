@@ -50,6 +50,7 @@ export default {
                 department
                 description
                 graduate_level
+                long_title
                 s3_department
                 semester
                 semester_code
@@ -121,6 +122,7 @@ export default {
                 department
                 description
                 graduate_level
+                long_title
                 s3_department
                 semester
                 semester_code
@@ -131,6 +133,7 @@ export default {
                   location
                   long_title
                   presence_required
+                  section
                   title
 
                   child_courses{
