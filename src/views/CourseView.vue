@@ -8,14 +8,13 @@
       </div>
 
       <div class="top-bar">
-        <p>{{course.college}} |
-          {{course.s3_department | departmentTranslate}} |
-          <span v-if="course.graduate_level === 'G'">Graduate</span>
-          <span v-if="course.graduate_level === 'U'">Undergraduate</span>
+        <p>{{course.college | collegeTranslate}} |
+          {{course.department | departmentTranslate}} |
+          <span>{{course.graduate_level | courseLevelTranslate}}</span>
         </p>
       </div>
 
-      <h2>{{course.long_title}}</h2>
+      <h2>{{course.course_number}} {{course.long_title}}</h2>
 
       <p class="body">{{course.description}}</p>
 
@@ -23,44 +22,29 @@
 
         <p class="units" v-if="course.units">Units: {{course.units}}</p>
 
-        <h3>Sections</h3>
-
         <div class="item" v-for="section in course.sections">
 
-          <p v-if="section.section">Section: {{section.section}}</p>
+          <h3 v-if="section.section">Section {{section.section}}</h3>
           <div class="instructors" v-if="section.instructors.length > 1">
             <p v-if="section.instructors.length === 1">Instructor</p>
-            <p v-else-if="section.instructors.length > 1">Instructors</p>
-
+            <p v-else>Instructors</p>
 
             <p v-for="instructor in section.instructors">
               <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.first_name + " " + instructor.last_name }}</router-link>
               <span v-else>{{ instructor.first_name + " " + instructor.last_name }}</span>
             </p>
           </div>
-          <p v-else>No instructors listed.</p>
+          <p v-else>Instructor TBA</p>
 
-          <!--
-          <div v-if="course.sections[0].meetings[0]">
-            <p class="title">Building</p>
-            <p>{{course.sections[0].meetings[0].building | buildingTranslate}}</p>
+          <div v-for="meeting in section.meetings">
+            <p v-if="meeting.days !== 'TBA'">
+              {{meeting.days | dayTranslate}} |
+              {{meeting.start_time}}&ndash;{{meeting.end_time}}
+             </p>
+            <p v-if="!['DNM', 'TBA'].includes(meeting.building)">{{meeting.building | buildingTranslate}} {{meeting.room}}</p>
+            <p v-else-if="meeting.building === 'TBA'">TBA</p>
+            <p v-else>Does not meet</p>
           </div>
-
-          <div v-if="course.sections[0].meetings[0]">
-            <p class="title">Room Number</p>
-            <p>{{course.sections[0].meetings[0].room}}</p>
-          </div>
-
-          <div v-if="course.sections[0].meetings[0].start_time">
-            <p class="title">Time</p>
-            <p v-if="course.sections[0].meetings[0].start_time">{{course.sections[0].meetings[0].start_time}} - {{course.sections[0].meetings[0].end_time}}</p>
-          </div>
-
-          <div v-if="course.sections[0].meetings[0]">
-            <p class="title">Days</p>
-            <p v-if="course.sections[0].meetings[0].days">{{course.sections[0].meetings[0].days | dayTranslate}}</p>
-          </div>
-          -->
         </div> <!-- end course sections -->
       </section>
     </div>
@@ -90,6 +74,11 @@ export default {
       return this.$store.state.courses.course[this.$route.params.course] ? true : false
     },
     course(){
+      /*
+       * @TODO: Sort the section information by section identifier.
+       * This requires checking sections.parent_course. Self-reference
+       * indicates the parent. Numerals indicate a lecture.
+       */
       return this.$store.state.courses.course[this.$route.params.course]
     }
   },
