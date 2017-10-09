@@ -55,6 +55,7 @@ export default {
 
 .app-shell {
   // Removes horizontal scroll bars
+  // Important to not set a height on this element
   overflow: hidden;
 }
 

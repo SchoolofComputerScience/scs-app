@@ -1,8 +1,9 @@
 
 // MIXINS
 
-// typography
-
+///
+// Typography
+///
 @function type-scale($level) {
   @return map-get(
     map-get($type-settings, $level), 'font-size');
@@ -18,8 +19,9 @@
   line-height: line-height($level);
 }
 
-// breakpoints
-
+///
+// Breakpoints
+///
 @mixin breakpoint-min($point) {
   @media (min-width: map-get($breakpoints, $point)) {
     @content;
@@ -29,5 +31,63 @@
 @mixin breakpoint-max($point) {
   @media (max-width: map-get($breakpoints, $point)) {
     @content;
+  }
+}
+
+///
+// Miscellaneous
+///
+
+@mixin diagonal-line($type, $color: default) {
+  @if ($type == horizontal) {
+    background: repeat-x left bottom;
+    background-size: 0.375rem auto;
+    @if ($color == default) {
+      background-image: url(../assets/img/diagonal-line/horizontal--default.png);
+    }
+    @if ($color == white) {
+      background-image: url(../assets/img/diagonal-line/horizontal--white--transparent.png);
+    }
+    @else if ($color == black) {
+      background-image: url(../assets/img/diagonal-line/horizontal--black--transparent.png);
+    }
+    @else {
+      @warn "Sorry, `#{$color}` isn't a valid diagonal line color for `#{$type}`.";
+    }
+  }
+  @else if ($type == vertical) {
+    background: repeat-y left top;
+    background-size: 0.825rem auto;
+    @if ($color == default) {
+      background-image: url(../assets/img/diagonal-line/vertical--default.png);
+    }
+    @if ($color == white) {
+      background-image: url(../assets/img/diagonal-line/vertical--white--transparent.png);
+    }
+    @else if ($color == black) {
+      background-image: url(../assets/img/diagonal-line/vertical--black--transparent.png);
+    }
+    @else {
+      @warn "Sorry, `#{$color}` isn't a valid diagonal line color for `#{$type}`.";
+    }
+  }
+  @else if ($type == repeating) {
+    background: repeat left top;
+    background-size: auto 0.75rem;
+    @if ($color == default) {
+      background-image: url(../assets/img/diagonal-line/repeating--default.png);
+    }
+    @if ($color == white) {
+      background-image: url(../assets/img/diagonal-line/repeating--white--transparent.png);
+    }
+    @else if ($color == black) {
+      background-image: url(../assets/img/diagonal-line/repeating--black--transparent.png);
+    }
+    @else {
+      @warn "Sorry, `#{$color}` isn't a valid diagonal line color for `#{$type}`.";
+    }
+  }
+  @else {
+    @error "Sorry, `#{$type}` isn't a valid diagonal line type.";
   }
 }

@@ -2,17 +2,20 @@
   <transition name="page-transition" mode="out-in" appear>
     <div class="page">
 
-      <Hero
-        headline="New Method Enables Telescoping Devices That Bend and Twist"
-        headingLevel=2
-        subhead="Technology could result in robots that readily expand or shrink."
-        link="/news/carnegie-mellon-method-enables-telescoping-devices-bend-and-twist"
-        backgroundImageURL="http://www.cs.cmu.edu/sites/default/files/lizard-teaser_banner_1.jpg"
-      ></Hero>
+      <Hero :linkURL="hero.linkURL" :backgroundImageURL="hero.backgroundImageURL">
+        <div class="content-type">{{ hero.contentType}}</div>
+        <h2>{{ hero.headline }}</h2>
+        <p>{{ hero.subhead }}</p>
+      </Hero>
 
-      <TeaserCardList
-        :cards="cards"
-        :callToAction="{'Show more news': '/news'}">
+      <!-- Should be modifyable or controllable from CMS for editorial control -->
+      <!-- Look for highlighted items, if none or less than 3 then fill the rest with latest news -->
+      <TeaserCardList v-if="newsLoaded" :cards="news">
+        <div slot="footer" class="footer">
+          <ALink url="/news" class="button button-simple">
+            Show more news
+          </ALink>
+        </div>
       </TeaserCardList>
 
       <section class="programs">
@@ -83,7 +86,7 @@
               </blockquote>
             </div>
             <div class="brochure-bit-media">
-              <img src="http://fillmurray.com/600/500" alt="">
+              <img src="../assets/img/views/HomeView/women-scs.jpg" alt="">
             </div>
           </section>
           <section class="brochure-bit">
@@ -92,7 +95,7 @@
               <p>We know learning happens largely outside the classroom, and we encourage students to get their hands dirty  — to participate in undergraduate research, to create real products and applications as assignments, and to explore ideas for new technologies with other students and faculty members.</p>
             </div>
             <div class="brochure-bit-media">
-              <img src="http://fillmurray.com/600/500" alt="">
+              <img src="../assets/img/views/HomeView/student.jpg" alt="">
             </div>
           </section>
         </div>
@@ -147,8 +150,14 @@ import Hero from '../components/Hero.vue'
 import TeaserCardList from '../components/TeaserCardList.vue'
 import ALink from '../components/ALink.vue';
 
+function fetchNews(store) {
+  return store.dispatch('GET_NEWS_LIST', store.state.route.params.article)
+}
+
 export default {
   name: 'home-view',
+
+  preFetch: fetchNews,
 
   components: {
     Spinner,
@@ -159,31 +168,49 @@ export default {
 
   data: function () {
     return {
-      'cards': {
-        card0: {
-          'headline': 'A Sensor That Could Soon Make Homes Scary-Smart',
-          'subhead': 'Optional subhead',
-          'linkURL': 'https://www.wired.com/2017/05/supercharged-sensor-soon-make-homes-scary-smart/',
-          'label':'News & Events',
-          'imageURL': 'http://ai.cs.cmu.edu/sites/default/files/styles/card_image/public/Synthetic%20Sensor%20burner.jpg?itok=Rwxr5ZLg',
-        },
-        card1: {
-          'headline': 'A Sensor That Could Soon Make Homes Scary-Smart',
-          'subhead': 'Optional subhead',
-          'linkURL': 'https://www.wired.com/2017/05/supercharged-sensor-soon-make-homes-scary-smart/',
-          'label':'News & Events',
-          'imageURL': 'http://ai.cs.cmu.edu/sites/default/files/styles/card_image/public/Synthetic%20Sensor%20burner.jpg?itok=Rwxr5ZLg',
-        },
-        card2: {
-          'headline': 'A Sensor That Could Soon Make Homes Scary-Smart',
-          'subhead': 'Optional subhead',
-          'linkURL': 'https://www.wired.com/2017/05/supercharged-sensor-soon-make-homes-scary-smart/',
-          'label':'News & Events',
-          'imageURL': 'http://ai.cs.cmu.edu/sites/default/files/styles/card_image/public/Synthetic%20Sensor%20burner.jpg?itok=Rwxr5ZLg',
-        },
-      }
+      // Should come from CMS somehow for editorial control
+      'hero': {
+        'contentType': 'News',
+        'headline': 'New Method Enables Telescoping Devices That Bend and Twist',
+        'subhead': 'Technology could result in robots that readily expand or shrink.',
+        'linkURL': '/news/carnegie-mellon-method-enables-telescoping-devices-bend-and-twist',
+        'backgroundImageURL': 'http://www.cs.cmu.edu/sites/default/files/lizard-teaser_banner_1.jpg',
+      },
     }
   },
+
+  computed: {
+    newsLoaded() {
+      if(this.$store.state.news.error.length > 0){
+        this.error = this.$store.state.news.error
+      }else{
+        this.error = false;
+      }
+      return this.$store.state.news.list.length > 0 ? true : false
+    },
+    news: function() {
+      const news = this.$store.state.news.list;
+      const thisComponent = this;
+      let newsTeasersCount = 0;
+      let newsTeasers = news.filter(function(currentValue) {
+        if ('/news/' + currentValue.uid !== thisComponent.hero.linkURL && newsTeasersCount < 3) {
+          newsTeasersCount++;
+          return currentValue;
+        }
+      });
+
+      return newsTeasers;
+    },
+  },
+
+  asyncData ({ store }) {
+    return store.dispatch('GET_NEWS_LIST')
+  },
+
+  beforeMount () {
+    fetchNews(this.$store);
+  }
+
 }
 </script>
 
@@ -199,7 +226,7 @@ export default {
   .u-content-container {
     padding: $default-gutter;
 
-    @include breakpoint-min(desktop) {
+    @include breakpoint-min(tablet) {
       padding: #{$default-gutter * 2};
     }
 
@@ -239,11 +266,11 @@ export default {
 }
 
 .programs-list {
+  @include diagonal-line(repeating, default);
   font-size: 1em;
-  background: #F7F7F7;
 
   li {
-    margin: 0 0 0.5em 0.5em;
+    margin: 0 0 0.75rem 0.75rem;
     padding: 0;
     background: #fff;
 
@@ -373,6 +400,15 @@ export default {
 
   li {
     padding: #{$default-gutter * 0.5} #{$default-gutter * 0.5};
+
+    &:first-child {
+      width: 100%;
+      text-align: center;
+
+      @include breakpoint-min(tablet) {
+        width: auto;
+      }
+    }
   }
 }
 
@@ -380,15 +416,32 @@ export default {
 // Brochure bits section
 ///
 .brochure-bits {
+  padding-top: $default-gutter;
   background: #fff;
+  @include breakpoint-min(laptop) {
+    padding-top: 0;
+  }
+
+  .u-content-container {
+    max-width: 50rem;
+    margin: 0 auto;
+
+    @include breakpoint-min(laptop) {
+      max-width: $max-width;
+    }
+  }
 }
 
 .brochure-bit {
   display: flex;
   flex-direction: column-reverse;
   padding: $default-gutter;
-  font-size: 1.25rem;
+  font-size: 1rem;
   line-height: 1.7;
+  @include breakpoint-min(tablet) {
+    font-size: 1.25rem;
+    padding: $default-gutter #{$default-gutter * 2};
+  }
   @include breakpoint-min(laptop) {
     flex-direction: row;
     padding: #{$default-gutter * 2};
@@ -449,21 +502,24 @@ export default {
   }
 
   blockquote {
+    @include diagonal-line(vertical, default);
     position: relative;
-    border-left: 0.5rem solid #f7f7f7;
-    padding: 0 0 0 1.875rem;
+    padding: 0 0 0 2.1rem;
 
     &:before {
-      content: '\201C';
+      content: '';
       position: absolute;
-      top: 0;
-      left: 0;
-      padding: 0 0.125em 0;
+      top: 0.1em;
+      left: #{0.75rem / -2};
+      box-sizing: content-box;
+      width: 0.8em;
+      height: 0.8em * 0.7879;
       transform: translate(-50%, 0);
       font-size: 4.25em;
       line-height: 0.5;
       color: #900;
-      background: #fff;
+      background: #fff url(../assets/img/quote.png) no-repeat center top;
+      background-size: 60% auto;
     }
   }
 
@@ -483,28 +539,41 @@ export default {
 // Factoid bar
 ///
 .factoid-bar {
-  padding: 4.7em 0;
+  padding: $default-gutter 0;
   font-size: 1.25rem;
   line-height: 1.35;
   text-align: center;
   color: #fff;
   background: #224477;
 
+  .factoid-bar-list {
+    padding: 0 $default-gutter;
+  }
+
+  li {
+    max-width: 15em;
+    margin: #{$default-gutter * 1.5} auto;
+  }
+
   @include breakpoint-min(tablet) {
+    padding: #{$default-gutter * 2.351} 0;
+
     .factoid-bar-list {
       display: flex;
       justify-content: space-evenly;
+      padding: 0;
     }
 
     li {
       flex-basis: 25%;
+      margin: 0;
     }
   }
 
   h2 {
+    @include diagonal-line(horizontal, white);
     margin: 0;
-    padding: 0 0 0.5625rem;
-    border-bottom: 0.5rem solid rgba(220, 220, 220, 0.2);
+    padding: 0 0 1.125rem;
     font-size: 1.5em;
     font-weight: 900;
     color: #fff;

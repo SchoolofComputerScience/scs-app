@@ -1,19 +1,21 @@
 <template>
   <header v-bind:class="{ 'main-nav-is-burger': isMenuHamburger }">
     <!-- On Homepage Logo should be H1 -->
-    <h1 class="logo" v-if="$route.fullPath === '/'">
-      <router-link to="/">
-        <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
-      </router-link>
-    </h1>
-    <div class="logo" v-else>
-      <router-link to="/">
-        <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
-      </router-link>
+    <div class="u-content-container">
+      <h1 class="logo" v-if="$route.fullPath === '/'">
+        <router-link to="/">
+          <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+        </router-link>
+      </h1>
+      <div class="logo" v-else>
+        <router-link to="/">
+          <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+        </router-link>
+      </div>
     </div>
     <nav class="main-nav">
       <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
-      <ul v-bind:class="{ open: open}" class="main-nav-list">
+      <ul v-bind:class="{ open: open}" class="main-nav-list u-content-container">
         <nav-leaf
           v-for="(childItems, navTitle) in navLinks"
           :key="navTitle"
@@ -181,6 +183,10 @@ export default {
 @import '../assets/scss/vars.scss';
 @import '../assets/scss/mixins.scss';
 
+.u-content-container {
+  padding: 0 $default-gutter;
+}
+
 .logo {
   max-height: $base-line-height * 4;
   width: 15rem;
@@ -193,7 +199,7 @@ export default {
   }
   a {
     display: block;
-    background: url(../assets/img/cmu-school-main.svg) no-repeat;
+    background: url(../assets/img/components/MainHeader/cmu-school-main.svg) no-repeat;
     background-size: 100% auto;
 
     &:before {
@@ -236,9 +242,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @include breakpoint-min(desktop) {
-      max-width: map-get($breakpoints, desktop);
-    }
   }
   li {
     display: inline-block;

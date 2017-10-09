@@ -1,14 +1,13 @@
 <template>
-  <a :href="link" class="wrapper-link">
-    <article class="hero" :style="backgroundImageStyle">
-      <div class="textual-content u-content-container">
-        <div class="content-type">News</div>
-        <H :headingLevel="headingLevel">{{ headline }}</H>
-        <p v-if="subhead">{{ subhead }}</p>
-        <span v-if="buttonText" class="button">{{ buttonText }}</span>
-      </div>
-    </article>
-  </a>
+<div class="hero-wrapper">
+    <a :href="linkURL" class="wrapper-link">
+      <article class="hero" :style="backgroundImageStyle">
+        <div class="textual-content">
+          <slot></slot>
+        </div>
+      </article>
+    </a>
+  </div>
 </template>
 
 <script>
@@ -17,11 +16,7 @@ import H from '../components/H.vue'
 export default {
   name: 'Hero',
 
-  props: ['headline', 'headingLevel', 'subhead', 'buttonText', 'link', 'backgroundImageURL'],
-
-  components: {
-    H
-  },
+  props: ['linkURL', 'backgroundImageURL'],
 
   computed: {
     // Returns properly formatted style object
@@ -33,9 +28,6 @@ export default {
       }
     }
   }
-
-  // methods: {
-  // }
 }
 </script>
 
@@ -47,6 +39,8 @@ export default {
   display: block;
   color: #fff;
   font-size: 1rem;
+  margin: 0 auto;
+  max-width: calc(#{$max-width} + #{$default-gutter * 3});
 
   &:first-child {
     // Collapse spacing between header and hero
