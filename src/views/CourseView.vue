@@ -22,6 +22,13 @@
 
         <p class="units" v-if="course.units">Units: {{course.units}}</p>
 
+        <div v-if="course.areas" class="research">
+          <p class="title">Area Tags:</p>
+          <p>
+            <a class="button-small" href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in course.areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
+          </p>
+        </div>
+
         <div class="item section" v-for="section in course.sections">
 
           <h3 v-if="course.lecture_distinction && !isNaN(section.section)">Lecture {{section.section}}</h3>
@@ -85,6 +92,21 @@ export default {
        * indicates the parent. Numerals indicate a lecture.
        */
       return this.$store.state.courses.course[this.$route.params.course]
+    }
+  },
+
+  methods: {
+    // @TODO: This is copied from MemberView. Abstract this to a central
+    // location for both views.
+    setResearchArea(event) {
+      let area_id = event.target.getAttribute('area-id');
+      let area_title = event.target.getAttribute('area-title');
+      let research_area = {
+        area_id: area_id,
+        title: area_title
+      }
+      this.$store.commit("SET_SELECTED_RESEARCH_AREA", research_area);
+      this.$router.push('/research/'+ area_id);
     }
   },
 
