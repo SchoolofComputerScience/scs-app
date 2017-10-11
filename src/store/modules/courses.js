@@ -116,12 +116,17 @@ export default {
             {
               course(course_id:"${fields}"){
                 _id
+                areas{
+                  area_id
+                  title
+                }
                 college
                 course_id
                 course_number
                 department
                 description
                 graduate_level
+                lecture_distinction
                 long_title
                 s3_department
                 semester

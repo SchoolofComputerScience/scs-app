@@ -22,19 +22,24 @@
 
         <p class="units" v-if="course.units">Units: {{course.units}}</p>
 
-        <div class="item" v-for="section in course.sections">
+        <div class="item section" v-for="section in course.sections">
 
-          <h3 v-if="section.section">Section {{section.section}}</h3>
-          <div class="instructors" v-if="section.instructors.length > 1">
-            <p v-if="section.instructors.length === 1">Instructor</p>
-            <p v-else>Instructors</p>
+          <h3 v-if="course.lecture_distinction && !isNaN(section.section)">Lecture {{section.section}}</h3>
+          <h4 v-else-if="course.lecture_distinction && section.parent_course">Section {{section.section}} (w/ Lecture {{section.parent_course.section}})</h4>
+          <h3 v-else>Section {{section.section}}</h3>
+          <div class="instructors" v-if="section.instructors && section.instructors.length > 1">
+            <p>
+              <span v-if="section.instructors.length === 1">Instructor</span>
+              <span v-else>Instructors</span>:
+              <span v-for="(instructor,index) in section.instructors">
+                <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.first_name + " " + instructor.last_name }}</router-link>
+                <span v-else>{{ instructor.first_name + " " + instructor.last_name }}</span>
+                <span v-if="index < section.instructors.length-1">, </span>
 
-            <p v-for="instructor in section.instructors">
-              <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.first_name + " " + instructor.last_name }}</router-link>
-              <span v-else>{{ instructor.first_name + " " + instructor.last_name }}</span>
+              </span>
             </p>
           </div>
-          <p v-else>Instructor TBA</p>
+          <p v-else>Instructor: TBA</p>
 
           <div v-for="meeting in section.meetings">
             <p v-if="meeting.days !== 'TBA'">
@@ -90,6 +95,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h4 {
+    font-size: 1em;
+  }
+  .section {
+    margin: 1em 0;
+  }
 //
 // h2 {
 //   margin-top: 1.6em;
