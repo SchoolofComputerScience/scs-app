@@ -19,18 +19,22 @@
         <div v-if="error" class="error-message">
           <p>{{error}}</p>
         </div>
-        <div class="news-card" v-if="!error" v-for="news_item in news" :key="news_item.uid">
-          <div>
-            <router-link  :to="'/news/' + news_item.uid">
-              <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
-              <div class="content">
-                <h2>{{news_item.date}}</h2>
-                <h3>{{news_item.title}}</h3>
-              </div>
-            </router-link>
-            <div class="tags" v-for="tag in news_item.tags">
-              <router-link :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
+        <div class="news-item" v-if="!error" v-for="news_item in news" :key="news_item.uid">
+          <router-link :to="'/news/' + news_item.uid" class="card">
+            <figure :style="{ 'background-image': 'url(' + news_item.image + ')' }"></figure>
+            <div class="content">
+              <p>{{timeFix(news_item.date)}}</p>
+              <h3>{{news_item.title}}</h3>
             </div>
+          </router-link>
+          <div class="tags">
+            <router-link
+              v-for="tag in news_item.tags"
+              v-if="tag.name != ''"
+              :key="tag.name"
+              class="button-small"
+              :to="tag.tag.toLowerCase()">{{tag.name}}
+            </router-link>
           </div>
         </div>
       </div>
@@ -41,6 +45,7 @@
 <script>
 import DirectoryListItem from '../components/DirectoryListItem.vue'
 import { router } from '../app'
+import format from 'date-fns/format'
 
 function fetchData(store) {
   store.dispatch('GET_DIRECTORY');
@@ -123,6 +128,9 @@ export default {
       }else{
         return '/departments/' + tag.toLocaleLowerCase()
       }
+    },
+    timeFix (arg) {
+      return format(arg, 'dddd, MMMM Do YYYY')
     }
   },
 
@@ -133,11 +141,93 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../assets/scss/vars';
+
 .area-section {
   margin-bottom: 3em;
 }
 
 .items {
   line-height: 1.5;
+}
+
+.card-holder {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.tags{
+  display: inline-block;
+  a{
+    margin-bottom: $base-line-height / 2;
+  }
+}
+
+.news-item{
+  display: flex;
+  align-items: start;
+  justify-content: start;
+  flex-direction: column;
+  position: relative;
+  width: 50%;
+  max-width: 50%;
+  @include breakpoint-max(laptop) {
+    width: 100%;
+    max-width: 100%;
+  }
+  &:nth-child(even){
+    padding-left: $base-line-height;
+    @include breakpoint-max(laptop) {
+      padding: 0;
+    }
+  }
+  margin-top: $base-line-height;
+}
+
+.card {
+  position: relative;
+  z-index: 1;
+  flex-grow: 1;
+  width: 100%;
+  background-position: center;
+  background-size: cover;
+  transition: .4s all;
+  margin-bottom: $base-line-height * 0.562;
+  > div > a {
+    z-index: 9;
+    text-decoration: none;
+  }
+  .content {
+    display: block;
+  }
+  aside {
+    display: block;
+    vertical-align: center;
+  }
+  figure{
+    display: block;
+    background-position: center;
+    background-size: cover;
+    width: calc(100% + (#{$base-line-height} * 2));
+    height: $base-line-height * 8;
+    top: -$base-line-height;
+    position: relative;
+    margin: 0;
+    margin-left: -$base-line-height;
+  }
+  h2 {
+    font-weight: 300;
+    position: relative;
+  }
+  h3 {
+    font-weight: 300;
+  }
+  p {
+    color: $black;
+  }
+
 }
 </style>
