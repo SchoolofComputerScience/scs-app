@@ -18,6 +18,11 @@ export default {
             	researchAreas {
                 area_id
                 title
+                courses {
+                  course_id
+                  course_number
+                  title
+                }
                 description{
                   text
                   title
