@@ -1,7 +1,7 @@
 <template>
   <section class="content-page card">
     <h1>{{selected_research_area}}</h1>
-    <section class="area-section" v-if="facultyInArea">
+    <section class="area-section" v-if="programs">
       <h2>Programs That Include {{selected_research_area}}</h2>
       <ul class="items">
         <li v-for="program in programs" :key="program.program_id">{{program.program_name}}</li>
@@ -13,7 +13,7 @@
         <DirectoryListItem  v-for="member in facultyInArea" :key="member.scid" :item="member"></DirectoryListItem>
       </ul>
     </section>
-    <section v-if="courses.length > 0" class="area-section">
+    <section v-if="courses" class="area-section">
       <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
       <p v-for="course in courses">
         <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.title}}</span></router-link>
@@ -98,29 +98,37 @@ export default {
       return this.$store.state.news.list.length > 0;
     },
     courses() {
-      let selected_area = this.$store.state.researchAreas.list.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
+      let courses = false;
+      let selected_area = this.research_areas.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
+      if (this.research_areas.length > 0) {
+        if (selected_area) {
+          courses = selected_area.courses;
+        }
+      }
 
-      return selected_area.courses ? selected_area.courses : [];
+      return courses;
+
     },
     programs() {
       let programs = [];
-      let selected_area = this.$store.state.researchAreas.list.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
+      let selected_area = this.research_areas.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
 
-      selected_area.programs.forEach(function(program) {
-        programs.push(program);
-      });
+      if (selected_area && selected_area.programs) {
+        selected_area.programs.forEach(function(program) {
+          programs.push(program);
+        });
+      }
 
-      return programs;
+      return programs.length > 0 ? programs : false;
     },
     semesterCode(){
-      console.log(this.$store.state.semesterCode.code);
       return this.$store.state.semesterCode.code;
     },
     facultyInArea() {
       let faculty = [];
-      if (this.$store.state.researchAreas.list.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area_id) {
+      if (this.research_areas.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area_id) {
         let selected_area = this.$store.state.researchAreas.area_id;
-        let research_area = this.$store.state.researchAreas.list.find((area) => area.area_id === selected_area);
+        let research_area = this.research_areas.find((area) => area.area_id === selected_area);
         let directory = this.$store.state.directory.list;
 
         research_area.members.map(function(member){
