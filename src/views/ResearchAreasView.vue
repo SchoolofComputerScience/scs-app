@@ -13,6 +13,12 @@
         <DirectoryListItem  v-for="member in facultyInArea" :key="member.scid" :item="member"></DirectoryListItem>
       </ul>
     </section>
+    <section v-if="courses.length > 0" class="area-section">
+      <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
+      <p v-for="course in courses">
+        <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.title}}</span></router-link>
+      </p>
+    </section>
     <section v-if="has_news" class="research-news area-section">
       <h2>Latest News Articles On {{selected_research_area}}</h2>
       <div class="card-holder">
@@ -48,6 +54,7 @@ import { router } from '../app'
 import format from 'date-fns/format'
 
 function fetchData(store) {
+  store.dispatch('GET_SEMESTER_CODE');
   store.dispatch('GET_DIRECTORY');
   return store.dispatch('GET_RESEARCH_AREAS').then(() => {
     let area_id = store.state.route.params.research_area || store.state.researchAreas.area_id
@@ -90,6 +97,11 @@ export default {
     has_news() {
       return this.$store.state.news.list.length > 0;
     },
+    courses() {
+      let selected_area = this.$store.state.researchAreas.list.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
+
+      return selected_area.courses ? selected_area.courses : [];
+    },
     programs() {
       let programs = [];
       let selected_area = this.$store.state.researchAreas.list.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
@@ -99,6 +111,10 @@ export default {
       });
 
       return programs;
+    },
+    semesterCode(){
+      console.log(this.$store.state.semesterCode.code);
+      return this.$store.state.semesterCode.code;
     },
     facultyInArea() {
       let faculty = [];
