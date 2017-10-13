@@ -18,7 +18,15 @@ export default {
             	researchAreas {
                 area_id
                 title
-                description
+                description{
+                  text
+                  title
+                  contributors
+                  sources {
+                    title
+                    url
+                  }
+                }
                 gs_count
                 members {
                   scid
