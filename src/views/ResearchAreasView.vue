@@ -14,7 +14,7 @@
       </ul>
     </section>
     <section v-if="courses" class="area-section">
-      <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
+      <h2 class="title">{{semesterCode | seasonTranslate}} Courses</h2>
       <p v-for="course in courses">
         <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.title}}</span></router-link>
       </p>

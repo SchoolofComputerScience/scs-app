@@ -54,7 +54,7 @@ export default {
           "Computer Science Department": "/departments/csd",
           "Human-Computer Interaction Institute": "/departments/hcii",
           "Institute for Software Research": "/departments/isr",
-          "Language Technologies Institute": "/departments/lti ",
+          "Language Technologies Institute": "/departments/lti",
           "Machine Learning Department": "/departments/mld",
           "Robotics Institute": "/departments/ri",
           "Dean's Business Office": "/departments/deans_office",
