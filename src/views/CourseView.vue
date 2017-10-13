@@ -4,56 +4,60 @@
     <div v-if="loaded">
 
       <div class="breadcrumbs">
-        <router-link :to="'/courses/' + course.semesterCode"> {{course.semesterCode | seasonTranslate}} </router-link>
+        <router-link :to="'/courses/' + course.semester_code"> {{course.semester_code | seasonTranslate}} </router-link>
       </div>
 
       <div class="top-bar">
-        <p>{{course.college}} |
-          {{course.s3Department | departmentTranslate}} |
-          <span v-if="course.level === 'G'">Graduate</span>
-          <span v-if="course.level === 'U'">Undergraduate</span>
+        <p>{{course.college | collegeTranslate}} |
+          {{course.department | departmentTranslate}} |
+          <span>{{course.graduate_level | courseLevelTranslate}}</span>
         </p>
       </div>
 
-      <h2>{{course.longTitle}}</h2>
+      <h2>{{course.course_number}} {{course.long_title}}</h2>
 
       <p class="body">{{course.description}}</p>
 
       <section class="course-information">
 
-        <div class="units" v-if="course.units">
-          <p class="title">Units</p>
-          <p>{{course.units}}</p>
-        </div>
+        <p class="units" v-if="course.units">Units: {{course.units}}</p>
 
-        <div v-if="course.instructors[0]">
-          <p class="title" v-if="course.instructors.length === 1">Instructor</p>
-          <p class="title" v-if="course.instructors.length > 1">Instructors</p>
-          <p v-for="instructor in course.instructors">
-            <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.firstName + " " + instructor.lastName }}</router-link>
-            <span v-else>{{ instructor.firstName + " " + instructor.lastName }}</span>
+        <div v-if="course.areas" class="research">
+          <p class="title">Area Tags:</p>
+          <p>
+            <a class="button-small" href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in course.areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
           </p>
         </div>
 
-        <div v-if="course.meetings[0]">
-          <p class="title">Building</p>
-          <p>{{course.meetings[0].building | buildingTranslate}}</p>
-        </div>
+        <div class="item section" v-for="section in course.sections">
 
-        <div v-if="course.meetings[0]">
-          <p class="title">Room Number</p>
-          <p>{{course.meetings[0].room}}</p>
-        </div>
+          <h3 v-if="course.lecture_distinction && !isNaN(section.section)">Lecture {{section.section}}</h3>
+          <h4 v-else-if="course.lecture_distinction && section.parent_course">Section {{section.section}} (w/ Lecture {{section.parent_course.section}})</h4>
+          <h3 v-else>Section {{section.section}}</h3>
+          <div class="instructors" v-if="section.instructors && section.instructors.length > 1">
+            <p>
+              <span v-if="section.instructors.length === 1">Instructor</span>
+              <span v-else>Instructors</span>:
+              <span v-for="(instructor,index) in section.instructors">
+                <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.first_name + " " + instructor.last_name }}</router-link>
+                <span v-else>{{ instructor.first_name + " " + instructor.last_name }}</span>
+                <span v-if="index < section.instructors.length-1">, </span>
 
-        <div v-if="course.meetings[0].startTime">
-          <p class="title">Time</p>
-          <p v-if="course.meetings[0].startTime">{{course.meetings[0].startTime}} - {{course.meetings[0].endTime}}</p>
-        </div>
+              </span>
+            </p>
+          </div>
+          <p v-else>Instructor: TBA</p>
 
-        <div v-if="course.meetings[0]">
-          <p class="title">Days</p>
-          <p v-if="course.meetings[0].days">{{course.meetings[0].days | dayTranslate}}</p>
-        </div>
+          <div v-for="meeting in section.meetings">
+            <p v-if="meeting.days !== 'TBA'">
+              {{meeting.days | dayTranslate}} |
+              {{meeting.start_time}}&ndash;{{meeting.end_time}}
+             </p>
+            <p v-if="!['DNM', 'TBA'].includes(meeting.building)">{{meeting.building | buildingTranslate}} {{meeting.room}}</p>
+            <p v-else-if="meeting.building === 'TBA'">TBA</p>
+            <p v-else>Does not meet</p>
+          </div>
+        </div> <!-- end course sections -->
       </section>
     </div>
   </div>
@@ -82,7 +86,27 @@ export default {
       return this.$store.state.courses.course[this.$route.params.course] ? true : false
     },
     course(){
+      /*
+       * @TODO: Sort the section information by section identifier.
+       * This requires checking sections.parent_course. Self-reference
+       * indicates the parent. Numerals indicate a lecture.
+       */
       return this.$store.state.courses.course[this.$route.params.course]
+    }
+  },
+
+  methods: {
+    // @TODO: This is copied from MemberView. Abstract this to a central
+    // location for both views.
+    setResearchArea(event) {
+      let area_id = event.target.getAttribute('area-id');
+      let area_title = event.target.getAttribute('area-title');
+      let research_area = {
+        area_id: area_id,
+        title: area_title
+      }
+      this.$store.commit("SET_SELECTED_RESEARCH_AREA", research_area);
+      this.$router.push('/research/'+ area_id);
     }
   },
 
@@ -93,6 +117,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  h4 {
+    font-size: 1em;
+  }
+  .section {
+    margin: 1em 0;
+  }
 //
 // h2 {
 //   margin-top: 1.6em;

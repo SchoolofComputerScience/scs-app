@@ -6,15 +6,13 @@
     <nav class="main-nav">
       <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
       <ul v-bind:class="{ open: open}" class="main-nav-list">
-        <!-- Passes currentleaf from state down -->
-        <!-- Passes a method to change this components currentleaf state -->
         <nav-leaf
-          v-for="(childitems, navtitle) in navlinks"
-          :key="navtitle"
-          :navtitle="navtitle"
-          :currentleaf="currentleaf"
-          :setcurrentleaf="setcurrentleaf"
-          :childitems="childitems">
+          v-for="(childItems, navTitle) in navLinks"
+          :key="navTitle"
+          :navTitle="navTitle"
+          :currentLeaf="currentLeaf"
+          :childItems="childItems"
+          v-on:updateCurrentLeaf="setCurrentLeaf">
         </nav-leaf>
       </ul>
     </nav>
@@ -41,15 +39,15 @@ export default {
 
   data: function () {
     return {
-      currentleaf: null,
+      currentLeaf: null,
       isMenuHamburger: false,
       // Menu links as an object
       // Each top level section is an object
-      // If that item is a link include the "navlink" key with the URL as a value
+      // If that item is a link include the "navLink" key with the URL as a value
       // Child items should have link text as key and link URL as value
-      navlinks: {
+      navLinks: {
         "Home": {
-          "navlink": "/",
+          "navLink": "/",
         },
         "Departments": {
           "Computational Biology Department": "/departments/compbio",
@@ -62,10 +60,10 @@ export default {
           "Dean's Business Office": "/departments/deans_office",
         },
         "Directory": {
-          "navlink": "/directory",
+          "navLink": "/directory",
         },
         "About": {
-          "navlink": "/about",
+          "navLink": "/about",
           "Alumni Engagement": "/alumni",
           "Donate": "/donate",
           "Outreach": "/outreach",
@@ -77,28 +75,28 @@ export default {
           "Student Awards": "http://www.cs.cmu.edu/~scsfacts/studentawards.html",
         },
         "Programs": {
-          "navlink": "/programs",
+          "navLink": "/programs",
           "Undergraduate": "/undergraduate-programs",
           "Masters": "/masters-programs",
           "Doctoral": "/doctoral-programs",
         },
         "Admissions": {
-          "navlink": "/admissions",
+          "navLink": "/admissions",
           "Undergraduate": "/undergraduate-admissions",
           "Masters": "/masters-admissions",
           "Doctoral": "/doctoral-admissions",
         },
         "Courses":  {
-          "navlink": "/courses/F17",
+          "navLink": "/courses/F17",
         },
         "News": {
-          "navlink": "/news",
+          "navLink": "/news",
         },
         "Events": {
-          "navlink": "/events"
+          "navLink": "/events"
         },
         "Research": {
-          "navlink": "/research",
+          "navLink": "/research",
         }
       }
     }
@@ -124,27 +122,35 @@ export default {
       window.requestAnimationFrame(this.scroll);
     },
     resize: function() {
-      const header = this.$el;
-      const menu = header.querySelector('.main-nav');
-      const lastMenuItemBoundingRect = header.querySelector('.main-nav-list > li:last-child').getBoundingClientRect();
+      var header = this.$el;
+      var headerBoundingRect = header.getBoundingClientRect();
+      var menu = header.querySelector('.main-nav');
+      var menuBoundingRect = menu.getBoundingClientRect();
+      var lastMenuItemBoundingRect = header.querySelector('.main-nav-list > li:last-child').getBoundingClientRect();
+      var shouldHamburger = true;
+
+      if (typeof lastMenuItemBoundingRect.x !== 'undefined' && lastMenuItemBoundingRect.x + lastMenuItemBoundingRect.width < menu.clientWidth + menu.getBoundingClientRect().x) {
+        shouldHamburger = false;
+      } else if (typeof lastMenuItemBoundingRect.left !== 'undefined' && lastMenuItemBoundingRect.left + lastMenuItemBoundingRect.width < menu.clientWidth + menu.getBoundingClientRect().left) {
+        shouldHamburger = false;
+      }
 
       // If the last menu item is popping out of the header, then it's burger time
-      if (lastMenuItemBoundingRect.x + lastMenuItemBoundingRect.width > header.clientWidth + header.getBoundingClientRect().x) {
+      if (shouldHamburger) {
         this.isMenuHamburger = true;
         // Make sure the nav is stuck with appropriate styling based on the page
         this.scrollTest();
         // Unable to revert back to desktop menu since nav will be skinnier than viewport in mobile mode,
         // So adding an else will cause the menu to flip back and forth between burger/not burger rapidly
         // So kill our listener
-        window.addEventListener('resize', this.resizeTest);
+        window.removeEventListener('resize', this.resizeTest);
       }
     },
     resizeTest() {
       window.requestAnimationFrame(this.resize);
     },
-    setcurrentleaf: function(currentleaf) {
-      // This function exists so child components can manipulate this components data
-      this.currentleaf = currentleaf;
+    setCurrentLeaf: function(currentLeaf) {
+      this.currentLeaf = currentLeaf;
     }
   },
 
@@ -235,13 +241,17 @@ export default {
   }
   .main-nav {
     position: fixed;
-    top: $base-line-height;
+    top: $base-line-height * 0.75;
     right: 0;
-    width: $base-line-height * 2.625; // Corresponds to burger size in MobileToggle.vue
+    width: $base-line-height * 3; // Should be greater than burger size in MobileToggle.vue
     padding: 0;
     border: 0;
     background: none;
     box-shadow: none;
+
+    @include breakpoint-max(phone) {
+      top: $base-line-height * 0.1875;
+    }
 
     &:after{
       content: ' ';

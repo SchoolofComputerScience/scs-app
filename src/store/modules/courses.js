@@ -42,16 +42,57 @@ export default {
               courseStringAgg(field:"department") {
                 _id
               }
-              courses(semesterCode:"${fields}"){
+              courses(semester_code:"${fields}"){
                 _id
-                level
-                longTitle
                 college
-                s3Department
+                course_id
+                course_number
                 department
-                courseCode
-                courseNumber
-                section
+                description
+                graduate_level
+                long_title
+                s3_department
+                semester
+                semester_code
+                sections{
+                  course_section_id
+                  delivery_mode
+                  location
+                  long_title
+                  presence_required
+                  title
+
+                  child_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  cross_listed_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  instructors{
+                    andrew_id
+                    email
+                    first_name
+                    last_name
+                    scid
+                    valid
+                  }
+                  meetings{
+                    building
+                    days
+                    end_time
+                    room
+                    start_time
+                  }
+                  parent_course{
+                    course_number
+                    section
+                    semester_code
+                  }
+                }
               }
             }
           `
@@ -73,51 +114,64 @@ export default {
         : apollo.query({
           query: gql`
             {
-              course(courseCode:"${fields}"){
+              course(course_id:"${fields}"){
                 _id
-            		description
-                courseNumber
-                meetings{
-                  endTime
-                  building
-                  room
-                  days
-                  startTime
-                }
-                childCourses{
-                  section
-                  semesterCode
-                  detailUri
-                  courseNumber
-                }
-                deliveryMode
-                s3Department
-                department
-                courseCode
-                title
-                programLocation
-                level
-                isStudentPresenceRequired
-                crossListedCourses{
-                  section
-                  semesterCode
-                  detailUri
-                  courseNumber
-                }
-                units
-                longTitle
-                instructors{
-                  andrewId
-                  scid
-                  lastName
-                  firstName
-                  email
-                  valid
+                areas{
+                  area_id
+                  title
                 }
                 college
-                section
-                semesterCode
+                course_id
+                course_number
+                department
+                description
+                graduate_level
+                lecture_distinction
+                long_title
+                s3_department
                 semester
+                semester_code
+                units
+                sections{
+                  course_section_id
+                  delivery_mode
+                  location
+                  long_title
+                  presence_required
+                  section
+                  title
+
+                  child_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  cross_listed_courses{
+                    course_number
+                    section
+                    semester_code
+                  }
+                  instructors{
+                    andrew_id
+                    email
+                    first_name
+                    last_name
+                    scid
+                    valid
+                  }
+                  meetings{
+                    building
+                    days
+                    end_time
+                    room
+                    start_time
+                  }
+                  parent_course{
+                    course_number
+                    section
+                    semester_code
+                  }
+                }
               }
             }
           `
@@ -138,7 +192,7 @@ export default {
       Vue.set(state.lists, data.fields, data.data.courses)
     },
     SET_COURSE: (state, data) => {
-      Vue.set(state.course, data.course.courseCode, data.course)
+      Vue.set(state.course, data.course.course_id, data.course)
     }
   }
 }

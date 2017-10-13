@@ -89,10 +89,10 @@ export default {
                   pub_year
                 }
                 courses{
-                  longTitle
-                  courseNumber
-                  courseCode
-                  level
+                  long_title
+                  course_number
+                  course_id
+                  graduate_level
                   department
                 }
               }

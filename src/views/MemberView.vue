@@ -44,18 +44,18 @@
             </div>
             <div v-if="member.positions[0].building">
               <p class="title">building</p>
-              <p>{{ member.positions[0].building | buildingTranslate }}</a></p>
+              <p>{{ member.positions[0].building | buildingTranslate }}</p>
             </div>
             <div v-if="member.positions[0].room">
               <p class="title">room</p>
-              <p>{{member.positions[0].room}}</a></p>
+              <p>{{member.positions[0].room}}</p>
             </div>
           </section>
 
           <section v-if="member.courses.length > 0" class="courses">
             <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
             <p v-for="course in member.courses">
-              <router-link :to="'/courses/course/' + course.courseCode">{{course.longTitle}} | <span>{{course.courseNumber}}</span></router-link>
+              <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.long_title}}</span></router-link>
             </p>
           </section>
 

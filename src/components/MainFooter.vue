@@ -5,7 +5,7 @@
         <a href="http://www.cmu.edu">
           <img src="../assets/img/cmu.svg" alt="Carnegie Mellon University">
         </a>
-        <p><a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a>
+        <p><a href="http://www.qatar.cmu.edu" target="new">Qatar Campus</a></p>
       </figure>
       <p><b>Carnegie Mellon School of Computer Science</b><br>5000 Forbes Avenue<br>Pittsburgh, PA 15213</p>
     </div>
