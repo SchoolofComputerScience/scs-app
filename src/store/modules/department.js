@@ -8,6 +8,7 @@ export default {
     scs_list: [],
     selected_department: ''
   },
+  // @TODO: semesterCode is hard coded in this query. Fix it.
   actions: {
     GET_DEPARTMENTS: ({ commit, state }, fields = {}) => {
       return state.list.length
