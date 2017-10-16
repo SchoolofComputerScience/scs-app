@@ -34,7 +34,7 @@
           <h3 v-if="course.lecture_distinction && !isNaN(section.section)">Lecture {{section.section}}</h3>
           <h4 v-else-if="course.lecture_distinction && section.parent_course">Section {{section.section}} (w/ Lecture {{section.parent_course.section}})</h4>
           <h3 v-else>Section {{section.section}}</h3>
-          <div class="instructors" v-if="section.instructors && section.instructors.length > 1">
+          <div class="instructors" v-if="section.instructors && section.instructors.length >= 1">
             <p>
               <span v-if="section.instructors.length === 1">Instructor</span>
               <span v-else>Instructors</span>:
