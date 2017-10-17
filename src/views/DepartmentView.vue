@@ -14,7 +14,7 @@
         <Programs :condensed="true" :department="this.$route.params.department" class="content-page card"></Programs>
         <NewsList :department="this.$route.params.department"></NewsList>
         <EventsList :department="this.$route.params.department"></EventsList>
-        <Courses :semester="semester"></Courses>
+        <Courses :semester="this.$store.state.semesterCode.code" :department="this.$route.params.department"></Courses>
       </div>
     </transition>
   </section>
@@ -34,6 +34,7 @@ export default {
   name: 'department-view',
 
   asyncData ({ store }) {
+    store.dispatch('GET_SEMESTER_CODE');
     return store.dispatch('GET_DEPARTMENTS')
   },
 
@@ -45,12 +46,6 @@ export default {
     Programs,
     NewsList,
     EventsList
-  },
-
-  data () {
-    return {
-      semester: "F17"
-    }
   },
 
   computed: {

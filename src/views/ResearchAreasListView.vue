@@ -2,10 +2,10 @@
   <section class="content-page card">
     <h1>Top 40 Research Areas</h1>
     <div class="card-holder">
-      <div v-for="area in topForty" class="research-area-card">
+      <div v-for="area in topForty" class="research-area-card" :key="area.area_id">
         <router-link :to="'/research/' + area.area_id">
           <h3>{{area.title}}</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <p v-html="area.description.text"></p>
         </router-link>
       </div>
     </div>

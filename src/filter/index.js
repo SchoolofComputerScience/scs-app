@@ -24,17 +24,34 @@ export function upc(str) {
   return str.toUpperCase()
 }
 
+export function collegeTranslate (colId) {
+  colId = colId ? colId.toLowerCase() : colId
+  let collegeMap = new Map([
+    [ 'scs', 'School of Computer Science' ]
+  ])
+  return collegeMap.get(colId) || colId
+}
+
+export function courseLocationTranslate (locId) {
+  locId = locId ? locId.toLowerCase() : locId
+  let courseLocMap = new Map([
+    [ 'pit', 'Pittsburgh, Pennsylvania' ],
+    [ 'doh', 'Doha, Qatar' ]
+  ])
+  return courseLocMap.get(locId) || locId
+}
+export function courseLevelTranslate (levelId) {
+  levelId = levelId ? levelId.toLowerCase() : levelId
+  let courseLevelMap = new Map([
+    [ 'g', 'Graduate' ],
+    [ 'u', 'Undergraduate' ],
+  ])
+  return courseLevelMap.get(levelId) || levelId
+}
+
 export function departmentTranslate (depId) {
+  depId = depId ? depId.toLowerCase() : depId
   let departmentMap = new Map([
-    [ 'CB', 'Computational Biology Department' ],
-    [ 'HCI', 'Human-Computer Interaction Institute' ],
-    [ 'ISR', 'Institute for Software Research' ],
-    [ 'MLG', 'Machine Learning Department' ],
-    [ 'LTI', 'Language Technologies Institute' ],
-    [ 'CS', 'Computer Science Department' ],
-    [ 'ROB', 'The Robotics Institute' ],
-    [ 'SE', 'Software Engineering' ],
-    [ 'ETC', 'Entertainment Technology Center' ],
     [ 'compbio', 'Computational Biology Department' ],
     [ 'hcii', 'Human-Computer Interaction Institute' ],
     [ 'isr', 'Institute for Software Research' ],
@@ -44,7 +61,6 @@ export function departmentTranslate (depId) {
     [ 'ri', 'The Robotics Institute' ],
     [ 'etc', 'Entertainment Technology Center' ]
   ])
-
   return departmentMap.get(depId) || depId
 }
 
