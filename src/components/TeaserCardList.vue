@@ -68,19 +68,38 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/vars';
 .wrapper {
-  padding: #{$default-gutter * 2} $default-gutter;
+  padding: #{$default-gutter } 0 #{$default-gutter * 2};
+  @include breakpoint-min(phablet) {
+    padding: #{$default-gutter * 2} $default-gutter;
+  }
 }
 
 .card-list {
   display: flex;
   flex-wrap: wrap;
+  padding: 0 0 #{$default-gutter * 0.75};
+  @include breakpoint-min(desktop) {
+    flex-wrap: nowrap;
+  }
 }
 
 .item {
-  flex-basis: 22em;
-  min-width: 22em;
-  flex-grow: 1;
-  padding: 0 #{$default-gutter / 2} $default-gutter;
+  width: 100%;
+  padding: 0 #{$default-gutter / 2} #{$default-gutter / 2};
+  @include breakpoint-min(phablet) {
+    padding: 0 #{$default-gutter / 2} $default-gutter;
+  }
+  @include breakpoint-min(tablet) {
+    display: flex;
+    width: 50%;
+  }
+  @include breakpoint-min(desktop) {
+    width: 33.333%
+  }
+
+  a {
+    display: block;
+  }
 }
 
 .footer {

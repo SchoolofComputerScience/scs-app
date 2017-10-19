@@ -43,44 +43,69 @@ export default {
 @import '../assets/scss/vars.scss';
 
 .mobile-toggle {
-  $width: $base-line-height * 2.625;
+  $width: $base-line-height * 2.25;
   position: relative;
   width: $width;
   height: $width;
   z-index: 200;
+  border: 0;
+  font-size: 0.75rem;
   transform: rotate(0deg);
   transition: .5s ease-in-out;
-  cursor: pointer;
-  border: 0;
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   outline: none;
+  cursor: pointer;
+
   span {
-    $burger-width: $base-line-height * 1.75;
+    $burger-width: $base-line-height * 1.5;
     display: block;
     position: absolute;
     left: ($width - $burger-width) / 2; // Center burger bits
-    height: 5px;
+    height: 0.33333em;
     width: $burger-width;
+    border-radius: 0.375em;
     background: $red;
-    border-radius: 6px;
     opacity: 1;
     transform: rotate(0deg);
     transition: .25s ease-in-out;
   }
+
+  @include breakpoint-min(phablet) {
+    $width: $base-line-height * 2.625;
+    $burger-width: $base-line-height * 1.75;
+    width: $width;
+    height: $width;
+    font-size: 1rem;
+
+    span {
+      left: ($width - $burger-width) / 2; // Center burger bits
+      width: $burger-width;
+      height: 0.3125em;
+    }
+  }
 }
 
 span:nth-child(1) {
-  top: 14px;
+  top: 1.25em;
+  @include breakpoint-min(phablet) {
+    top: 0.875em;
+  }
 }
 
 span:nth-child(2), span:nth-child(3) {
-  top: 26px;
+  top: 2em;
+  @include breakpoint-min(phablet) {
+    top: 1.625em;
+  }
 }
 
 span:nth-child(4) {
-  top: 39px;
+  top: 2.8125em;
+  @include breakpoint-min(phablet) {
+    top: 2.4375em;
+  }
 }
 
 .open span {
@@ -88,7 +113,7 @@ span:nth-child(4) {
 }
 
 .open span:nth-child(1) {
-  top: 19px;
+  top: 1.1875em;
   width: 0%;
   left: 50%;
 }
@@ -102,7 +127,7 @@ span:nth-child(4) {
 }
 
 .open span:nth-child(4) {
-  top: 19px;
+  top: 1.1875em;
   width: 0%;
   left: 50%;
 }

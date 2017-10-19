@@ -41,11 +41,6 @@ export default {
   font-size: 1rem;
   margin: 0 auto;
   max-width: calc(#{$max-width} + #{$default-gutter * 3});
-
-  &:first-child {
-    // Collapse spacing between header and hero
-    margin-top: -1 * $base-line-height;
-  }
 }
 
 .hero {
@@ -58,7 +53,16 @@ export default {
     position: relative;
     display: block;
     box-sizing: content-box;
-    padding: 0 0 #{2 / 3.75 * 100%};
+    padding: 0 0 #{1 * 100%};
+    @include breakpoint-min(phablet) {
+      padding: 0 0 #{2 / 3 * 100%};
+    }
+    @include breakpoint-min(tablet) {
+      padding: 0 0 #{2 / 3.75 * 100%};
+    }
+    @include breakpoint-min(full) {
+      padding: 0 0 #{2 / 5 * 100%};
+    }
   }
 
   &:after {
@@ -94,9 +98,21 @@ export default {
   h4,
   h5,
   h6 {
-    font-size: $base-line-height * 2.6725;
+    font-size: $base-line-height;
     line-height: 1.3;
     font-weight: bold;
+    @include breakpoint-min(phone) {
+      font-size: $base-line-height * 1.25;
+    }
+    @include breakpoint-min(phablet) {
+      font-size: $base-line-height * 1.75;
+    }
+    @include breakpoint-min(tablet) {
+      font-size: $base-line-height * 2;
+    }
+    @include breakpoint-min(laptop) {
+      font-size: $base-line-height * 2.6725;
+    }
   }
 
 }
@@ -109,10 +125,13 @@ export default {
   width: 100%;
   transform: translate(0, -50%);
   padding: 0 $default-gutter;
+  @include breakpoint-min(laptop){
+    padding: 0 #{$default-gutter * 2};
+  }
   @include breakpoint-min(full) {
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 0 $default-gutter * 2;
+    padding: 0 #{$default-gutter * 2.5};
   }
 }
 
@@ -123,8 +142,10 @@ export default {
 }
 
 p {
-  font-size: 1.125em;
   font-style: italic;
+  @include breakpoint-min(tablet) {
+    font-size: 1.125em;
+  }
 }
 
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div id="app" class="app-shell">
     <main-header class="main-header"></main-header>
-    <main class="main-body" :class="{ 'no-gutter': removePageGutter }">
+    <main class="main-body">
       <transition name="fade">
         <router-view class="main-view" :key="$route.fullPath"></router-view>
       </transition>
@@ -16,7 +16,7 @@ import MainFooter from './components/MainFooter.vue'
 
 function fetchGlobalData(store) {
   store.dispatch('GET_DIRECTORY');
-  store.dispatch('GET_PROGRAMS')
+  store.dispatch('GET_PROGRAMS');
   return store.dispatch('GET_RESEARCH_AREAS');
 }
 
@@ -27,21 +27,7 @@ export default {
 
   components: {
     MainHeader,
-    MainFooter
-  },
-
-  computed: {
-    removePageGutter: function() {
-      // Array of paths to remove content gutter on
-      const pathsWithNoGutter = [
-        '/',
-      ];
-
-      if (pathsWithNoGutter.indexOf(this.$route.fullPath) !== -1) {
-        return true;
-      }
-      return false;
-    },
+    MainFooter,
   },
 
   beforeMount () {
@@ -61,13 +47,13 @@ export default {
 
 .main-body{
   margin: 0 auto;
-  padding: $base-line-height;
   top: 0;
 
-  &.no-gutter {
-    padding: 0;
+  > * {
+    // Pushes default page spacing to direct child of main-body
+    // This way those pages can disable the default page spacing
+    padding: $base-line-height;
   }
-
 }
 
 .main-footer{

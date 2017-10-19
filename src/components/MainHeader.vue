@@ -184,7 +184,9 @@ export default {
 @import '../assets/scss/mixins.scss';
 
 .u-content-container {
-  padding: 0 $default-gutter;
+  @include breakpoint-min(laptop) {
+    padding: 0 $default-gutter;
+  }
 }
 
 .logo {
@@ -193,6 +195,7 @@ export default {
   padding: $base-line-height 0;
   @include breakpoint-max(phone) {
     width: 14rem;
+    max-width: calc(100vw - 7.5rem);
     padding: $base-line-height / 2;
     padding-left: 0;
     padding-right: 0;

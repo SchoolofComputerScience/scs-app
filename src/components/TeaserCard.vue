@@ -1,6 +1,6 @@
 <template>
-  <a :href="linkURL" class="link-wrapper">
-    <article class="card">
+  <a :href="linkURL" class="card">
+    <article>
       <div class="image" :style="backgroundImageStyle">
       </div>
       <div class="text-wrapper">
@@ -72,9 +72,6 @@ export default {
   margin: 0;
   padding: 0;
   font-size: 1rem;
-}
-
-.link-wrapper {
   color:inherit;
 }
 
@@ -102,10 +99,13 @@ export default {
 }
 
 .headline {
-  font-size: 1.125em;
+  font-size: 1em;
   line-height: 1.44;
   font-weight: 600;
   color: inherit;
+  @include breakpoint-min(phablet) {
+    font-size: 1.125em;
+  }
 }
 
 </style>

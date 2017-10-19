@@ -36,32 +36,27 @@
       <section class="departments-list-wrapper">
         <h2 class="u-sr-only">Departments</h2>
         <ul class="departments-list">
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/400" alt="">
-            <span>Computational Biology</span>
-          </ALink></li>
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/450" alt="">
+          <li class="compbio">
+            <ALink url="#">
+              <span>Computational Biology</span>
+            </ALink>
+          </li>
+          <li class="csd"><ALink url="#">
             <span>Computer Science</span>
           </ALink></li>
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/400" alt="">
+          <li class="hcii"><ALink url="#">
             <span>Human Computer Interaction</span>
           </ALink></li>
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/450" alt="">
+          <li class="software-research"><ALink url="#">
             <span>Software Research</span>
           </ALink></li>
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/400" alt="">
+          <li class="lti"><ALink url="#">
             <span>Language Technologies</span>
           </ALink></li>
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/450" alt="">
+          <li class="mld"><ALink url="#">
             <span>Machine Learning</span>
           </ALink></li>
-          <li><ALink url="#">
-            <img src="http://fillmurray.com/400/400" alt="">
+          <li class="robotics"><ALink url="#">
             <span>Robotics</span>
           </ALink></li>
           <li><ALink url="#">
@@ -103,11 +98,11 @@
 
       <div class="logo-bar">
         <ul class="u-content-container">
-          <li>Example Internships</li>
-          <li>IBM</li>
-          <li>The Wall Street Journal</li>
-          <li>MSNBC</li>
-          <li>The Huffington Post</li>
+          <li>Example Internships:</li>
+          <li><img src="../assets/img/views/HomeView/logos/google.png" alt="Google" /></li>
+          <li><img src="../assets/img/views/HomeView/logos/facebook.png" alt="Facebook" /></li>
+          <li><img src="../assets/img/views/HomeView/logos/amazon.png" alt="Amazon" /></li>
+          <li><img src="../assets/img/views/HomeView/logos/microsoft.png" alt="Microsoft" /></li>
         </ul>
       </div>
 
@@ -118,7 +113,7 @@
             <p>SCS lives mostly in the Gates and Hillman Centers, which opened in 2009. The complex includes 217,000 square feet of classroom, office and lab space — but the buildings are also certified LEED Gold and won the American Institute of Architects Honor Award for Architecture in 2012. When you live and learn in the Gates Center, you’re surrounded by interesting architecture, and there’s plenty of room to study or meet friends.</p>
           </div>
           <div class="brochure-bit-media">
-            <img src="http://fillmurray.com/600/500" alt="">
+            <img src="../assets/img/views/HomeView/hillman-center.jpg" alt="">
           </div>
         </section>
       </div>
@@ -171,10 +166,10 @@ export default {
       // Should come from CMS somehow for editorial control
       'hero': {
         'contentType': 'News',
-        'headline': 'New Method Enables Telescoping Devices That Bend and Twist',
-        'subhead': 'Technology could result in robots that readily expand or shrink.',
-        'linkURL': '/news/carnegie-mellon-method-enables-telescoping-devices-bend-and-twist',
-        'backgroundImageURL': 'http://www.cs.cmu.edu/sites/default/files/lizard-teaser_banner_1.jpg',
+        'headline': 'Snake Robot Searches for Quake Survivors ',
+        'subhead': 'Rescue robot gets its first experience in live disaster.',
+        'linkURL': '/news/snake-robot-searches-mexico-city-quake-survivors',
+        'backgroundImageURL': 'https://www.cs.cmu.edu/sites/default/files/Snakebot_Mexico%20City_2_web.jpg',
       },
     }
   },
@@ -191,10 +186,11 @@ export default {
     news: function() {
       const news = this.$store.state.news.list;
       const thisComponent = this;
-      let newsTeasersCount = 0;
+      // Only allow 3 news items in teaser listing
+      let newsTeasersCount = 3;
       let newsTeasers = news.filter(function(currentValue) {
-        if ('/news/' + currentValue.uid !== thisComponent.hero.linkURL && newsTeasersCount < 3) {
-          newsTeasersCount++;
+        if ('/news/' + currentValue.uid !== thisComponent.hero.linkURL && newsTeasersCount > 0) {
+          newsTeasersCount--;
           return currentValue;
         }
       });
@@ -217,16 +213,24 @@ export default {
 <style lang="scss" scoped>
 @import '../assets/scss/vars.scss';
 
+.page {
+  // Removes default page spacing
+  padding: 0;
+}
+
 ///
 // Programs listing
 ///
 .programs {
   background: #fff;
+    @include breakpoint-min(tablet) {
+      font-size: 1.25rem;
+    }
 
   .u-content-container {
-    padding: $default-gutter;
+    padding: #{$default-gutter * 1.75} #{$default-gutter * 1};
 
-    @include breakpoint-min(tablet) {
+    @include breakpoint-min(phablet) {
       padding: #{$default-gutter * 2};
     }
 
@@ -236,7 +240,7 @@ export default {
   }
 
   h1 {
-    font-size: 1.5em;
+    font-size: 1.2em;
     line-height: 1.333;
     @include breakpoint-min(desktop) {
       font-size: 1.875em;
@@ -244,7 +248,6 @@ export default {
   }
 
   p {
-    font-size: 1.25em;
     line-height: 1.95;
   }
 }
@@ -301,6 +304,8 @@ export default {
   li {
     width: 100%;
     overflow: hidden;
+    background: center center;
+    background-size: cover;
     @include breakpoint-min(phone) {
       width: 50%;
     }
@@ -328,8 +333,9 @@ export default {
         width: 100%;
         height: 100%;
         background:
-          linear-gradient(180deg,rgba(0,0,0,0.05) 0%,
-          rgba(0,0,0,0.45) 66%,
+          linear-gradient(180deg,rgba(0,0,0,0) 0%,
+          rgba(0,0,0,0.10) 50%,
+          rgba(0,0,0,0.35) 80%,
           rgba(0,0,0,0.65) 100%);
       }
 
@@ -382,6 +388,34 @@ export default {
       }
     }
   }
+
+  .compbio {
+     background-image: url(../assets/img/views/HomeView/dept_web_compbio.jpg);
+  }
+
+  .csd {
+    background-image: url(../assets/img/views/HomeView/dept_web_csd.jpg);
+  }
+
+  .hcii {
+    background-image: url(../assets/img/views/HomeView/dept_web_hcii.jpg);
+  }
+
+  .software-research {
+    background-image: url(../assets/img/views/HomeView/web_softwareresearch.jpg);
+  }
+
+  .lti {
+    background-image: url(../assets/img/views/HomeView/dept_web_lti.jpg);
+  }
+
+  .mld {
+    background-image: url(../assets/img/views/HomeView/dept_web_mld.jpg);
+  }
+
+  .robotics {
+    background-image: url(../assets/img/views/HomeView/dept_web_robotics.jpg);
+  }
 }
 
 ///
@@ -399,15 +433,24 @@ export default {
   }
 
   li {
+    display: flex;
+    align-items: center;
     padding: #{$default-gutter * 0.5} #{$default-gutter * 0.5};
+    max-width: 12em;
 
     &:first-child {
-      width: 100%;
+      display: block;
+      min-width: 100%;
       text-align: center;
+      font-style: italic;
 
-      @include breakpoint-min(tablet) {
+      @include breakpoint-min(laptop) {
         width: auto;
       }
+    }
+
+    img {
+      max-width: 100%;
     }
   }
 }

@@ -57,7 +57,7 @@
   }
   @else if ($type == vertical) {
     background: repeat-y left top;
-    background-size: 0.825rem auto;
+    background-size: 1rem auto;
     @if ($color == default) {
       background-image: url(../assets/img/diagonal-line/vertical--default.png);
     }
