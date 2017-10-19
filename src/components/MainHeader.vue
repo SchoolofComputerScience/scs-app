@@ -60,6 +60,7 @@ export default {
           "navLink": "/",
         },
         "Departments": {
+          "navLink": "/departments",
           "Computational Biology Department": "/departments/compbio",
           "Computer Science Department": "/departments/csd",
           "Human-Computer Interaction Institute": "/departments/hcii",
