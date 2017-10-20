@@ -110,6 +110,7 @@ export default {
 
   methods:{
     scroll: function() {
+      this.currentLeaf = null;
       const offsetTop = this.$el.querySelector('.main-nav').getBoundingClientRect().top;
       const logoHeight = document.querySelector('.logo').clientHeight;
       if (offsetTop < -1 || window.scrollY > logoHeight) {
@@ -151,20 +152,36 @@ export default {
     },
     setCurrentLeaf: function(currentLeaf) {
       this.currentLeaf = currentLeaf;
+    },
+    handleBodyClick: function(e) {
+      // Figure out if the user clicked inside of main-nav
+      let clickedOnChildOfNav = false;
+      for (let i = 0, length = e.path.length; i < length; i++) {
+        if (typeof e.path[i].classList !== 'undefined' && e.path[i].classList.contains('main-nav-list')) {
+          // They did, we're done here
+          return;
+        }
+      }
+      // They didn't, close the nav
+      this.currentLeaf = null;
     }
   },
 
-  mounted () {
+  mounted() {
     window.addEventListener('scroll', this.scrollTest);
     window.addEventListener('resize', this.resizeTest);
     // Fire the functions once on load
     this.scrollTest();
     this.resizeTest();
+    const body = document.getElementsByTagName("body")[0];
+    body.addEventListener('click', this.handleBodyClick, false);
   },
 
   beforeDestroy() {
     window.removeEventListener('scroll', this.scrollTest);
     window.removeEventListener('resize', this.resizeTest);
+    const body = document.getElementsByTagName("body")[0];
+    body.removeEventListener('click', this.handleBodyClick, false);
   }
 }
 </script>
