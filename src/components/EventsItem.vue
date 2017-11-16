@@ -21,7 +21,7 @@ export default {
       return format(arg, 'h:mm a')
     },
     dateFix (arg) {
-      return format(arg, 'MMMM Do YYYY')
+      return format(arg, 'MMM. D, YYYY')
     }
   }
 }

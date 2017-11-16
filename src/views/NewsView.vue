@@ -70,7 +70,7 @@ export default {
     },
 
     dateFix (arg) {
-      return format(arg, 'MMMM D, YYYY')
+      return format(arg, 'MMM. D, YYYY')
     }
   },
 
