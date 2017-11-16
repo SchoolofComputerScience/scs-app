@@ -30,6 +30,16 @@ import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import format from 'date-fns/format'
 
+export default {
+  name: 'NewsItem',
+  props: ['data'],
+  methods: {
+    timeFix (arg) {
+      return format(arg, 'dddd, MMMM D, YYYY')
+    }
+  }
+}
+
 function fetchNews(store) {
   return store.dispatch('GET_NEWS_ARTICLE', store.state.route.params.article)
 }
