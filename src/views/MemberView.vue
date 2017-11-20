@@ -104,18 +104,10 @@ import Vue from 'vue'
 import Spinner from '../components/Spinner.vue'
 import NewsItem from '../components/NewsItem.vue'
 
-function fetchData(store) {
-  store.dispatch('GET_SEMESTER_CODE');
-  store.dispatch('GET_RESEARCH_AREAS');
-  return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
-}
-
 const bioHeight = 112
 
 export default {
   name: 'member-view',
-
-  preFetch: fetchData,
 
   components: {
     Spinner,
@@ -163,8 +155,10 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchData(this.$store)
+  asyncData ({ store, route }) {
+    store.dispatch('GET_SEMESTER_CODE');
+    store.dispatch('GET_RESEARCH_AREAS');
+    return store.dispatch('FETCH_MEMBER', route.params.name)
   },
 
   mounted () {

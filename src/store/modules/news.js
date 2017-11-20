@@ -34,8 +34,9 @@ export default {
           }
         }).catch((err) =>{
           console.log(err)
-          Promise.reject(":err :department graphql failed")
+          Promise.reject(":err :news articles graphql failed")
           console.error(`GraphQL Error: ${err.message}`)
+          commit('SET_NEWS_LIST', {error: `GraphQL Error: ${err.message}`})
         })
     },
     GET_NEWS_ARTICLE: ({ commit, state }, fields = {}) => {
@@ -61,10 +62,13 @@ export default {
           if (res) {
             commit('SET_NEWS_ARTICLE', res.data)
             return res.data
+          } else {
+            commit('SET_NEWS_ARTICLE', {error: `GraphQL Error: ${err.message}`})
           }
         }).catch((err) =>{
-          Promise.reject(":err :department graphql failed")
+          Promise.reject(":err :news article graphql failed")
           console.error(`GraphQL Error: ${err.message}`)
+          commit('SET_NEWS_ARTICLE', {error: `GraphQL Error: ${err.message}`})
         })
     },
     GET_NEWS_LIST: ({ commit, state }, fields = {}) => {
@@ -88,17 +92,24 @@ export default {
             commit('SET_NEWS_LIST', res.data)
             return res.data
           } else {
-            Promise.reject(":err :department graphql failed")
+            Promise.reject(":err :news articles graphql failed")
+            commit('SET_NEWS_LIST', {error: `GraphQL Error: ${err.message}`})
           }
         }).catch((err) =>{
           console.error(err.locations)
           console.error(`GraphQL Error: ${err.message}`)
+          commit('SET_NEWS_LIST', {error: `GraphQL Error: ${err.message}`})
         })
     }
   },
   mutations: {
     SET_NEWS_ARTICLE: (state, data) => {
-      Vue.set(state.articles, data.newsArticle[0].uid, data.newsArticle[0])
+      if(data.error){
+        state.error = data.error
+      } else {
+        state.error = ''
+        Vue.set(state.articles, data.newsArticle[0].uid, data.newsArticle[0])
+      }
     },
     SET_NEWS_LIST: (state, data) => {
       if(data.error){

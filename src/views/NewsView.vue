@@ -30,14 +30,8 @@ import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import format from 'date-fns/format'
 
-function fetchNews(store) {
-  return store.dispatch('GET_NEWS_ARTICLE', store.state.route.params.article)
-}
-
 export default {
   name: 'news-view',
-
-  preFetch: fetchNews,
 
   components: {
     Spinner
@@ -45,6 +39,10 @@ export default {
 
   computed: {
     loaded() {
+      if(this.$store.state.news.error.length > 0) {
+        router.replace('/404');
+      }
+      
       let article = this.$route.params.article
       for (var uid in this.$store.state.news.articles)
         if(uid === article) return true
@@ -74,9 +72,9 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchNews(this.$store)
-  }
+  asyncData ({ store, route }) {
+    return store.dispatch('GET_NEWS_ARTICLE', route.params.article)
+  },
 
 }
 </script>

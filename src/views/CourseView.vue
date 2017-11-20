@@ -67,18 +67,12 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 
-function fetchCourse(store) {
-  return store.dispatch('FETCH_COURSE',  store.state.route.params.course)
-}
-
 export default {
   name: 'course-view',
 
   components: {
     Spinner
   },
-
-  preFetch: fetchCourse,
 
   computed: {
 
@@ -110,8 +104,8 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchCourse(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('FETCH_COURSE',  route.params.course)
   }
 }
 </script>

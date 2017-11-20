@@ -55,14 +55,8 @@ import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import format from 'date-fns/format'
 
-function fetchEvent(store) {
-  return store.dispatch('GET_EVENT', store.state.route.params.event)
-}
-
 export default {
   name: 'event-view',
-
-  preFetch: fetchEvent,
 
   components: {
     Spinner
@@ -93,8 +87,8 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchEvent(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('GET_EVENT', route.params.event)
   }
 }
 </script>

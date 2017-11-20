@@ -7,7 +7,7 @@
         <h3>{{data.title}}</h3>
       </div>
     </router-link>
-    <div class="tags">
+    <div v-if="show_tags" class="tags">
       <router-link
         v-for="tag in data.tags"
         v-if="tag.name != ''"
@@ -24,7 +24,7 @@ import format from 'date-fns/format'
 
 export default {
   name: 'NewsItem',
-  props: ['data'],
+  props: ['data', 'show_tags'],
   methods: {
     timeFix (arg) {
       return format(arg, 'dddd, MMMM Do YYYY')
@@ -89,18 +89,14 @@ export default {
     background-position: center;
     background-size: cover;
     width: calc(100% + (#{$base-line-height} * 2));
-    height: $base-line-height * 8;
+    height: $base-line-height * 10;
     top: -$base-line-height;
     position: relative;
     margin: 0;
     margin-left: -$base-line-height;
   }
-  h2 {
-    font-weight: 300;
-    position: relative;
-  }
   h3 {
-    font-weight: 300;
+    font-weight: bold;
   }
   p {
     color: $black;

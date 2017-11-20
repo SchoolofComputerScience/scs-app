@@ -14,25 +14,13 @@
 import MainHeader from './components/MainHeader.vue'
 import MainFooter from './components/MainFooter.vue'
 
-function fetchGlobalData(store) {
-  store.dispatch('GET_DIRECTORY');
-  store.dispatch('GET_PROGRAMS');
-  return store.dispatch('GET_RESEARCH_AREAS');
-}
-
 export default {
   name: 'scsmain',
-
-  preFetch: fetchGlobalData,
 
   components: {
     MainHeader,
     MainFooter,
   },
-
-  beforeMount () {
-    fetchGlobalData(this.$store);
-  }
 }
 </script>
 

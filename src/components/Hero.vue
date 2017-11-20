@@ -1,5 +1,5 @@
 <template>
-<div class="hero-wrapper">
+  <div class="hero-wrapper">
     <a :href="linkURL" class="wrapper-link">
       <article class="hero" :style="backgroundImageStyle">
         <div class="textual-content">
@@ -11,8 +11,6 @@
 </template>
 
 <script>
-import H from '../components/H.vue'
-
 export default {
   name: 'Hero',
 

@@ -8,10 +8,6 @@
 import PageContent from '../components/PageContent.vue'
 import { router } from '../app'
 
-function fetchPage(store) {
-  return store.dispatch('FETCH_PAGE', store.state.route.params.page)
-}
-
 export default {
   name: 'page-view',
 
@@ -19,7 +15,9 @@ export default {
     PageContent
   },
 
-  preFetch: fetchPage,
+  asyncData ({ store, route }) {
+    return store.dispatch('FETCH_PAGE', route.params.page);
+  },
 
   computed: {
     page () {
@@ -31,14 +29,6 @@ export default {
       }
       return { markdown: '', slug: '', title: '' }
     }
-  },
-
-  created () {
-    this.$store.dispatch('documentTitle', this.page.title)
-  },
-
-  beforeMount () {
-    fetchPage(this.$store)
   }
 }
 </script>

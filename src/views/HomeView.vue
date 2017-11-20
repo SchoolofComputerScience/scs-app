@@ -1,22 +1,20 @@
 <template>
   <transition name="page-transition" mode="out-in" appear>
-    <div class="page">
-
-      <Hero :linkURL="hero.linkURL" :backgroundImageURL="hero.backgroundImageURL">
+    <spinner class="spinner" v-if="!newsLoaded" key="spinner"></spinner>
+    <div class="page" v-if="newsLoaded">
+      <Hero class="slide" linkURL="#" :backgroundImageURL="hero.backgroundImageURL">
         <div class="content-type">{{ hero.contentType}}</div>
         <h2>{{ hero.headline }}</h2>
         <p>{{ hero.subhead }}</p>
       </Hero>
-
-      <!-- Should be modifyable or controllable from CMS for editorial control -->
-      <!-- Look for highlighted items, if none or less than 3 then fill the rest with latest news -->
-      <TeaserCardList v-if="newsLoaded" :cards="news">
-        <div slot="footer" class="footer">
-          <ALink url="/news" class="button button-simple">
-            Show more news
-          </ALink>
-        </div>
-      </TeaserCardList>
+      <section class="teaser" v-if="newsLoaded">
+        <NewsItem v-for="list in news" :key="list.uid" :data="list" :show_tags="false"></NewsItem>
+      </section>
+      <div class="news-footer footer">
+        <router-link to="/news" class="button button-simple">
+          Show More News
+        </router-link>
+      </div>
 
       <section class="programs">
         <div class="u-content-container">
@@ -25,10 +23,10 @@
             <p>Or maybe you can’t wait to enter a hackathon and create something that changes how we interact with the world forever. And let’s not forget that all-important summer internship. It all can be done at CMU-SCS.</p>
           </div>
           <ul class="programs-list diagonal-separated-list">
-            <li><ALink url="#">Undergraduate Programs</ALink></li>
-            <li><ALink url="#">Graduate Programs</ALink></li>
-            <li><ALink url="#">Doctoral Programs</ALink></li>
-            <li><ALink url="#">Overview of Programs</ALink></li>
+            <li><router-link to="/undergraduate-programs">Undergraduate Programs</router-link></li>
+            <li><router-link to="/masters-programs">Graduate Programs</router-link></li>
+            <li><router-link to="/doctoral-programs">Doctoral Programs</router-link></li>
+            <li><router-link to="/programs">Overview of Programs</router-link></li>
           </ul>
         </div>
       </section>
@@ -37,31 +35,45 @@
         <h2 class="u-sr-only">Departments</h2>
         <ul class="departments-list">
           <li class="compbio">
-            <ALink url="#">
+            <router-link to="/departments/compbio">
               <span>Computational Biology</span>
-            </ALink>
+            </router-link>
           </li>
-          <li class="csd"><ALink url="#">
-            <span>Computer Science</span>
-          </ALink></li>
-          <li class="hcii"><ALink url="#">
-            <span>Human Computer Interaction</span>
-          </ALink></li>
-          <li class="software-research"><ALink url="#">
-            <span>Software Research</span>
-          </ALink></li>
-          <li class="lti"><ALink url="#">
-            <span>Language Technologies</span>
-          </ALink></li>
-          <li class="mld"><ALink url="#">
-            <span>Machine Learning</span>
-          </ALink></li>
-          <li class="robotics"><ALink url="#">
-            <span>Robotics</span>
-          </ALink></li>
-          <li><ALink url="#">
-            <span>See all Departments & Programs</span>
-          </ALink></li>
+          <li class="csd">
+            <router-link to="/departments/csd">
+              <span>Computer Science</span>
+            </router-link>
+          </li>
+          <li class="hcii">
+            <router-link to="/departments/hcii">
+              <span>Human Computer Interaction</span>
+            </router-link>
+          </li>
+          <li class="software-research">
+            <router-link to="/departments/isr">
+              <span>Software Research</span>
+            </router-link>
+          </li>
+          <li class="lti">
+            <router-link to="/departments/lti">
+              <span>Language Technologies</span>
+            </router-link>
+          </li>
+          <li class="mld">
+            <router-link to="/departments/mld">
+              <span>Machine Learning</span>
+            </router-link>
+          </li>
+          <li class="robotics">
+            <router-link to="/departments/ri">
+              <span>Robotics</span>
+            </router-link>
+          </li>
+          <li>
+            <router-link to="/departments">
+              <span>See all Departments & Programs</span>
+            </router-link>
+          </li>
         </ul>
       </section>
 
@@ -140,25 +152,17 @@
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue'
-import Hero from '../components/Hero.vue'
-import TeaserCardList from '../components/TeaserCardList.vue'
-import ALink from '../components/ALink.vue';
-
-function fetchNews(store) {
-  return store.dispatch('GET_NEWS_LIST', store.state.route.params.article)
-}
+import Spinner from '../components/Spinner.vue';
+import Hero from '../components/Hero.vue';
+import NewsItem from '../components/NewsItem.vue';
 
 export default {
   name: 'home-view',
 
-  preFetch: fetchNews,
-
   components: {
     Spinner,
     Hero,
-    TeaserCardList,
-    ALink
+    NewsItem
   },
 
   data: function () {
@@ -184,29 +188,23 @@ export default {
       return this.$store.state.news.list.length > 0 ? true : false
     },
     news: function() {
-      const news = this.$store.state.news.list;
-      const thisComponent = this;
-      // Only allow 3 news items in teaser listing
-      let newsTeasersCount = 3;
-      let newsTeasers = news.filter(function(currentValue) {
-        if ('/news/' + currentValue.uid !== thisComponent.hero.linkURL && newsTeasersCount > 0) {
-          newsTeasersCount--;
-          return currentValue;
-        }
-      });
+      let newsList = this.$store.state.news.list;
+      let list = [];
 
-      return newsTeasers;
+      for (let i = 0; i < 3; i++) {
+        list.push(newsList[i]);
+      }
+
+      return list;
     },
   },
 
   asyncData ({ store }) {
-    return store.dispatch('GET_NEWS_LIST')
-  },
-
-  beforeMount () {
-    fetchNews(this.$store);
+    store.dispatch('GET_NEWS_LIST');
+    store.dispatch('GET_PROGRAMS');
+    store.dispatch('GET_RESEARCH_AREAS');
+    return store.dispatch('GET_DIRECTORY');
   }
-
 }
 </script>
 
@@ -216,6 +214,63 @@ export default {
 .page {
   // Removes default page spacing
   padding: 0;
+}
+
+.teaser {
+  display: flex;
+  max-width: 1440px;
+  margin: 0 auto;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+
+  .news-item {
+    width: 30%;
+    margin: $base-line-height;
+    flex-grow: 1;
+    align-items: center;
+
+    &:nth-child(even) {
+      padding-left: 0px;
+    }
+  }
+}
+
+.news-footer {
+  text-align: center;
+  margin: $base-line-height * 2 0;
+}
+
+@include breakpoint-max(phone) { 
+  .teaser {
+    .news-item {
+      width: 100%;
+      max-width: 100%;
+      margin: $base-line-height / 2 $base-line-height;
+    }
+  }
+
+  .news-footer {
+    margin: 0 0 $base-line-height * 1.5 0;
+  }
+}
+
+@include breakpoint-max(phablet) { 
+  .teaser {
+    .news-item {
+      width: 100%;
+      max-width: 100%;
+      margin: $base-line-height / 2 $base-line-height;
+    }
+  }
+}
+
+@include breakpoint-max(laptop) { 
+  .teaser {
+    .news-item {
+      max-width: 100%;
+    }
+  }
 }
 
 ///

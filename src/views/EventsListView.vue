@@ -34,14 +34,8 @@
 import Spinner from '../components/Spinner.vue'
 import EventsItem from '../components/EventsItem.vue'
 
-function fetchEventsList(store) {
-  return store.dispatch('GET_EVENTS_LIST')
-}
-
 export default {
   name: 'events-list-view',
-
-  preFetch: fetchEventsList,
 
   components: {
     Spinner,
@@ -81,8 +75,8 @@ export default {
     }, 500)
   },
 
-  beforeMount () {
-    fetchEventsList(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('GET_EVENTS_LIST');
   }
 }
 </script>

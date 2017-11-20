@@ -15,14 +15,8 @@
 <script>
 import { router } from '../app'
 
-function fetchData(store) {
-  return store.dispatch('GET_RESEARCH_AREAS');
-}
-
 export default {
   name: 'research-areas-list-view',
-
-  preFetch: fetchData,
 
   computed: {
     topForty(){
@@ -41,8 +35,8 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchData(this.$store)
+  asyncData ({ store }) {
+    return store.dispatch('GET_RESEARCH_AREAS');
   }
 }
 </script>

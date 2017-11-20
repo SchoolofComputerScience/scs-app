@@ -53,25 +53,8 @@ import DirectoryListItem from '../components/DirectoryListItem.vue'
 import { router } from '../app'
 import format from 'date-fns/format'
 
-function fetchData(store) {
-  store.dispatch('GET_SEMESTER_CODE');
-  store.dispatch('GET_DIRECTORY');
-  return store.dispatch('GET_RESEARCH_AREAS').then(() => {
-    let area_id = store.state.route.params.research_area || store.state.researchAreas.area_id
-    if (area_id) {
-      let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
-      if (research_area) {
-        store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
-        store.commit("SET_SELECTED_RESEARCH_AREA", { area_id: research_area.area_id, title: research_area.title });
-      }
-    }
-  });
-}
-
 export default {
   name: 'research-areas-view',
-
-  preFetch: fetchData,
 
   components: {
     DirectoryListItem,
@@ -158,8 +141,19 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchData(this.$store)
+  asyncData ({ store, route }) {
+    store.dispatch('GET_SEMESTER_CODE');
+    store.dispatch('GET_DIRECTORY');
+    return store.dispatch('GET_RESEARCH_AREAS').then(() => {
+      let area_id = route.params.research_area || store.state.researchAreas.area_id
+      if (area_id) {
+        let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
+        if (research_area) {
+          store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
+          store.commit("SET_SELECTED_RESEARCH_AREA", { area_id: research_area.area_id, title: research_area.title });
+        }
+      }
+    });
   }
 }
 </script>
