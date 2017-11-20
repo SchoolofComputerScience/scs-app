@@ -14,32 +14,30 @@ export default {
   actions: {
     FETCH_PAGE: ({ commit, state }, fields = {}) => {
 
-      let page = staticContent + fields + '.md'
-      let found = false;
+      if (!state.pages[fields]) {
+        let page = staticContent + fields + '.md'
+        let found = false;
 
-      state.staticDB.pages.map((value, key ) => {
-        if (value.slug === fields) {
-          found = true;
-        }
-      })
+        state.staticDB.pages.map((value, key ) => {
+          if (value.slug === fields) {
+            found = true;
+          }
+        })
 
-      if(!found) router.replace('/404')
+        if(!found) router.replace('/404')
 
-      return state.pages[fields]
-        ? Promise.resolve(state.pages[fields])
-        : fetch(page)
-          .then((res, err) => {
-            if (res.status >= 400) {
-              router.replace('/404')
-            }
-            return res.text()
-          }, (err) => {
+        fetch(page).then((res, err) => {
+          if (res.status >= 400) {
             router.replace('/404')
-          })
-          .then((res) => {
-            commit('setMarkdown', {res, fields})
-            return res
-          })
+          }
+          return res.text()
+        }, (err) => {
+          router.replace('/404')
+        })
+        .then((res) => {
+          commit('setMarkdown', {res, fields})
+        }) 
+      }
     },
 
     documentTitle: ({ commit, state }, title) => {

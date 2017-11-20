@@ -4,7 +4,6 @@
     <router-link
       v-if="childItems.navLink && isInternalLink(childItems.navLink)"
       :to="childItems.navLink"
-      exact
       v-on:click="active = false"
       @focus.native="open">
       {{ navTitle }}

@@ -43,8 +43,12 @@ export default {
     }
   },
 
-  asyncData ({ store, route: { params: {semester}}} ) {
-    return store.dispatch('FETCH_COURSE_LIST', { semester })
+  asyncData ({ store, route }) {
+    if (route.params.department){
+      store.commit("SET_SELECTED_DEPARTMENT", route.params.department);
+    }
+    store.dispatch('GET_SCS_DEPARTMENT_LIST');
+    return store.dispatch('FETCH_COURSE_LIST', route.params.semester);
   },
 
   computed: {

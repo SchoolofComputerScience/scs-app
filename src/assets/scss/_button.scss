@@ -49,3 +49,23 @@
     background-color: $red;
   }
 }
+
+.button-simple {
+  position: static;
+  border: 0;
+  border-bottom: 0.125rem solid rgba(0, 0, 0, 0.05);
+  font-size: inherit;
+  font-weight: 600;
+  text-transform: none;
+  background: 0;
+  transition: border-color 0.25s;
+
+  &[class] {
+    box-shadow: none;
+  }
+
+  &:hover,
+  &:focus {
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+  }
+}

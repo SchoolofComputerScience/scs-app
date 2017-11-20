@@ -22,14 +22,8 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 
-function fetchPublication(store) {
-  return store.dispatch('FETCH_PUBLICATION', store.state.route.params.pubid)
-}
-
 export default {
   name: 'publication-view',
-
-  preFetch: fetchPublication,
 
   components: {
     Spinner
@@ -47,9 +41,8 @@ export default {
 
   },
 
-  beforeMount () {
-    fetchPublication(this.$store)
-      .then(() => this.loading = false)
+  asyncData ({ store, route }) {
+    return store.dispatch('FETCH_PUBLICATION', route.params.pubid)
   }
 
 }

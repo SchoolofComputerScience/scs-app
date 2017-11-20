@@ -16,18 +16,12 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 
-function fetchCourses(store) {
-  return store.dispatch('FETCH_COURSE_YEARS')
-}
-
 export default {
   name: 'courses-select-view',
 
   components: {
     Spinner
   },
-
-  preFetch: fetchCourses,
 
   data () {
     return {
@@ -63,8 +57,8 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchCourses(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('FETCH_COURSE_YEARS');
   }
 }
 </script>

@@ -13,24 +13,10 @@
 import Vue from 'vue'
 import { router } from '../app'
 
-function fetchDepartments(store) {
-  store.dispatch('GET_SCS_DEPARTMENT_LIST');
-
-  if (store.state.route.params.department){
-    store.commit("SET_SELECTED_DEPARTMENT", store.state.route.params.department);
-  }
-}
-
 export default {
   name: 'department_filter',
 
-  preFetch: fetchDepartments,
-
   props: ['route_link', 'types', 'excluded_departments'],
-
-  beforeMount () {
-    fetchDepartments(this.$store);
-  },
 
   data() {
     return {

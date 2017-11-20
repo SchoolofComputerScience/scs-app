@@ -1,11 +1,21 @@
 <template>
   <header v-bind:class="{ 'main-nav-is-burger': isMenuHamburger }">
-    <div class="logo">
-      <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
+    <!-- On Homepage Logo should be H1 -->
+    <div class="u-content-container">
+      <h1 class="logo" v-if="$route.fullPath === '/'">
+        <router-link to="/">
+          <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+        </router-link>
+      </h1>
+      <div class="logo" v-else>
+        <router-link to="/">
+          <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+        </router-link>
+      </div>
     </div>
     <nav class="main-nav">
       <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
-      <ul v-bind:class="{ open: open}" class="main-nav-list">
+      <ul v-bind:class="{ open: open}" class="main-nav-list u-content-container">
         <nav-leaf
           v-for="(childItems, navTitle) in navLinks"
           :key="navTitle"
@@ -50,6 +60,7 @@ export default {
           "navLink": "/",
         },
         "Departments": {
+          "navLink": "/departments",
           "Computational Biology Department": "/departments/compbio",
           "Computer Science Department": "/departments/csd",
           "Human-Computer Interaction Institute": "/departments/hcii",
@@ -173,29 +184,47 @@ export default {
 @import '../assets/scss/vars.scss';
 @import '../assets/scss/mixins.scss';
 
+.u-content-container {
+  @include breakpoint-min(laptop) {
+    padding: 0 $default-gutter;
+  }
+}
+
 .logo {
   max-height: $base-line-height * 4;
   width: 15rem;
   padding: $base-line-height 0;
   @include breakpoint-max(phone) {
     width: 14rem;
+    max-width: calc(100vw - 7.5rem);
     padding: $base-line-height / 2;
     padding-left: 0;
     padding-right: 0;
   }
-  img{
-    max-height: $base-line-height * 2;
+  a {
+    display: block;
+    background: url(../assets/img/components/MainHeader/cmu-school-main.svg) no-repeat;
+    background-size: 100% auto;
+
+    &:before {
+      content: '';
+      display: block;
+      box-sizing: content-box;
+      width: 100%;
+      height: 0;
+      padding-bottom: 43 / 240 * 100%;
+    }
   }
 }
 
 .main-nav {
-  width: 100%;
   position: absolute;
   z-index: 200;
-  background: white;
+  width: 100%;
+  margin-left: $default-gutter * -1;
   padding: 0 $base-line-height;
-  margin-left: -$base-line-height;
   border-top: 1px solid $primary-grey;
+  background: white;
   box-shadow: $box-shadow-inert;
 
   a {
@@ -217,9 +246,6 @@ export default {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    @include breakpoint-min(desktop) {
-      max-width: map-get($breakpoints, desktop);
-    }
   }
   li {
     display: inline-block;

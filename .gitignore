@@ -1,20 +1,22 @@
-.DS_Store
-node_modules/
+# dist is built dynamically
 dist/
-npm-debug.log
 
-#normal computer stuff.
+# Normal computer stuff.
 .DS_Store
 logs
 *.log
 
-#install on dev environment.
+# IDE Stuff
+.vs-code
+
+# Node stuff
 node_modules
+npm-debug.log
 
 # build is for construction on host server.
 # build
 
-# google build and environment variables
+# Google build and environment variables
 .env
 app.yaml
 api.js

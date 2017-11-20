@@ -20,18 +20,10 @@
 <script>
 import { router } from '../app'
 
-function fetchCourses(store, semester) {
-  return store.dispatch('FETCH_COURSE_LIST', semester)
-}
-
 export default {
   name: 'courses',
 
   props: ['semester', 'department', 'graduate_level'],
-
-  preFetch(store) {
-    return store.dispatch('FETCH_COURSE_LIST', (this.semester || this.$store.state.route.params.semester));
-  },
 
   computed: {
     courseListByDepartment() {
@@ -80,10 +72,6 @@ export default {
 
       return departments;
     }
-  },
-
-  beforeMount () {
-    fetchCourses(this.$store, (this.semester || this.$store.state.route.params.semester));
   }
 }
 </script>
