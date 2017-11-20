@@ -68,7 +68,7 @@ export default {
     },
 
     dateFix (arg) {
-      return format(arg, 'MMMM Do YYYY')
+      return format(arg, 'MMM. D, YYYY')
     }
   },
 
