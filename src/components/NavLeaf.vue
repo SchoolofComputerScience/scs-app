@@ -5,13 +5,21 @@
       v-if="childItems.navLink && isInternalLink(childItems.navLink)"
       :to="childItems.navLink"
       v-on:click="active = false"
-      @focus.native="open">
+      v-on:focus.native="open"
+      >
       {{ navTitle }}
     </router-link>
-    <a v-else-if="childItems.navLink" :href="childItems.navLink" v-on:mouseover="open" v-on:focus="open">
+    <a
+      v-else-if="childItems.navLink"
+      :href="childItems.navLink"
+      v-on:mouseover="open"
+      v-on:focus="open"
+      >
       {{ navTitle }}
     </a>
-    <span v-else tabindex="0" v-on:focus="open">
+    <span
+      v-else tabindex="0"
+      v-on:focus="open">
       {{ navTitle }}
     </span>
     <!-- Handle dropdowns -->
@@ -23,11 +31,15 @@
         <router-link
           v-if="isInternalLink(subNavLink)"
           :to="subNavLink"
-          @mouseover.native="open"
-          @focus.native="open">
+          v-on:mouseover.native="open"
+          v-on:focus.native="open">
           {{ subnavTitle }}
         </router-link>
-        <a v-else :href="subNavLink" v-on:mouseover="open" v-on:focus="open">
+        <a
+          v-else
+          :href="subNavLink"
+          v-on:mouseover="open"
+          v-on:focus="open">
           {{ subnavTitle }}
         </a>
       </li>
@@ -60,8 +72,8 @@ export default {
         return false;
       }
       return true;
-    }
-  }
+    },
+  },
 }
 </script>
 
