@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import marked from 'marked'
 import { router } from '../../app'
-const staticContent = 'http://localhost:5000/content?page_name='
+const staticContent = process.env.NODE_ENV === 'development'
+  ? 'http://localhost:5000/content/'
+  : process.env.SCS_CONTENT
 
 export default {
   state: {
