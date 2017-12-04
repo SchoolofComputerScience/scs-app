@@ -81,7 +81,7 @@
           </section>
 
           <section v-if="gp" class="publications">
-            <p class="title">Cited Publications <span class="amount">(Amount: {{member.profile[0].gs_citation_count}})</span>
+            <p class="title">Cited Publications <span class="amount">(Amount: {{member.publications.length}})</span>
             </p>
             <div class="list" v-for="pub in member.profile[0].pub_year_agg">
               <h4>{{pub._id}}</h4>
