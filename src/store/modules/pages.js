@@ -2,7 +2,7 @@ import Vue from 'vue'
 import marked from 'marked'
 import { router } from '../../app'
 const staticContent = process.env.NODE_ENV === 'development'
-  ? 'http://localhost:5000/content/'
+  ? 'http://localhost:5000/content'
   : process.env.SCS_CONTENT
 
 export default {
@@ -15,7 +15,7 @@ export default {
     FETCH_PAGE: ({ commit, state }, fields = {}) => {
 
       if (!state.pages[fields]) {
-        let page = staticContent + fields;
+        let page = staticContent + '/' + fields;
 
         fetch(page).then((res, err) => {
           if (res.status >= 400) {
