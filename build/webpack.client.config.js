@@ -16,6 +16,7 @@ const config = merge(base, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
       'process.env.SCS_API': JSON.stringify(process.env.SCS_API),
+      'process.env.SCS_CONTENT': JSON.stringify(process.env.SCS_CONTENT),
       'process.env.VUE_ENV': '"client"'
     }),
     new webpack.optimize.CommonsChunkPlugin({
