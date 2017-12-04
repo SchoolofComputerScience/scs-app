@@ -43,7 +43,8 @@
     "vue-router": "^2.7.0",
     "vue-server-renderer": "^2.3.4",
     "vuex": "^2.3.1",
-    "vuex-router-sync": "^4.2.0"
+    "vuex-router-sync": "^4.2.0",
+    "scs-content": "https://github.com/SchoolofComputerScience/scs-content"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
