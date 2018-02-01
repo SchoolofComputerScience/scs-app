@@ -2,6 +2,7 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 import { app, store, router } from './app'
 import VueAnalytics from 'vue-analytics'
+import 'bootstrap';
 
 Vue.use(VueAnalytics, {
   id: 'UA-92798181-1',

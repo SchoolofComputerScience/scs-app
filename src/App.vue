@@ -27,14 +27,8 @@ export default {
 <style lang="scss">
 @import './assets/scss/global';
 
-.app-shell {
-  // Removes horizontal scroll bars
-  // Important to not set a height on this element
-  overflow: hidden;
-}
-
 .main-body{
-  margin: 0 auto;
+  margin: 5rem auto auto auto;
   top: 0;
 
   > * {
@@ -52,10 +46,24 @@ export default {
 
 .main-header{
   margin: $base-line-height auto;
-  padding: 0 $default-gutter;
   margin-top: 0;
   margin-bottom: $base-line-height * 2;
   background: white;
   box-shadow: $box-shadow-inert;
+  position: fixed;
+  top: 0;
+  z-index: 10000;
+  width: 100%;
+
+  @include breakpoint-max(tablet) {
+    &.mobile-menu {
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+
+  @include breakpoint-max(phone) {
+    padding: 0;
+  }
 }
 </style>
