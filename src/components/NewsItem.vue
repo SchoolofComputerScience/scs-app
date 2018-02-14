@@ -51,10 +51,6 @@ export default {
   position: relative;
   width: 50%;
   max-width: 50%;
-  @include breakpoint-max(laptop) {
-    width: 100%;
-    max-width: 100%;
-  }
   &:nth-child(even){
     padding-left: $base-line-height;
     @include breakpoint-max(laptop) {
@@ -101,6 +97,39 @@ export default {
   p {
     color: $black;
   }
+}
 
+@include breakpoint-max(laptop) {
+  .card {
+    figure {
+      height: $base-line-height * 5;
+    }
+
+    h3 {
+      font-size: 1.333rem;
+    }
+
+    p { 
+      margin-bottom: 0;
+    }
+  }  
+}
+
+@include breakpoint-max(phone) {
+  .card {
+    figure {
+      height: $base-line-height * 5;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    p { 
+      margin-bottom: 0;
+      padding-bottom: 0.5rem;
+    }
+  }  
 }
 </style>
