@@ -2,11 +2,18 @@
   <transition name="page-transition" mode="out-in" appear>
     <spinner class="spinner" v-if="!newsLoaded" key="spinner"></spinner>
     <div class="page" v-if="newsLoaded">
-      <Hero class="slide" linkURL="#" :backgroundImageURL="hero.backgroundImageURL">
-        <div class="content-type">{{ hero.contentType}}</div>
-        <h2>{{ hero.headline }}</h2>
-        <p>{{ hero.subhead }}</p>
-      </Hero>
+      <div id="newsCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div v-for="item in hero_carousel" :key="item.uid" class="carousel-item" v-bind:class="{ active: item.isActive }">
+            <router-link :to="item.url">
+              <img class="d-block w-100" :src="item.img" :alt="item.title">
+              <div class="carousel-caption d-none d-md-block">
+                <h3>{{item.title}}</h3>
+              </div>
+            </router-link>
+          </div>
+        </div>
+      </div>
       <section class="teaser" v-if="newsLoaded">
         <NewsItem v-for="list in news" :key="list.uid" :data="list" :show_tags="false"></NewsItem>
       </section>
@@ -15,7 +22,6 @@
           Show More News
         </router-link>
       </div>
-
       <section class="programs">
         <div class="u-content-container">
           <div class="programs-blurb">
@@ -153,28 +159,21 @@
 
 <script>
 import Spinner from '../components/Spinner.vue';
-import Hero from '../components/Hero.vue';
 import NewsItem from '../components/NewsItem.vue';
+import format from 'date-fns/format';
 
 export default {
   name: 'home-view',
 
   components: {
     Spinner,
-    Hero,
     NewsItem
   },
 
   data: function () {
     return {
       // Should come from CMS somehow for editorial control
-      'hero': {
-        'contentType': 'News',
-        'headline': 'Snake Robot Searches for Quake Survivors ',
-        'subhead': 'Rescue robot gets its first experience in live disaster.',
-        'linkURL': '/news/snake-robot-searches-mexico-city-quake-survivors',
-        'backgroundImageURL': 'https://www.cs.cmu.edu/sites/default/files/Snakebot_Mexico%20City_2_web.jpg',
-      },
+      'hero_carousel': []
     }
   },
 
@@ -191,8 +190,28 @@ export default {
       let newsList = this.$store.state.news.list;
       let list = [];
 
-      for (let i = 0; i < 3; i++) {
-        list.push(newsList[i]);
+      for (let i = 0; i < 6; i++) {
+        if (i === 0 && this.hero_carousel.length < 3) {
+          this.hero_carousel.push({
+            title : newsList[i].title,
+            date  : format(newsList[i].date, 'MMM. D, YYYY'),
+            url   : '/news/' + newsList[i].uid,
+            img   : newsList[i].image,
+            isActive: true
+          });
+        }
+        else if (i < 3) {
+          this.hero_carousel.push({
+            title : newsList[i].title,
+            date  : format(newsList[i].date, 'MMM. D, YYYY'),
+            url   : '/news/' + newsList[i].uid,
+            img   : newsList[i].image,
+            isActive: false
+          });
+        }
+        else {
+          list.push(newsList[i]);
+        }
       }
 
       return list;
@@ -234,11 +253,19 @@ export default {
       padding-left: 0px;
     }
   }
+
+  @include breakpoint-max(mini-phone) {
+    display: none;
+  }
 }
 
 .news-footer {
   text-align: center;
-  margin: $base-line-height * 2 0;
+  margin-bottom: $base-line-height * 1;
+
+  @include breakpoint-max(mini-phone) {
+    display: none;
+  }
 }
 
 @include breakpoint-max(phone) { 
@@ -261,14 +288,6 @@ export default {
       width: 100%;
       max-width: 100%;
       margin: $base-line-height / 2 $base-line-height;
-    }
-  }
-}
-
-@include breakpoint-max(laptop) { 
-  .teaser {
-    .news-item {
-      max-width: 100%;
     }
   }
 }
@@ -680,6 +699,58 @@ export default {
   p {
     padding: 1rem 0 0;
     font-style: italic;
+  }
+}
+
+
+.carousel-caption {
+  bottom: 20%;
+  right: 0;
+  left: 0;
+  width: 100%;
+
+  @include breakpoint-max(laptop) {
+    bottom: 15%;
+    padding: 0;
+  }
+
+  @include breakpoint-max(phablet) {
+    top: 15%;
+    padding: 0;
+    display: block !important;
+  }
+
+  @include breakpoint-max(phablet) {
+    top: 0;
+    bottom: 0;
+  }
+  
+  h3 {
+    color: #fff;
+    font-size: 3rem;
+    font-weight: 800;
+
+    @include breakpoint-max(laptop) {
+      font-size: 2rem;
+      padding: $default-gutter #{$default-gutter * 2};
+    }
+
+    @include breakpoint-max(phablet) {
+      font-size: 1.1rem;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: -webkit-linear-gradient(top,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.35) 36.04%,rgba(0,0,0,0.55) 100%);
+    background: linear-gradient(180deg,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.35) 36.04%,rgba(0,0,0,0.55) 100%);
   }
 }
 
