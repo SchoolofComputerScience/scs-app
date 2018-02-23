@@ -6,7 +6,7 @@ describe('ErrorView', () => {
         const Constructor = Vue.extend(ErrorView)
         const ErrorViewComponent = new Constructor().$mount()
 
-        expect(ErrorViewComponent.$el.querySelector('p').textContent)
-            .toBe('404 | Page Not Found')
+        expect(ErrorViewComponent.$el.querySelector('p').textContent.toLowerCase())
+            .toContain('page not found')
     })
 })
