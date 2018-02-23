@@ -21,3 +21,6 @@ npm-debug.log
 .env
 app.yaml
 api.js
+
+# Test coverage files
+test/coverage

@@ -4,6 +4,7 @@
   "author": "seckel@scs.cmu.edu",
   "version": "2.0.0",
   "repository": "https://github.com/SchoolofComputerScience/scs-app",
+  "private": true,
   "engines": {
     "node": "8.2.1",
     "npm": ">=5.0"
@@ -14,7 +15,8 @@
     "start:prod": "cross-env NODE_ENV=production node server",
     "build": "rimraf dist && npm run build:client && npm run build:server",
     "build:client": "cross-env NODE_ENV=production webpack --config build/webpack.client.config.js --progress --hide-modules",
-    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules"
+    "build:server": "cross-env NODE_ENV=production webpack --config build/webpack.server.config.js --progress --hide-modules",
+    "unit-test": "cross-env NODE_ENV=test karma start test/unit/karma.conf.js"
   },
   "dependencies": {
     "apollo-client": "^1.9.0-0",
@@ -49,6 +51,7 @@
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.1.1",
+    "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
     "bootstrap": "^4.0.0",
@@ -58,8 +61,14 @@
     "file-loader": "^0.11.2",
     "friendly-errors-webpack-plugin": "^1.6.1",
     "glob": "^7.1.2",
+    "jasmine-core": "^2.99.1",
     "jquery": "^3.2.1",
     "json-loader": "^0.5.4",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-jasmine": "^1.1.1",
+    "karma-webpack": "^2.0.9",
     "modularscale-sass": "^3.0.3",
     "node-sass": "^4.5.3",
     "npm-run-all": "^4.0.2",
