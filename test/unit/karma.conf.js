@@ -1,4 +1,4 @@
-var webpackConfig = require('../../build/webpack.test.conf')
+var webpackConfig = require('../../build/webpack.test.conf');
 
 module.exports = function (config) {
     config.set({
@@ -15,12 +15,15 @@ module.exports = function (config) {
         webpackMiddleware: {
             noInfo: true
         },
+        webpackServer: {
+            noInfo: true
+        },
         port: 9876,
         colors: true,
-        logLevel: config.LOG_DISABLE,
+        logLevel: config.LOG_INFO,
         autoWatch: false,
         browsers: ['Chrome'],
         singleRun: true,
         concurrency: Infinity
-    })
+    });
 }
