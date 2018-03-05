@@ -6,6 +6,32 @@ import Router from 'vue-router';
 describe('DepartmentCard', function () {
   'use strict';
 
+  // test Routes for Router
+  const sampleRoutes = {
+    routes: [
+      {path: '/'},
+      {path: '/directory/'},
+      {path: '/directory/department/:department'},
+      {path: '/directory/:name?'},
+      {path: '/courses/'},
+      {path: '/courses/course/:course'},
+      {path: '/courses/:semester'},
+      {path: '/departments'},
+      {path: '/departments/:department?'},
+      {path: '/programs'},
+      {path: '/programs/:program'},
+      {path: '/publication/:pubid?'},
+      {path: '/news/'},
+      {path: '/events/'},
+      {path: '/news/:article?'},
+      {path: '/events/:event?'},
+      {path: '/research/'},
+      {path: '/research/:research_area'},
+      {path: '/404'},
+      {path: '/:page', name: 'page'},
+    ]
+  };
+
   // Default Test Model Data
   const defaultTestData = {
     "uid": "abcbo",
@@ -57,28 +83,37 @@ describe('DepartmentCard', function () {
     this.mockRouter = new Router(sampleRoutes);
   });
 
-  it('Should render Department router-link with a unique DOM name', function () {
+  it('Should render main Department router-link correctly', function () {
+    let abcDepartment = Object.assign({}, this.department);
+    abcDepartment.uid = "xyzbo";
+    abcDepartment.name = "XYZ Computational Science Department";
+
     Vue.use(VueRouter);
     const Constructor = Vue.extend(DepartmentCard);
     const DepartmentCardComponent = new Constructor({
-      propsData: {departmentData: this.department},
+      propsData: {departmentData: abcDepartment},
       router: this.mockRouter
     }).$mount();
 
-    expect(DepartmentCardComponent.$el.querySelector('a[name="abcbo-header-cardlink"] > h2').textContent)
-        .toBe('ABC Computational Science Department');
+    expect(DepartmentCardComponent.$el.querySelector(".department-link h2").textContent)
+        .toBe('XYZ Computational Science Department');
+
+    expect(DepartmentCardComponent.$el.querySelector(".department-link").getAttribute('href'))
+        .toBe('#/departments/xyzbo');
+
   });
 
   it('Should properly format the date and time of events', function () {
+    const eventData = Object.assign({}, this.department);
+
     Vue.use(VueRouter);
     const Constructor = Vue.extend(DepartmentCard);
     const DepartmentCardComponent = new Constructor({
-      propsData: {departmentData: this.department},
+      propsData: {departmentData: eventData},
       router: this.mockRouter
     }).$mount();
 
-    let currentEvents = DepartmentCardComponent.$el.querySelectorAll('.event-time-header');
-
+    const currentEvents = DepartmentCardComponent.$el.querySelectorAll('.event-time-header');
     expect(currentEvents[0].textContent)
         .toBe('May 5th 2020, 12:06 am');
 
@@ -87,47 +122,20 @@ describe('DepartmentCard', function () {
   });
 
   it('Should display a no events message when there are no events', function() {
-    this.department.events = [];
+    let departmentX = Object.assign({}, this.department);;
+    departmentX.uid = "deptX";
+    departmentX.name = "X Department";
+    departmentX.description = "X department has no events";
+    departmentX.events = [];
 
     Vue.use(VueRouter);
     const Constructor = Vue.extend(DepartmentCard);
     const DepartmentCardComponent = new Constructor({
-      propsData: {departmentData: this.department},
+      propsData: {departmentData: departmentX},
       router: this.mockRouter
     }).$mount();
 
     expect(DepartmentCardComponent.$el.querySelector('.events-card').textContent.toLowerCase())
-        .toBe('no abcbo events');
+        .toBe('no deptx events');
   });
-
-  afterEach(function () {
-    this.department = {};
-  });
-
-  // test Routes for Router
-  var sampleRoutes = {
-    routes: [
-      {path: '/'},
-      {path: '/directory/'},
-      {path: '/directory/department/:department'},
-      {path: '/directory/:name?'},
-      {path: '/courses/'},
-      {path: '/courses/course/:course'},
-      {path: '/courses/:semester'},
-      {path: '/departments'},
-      {path: '/departments/:department?'},
-      {path: '/programs'},
-      {path: '/programs/:program'},
-      {path: '/publication/:pubid?'},
-      {path: '/news/'},
-      {path: '/events/'},
-      {path: '/news/:article?'},
-      {path: '/events/:event?'},
-      {path: '/research/'},
-      {path: '/research/:research_area'},
-      {path: '/404'},
-      {path: '/:page', name: 'page'},
-    ]
-  };
-
 });
