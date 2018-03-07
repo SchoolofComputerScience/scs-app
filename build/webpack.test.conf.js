@@ -6,7 +6,8 @@ const config = merge(base, {
     resolve: {
         alias: {
             '@views': path.resolve(__dirname, '../src/views'),
-            '@components': path.resolve(__dirname, '../src/components')
+            '@components': path.resolve(__dirname, '../src/components'),
+            '@test-utils': path.resolve(__dirname, '../test/utils')
         },
         extensions: [ '.js', '.json', '.vue' ]
     },
