@@ -72,7 +72,7 @@ describe('EventsItem', function () {
         .not.toEqual(this.eventsData.startDate);
   });
 
-  it('should create properly create router link for events', function () {
+  it('Should properly create router link for events', function () {
     Vue.use(VueRouter);
     const EventsItemComponent = TestHelper.mountComponent(EventsItem,{
       propsData: { data: this.eventsData},

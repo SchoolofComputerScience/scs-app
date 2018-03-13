@@ -10,7 +10,7 @@ module.exports = function (config) {
         preprocessors: {
             './**/*.spec.js': ['webpack'],
         },
-        reporters: ['progress'],
+        reporters: ['progress','kjhtml'],
         webpack: webpackConfig,
         webpackMiddleware: {
             noInfo: true
