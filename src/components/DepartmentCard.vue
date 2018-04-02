@@ -11,23 +11,6 @@
     </router-link>
 
     <div class="card-container">
-      <div class="card-content-top">
-        <router-link :to="'/courses/F17'" class="card" :name="departmentData.uid + '-courses-cardlink'">
-          <h6>{{departmentData.course_count._id}}</h6>
-          <h4>{{departmentData.uid}} Courses</h4>
-        </router-link>
-
-        <router-link :to="'/directory/department/' + departmentData.uid" class="card"
-                     :name="departmentData.uid + '-members-cardlink'">
-          <h6>{{departmentData.member_count._id}}</h6>
-          <h4>{{departmentData.uid}} Members</h4>
-        </router-link>
-
-        <router-link :to="'/programs'" class="card" :name="departmentData.uid + '-programs-cardlink'">
-          <h6>{{departmentData.programs_count._id}}</h6>
-          <h4>{{departmentData.uid}} Programs</h4>
-        </router-link>
-      </div>
 
       <div class="card-content-bottom">
         <router-link
@@ -46,7 +29,12 @@
             <h5 class="event-time-header">{{timeFix(event.startDate)}}</h5>
             <p>{{event.title}}</p>
           </router-link>
-          <p class="small" v-if="departmentData.events.length !== 2">No {{departmentData.uid}} Events</p>
+
+          <div class="card no-events-card" v-if="departmentData.events.length !== 2">
+              <h5 class="type">No Events</h5>
+              <p class="small">No {{departmentData.uid}} Events</p>
+          </div>
+
         </div>
 
       </div>
@@ -173,8 +161,9 @@
     }
   }
 
+  // Todo: To be removed after cleaning up the legacy css
   // DEP CARD / EVEN //
-
+/*
   .department-card:nth-child(even) {
     justify-content: flex-end;
     flex-direction: row-reverse;
@@ -210,10 +199,10 @@
       }
     }
   }
-
+*/
   // DEP CARD / ODD //
 
-  .department-card:nth-child(odd) {
+  .department-card {
     justify-content: flex-start;
     .department-link {
       padding-right: $base-line-height;
@@ -308,7 +297,7 @@
     margin-bottom: $base-line-height * 2;
     padding-bottom: $base-line-height;
     margin-top: $base-line-height;
-    border-bottom: 1px solid darken($primary-grey, 10%);
+    /*border-bottom: 1px solid darken($primary-grey, 10%);*/
     width: 100%;
 
     @include breakpoint-min(full) {
@@ -351,4 +340,8 @@
     color: $black;
   }
 
+  .no-events-card {
+    height: 100%;
+    margin: 0;
+  }
 </style>

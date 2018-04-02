@@ -135,7 +135,7 @@ describe('DepartmentCard', function () {
       router: this.mockRouter
     }).$mount();
 
-    expect(DepartmentCardComponent.$el.querySelector('.events-card').textContent.toLowerCase())
+    expect(DepartmentCardComponent.$el.querySelector('.events-card p').textContent.toLowerCase())
         .toBe('no deptx events');
   });
 });
