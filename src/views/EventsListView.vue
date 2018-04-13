@@ -33,6 +33,7 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 import EventsItem from '../components/EventsItem.vue'
+import { sortDataByDate } from '../filter/index';
 
 export default {
   name: 'events-list-view',
@@ -65,7 +66,8 @@ export default {
       return this.$store.state.events.list.length > 0 ? true : false
     },
     events() {
-      return this.$store.state.events.list
+      //TODO: TEMPORARY -- Sorting will be done on backend
+      return sortDataByDate(Array.from(this.$store.state.events.list), 'startDate');
     }
   },
 

@@ -84,6 +84,8 @@ export default {
                 speakerName
                 startDate
                 tags
+                room
+                building
               }
             }
           `

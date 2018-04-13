@@ -86,7 +86,7 @@
       top: 0;
       right: 0;
       color: white;
-      font-size: .5rem;
+      font-size: .8rem;
       background: $red;
       padding-bottom: 0;
       padding: 0 $base-line-height / 4;

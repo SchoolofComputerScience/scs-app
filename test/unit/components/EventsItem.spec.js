@@ -57,8 +57,8 @@ describe('EventsItem', function () {
       router: this.mockRouter }
     );
 
-    expect(EventsItemComponent.$el.querySelector('p').textContent)
-        .toBe('1:30 pm / May 4, 2019');
+    expect(EventsItemComponent.$el.querySelector('div .date-card').textContent)
+        .toBe('May042019');
   });
 
   it('Should not display the date and time in the raw format', function () {
