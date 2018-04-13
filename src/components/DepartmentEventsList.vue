@@ -1,6 +1,6 @@
 <template>
   <section class="data-page">
-    <h2 class="pb-0 mt-2 mb-0">Upcoming Events</h2>
+    <h2 class="pb-0 mt-2 mb-0" v-if="eventsListByDepartment.length">Upcoming Events</h2>
     <div class="card-holder">
       <EventsItem v-for="list in eventsListByDepartment" :data="list" :key="eventsListByDepartment.uid" :compact="compact"></EventsItem>
     </div>

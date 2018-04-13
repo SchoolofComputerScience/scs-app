@@ -18,11 +18,11 @@
     </router-link>
   </div>
 
-  <div v-else class="condensed-card">
+  <div v-else class="condensed-card" :style="{ borderLeftColor: typeColors.get(data.type)}">
     <router-link :to="'/events/' + data.uid">
-      <div class="condensed-type">{{data.type}}</div>
-      <div class="pl-3 pt-1"><strong>{{dateFix(data.startDate)}} &ndash; {{timeFix(data.startDate)}}</strong></div>
-      <h3>{{data.title}}</h3>
+      <div class="condensed-type" :style="{background: typeColors.get(data.type)}">{{data.type}}</div>
+      <div class="pl-3 pt-1 date-card"><strong>{{dateFix(data.startDate)}} &ndash; {{timeFix(data.startDate)}}</strong></div>
+      <h3 class="pl-3 pr-3">{{data.title}}</h3>
       <div v-if="data.speakerName" class="pl-3 text-capitalize text-right pr-3">{{data.speakerName}}</div>
       <p class="text-right pr-3">
         {{data.building}} {{data.room}}
@@ -111,15 +111,19 @@
     }
 
     h3 {
-      padding-top: 1rem;
-      padding-left: 1rem;
-      padding-right: 1rem;
-      font-size: 1.4rem;
+
+      padding:0;
+      font-size: 1em;
     }
 
     p {
       padding-left: 1rem;
       padding-bottom: 0;
+      color: black;
+    }
+
+    .date-card{
+      color: #34495e;
     }
 
   }
