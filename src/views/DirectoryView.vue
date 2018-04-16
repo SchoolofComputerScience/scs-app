@@ -91,7 +91,7 @@ export default {
       let search_term = this.query;
       if (search_term.length){
         this.directory = this.$store.state.directory.list.filter(function(person) {
-          return person.display_name.indexOf(search_term) > -1 ? person : false;
+          return person.display_name.toLowerCase().indexOf(search_term.toLowerCase()) > -1 ? person : false;
         }); 
         return this.directory.length > (100 * this.page) ? this.directory.slice(0, (100 * this.page)) : this.directory;
       }
