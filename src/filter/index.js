@@ -125,3 +125,51 @@ export function dayTranslate (dayCode) {
 
   return dayTranslate.join(', ') || dayCode
 }
+
+/**
+ * Sorts an array of our data objects by a date. Data must be an array.
+ * dataField is the name of the object property to sort by.
+ * Default order is ascending. Setting ascendingOrder to false will sort descending.
+ *
+ * @param data
+ * @param dateField
+ * @param ascendingOrder
+ * @returns {*|Array}
+ */
+export function sortDataByDate (data, dateField, ascendingOrder=true){
+  let results = [];
+
+  if(ascendingOrder){
+    results = data.sort(function compareDates(date1, date2){
+      const dateA = new Date(date1[dateField]);
+      const dateB = new Date(date2[dateField]);
+
+      return dateA - dateB;
+    });
+  } else {
+    results = data.sort(function compareDates(date1, date2){
+      const dateA = new Date(date1[dateField]);
+      const dateB = new Date(date2[dateField]);
+
+      return dateB - dateA;
+    });
+  }
+
+  return results;
+}
+
+export const SCS_EVENT_COLORS = new Map([
+  [ 'special events', '#C60' ],
+  [ 'seminars', '#603' ],
+  [ 'thesis orals', '#224433' ],
+  [ 'speaking skills', '#006600' ],
+  //todo: get actual color for conferences and workshops.
+  // [ 'conferences / workshops', '#c41230' ],
+  [ 'talks', '#993300' ],
+  [ 'lecture', '#669966' ],
+  [ 'career presentation', '#009999' ],
+  [ 'fun', '#000066' ],
+  [ 'scs distinguished lectures', '#cc0000'],
+  [ 'project presentations', '#099' ],
+]);
+
