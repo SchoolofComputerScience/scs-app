@@ -6,7 +6,7 @@ export default {
   state: {
     list: [],
     scs_list: [],
-    selected_department: ''
+    selected_department: { id: '', name: '' }
   },
   // @TODO: semesterCode is hard coded in this query. Fix it.
   actions: {
@@ -96,7 +96,8 @@ export default {
       state.scs_list = data.departments;
     },
     SET_SELECTED_DEPARTMENT: (state, department) => {
-      state.selected_department = department;
+      state.selected_department.id = department.id;
+      state.selected_department.name = department.name;
     }
   }
 }

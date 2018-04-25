@@ -1,7 +1,12 @@
 <template>
-  <section :class="selected_department">
-    <div v-if="route_link" class="buttons" >
-      <button v-for="department in departments" v-on:click="filter" class="button" :key="department.department_id" :class="department.department_id" :name="department.department_id">{{department.department_id.replace('_', ' ')}}</button>
+  <section class="department-filter">
+    <div v-if="route_link" class="dropdown show">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {{selected_department.name}}
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a v-for="department in departments" v-on:click="filter" :key="department.department_id" :dept_id="department.department_id" :dept_name="department.department_name" class="dropdown-item" href="javascript:void(0);">{{department.department_name}}</a>
+      </div>
     </div>
     <div v-else class="buttons">
       <button v-for="department in departments" class="button" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
@@ -18,45 +23,46 @@ export default {
 
   props: ['route_link', 'types', 'excluded_departments'],
 
-  data() {
-    return {
-      selectedDepartment: ''
-    }
-  },
-
   computed: {
     departments() {
       let types = this.types || [];
       let excluded_departments = this.excluded_departments || [];
+      let scs_list = this.$store.state.department.scs_list.map(x => x);
+      scs_list.unshift({ department_id: '', department_name: 'All Departments', scs_type: 'academic'});
 
-      return this.$store.state.department.scs_list.filter((department) => {
+      return scs_list.filter((department) => {
         return types.includes(department.scs_type) && !excluded_departments.includes(department.department_id);
       });
     },
     selected_department() {
-      return this.$store.state.department.selected_department;
+      if (this.$store.state.department.selected_department && this.$store.state.department.selected_department.id) {
+        return this.$store.state.department.selected_department;
+      } else {
+        return { id: '', name: 'All Departments' };
+      }
     }
   },
 
   methods: {
     filter(event) {
-      let filter_value = event.target.getAttribute('name') || event.target.getAttribute('filter-value');
+      let dept_id = event.target.getAttribute('dept_id') || event.target.getAttribute('filter-value');
+      let dept_name = event.target.getAttribute('dept_name') || event.target.getAttribute('filter-value');
       if (this.route_link) {
-        if (filter_value === this.$store.state.department.selected_department){
-          this.$store.commit("SET_SELECTED_DEPARTMENT", '');
+        if (dept_id === this.$store.state.department.selected_department.id || !dept_id){
+          this.$store.commit("SET_SELECTED_DEPARTMENT", { id: '', name: ''});
           if (this.route_link)
             router.push({ path: '/directory'})
         } else {
-          this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
+          this.$store.commit("SET_SELECTED_DEPARTMENT", { id: dept_id, name: dept_name });
           if (this.route_link)
-            router.push({ path: '/directory/department/' + filter_value})
+            router.push({ path: '/directory/department/' + dept_id});
         }
       }
       else {
-        if (filter_value === this.$store.state.department.selected_department)
+        if (dept_id === this.$store.state.department.selected_department.id)
           this.$store.commit("SET_SELECTED_DEPARTMENT", '');
         else
-          this.$store.commit("SET_SELECTED_DEPARTMENT", filter_value);
+          this.$store.commit("SET_SELECTED_DEPARTMENT", dept_id);
       }
     }
   }
@@ -107,6 +113,16 @@ section{
   &.hcii .hcii, &.compbio .compbio, &.csd .csd, &.lti .lti, &.mld .mld, &.ri .ri, &.deans_office .deans_office, &.isr .isr{
     background: $red;
     color: white;
+  }
+}
+
+.dropdown {
+  margin-top: 1.5rem;
+  .dropdown-toggle {
+    background: $red;
+    font-weight: bold;
+    border-color: #fff;
+    border-radius: .2rem;
   }
 }
 </style>

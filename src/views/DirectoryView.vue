@@ -10,6 +10,7 @@
           autocomplete="off">
       </form>
       <div class="filter-container">
+        <DepartmentFilter :route_link="route_link" :types="scs_department_types" :excluded_departments="excluded_departments"></DepartmentFilter>
         <div class="filter-title buttons" :class="depTitle">
           <button class="button" @click="toggleView()" name="student">{{ display_text }}</button>
         </div>
@@ -69,6 +70,14 @@ export default {
   },
 
   asyncData ({ store }) {
+    store.dispatch('GET_SCS_DEPARTMENT_LIST').then(() => {
+      if (store.state.route.params.department && !store.state.department.selected_department.id.length){
+        let selected_department = store.state.department.scs_list.find(function(department) {
+          return department.department_id === store.state.route.params.department;
+        });
+        store.commit("SET_SELECTED_DEPARTMENT", { id: selected_department.department_id, name: selected_department.department_name });
+      }
+    });
     return store.dispatch('GET_DIRECTORY', store.state.route.params.department);
   },
 
@@ -84,19 +93,37 @@ export default {
       }
     },
     placeholder() {
-      let depTitleHold = this.depTitle ? ' ' + this.depTitle.toLowerCase() : ''
-      return 'search ' + this.nav.replace('_', ' ') + depTitleHold + ' names';
+      if (this.$store.state.department.selected_department.name) {
+        return 'Search ' + this.$store.state.department.selected_department.name;
+      }
+      else {
+        return 'Search All Departments';
+      }
     },
     finalDirectory(){
       let search_term = this.query;
-      if (search_term.length){
-        this.directory = this.$store.state.directory.list.filter(function(person) {
-          return person.display_name.toLowerCase().indexOf(search_term.toLowerCase()) > -1 ? person : false;
-        }); 
-        return this.directory.length > (100 * this.page) ? this.directory.slice(0, (100 * this.page)) : this.directory;
+      let selected_department = this.$store.state.department.selected_department;
+      let filtered_directory = [];
+      
+      if (selected_department && selected_department.id) {
+        filtered_directory = this.$store.state.directory.list.filter(function(person) {
+          return person.departments.find(function(dep){
+            return dep === selected_department.id;
+          });
+        });
       }
       else {
-        return this.$store.state.directory.list.slice(0, (100 * this.page));
+        filtered_directory = this.$store.state.directory.list;
+      }
+
+      if (search_term.length){
+        filtered_directory = filtered_directory.filter(function(person) {
+          return person.display_name.toLowerCase().indexOf(search_term.toLowerCase()) > -1 ? person : false;
+        }); 
+        return filtered_directory.length > (100 * this.page) ? filtered_directory.slice(0, (100 * this.page)) : filtered_directory;
+      }
+      else {
+        return filtered_directory.slice(0, (100 * this.page));
       }
     }
   },
