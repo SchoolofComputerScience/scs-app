@@ -7,7 +7,7 @@ export default {
     list: [],
     y_position: 0,
     query: '',
-    title_filter: '',
+    layout: { view: 'grid', text: 'List View' },
     selectedDepartment: ''
   },
   actions: {
@@ -20,6 +20,8 @@ export default {
               members {
                 _id
                 display_name
+                family_name
+                given_name
                 hr_relationship_class
                 positions {
                   title
@@ -63,8 +65,8 @@ export default {
     SET_SELECTED_DEPARTMENT: (state, query) => {
       state.selectedDepartment = query
     },
-    SET_TITLE_FILTER: (state, query) => {
-      state.title_filter = query
+    SET_PREFERRED_VIEW: (state, layout) => {
+      state.layout = layout;
     },
     SET_DIRECTORY: (state, data) => {
 
