@@ -1,15 +1,12 @@
 <template>
   <section class="department-filter">
-    <div v-if="route_link" class="dropdown show">
+    <div class="dropdown show">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{selected_department.name}}
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
         <a v-for="department in departments" v-on:click="filter" :key="department.department_id" :dept_id="department.department_id" :dept_name="department.department_name" class="dropdown-item" href="javascript:void(0);">{{department.department_name}}</a>
       </div>
-    </div>
-    <div v-else class="buttons">
-      <button v-for="department in departments" class="button" v-on:click="filter" :class="department.department_id" :key="department.department_id" :filter-value="department.department_id">{{ department.department_id.replace('_', ' ') }}</button>
     </div>
   </section>
 </template>
@@ -62,7 +59,7 @@ export default {
         if (dept_id === this.$store.state.department.selected_department.id)
           this.$store.commit("SET_SELECTED_DEPARTMENT", '');
         else
-          this.$store.commit("SET_SELECTED_DEPARTMENT", dept_id);
+          this.$store.commit("SET_SELECTED_DEPARTMENT", { id: dept_id, name: dept_name });
       }
     }
   }
