@@ -2,10 +2,10 @@
   <div>
     <transition name="fade" mode="out-in">
       <article>
-        <div v-for="(department, departmentID) in courseListByDepartment" class="content-page card">
+        <div v-for="(department, departmentID) in courseListByDepartment" class="content-page card" :key="departmentID">
           <h3 :id="departmentID.toLowerCase()">{{departmentID | departmentTranslate}}</h3>
           <section class="container">
-            <div class="item" v-for="(course, course_number) in department">
+            <div class="item" v-for="(course, course_number) in department" :key="course_number">
               <router-link class="course-link" v-for="item in course.courseCodes" :key="item.code" :to="'/courses/course/' + item.code">
               <h4><em>{{course_number}}</em> | {{course.graduate_level}} | {{course.long_title}}</h4>
               </router-link>
@@ -27,7 +27,7 @@ export default {
 
   computed: {
     courseListByDepartment() {
-      let component_department = this.department || this.$store.state.department.selected_department;
+      let component_department = this.$store.state.department.selected_department.id;
       let component_semester = this.semester || this.$store.state.route.params.semester;
       let component_level = this.graduate_level || this.$store.state.route.params.graduate_level;
       let courses_data = this.$store.state.courses.lists[component_semester] || [];
