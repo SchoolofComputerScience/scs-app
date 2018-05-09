@@ -11,8 +11,17 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import MainHeader from './components/MainHeader.vue'
 import MainFooter from './components/MainFooter.vue'
+import VueMaterial from 'vue-material'
+
+/*
+  TODO: When we move to production, only import components we will use.
+        Additionally, once material design is in place, remove bootstrap.
+*/
+
+Vue.use(VueMaterial);
 
 export default {
   name: 'scsmain',
@@ -26,6 +35,8 @@ export default {
 
 <style lang="scss">
 @import './assets/scss/global';
+@import '../node_modules/vue-material/dist/vue-material.min.css';
+@import '../node_modules/vue-material/dist/theme/black-green-light.css';
 
 .main-body{
   margin: 5rem auto auto auto;
