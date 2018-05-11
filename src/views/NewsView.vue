@@ -18,6 +18,10 @@
             <h1>{{article.title}}</h1>
             <h2>{{dateFix(article.date)}}</h2>
             <article v-html="article.body" class="body"></article>
+            <p>{{newsContactInfo.display_name}} |
+              {{newsContactInfo.phone}} |
+              <a :href="`mailto:${newsContactInfo.email}`">{{newsContactInfo.email}}</a>
+            </p>
           </div>
         </div>
       </transition>
@@ -51,6 +55,9 @@ export default {
       let article = this.$route.params.article
       for (var uid in this.$store.state.news.articles)
         if(uid === article) return this.cleanHTML(this.$store.state.news.articles[uid])
+    },
+    newsContactInfo() {
+      return this.$store.state.news.newsContact;
     }
   },
 
@@ -68,7 +75,7 @@ export default {
     },
 
     dateFix (arg) {
-      return format(arg, 'MMM. D, YYYY')
+      return format(arg, 'MMM D, YYYY')
     }
   },
 

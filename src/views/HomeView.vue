@@ -194,7 +194,7 @@ export default {
         if (i === 0 && this.hero_carousel.length < 3) {
           this.hero_carousel.push({
             title : newsList[i].title,
-            date  : format(newsList[i].date, 'MMM. D, YYYY'),
+            date  : format(newsList[i].date, 'MMM D, YYYY'),
             url   : '/news/' + newsList[i].uid,
             img   : newsList[i].image,
             isActive: true
@@ -203,7 +203,7 @@ export default {
         else if (i < 3) {
           this.hero_carousel.push({
             title : newsList[i].title,
-            date  : format(newsList[i].date, 'MMM. D, YYYY'),
+            date  : format(newsList[i].date, 'MMM D, YYYY'),
             url   : '/news/' + newsList[i].uid,
             img   : newsList[i].image,
             isActive: false

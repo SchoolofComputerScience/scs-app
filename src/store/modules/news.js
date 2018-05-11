@@ -6,6 +6,12 @@ export default {
   state: {
     articles: {},
     list: [],
+    //TODO: News contact should come from the database and not hard-coded. At this time, it is not available.
+    newsContact: {
+      display_name: 'Byron Spice',
+      phone: '412-268-9068',
+      email: 'bspice@cs.cmu.edu'
+    },
     error: {}
   },
   actions: {

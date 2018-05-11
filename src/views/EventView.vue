@@ -83,7 +83,7 @@ export default {
       return format(arg, 'h:mm a')
     },
     dateFix (arg) {
-      return format(arg, 'MMM. D, YYYY')
+      return format(arg, 'dddd, MMM D, YYYY')
     }
   },
 
