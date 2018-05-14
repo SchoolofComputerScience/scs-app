@@ -14,7 +14,7 @@
         </p>
       </div>
 
-      <h2>{{course.course_number}} {{course.long_title}}</h2>
+      <h2>{{course.course_number | formatCourseNumber}} {{course.long_title}}</h2>
 
       <p class="body">{{course.description}}</p>
 
