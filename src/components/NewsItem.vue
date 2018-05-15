@@ -27,7 +27,7 @@ export default {
   props: ['data', 'show_tags'],
   methods: {
     timeFix (arg) {
-      return format(arg, 'MMM. D, YYYY')
+      return format(arg, 'MMM D, YYYY')
     }
   }
 }
