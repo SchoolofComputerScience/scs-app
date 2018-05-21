@@ -181,7 +181,7 @@ export default {
 
 .navbar-toggler-icon {
   width: 2.5em;
-  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='5 5 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='#c41230' stroke-width='3' stroke-linecap='square' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); 
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='5 5 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(196, 18, 48)' stroke-width='3' stroke-linecap='square' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); 
 }
 
 .navbar-brand {
