@@ -3,8 +3,24 @@
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded">
       <div>
+        <div class="type" :style="{background: typeColors.get(event.type)}">{{event.type}}</div>
+
         <h1>{{event.title}}</h1>
         <h2 v-if="event.talkTitle">{{event.talkTitle}}</h2>
+
+        <section>
+          <p class="title small">Place & Time</p>
+          <h3 v-if="event.building">{{event.building}}
+            <span v-if="event.room"> {{event.room}}</span>
+          </h3>
+
+          <h4>{{dateFix(event.startDate)}}</h4>
+
+          <p>
+            Starts: {{timeFix(event.startDate)}}
+            <span v-if="event.endDate">&#47; Ends: {{timeFix(event.endDate)}}</span>
+          </p>
+        </section>
 
         <section class="speaker" v-if="event.speakerName">
           <p class="title small">Speaker</p>
@@ -13,38 +29,16 @@
           <h4 v-if="event.speakerCompanyTeam">{{event.speakerCompanyTeam}}</h4>
         </section>
 
-        <section class="date" v-if="event.startDate">
-          <p class="title small">Date</p>
-          <h3>{{dateFix(event.startDate)}}</h3>
-        </section>
-
-        <section class="time">
-          <p class="title small">Time</p>
-          <aside>
-            <p v-if="event.startDate">Starts: {{timeFix(event.startDate)}}</p>
-            <p class="divide" v-if="event.endDate"> / </p>
-            <p v-if="event.endDate">Ends: {{timeFix(event.endDate)}}</p>
-          </aside>
-        </section>
-
-        <section class="location" v-if="event.room">
-          <p class="title small">Location</p>
-          <aside>
-            <h3 v-if="event.room">{{event.room}}</h3>
-            <h3 class="divide" v-if="event.building"> / </h3>
-            <h3 v-if="event.building">{{event.building}}</h3>
-          </aside>
-        </section>
-
         <section class="abstract" v-if="event.abstract">
-          <p class="title small">Abstract</p>
+          <p class="title small">Description</p>
           <p v-html="event.abstract"></p>
         </section>
 
         <section class="poster" v-if="event.poster">
           <p class="title small">Attachments</p>
-          <p><a class="button" :href="event.poster">poster</a></p>
+          <p><a class="button" :href="event.poster">Event Flyer</a></p>
         </section>
+
       </div>
     </transition>
   </section>
@@ -54,12 +48,19 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import format from 'date-fns/format'
+import { SCS_EVENT_COLORS } from '../filter/index';
 
 export default {
   name: 'event-view',
 
   components: {
     Spinner
+  },
+
+  data: function () {
+    return {
+      'typeColors': SCS_EVENT_COLORS
+    };
   },
 
   computed: {
@@ -95,6 +96,16 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/vars';
+
+.type{
+  display: inline-block;
+  color: white;
+  font-size: .7em;
+  background: $red; //default
+  padding: $base-line-height / 4;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
 
 .title {
   text-transform: uppercase;
