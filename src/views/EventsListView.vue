@@ -13,6 +13,35 @@
               name="query"
               autocomplete="off">
           </form>
+
+          <div class="md-layout md-gutter">
+            <form class="form-inline date-form">
+
+              <div class="form-group md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
+                <label for="startDate" class="date-label">Start Date:</label>
+                <md-datepicker
+                    id="startDate"
+                    v-model="startDate"
+                    :md-open-on-focus="false">
+                </md-datepicker>
+              </div>
+
+              <div class="form-group md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
+                <label for="endDate" class="date-label">End Date:</label>
+                <md-datepicker
+                    id="endDate"
+                    v-model="endDate"
+                    :md-open-on-focus="false"
+                    :md-disabled-dates="disabledDates">
+                </md-datepicker>
+              </div>
+
+              <div class="form-group md-layout-item md-medium-size-33 md-small-size-50 md-xsmall-size-100">
+                <md-button class="md-raised" :md-ripple="false" @click="filterEvents">Show Events</md-button>
+              </div>
+            </form>
+          </div>
+
           <div class="card-holder">
             <div v-if="error" class="error-message">
               <p>{{error}}</p>
@@ -46,7 +75,15 @@ export default {
   data () {
     return {
       query: '',
-      error: ''
+      error: '',
+      startDate: new Date(),
+      endDate: null,
+      filteredEvents: null,
+      disabledDates: date => {
+        if(date < this.startDate){
+          return date;
+        }
+      }
     }
   },
 
@@ -66,15 +103,19 @@ export default {
       return this.$store.state.events.list.length > 0 ? true : false
     },
     events() {
-      //TODO: TEMPORARY -- Sorting will be done on backend
       return sortDataByDate(Array.from(this.$store.state.events.list), 'startDate');
     }
   },
 
   methods: {
     searchEvents: _.debounce(function(){
+      console.log('searched')
       this.$store.dispatch('SEARCH_EVENTS', this.query)
-    }, 500)
+    }, 500),
+    filterEvents: function(){
+      //TODO: get events via date from range
+      console.log('DEBUG: filter events for ', this.startDate, this.endDate);
+    }
   },
 
   asyncData ({ store, route }) {
@@ -85,6 +126,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '../assets/scss/vars';
+
+.date-form {
+  margin-left: 2rem;
+}
+
+.date-label{
+  font-size: 1rem;
+  padding-top: 1em;
+}
 
 .event-search{
   border: none;
