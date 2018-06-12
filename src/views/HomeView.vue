@@ -1,19 +1,71 @@
 <template>
-  <transition name="page-transition" mode="out-in" appear>
-    <spinner class="spinner" v-if="!newsLoaded" key="spinner"></spinner>
-    <div class="page" v-if="newsLoaded">
-      <div id="newsCarousel" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-          <div v-for="item in hero_carousel" :key="item.uid" class="carousel-item" v-bind:class="{ active: item.isActive }">
-            <router-link :to="item.url">
-              <img class="d-block w-100" :src="item.img" :alt="item.title">
-              <div class="carousel-caption d-none d-md-block">
-                <h3>{{item.title}}</h3>
-              </div>
-            </router-link>
+  <transition name="page-transition" mode="out-in" appear> 
+    <div class="page">
+      <spinner class="spinner" v-if="!newsLoaded" key="spinner"></spinner>
+      <section class="welcome">
+        <div class="jumbotron">
+          <p class="lead">Carnegie Mellon’s School of Computer Science is widely recognized as one of the first and best computer science programs in the world. Our programs train the next generation of innovators to solve real-world problems and improve the way people live and work.</p>
+          <div class="quick-links">
+            <h3>Quick Links</h3>
+            <ul class="block-list">
+              <li>
+                <router-link to="/undergraduate-programs">
+                  <div>Undergraduate Programs</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/master-programs">
+                  <div>Master Programs</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/doctoral-programs">
+                  <div>Doctoral Programs</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/undergraduate-admissions">
+                  <div>Undergraduate Admissions</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/master-admissions">
+                  <div>Master Admissions</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/doctoral-admissions">
+                  <div>Doctoral Admissions</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/directory">
+                  <div>SCS Directory</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/events">
+                  <div>Events At SCS</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+              <li>
+                <router-link to="/donate">
+                  <div>Donate To SCS</div>
+                  <div class="arrow-right"></div>
+                </router-link>
+              </li>
+            </ul>
           </div>
         </div>
-      </div>
+      </section>
       <section class="teaser" v-if="newsLoaded">
         <NewsItem v-for="list in news" :key="list.uid" :data="list" :show_tags="false"></NewsItem>
       </section>
@@ -22,24 +74,9 @@
           Show More News
         </router-link>
       </div>
-      <section class="programs">
-        <div class="u-content-container">
-          <div class="programs-blurb">
-            <h1>Imagine working with a team of researchers to create gestures for a robot designed to help people with mobility issues.</h1>
-            <p>Or maybe you can’t wait to enter a hackathon and create something that changes how we interact with the world forever. And let’s not forget that all-important summer internship. It all can be done at CMU-SCS.</p>
-          </div>
-          <ul class="programs-list diagonal-separated-list">
-            <li><router-link to="/undergraduate-programs">Undergraduate Programs</router-link></li>
-            <li><router-link to="/masters-programs">Graduate Programs</router-link></li>
-            <li><router-link to="/doctoral-programs">Doctoral Programs</router-link></li>
-            <li><router-link to="/programs">Overview of Programs</router-link></li>
-          </ul>
-        </div>
-      </section>
-
-      <section class="departments-list-wrapper">
+      <section class="department-list-wrapper">
         <h2 class="u-sr-only">Departments</h2>
-        <ul class="departments-list">
+        <ul class="department-list">
           <li class="compbio">
             <router-link to="/departments/compbio">
               <span>Computational Biology</span>
@@ -263,6 +300,10 @@ export default {
   text-align: center;
   margin-bottom: $base-line-height * 1;
 
+  a:hover {
+    text-decoration: none;
+  }
+
   @include breakpoint-max(mini-phone) {
     display: none;
   }
@@ -362,14 +403,46 @@ export default {
   }
 }
 
+.block-list {
+  li {
+    a {
+      display: block;
+      box-sizing: content-box;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+
+      div {
+        font-size: 1.25rem;
+        display: inline-block;
+        color: #fff;
+      }
+
+      @include breakpoint-max(phablet) {
+        border-bottom: 1px solid #fff;
+
+        div {
+          font-size: 1rem;
+        }
+      }
+    }
+
+    @include breakpoint-min(tablet) {
+      display: inline-block;
+      width: 50%;
+    }
+
+    @include breakpoint-min(laptop) {
+      display: inline-block;
+      width: 33.333%;
+    }
+  }
+}
+
 ///
 // Department listing
 ///
-.departments-list-wrapper {
-  background: #fff;
-}
 
-.departments-list {
+.department-list {
   display: flex;
   flex-wrap: wrap;
   max-width: $max-width;
@@ -626,8 +699,8 @@ export default {
     &:before {
       content: '';
       position: absolute;
-      top: 0.1em;
-      left: #{0.75rem / -2};
+      top: 0;
+      left: 0;
       box-sizing: content-box;
       width: 0.8em;
       height: 0.8em * 0.7879;
@@ -751,6 +824,58 @@ export default {
     height: 100%;
     background: -webkit-linear-gradient(top,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.35) 36.04%,rgba(0,0,0,0.55) 100%);
     background: linear-gradient(180deg,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0.35) 36.04%,rgba(0,0,0,0.55) 100%);
+  }
+}
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+}
+
+.jumbotron {
+  width: 100%;
+  max-width: 1440px;
+  background: #fff;
+  padding: 1rem !important;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 0;
+    padding-bottom: 0.5rem;
+  }
+
+  @include breakpoint-max(phablet) {
+    h3 {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+.arrow-right {
+  margin-left: 0.5rem;
+  width: 0; 
+  height: 0; 
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid #fff;
+}
+
+.lead {
+  line-height: 2rem;
+
+  @include breakpoint-max(phablet) {
+    font-size: 1rem;
+  }
+}
+
+.quick-links {
+  background: #900;
+  margin: -1rem;
+  padding: 1rem;
+
+  h3 {
+    color: #fff;
   }
 }
 
