@@ -114,12 +114,13 @@ section{
 }
 
 .dropdown {
-  margin-top: 1.5rem;
+  margin-top: 1.333rem;
   .dropdown-toggle {
     background: $red;
     font-weight: bold;
     border-color: #fff;
     border-radius: .2rem;
+    height: 2.75rem;
   }
 }
 </style>

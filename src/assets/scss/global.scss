@@ -13,6 +13,10 @@
 html, body {
   background: $primary-grey;
   font-family: $font;
+
+  &.md-theme-default {
+    background-color: $primary-grey;
+  }
 }
 
 body {

@@ -67,8 +67,6 @@
               Programs
             </a>
             <div class="dropdown-menu" aria-labelledby="programsDropdown">
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/programs">All Programs</router-link>
-              <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-programs">Undergraduate</router-link>
               <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-programs">Masters</router-link>
