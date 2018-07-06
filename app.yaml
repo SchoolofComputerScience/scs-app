@@ -17,3 +17,4 @@ automatic_scaling:
     target_utilization: 0.4
 env_variables:
   NODE_ENV: production
+  PORT: 80
