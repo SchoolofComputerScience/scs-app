@@ -7,7 +7,7 @@
           <section class="container">
             <div class="item" v-for="(course, course_number) in department" :key="course_number">
               <router-link class="course-link" v-for="item in course.courseCodes" :key="item.code" :to="'/courses/course/' + item.code">
-              <h4><em>{{course_number}}</em> | {{course.graduate_level}} | {{course.long_title}}</h4>
+              <h4><em>{{course_number | formatCourseNumber}}</em> | {{course.graduate_level}} | {{course.long_title}}</h4>
               </router-link>
             </div>
           </section>
