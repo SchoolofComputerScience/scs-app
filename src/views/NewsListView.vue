@@ -11,7 +11,7 @@
             <div v-if="error" class="error-message">
               <p>{{error}}</p>
             </div>
-            <NewsItem v-if="!error" v-for="list in news" :key="list.uid" :data="list" :show_tags="true"></NewsItem>
+            <NewsItem v-if="!error" v-for="list in news" :key="list.id" :data="list" :show_tags="true"></NewsItem>
           </div>
         </section>
       </transition>

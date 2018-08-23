@@ -15,9 +15,9 @@
             </div>
           </figure>
           <div class="content-container">
-            <h1>{{article.title}}</h1>
+            <h1>{{article.headline}}</h1>
             <h2>{{dateFix(article.date)}}</h2>
-            <article v-html="article.body" class="body"></article>
+            <article v-html="article.copy" class="body"></article>
             <p>{{newsContactInfo.display_name}} |
               {{newsContactInfo.phone}} |
               <a :href="`mailto:${newsContactInfo.email}`">{{newsContactInfo.email}}</a>
@@ -48,13 +48,13 @@ export default {
       }
       
       let article = this.$route.params.article
-      for (var uid in this.$store.state.news.articles)
-        if(uid === article) return true
+      for (var id in this.$store.state.news.articles)
+        if(id === article) return true
     },
     article(){
       let article = this.$route.params.article
-      for (var uid in this.$store.state.news.articles)
-        if(uid === article) return this.cleanHTML(this.$store.state.news.articles[uid])
+      for (var id in this.$store.state.news.articles)
+        if(id === article) return this.cleanHTML(this.$store.state.news.articles[id])
     },
     newsContactInfo() {
       return this.$store.state.news.newsContact;

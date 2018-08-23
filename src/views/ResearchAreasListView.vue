@@ -5,7 +5,7 @@
       <div v-for="area in topForty" class="research-area-card" :key="area.area_id">
         <router-link :to="'/research/' + area.area_id">
           <h3>{{area.title}}</h3>
-          <p v-html="area.description.text"></p>
+          <p v-html="area.description"></p>
         </router-link>
       </div>
     </div>
