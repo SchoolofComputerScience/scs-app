@@ -1,10 +1,10 @@
 <template>
   <div class="news-item">
-    <router-link :to="'/news/' + data.uid" class="card">
+    <router-link :to="'/news/' + data.id" class="card">
       <figure :style="{ 'background-image': 'url(' + data.image + ')' }"></figure>
       <div class="content">
         <p>{{timeFix(data.date)}}</p>
-        <h3>{{data.title}}</h3>
+        <h3>{{data.headline}}</h3>
       </div>
     </router-link>
     <div v-if="show_tags" class="tags">

@@ -67,7 +67,7 @@ export default {
     },
     events() {
       //TODO: TEMPORARY -- Sorting will be done on backend
-      return sortDataByDate(Array.from(this.$store.state.events.list), 'startDate');
+      return this.$store.state.events.list;
     }
   },
 

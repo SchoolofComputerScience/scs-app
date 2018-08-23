@@ -18,7 +18,6 @@ export default {
           query: gql`
             {
               members {
-                _id
                 display_name
                 family_name
                 given_name
@@ -26,16 +25,12 @@ export default {
                 positions {
                   title
                   department
-                  primary_position
+                  primary_position_indicator
                 }
                 scid
                 scs_relationship_class
                 scs_relationship_desc
                 image_url
-                research_areas {
-                  area_id
-                  title
-                }
                 email
                 display_email
               }
