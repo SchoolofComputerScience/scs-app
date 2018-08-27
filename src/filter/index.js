@@ -52,14 +52,16 @@ export function courseLevelTranslate (levelId) {
 export function departmentTranslate (depId) {
   depId = depId ? depId.toLowerCase() : depId
   let departmentMap = new Map([
-    [ 'compbio', 'Computational Biology Department' ],
-    [ 'hcii', 'Human-Computer Interaction Institute' ],
+    [ 'cb', 'Computational Biology Department' ],
+    [ 'hci', 'Human-Computer Interaction Institute' ],
     [ 'isr', 'Institute for Software Research' ],
-    [ 'mld', 'Machine Learning Department' ],
+    [ 'mlg', 'Machine Learning Department' ],
     [ 'lti', 'Language Technologies Institute' ],
-    [ 'csd', 'Computer Science Department' ],
-    [ 'ri', 'The Robotics Institute' ],
-    [ 'etc', 'Entertainment Technology Center' ]
+    [ 'cs', 'Computer Science Department' ],
+    [ 'rob', 'The Robotics Institute' ],
+    [ 'etc', 'Entertainment Technology Center' ],
+    [ 'se', 'Software Engineering' ],
+    [ 'scs', 'School Of Computer Science' ]
   ])
   return departmentMap.get(depId) || depId
 }
@@ -159,17 +161,19 @@ export function sortDataByDate (data, dateField, ascendingOrder=true){
 }
 
 export const SCS_EVENT_COLORS = new Map([
-  [ 'special events', '#C60' ],
-  [ 'seminars', '#603' ],
-  [ 'thesis orals', '#224433' ],
-  [ 'speaking skills', '#006600' ],
+  [ 'Special Events', '#C60' ],
+  [ 'Seminars', '#603' ],
+  [ 'Thesis Orals', '#224433' ],
+  [ 'Speaking Skills', '#006600' ],
   //todo: get actual color for conferences and workshops.
-  // [ 'conferences / workshops', '#c41230' ],
-  [ 'talks', '#993300' ],
-  [ 'lecture', '#669966' ],
-  [ 'career presentation', '#009999' ],
-  [ 'fun', '#000066' ],
-  [ 'scs distinguished lectures', '#cc0000'],
-  [ 'project presentations', '#099' ],
+  [ 'Conferences,Workshop', '#c41230' ],
+  [ 'Talks', '#993300' ],
+  [ 'Lecture', '#669966' ],
+  [ 'Career Presentation', '#009999' ],
+  [ 'Fun', '#000066' ],
+  [ 'Introductory Course,Orientation', '#cc0000'],
+  [ 'Project Presentations', '#099' ],
+  [ 'Alumni Event', '#999' ],
+  [ 'Distinguished Lecture Series', '#C00' ]
 ]);
 

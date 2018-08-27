@@ -48,10 +48,13 @@ export default {
                 room
                 building
                 name
-                date
+                start_date
+                end_date
                 speakerName
                 eventUrl
-                description
+                event_type
+                poster_text
+                poster_url
               }
             }
           `
@@ -74,9 +77,13 @@ export default {
                 room
                 building
                 name
-                date
+                start_date
+                end_date
                 speakerName
                 eventUrl
+                event_type
+                poster_text
+                poster_url
               }
             }
           `
