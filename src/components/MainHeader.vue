@@ -87,7 +87,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/courses/S18">Courses</router-link>
+            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/courses/F18">Courses</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/news">News</router-link>
