@@ -160,6 +160,12 @@ export default {
 
 .items {
   line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    margin-right: 0.25rem;
+  }
 }
 
 .card-holder {

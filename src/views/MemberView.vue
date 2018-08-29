@@ -154,9 +154,9 @@ export default {
 
       return pubs_by_year;
     },
-    // news(){
-    //   return this.$store.state.member[this.$route.params.name].news.length
-    // },
+    news(){
+      return this.$store.state.member[this.$route.params.name].news || false;
+    },
     // events(){
     //   return this.$store.state.member[this.$route.params.name].events.length
     // },

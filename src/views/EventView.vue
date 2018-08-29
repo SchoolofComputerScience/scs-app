@@ -3,7 +3,7 @@
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded">
       <div>
-        <div class="type" :style="{background: typeColors.get(event.type)}">{{event.type}}</div>
+        <div class="type" :style="{background: typeColors.get(event.event_type)}">{{event.event_type}}</div>
 
         <h1>{{event.headline}}</h1>
         <h2 v-if="event.name">{{event.name}}</h2>
@@ -14,11 +14,11 @@
             <span v-if="event.room"> {{event.room}}</span>
           </h3>
 
-          <h4>{{dateFix(event.date)}}</h4>
+          <h4>{{dateFix(event.start_date)}}</h4>
 
           <p>
-            Starts: {{timeFix(event.date)}}
-            <span v-if="event.endDate">&#47; Ends: {{timeFix(event.endDate)}}</span>
+            Starts: {{timeFix(event.start_date)}}
+            <span v-if="event.end_date">&#47; Ends: {{timeFix(event.end_date)}}</span>
           </p>
         </section>
 
