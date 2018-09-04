@@ -15,7 +15,7 @@
     </section>
     <section v-if="courses" class="area-section">
       <h2 class="title">{{semesterCode | seasonTranslate}} Courses</h2>
-      <p v-for="course in courses">
+      <p v-for="course in courses" :key="course.course_id">
         <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.title}}</span></router-link>
       </p>
     </section>
@@ -81,16 +81,7 @@ export default {
       return this.$store.state.news.list.length > 0;
     },
     courses() {
-      let courses = false;
-      let selected_area = this.research_areas.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
-      if (this.research_areas.length > 0) {
-        if (selected_area) {
-          courses = selected_area.courses;
-        }
-      }
-
-      return courses;
-
+      return this.$store.state.researchAreaCourses.list;
     },
     programs() {
       let programs = [];
@@ -109,12 +100,12 @@ export default {
     },
     facultyInArea() {
       let faculty = [];
-      if (this.research_areas.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area_id) {
+      if (this.$store.state.researchAreaMembers.list.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area_id) {
         let selected_area = this.$store.state.researchAreas.area_id;
-        let research_area = this.research_areas.find((area) => area.area_id === selected_area);
         let directory = this.$store.state.directory.list;
+        let research_members = this.$store.state.researchAreaMembers.list;
 
-        research_area.members.map(function(member){
+        research_members.map(function(member){
           let research_member = _.find(directory, function(person){ return person.scid === member.scid })
           if (research_member)
             faculty.push(research_member);
@@ -144,12 +135,14 @@ export default {
   asyncData ({ store, route }) {
     store.dispatch('GET_SEMESTER_CODE');
     store.dispatch('GET_DIRECTORY');
+    store.dispatch('GET_RESEARCH_AREA_MEMBERS', route.params.research_area);
+    store.dispatch('GET_RESEARCH_AREA_COURSES', route.params.research_area);
     return store.dispatch('GET_RESEARCH_AREAS').then(() => {
       let area_id = route.params.research_area || store.state.researchAreas.area_id
       if (area_id) {
         let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
         if (research_area) {
-          store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
+          //store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
           store.commit("SET_SELECTED_RESEARCH_AREA", { area_id: research_area.area_id, title: research_area.title });
         }
       }
@@ -167,6 +160,12 @@ export default {
 
 .items {
   line-height: 1.5;
+  display: flex;
+  flex-wrap: wrap;
+
+  li {
+    margin-right: 0.25rem;
+  }
 }
 
 .card-holder {

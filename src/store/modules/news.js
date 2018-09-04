@@ -20,14 +20,12 @@ export default {
           query: gql`
             {
               newsBySearch(query:"${fields}") {
-                title
+                headline
                 date
-                uid
+                id
                 image
-                tags {
-                  tag
-                  name
-                }
+                image_alt
+                image_caption
               }
             }
           `
@@ -51,16 +49,15 @@ export default {
         : apollo.query({
           query: gql`
             {
-              newsArticle(uid:"${fields}") {
-                title
+              news(id:"${fields}") {
+                headline
+                subheading
                 date
-                uid
+                id
                 image
-                body
-                tags {
-                  tag
-                  name
-                }
+                image_alt
+                image_caption
+                copy
               }
             }
           `
@@ -82,14 +79,13 @@ export default {
           query: gql`
             {
               news {
-                title
+                headline
+                subheading
                 date
-                uid
+                id
                 image
-                tags {
-                  tag
-                  name
-                }
+                image_alt
+                image_caption
               }
             }
           `
@@ -114,7 +110,7 @@ export default {
         state.error = data.error
       } else {
         state.error = ''
-        Vue.set(state.articles, data.newsArticle[0].uid, data.newsArticle[0])
+        Vue.set(state.articles, data.news[0].id, data.news[0])
       }
     },
     SET_NEWS_LIST: (state, data) => {

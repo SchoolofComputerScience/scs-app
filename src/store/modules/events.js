@@ -43,22 +43,18 @@ export default {
         : apollo.query({
           query: gql`
             {
-              event(uid:"${fields}") {
-                uid
+              events(id:"${fields}") {
+                id
                 room
                 building
-                title
-                abstract
-                startDate
-                endDate
-                talkTitle
+                name
+                start_date
+                end_date
                 speakerName
-                speakerCompany
-                speakerCompanyTeam
-                type
-                tags
                 eventUrl
-                poster
+                event_type
+                poster_text
+                poster_url
               }
             }
           `
@@ -77,15 +73,17 @@ export default {
           query: gql`
             {
               events {
-                uid
-                talkTitle
-                type
-                title
-                speakerName
-                startDate
-                tags
+                id
                 room
                 building
+                name
+                start_date
+                end_date
+                speakerName
+                eventUrl
+                event_type
+                poster_text
+                poster_url
               }
             }
           `
@@ -101,7 +99,7 @@ export default {
   },
   mutations: {
     SET_EVENT: (state, data) => {
-      Vue.set(state.event, data.event[0].uid, data.event[0])
+      Vue.set(state.event, data.events[0].id, data.events[0])
     },
     SET_EVENTS_LIST: (state, data) => {
       if(data.error){

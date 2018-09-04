@@ -3,22 +3,22 @@
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded">
       <div>
-        <div class="type" :style="{background: typeColors.get(event.type)}">{{event.type}}</div>
+        <div class="type" :style="{background: typeColors.get(event.event_type)}">{{event.event_type}}</div>
 
-        <h1>{{event.title}}</h1>
-        <h2 v-if="event.talkTitle">{{event.talkTitle}}</h2>
+        <h1>{{event.headline}}</h1>
+        <h2 v-if="event.name">{{event.name}}</h2>
 
         <section>
           <p class="title small">Place & Time</p>
-          <h3 v-if="event.building">{{event.building}}
+          <h3 v-if="event.building">{{event.building.toUpperCase() | buildingTranslate}}
             <span v-if="event.room"> {{event.room}}</span>
           </h3>
 
-          <h4>{{dateFix(event.startDate)}}</h4>
+          <h4>{{dateFix(event.start_date)}}</h4>
 
           <p>
-            Starts: {{timeFix(event.startDate)}}
-            <span v-if="event.endDate">&#47; Ends: {{timeFix(event.endDate)}}</span>
+            Starts: {{timeFix(event.start_date)}}
+            <span v-if="event.end_date">&#47; Ends: {{timeFix(event.end_date)}}</span>
           </p>
         </section>
 
@@ -29,9 +29,9 @@
           <h4 v-if="event.speakerCompanyTeam">{{event.speakerCompanyTeam}}</h4>
         </section>
 
-        <section class="abstract" v-if="event.abstract">
+        <section class="abstract" v-if="event.description">
           <p class="title small">Description</p>
-          <p v-html="event.abstract"></p>
+          <p v-html="event.description"></p>
         </section>
 
         <section class="poster" v-if="event.poster">
@@ -66,13 +66,13 @@ export default {
   computed: {
     loaded() {
       let event = this.$route.params.event
-      for (var uid in this.$store.state.events.event)
-        if(uid === event) return true
+      for (var id in this.$store.state.events.event)
+        if(id === event) return true
     },
     event(){
       let event = this.$route.params.event
-      for (var uid in this.$store.state.events.event)
-        if(uid === event) return this.$store.state.events.event[uid]
+      for (var id in this.$store.state.events.event)
+        if(id === event) return this.$store.state.events.event[id]
     }
   },
 

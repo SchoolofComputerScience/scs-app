@@ -1,31 +1,31 @@
 <template>
   <div v-if="!compact" class="card">
-    <div class="type" :style="{background: typeColors.get(data.type)}">{{data.type}}</div>
-    <router-link :to="'/events/' + data.uid">
+    <div class="type" :style="{background: typeColors.get(data.event_type)}">{{data.event_type}}</div>
+    <router-link :to="'/events/' + data.id">
       <div class="pull-left date-card">
         <div class="date-month">{{eventDate.month}}</div>
         <div class="date-day">{{eventDate.day}}</div>
         <div class="date-year">{{eventDate.year}}</div>
       </div>
       <div class="card-content">
-        <h3>{{data.title}}</h3>
+        <h3>{{data.name}}</h3>
         <div v-if="data.speakerName" class="text-capitalize">{{data.speakerName}}</div>
         <p>
-          {{data.building}} {{data.room}}<br>
-          <b>{{timeFix(data.startDate)}}</b>
+          {{data.building.toUpperCase() | buildingTranslate}} {{data.room}}<br>
+          <b>{{timeFix(data.start_date)}}</b>
         </p>
       </div>
     </router-link>
   </div>
 
-  <div v-else class="condensed-card" :style="{ borderLeftColor: typeColors.get(data.type)}">
-    <router-link :to="'/events/' + data.uid">
-      <div class="condensed-type" :style="{background: typeColors.get(data.type)}">{{data.type}}</div>
-      <div class="pl-3 pt-1 date-card"><strong>{{dateFix(data.startDate)}} &ndash; {{timeFix(data.startDate)}}</strong></div>
-      <h3 class="pl-3 pr-3">{{data.title}}</h3>
+  <div v-else class="condensed-card" :style="{ borderLeftColor: typeColors.get(data.event_type)}">
+    <router-link :to="'/events/' + data.id">
+      <div class="condensed-type" :style="{background: typeColors.get(data.event_type)}">{{data.event_type}}</div>
+      <div class="pl-3 pt-1 date-card"><strong>{{dateFix(data.start_date)}} &ndash; {{timeFix(data.end_date)}}</strong></div>
+      <h3 class="pl-3 pr-3">{{data.name}}</h3>
       <div v-if="data.speakerName" class="pl-3 text-capitalize text-right pr-3">{{data.speakerName}}</div>
       <p class="text-right pr-3">
-        {{data.building}} {{data.room}}
+        {{data.building.toUpperCase() | buildingTranslate}} {{data.room}}
       </p>
     </router-link>
   </div>
@@ -52,9 +52,9 @@
     computed: {
       eventDate(){
         const dateObject = {
-          month: format(this.data.startDate, 'MMM'),
-          day: format(this.data.startDate, 'DD'),
-          year: format(this.data.startDate, 'YYYY')
+          month: format(this.data.start_date, 'MMM'),
+          day: format(this.data.start_date, 'DD'),
+          year: format(this.data.start_date, 'YYYY')
         };
 
         return dateObject;

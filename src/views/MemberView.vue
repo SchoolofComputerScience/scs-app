@@ -66,7 +66,7 @@
             </p>
           </section>
 
-          <section v-if="news" class="news">
+          <!-- <section v-if="news" class="news">
             <p class="title">news articles</p>
             <div class="card-holder">
               <NewsItem v-for="list in member.news" :key="list.uid" :data="list"></NewsItem>
@@ -78,16 +78,16 @@
             <p v-for="event in member.events">
               <router-link :to="'/events/' + event.uid">{{event.title}} | <span>{{event.date | moment("dddd, MMMM Do YYYY")}}</span></router-link>
             </p>
-          </section>
+          </section> -->
 
           <section v-if="gp" class="publications">
             <p class="title">Cited Publications <span class="amount">(Amount: {{member.publications.length}})</span>
             </p>
-            <div class="list" v-for="pub in member.profile[0].pub_year_agg">
-              <h4>{{pub._id}}</h4>
-              <div v-for="art in member.publications">
-                <div v-if="art.pub_year == pub._id">
-                  <p><router-link :to="'/publication/' + art._id">{{art.title}}</router-link></p>
+            <div class="list" v-for="(value, key) in gp" :key="key">
+              <h4>{{key}}</h4>
+              <div v-for="art in value" :key="art.gs_citation_guid">
+                <div>
+                  <p><router-link :to="'/publication/' + art.gs_citation_guid">{{art.title}}</router-link></p>
                 </div>
               </div>
             </div>
@@ -134,14 +134,32 @@ export default {
       return this.$store.state.member[this.$route.params.name].profile.length
     },
     gp(){
-      return this.$store.state.member[this.$route.params.name].publications.length
+      const all_pubs = this.$store.state.member[this.$route.params.name].publications;
+      let pubs_by_year = {};
+
+      all_pubs.map(function(pub){
+        let year = "None";
+        if (pub.pub_year) {
+          year = pub.pub_year;
+        }
+
+        if (pubs_by_year[year]){
+          pubs_by_year[year].push(pub);
+        }
+        else {
+          pubs_by_year[year] = [];
+          pubs_by_year[year].push(pub);
+        }
+      });
+
+      return pubs_by_year;
     },
     news(){
-      return this.$store.state.member[this.$route.params.name].news.length
+      return this.$store.state.member[this.$route.params.name].news || false;
     },
-    events(){
-      return this.$store.state.member[this.$route.params.name].events.length
-    },
+    // events(){
+    //   return this.$store.state.member[this.$route.params.name].events.length
+    // },
     semesterCode(){
       return this.$store.state.semesterCode.code;
     },
