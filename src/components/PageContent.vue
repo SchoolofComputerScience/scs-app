@@ -65,4 +65,19 @@ img {
 input {
   margin-bottom: 1rem;
 }
+
+.tbl {
+  width: 100%;
+  border: 1px solid #000;
+  margin-bottom: 1rem;
+
+  td {
+    padding: 0.5rem;
+    border: 1px solid #000;
+  }
+
+  tr:nth-child(2n + 1) {
+    background: #efefef;
+  }
+}
 </style>
