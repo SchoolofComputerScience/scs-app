@@ -21,7 +21,7 @@ import VueMaterial from 'vue-material'
         Additionally, once material design is in place, remove bootstrap.
 */
 
-Vue.use(VueMaterial);
+// Vue.use(VueMaterial);
 
 export default {
   name: 'scsmain',
@@ -35,8 +35,8 @@ export default {
 
 <style lang="scss">
 @import './assets/scss/global';
-@import '../node_modules/vue-material/dist/vue-material.min.css';
-@import '../node_modules/vue-material/dist/theme/black-green-light.css';
+// @import '../node_modules/vue-material/dist/vue-material.min.css';
+// @import '../node_modules/vue-material/dist/theme/black-green-light.css';
 
 .main-body{
   margin: 3.75rem auto auto auto;
