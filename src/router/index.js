@@ -22,6 +22,7 @@ import ProgramsView from '../views/ProgramsView.vue'
 import ProgramView from '../views/ProgramView.vue'
 import ResearchAreasView from '../views/ResearchAreasView.vue'
 import ResearchAreasListView from '../views/ResearchAreasListView.vue'
+import DiversityInclusionView from '../views/DiversityInclusionView.vue'
 
 export default new Router({
   mode: 'history',
@@ -45,6 +46,7 @@ export default new Router({
     { path: '/events/:event?', component: EventView },
     { path: '/research/', component: ResearchAreasListView },
     { path: '/research/:research_area', component: ResearchAreasView },
+    { path: '/diversity-and-inclusion', component: DiversityInclusionView },
     { path: '/404', component: ErrorView },
     { path: '/:page', name: 'page', component: PageView },
   ]
