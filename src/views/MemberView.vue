@@ -83,9 +83,17 @@
           <section v-if="gp" class="publications">
             <p class="title">Cited Publications <span class="amount">(Amount: {{member.publications.length}})</span>
             </p>
-            <div class="list" v-for="(value, key) in gp" :key="key">
-              <h4>{{key}}</h4>
-              <div v-for="art in value" :key="art.gs_citation_guid">
+            <div class="list" v-for="year in gp_years" :key="year">
+              <h4>{{year}}</h4>
+              <div v-for="art in gp[year]" :key="art.gs_citation_guid">
+                <div>
+                  <p><router-link :to="'/publication/' + art.gs_citation_guid">{{art.title}}</router-link></p>
+                </div>
+              </div>
+            </div>
+            <div v-if="gp['None']" class="list">
+              <h4>None</h4>
+              <div v-for="art in gp['None']" :key="art.gs_citation_guid">
                 <div>
                   <p><router-link :to="'/publication/' + art.gs_citation_guid">{{art.title}}</router-link></p>
                 </div>
@@ -153,6 +161,19 @@ export default {
       });
 
       return pubs_by_year;
+    },
+    gp_years(){
+      const all_pubs = this.$store.state.member[this.$route.params.name].publications;
+      let years = [];
+
+      all_pubs.map(function(pub){
+        if (pub.pub_year) {
+          if (years.indexOf(parseInt(pub.pub_year)) === -1)
+            years.push(parseInt(pub.pub_year));
+        }
+      });
+
+      return years.sort().reverse();
     },
     news(){
       return this.$store.state.member[this.$route.params.name].news || false;
@@ -345,7 +366,7 @@ export default {
     }
   }
   .amount{
-    font-size: .8em;
+    font-size: 1em;
     font-style: italic;
     margin-bottom: 2rem;
     text-transform: uppercase;
@@ -354,7 +375,7 @@ export default {
     padding-bottom: 0;
   }
   a{
-    font-size: .8em;
+    font-size: 1em;
     margin-top: 2em;
   }
 }

@@ -270,6 +270,7 @@ export default {
 .page {
   // Removes default page spacing
   padding: 0;
+  background: #fff;
 }
 
 .teaser {
