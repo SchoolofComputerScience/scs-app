@@ -11,11 +11,37 @@
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link dropdown-toggle" href="#" id="depDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Academics
+            </a>
+            <div class="dropdown-menu" aria-labelledby="depDropdown">
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-programs">Undergraduate Programs</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-programs">Masters Programs</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/doctoral-programs">Doctoral Programs</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/courses/F18">Courses</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/research">Research Areas</router-link>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="admissionsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admissions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="admissionsDropdown">
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-admissions">Undergraduate</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-admissions">Masters</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/doctoral-admissions">Doctoral</router-link>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="depDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Departments
             </a>
             <div class="dropdown-menu" aria-labelledby="depDropdown">
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments">All Departments</router-link>
-              <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/compbio">Computational Biology Department</router-link>
               <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/csd">Computer Science Department</router-link>
@@ -45,8 +71,6 @@
               <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/alumni">Alumni Engagement</router-link>
               <div class="dropdown-divider"></div>
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/donate">Donate</router-link>
-              <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/outreach">Outreach</router-link>
               <div class="dropdown-divider"></div>
               <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/corporate">SCS Partnerships</router-link>
@@ -63,40 +87,13 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link dropdown-toggle" href="#" id="programsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Programs
-            </a>
-            <div class="dropdown-menu" aria-labelledby="programsDropdown">
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-programs">Undergraduate</router-link>
-              <div class="dropdown-divider"></div>
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-programs">Masters</router-link>
-              <div class="dropdown-divider"></div>
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/doctoral-programs">Doctoral</router-link>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link dropdown-toggle" href="#" id="admissionsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Admissions
-            </a>
-            <div class="dropdown-menu" aria-labelledby="admissionsDropdown">
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-admissions">Undergraduate</router-link>
-              <div class="dropdown-divider"></div>
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-admissions">Masters</router-link>
-              <div class="dropdown-divider"></div>
-              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/doctoral-admissions">Doctoral</router-link>
-            </div>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/courses/F18">Courses</router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/news">News</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/events">Events</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/research">Research</router-link>
+            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/donate">Donate</router-link>
           </li>
         </ul>
       </div>
@@ -157,6 +154,7 @@ export default {
 
   .dropdown-menu {
     background: $red;
+    border: 1px solid $red;
   }
 
   .dropdown-item {
