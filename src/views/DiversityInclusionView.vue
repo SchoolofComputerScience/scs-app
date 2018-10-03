@@ -17,6 +17,17 @@
         <p>
           Our efforts are also characterized by the goals of our SCS student organizations: <a href="https://www.scs4all.cs.cmu.edu/">SCS4ALL</a> and <a href="https://www.women.cs.cmu.edu/">Women@SCS</a> who work to develop programs of social and professional activities, leadership opportunities, and outreach events to broaden interest and participation in computing. These initiatives are open to all students in SCS as well as friends of SCS4ALL so that ALL feel included in shaping the culture of our school.
         </p>
+        <div class="brochure-bit">
+          <blockquote>
+            <h2>A diverse and inclusive community is the foundation for excellence in research, creativity, learning and human development, and is, therefore, at the core of our mission as a university.</h2> 
+            <footer>
+              <cite>
+                <strong>Farnam Jahanian</strong>
+                President of CMU
+              </cite>
+            </footer>
+          </blockquote>
+        </div>
         <div class="card card-section">
           <a href="https://www.scs4all.cs.cmu.edu/">
             <h3>SCS4ALL</h3>
@@ -48,17 +59,6 @@
             </div>
           </a>
         </div>
-        <div class="brochure-bit">
-          <blockquote>
-            <h2>A diverse and inclusive community is the foundation for excellence in research, creativity, learning and human development, and is, therefore, at the core of our mission as a university.</h2> 
-            <footer>
-              <cite>
-                <strong>Farnam Jahanian</strong>
-                President of CMU
-              </cite>
-            </footer>
-          </blockquote>
-        </div>
         <p>For more information regarding Diversity and Inclusion at Carnegie Mellon University, including demographics, strategic planning, and our history, visit <a href="http://www.cmu.edu/diversity">click here</a>.</p>
       </section>
     </div>
@@ -74,7 +74,15 @@
 
 .card-section {
   a {
-    color: #000;  
+    color: #000;
+
+    &:hover {
+      text-decoration: none;
+
+      h3 {
+        text-decoration: underline;
+      }
+    }
   }
 }
 

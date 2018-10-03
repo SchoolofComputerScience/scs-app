@@ -7,9 +7,7 @@ export default {
   },
   actions: {
     GET_RESEARCH_AREA_COURSES: ({ commit, state }, fields = {}) => {
-      return state.list && state.list.length
-        ? Promise.resolve(state.list)
-        : apollo.query({
+      return apollo.query({
           query: gql`
             {
             	researchAreaCourses(area_id:"${fields}") {

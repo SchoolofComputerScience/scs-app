@@ -7,9 +7,7 @@ export default {
   },
   actions: {
     GET_RESEARCH_AREA_MEMBERS: ({ commit, state }, fields = {}) => {
-      return state.list.length
-        ? Promise.resolve(state.list)
-        : apollo.query({
+      return apollo.query({
           query: gql`
             {
             	researchAreaMembers(area_id:"${fields}") {

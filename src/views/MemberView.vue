@@ -361,7 +361,7 @@ export default {
     margin-bottom: 1.6em;
     > h4{
       position: absolute;
-      left: -3.2em;
+      left: -2.8em;
       top: .2em;
     }
   }

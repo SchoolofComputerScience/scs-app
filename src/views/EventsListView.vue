@@ -66,7 +66,6 @@ export default {
       return this.$store.state.events.list.length > 0 ? true : false
     },
     events() {
-      //TODO: TEMPORARY -- Sorting will be done on backend
       return this.$store.state.events.list;
     }
   },
@@ -113,7 +112,6 @@ export default {
 .card-holder{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   position: relative;
 }
 

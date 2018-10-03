@@ -145,11 +145,6 @@ export default {
     &:hover, &:focus {
       color: $red;
     }
-
-    &:active {
-      color: $red;
-      border-bottom: 3px solid $red;
-    }
   }
 
   .dropdown-menu {
