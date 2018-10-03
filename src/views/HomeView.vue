@@ -1,7 +1,6 @@
 <template>
   <transition name="page-transition" mode="out-in" appear> 
     <div class="page">
-      <spinner class="spinner" v-if="!newsLoaded" key="spinner"></spinner>
       <section class="welcome">
         <div class="jumbotron">
           <p class="lead">Carnegie Mellon’s School of Computer Science is widely recognized as one of the first and best computer science programs in the world. Our programs train the next generation of innovators to solve real-world problems and improve the way people live and work.</p>
@@ -10,56 +9,47 @@
             <ul class="block-list">
               <li>
                 <router-link to="/undergraduate-programs">
-                  <div>Undergraduate Programs</div>
-                  <div class="arrow-right"></div>
+                  Undergraduate Programs
                 </router-link>
               </li>
               <li>
                 <router-link to="/master-programs">
-                  <div>Master Programs</div>
-                  <div class="arrow-right"></div>
+                  Master Programs
                 </router-link>
               </li>
               <li>
                 <router-link to="/doctoral-programs">
-                  <div>Doctoral Programs</div>
-                  <div class="arrow-right"></div>
+                  Doctoral Programs
                 </router-link>
               </li>
               <li>
                 <router-link to="/undergraduate-admissions">
-                  <div>Undergraduate Admissions</div>
-                  <div class="arrow-right"></div>
+                  Undergraduate Admissions
                 </router-link>
               </li>
               <li>
                 <router-link to="/master-admissions">
-                  <div>Master Admissions</div>
-                  <div class="arrow-right"></div>
+                  Master Admissions
                 </router-link>
               </li>
               <li>
                 <router-link to="/doctoral-admissions">
-                  <div>Doctoral Admissions</div>
-                  <div class="arrow-right"></div>
+                  Doctoral Admissions
                 </router-link>
               </li>
               <li>
                 <router-link to="/directory">
-                  <div>SCS Directory</div>
-                  <div class="arrow-right"></div>
+                  SCS Directory
                 </router-link>
               </li>
               <li>
                 <router-link to="/events">
-                  <div>Events At SCS</div>
-                  <div class="arrow-right"></div>
+                  Events At SCS
                 </router-link>
               </li>
               <li>
                 <router-link to="/donate">
-                  <div>Donate To SCS</div>
-                  <div class="arrow-right"></div>
+                  Donate To SCS
                 </router-link>
               </li>
             </ul>
@@ -195,7 +185,6 @@
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue';
 import NewsItem from '../components/NewsItem.vue';
 import format from 'date-fns/format';
 
@@ -203,7 +192,6 @@ export default {
   name: 'home-view',
 
   components: {
-    Spinner,
     NewsItem
   },
 
@@ -415,7 +403,6 @@ export default {
       div {
         font-size: 1.25rem;
         display: inline-block;
-        color: #fff;
       }
 
       @include breakpoint-max(phablet) {
@@ -853,15 +840,6 @@ export default {
   }
 }
 
-.arrow-right {
-  margin-left: 0.5rem;
-  width: 0; 
-  height: 0; 
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 7px solid #fff;
-}
-
 .lead {
   line-height: 2rem;
 
@@ -871,12 +849,15 @@ export default {
 }
 
 .quick-links {
-  background: #900;
   margin: -1rem;
   padding: 1rem;
 
   h3 {
-    color: #fff;
+    border-bottom: 1px solid #000;
+  }
+
+  a:hover {
+    color: #000;
   }
 }
 
