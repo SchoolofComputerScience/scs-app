@@ -217,8 +217,6 @@
       .date-month{
         text-transform: uppercase;
       }
-      .date-year{}
-
     }
   }
 </style>
