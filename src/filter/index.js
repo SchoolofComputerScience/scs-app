@@ -177,3 +177,13 @@ export const SCS_EVENT_COLORS = new Map([
   [ 'Distinguished Lecture Series', '#C00' ]
 ]);
 
+/**
+ * Custom filter for course numbers. Formats courses with a dash '-'.
+ * @param course
+ * @returns {string}
+ */
+export function formatCourseNumber(course) {
+  const separator = '-';
+  return course.substring(0, 2) + separator + course.substring(2);
+}
+

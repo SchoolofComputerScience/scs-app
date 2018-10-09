@@ -55,7 +55,7 @@
           <section v-if="member.courses.length > 0" class="courses">
             <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
             <p v-for="course in member.courses">
-              <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.long_title}}</span></router-link>
+              <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number | formatCourseNumber}} | {{course.long_title}}</span></router-link>
             </p>
           </section>
 

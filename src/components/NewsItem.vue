@@ -76,10 +76,6 @@ export default {
   .content {
     display: block;
   }
-  aside {
-    display: block;
-    vertical-align: center;
-  }
   figure{
     display: block;
     background-position: center;
