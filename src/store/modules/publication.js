@@ -13,10 +13,9 @@ export default {
         : apollo.query({
           query: gql`
             {
-              publication(id:"${fields}"){
-                _id
+              publications(gs_citation_guid:"${fields.pubid}", scid:"${fields.scid}"){
                 authors
-                desc
+                description
                 gs_citation_count
                 gs_citation_guid
                 gs_citation_url
@@ -52,7 +51,7 @@ export default {
   },
   mutations: {
     SET_PUBLICATION: (state, data) => {
-      Vue.set(state.pub, data.publication._id, data.publication)
+      Vue.set(state.pub, data.publications[0].gs_citation_guid, data.publications[0])
     }
   }
 }
