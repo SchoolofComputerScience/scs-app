@@ -39,7 +39,7 @@ export default new Router({
     { path: '/departments/:department?', component: DepartmentView },
     { path: '/programs', component: ProgramsView },
     { path: '/programs/:program', component: ProgramView },
-    { path: '/publication/:pubid?', component: PublicationView },
+    { path: '/publication/:pubid/:scid', component: PublicationView },
     { path: '/news/', component: NewsListView },
     { path: '/events/', component: EventsListView },
     { path: '/news/:article?', component: NewsView },

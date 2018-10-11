@@ -42,7 +42,7 @@ export default {
   },
 
   asyncData ({ store, route }) {
-    return store.dispatch('FETCH_PUBLICATION', route.params.pubid)
+    return store.dispatch('FETCH_PUBLICATION', { pubid: route.params.pubid, scid: route.params.scid })
   }
 
 }

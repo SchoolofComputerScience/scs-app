@@ -87,7 +87,7 @@
               <h4>{{year}}</h4>
               <div v-for="art in gp[year]" :key="art.gs_citation_guid">
                 <div>
-                  <p><router-link :to="'/publication/' + art.gs_citation_guid">{{art.title}}</router-link></p>
+                  <p><router-link :to="'/publication/' + art.gs_citation_guid + '/' + member.scid">{{art.title}}</router-link></p>
                 </div>
               </div>
             </div>
