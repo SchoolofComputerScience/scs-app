@@ -34,9 +34,9 @@
           <p v-html="event.description"></p>
         </section>
 
-        <section class="poster" v-if="event.poster">
+        <section class="poster" v-if="event.poster_url">
           <p class="title small">Attachments</p>
-          <p><a class="button" :href="event.poster">Event Flyer</a></p>
+          <p><a class="button" :href="event.poster_url">{{event.poster_text}}</a></p>
         </section>
 
       </div>

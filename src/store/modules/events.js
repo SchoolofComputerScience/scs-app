@@ -55,6 +55,7 @@ export default {
                 event_type
                 poster_text
                 poster_url
+                description
               }
             }
           `
@@ -84,6 +85,7 @@ export default {
                 event_type
                 poster_text
                 poster_url
+                description
               }
             }
           `
