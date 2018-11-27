@@ -39,7 +39,7 @@ export default {
 // @import '../node_modules/vue-material/dist/theme/black-green-light.css';
 
 .main-body{
-  margin: 3.75rem auto auto auto;
+  margin: 6.75rem auto auto auto;
   top: 0;
 
   > * {
