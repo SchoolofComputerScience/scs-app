@@ -1,5 +1,8 @@
 <template>
   <header v-bind:class="{ 'mobile-menu': mobileMenu }">
+    <div class="beta-banner">
+      <a href="http://cs.cmu.edu">Click Here To Return To The Previous Experience For cs.cmu.edu</a>
+    </div>
     <nav class="navbar navbar-expand-custom navbar-light">
       <router-link to="/" class="navbar-brand logo">
         <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
@@ -244,6 +247,17 @@ export default {
     max-width: calc(100vw - 7.5rem);
     padding-left: 0;
     padding-right: 0;
+  }
+}
+
+.beta-banner {
+  background: $red;
+  text-align: center;
+  padding: 1rem;
+  
+  a {
+    display: block;
+    color: white;
   }
 }
 
