@@ -1,0 +1,20 @@
+.contact_table{
+  display: flex;
+  flex-wrap: wrap;
+  // margin: 2em 0;
+  .contact_row{
+    width: 100%;
+    display: flex;
+  }
+  p{
+    display: block;
+    width: 30%;
+    margin: 0.5em 0;
+  }
+  p:first-child{
+    font-weight: 600;
+  }
+  p:last-child, p:last-child a{
+    color: $red;
+  }
+}

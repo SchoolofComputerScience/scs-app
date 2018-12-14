@@ -1,119 +1,157 @@
-<template>
-  <section class="content-page card">
-    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <div class="news-view" >
-      <transition name="fade" mode="out-in" v-if="loaded">
-        <div>
-          <figure class="news-header" :style="{ 'background-image': 'url(' + article.image + ')' }">
-            <div class="tags">
-              <router-link
-                v-for="tag in article.tags"
-                class="tags button-small"
-                v-if="tag.name != ''"
-                :key="tag.name"
-                :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
-            </div>
-          </figure>
-          <div class="content-container">
-            <h1>{{article.headline}}</h1>
-            <h2>{{dateFix(article.date)}}</h2>
-            <article v-html="article.copy" class="body"></article>
-            <p>{{newsContactInfo.display_name}} |
-              {{newsContactInfo.phone}} |
-              <a :href="`mailto:${newsContactInfo.email}`">{{newsContactInfo.email}}</a>
-            </p>
-          </div>
-        </div>
-      </transition>
-    </div>
-  </section>
+<template lang="pug">
+  .wrapper
+    NavDrawer
+    NewHeader(
+      :page_title_label="page_title_label"
+      :header_class="header_class"
+    )
+    div(class="container")
+      main
+        section(class="page_title hidden_content")
+          h1 News
+        section(class="page_blocks have_tags")
+          div(class="page_block_container visible")
+            div(
+              class="page_block news_item promoted"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_1.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") New CMU Degree Prepares Researchers for AI-Directed Experimentation
+              div(class="page_block_labels")
+                span(class="page_block_label") oct 9
+              div(class="page_block_content")
+                span(class="page_block_title") New CMU Degree Prepares Researchers for AI-Directed Experimentation
+                span(class="page_block_subtitle") Artificial Intelligence Will Drive More Decisions in Biological Experiments
+              div(class="page_block_tags")
+                span robotics institute
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_2.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") PopSci Recognizes Wheel-Track With "Best of What's New" Award
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 27
+              div(class="page_block_content")
+                span(class="page_block_title") PopSci Recognizes Wheel-Track With "Best of What's New" Award
+              div(class="page_block_tags")
+                span robotics institute
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_3.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") Farber Elected 2018 AAAS Fellow
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 27
+              div(class="page_block_content")
+                span(class="page_block_title") Farber Elected 2018 AAAS Fellow
+              div(class="page_block_tags")
+                span institute for software research
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_5.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") Bajpai, Wang Earn Stehlik Scholarships
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 21
+              div(class="page_block_content")
+                span(class="page_block_title") Bajpai, Wang Earn Stehlik Scholarships
+              div(class="page_block_tags")
+                span computer science
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_4.png')})`}"
+            )
+              a(href="#", class="link_absolute") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 14
+              div(class="page_block_content")
+                span(class="page_block_title") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
+              div(class="page_block_tags")
+                span computational biology
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_13.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") Neural Nets Supplant Marker Genes in Analyzing Single Cell RNA Sequencing
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 13
+              div(class="page_block_content")
+                span(class="page_block_title") Neural Nets Supplant Marker Genes in Analyzing Single Cell RNA Sequencing
+              div(class="page_block_tags")
+                span computational biology
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_12.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") High Stakes
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 12
+              div(class="page_block_content")
+                span(class="page_block_title") High Stakes
+              div(class="page_block_tags")
+                span institute for software research
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_6.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") Sandholm, Brown To Receive Minsky Medal
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 6
+              div(class="page_block_content")
+                span(class="page_block_title") Sandholm, Brown To Receive Minsky Medal
+              div(class="page_block_tags")
+                span computer science
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_1.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") Sadeh Speaks on Plenary Panel About Data Protection and Privacy
+              div(class="page_block_labels")
+                span(class="page_block_label") nov 1
+              div(class="page_block_content")
+                span(class="page_block_title") Sadeh Speaks on Plenary Panel About Data Protection and Privacy
+              div(class="page_block_tags")
+                span institute for software research
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_oct_30.jpg')})`}"
+            )
+              a(href="#", class="link_absolute") Faculty Profile: Fang Finds Fulfilment in AI for Social Good
+              div(class="page_block_labels")
+                span(class="page_block_label") oct 30
+              div(class="page_block_content")
+                span(class="page_block_title") Faculty Profile: Fang Finds Fulfilment in AI for Social Good
+              div(class="page_block_tags")
+                span institute for software research
+
+          button(class="button_show_more") Show More
+    NewFooter
+    ModalExplore
+    ModalSearch
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue'
-import { router } from '../app'
-import format from 'date-fns/format'
+
+import NewHeader from '../components/NewHeader.vue';
+import NewFooter from '../components/NewFooter.vue';
+import NavDrawer from '../components/NavDrawer.vue';
+import ModalExplore from '../components/ModalExplore.vue';
+import ModalSearch from '../components/ModalSearch.vue';
 
 export default {
-  name: 'news-view',
-
+  name: 'discover-view',
   components: {
-    Spinner
+    NewHeader,
+    NavDrawer,
+    NewFooter,
+    ModalExplore,
+    ModalSearch,
   },
-
-  computed: {
-    loaded() {
-      if(this.$store.state.news.error.length > 0) {
-        router.replace('/404');
-      }
-      
-      let article = this.$route.params.article
-      for (var id in this.$store.state.news.articles)
-        if(id === article) return true
-    },
-    article(){
-      let article = this.$route.params.article
-      for (var id in this.$store.state.news.articles)
-        if(id === article) return this.cleanHTML(this.$store.state.news.articles[id])
-    },
-    newsContactInfo() {
-      return this.$store.state.news.newsContact;
+  data () {
+    return {
+      title: 'News from the School of Computer Science',
+      page_title_label: 'News',
+      header_class: 'pulled'
     }
-  },
-
-  methods: {
-    cleanHTML: function(data){
-      return data
-    },
-
-    tagFilter: (tag) => {
-      if(tag.includes('_')) {
-        return '/directory/' + tag
-      }else{
-        return '/departments/' + tag.toLocaleLowerCase()
-      }
-    },
-
-    dateFix (arg) {
-      return format(arg, 'MMM D, YYYY')
-    }
-  },
-
-  asyncData ({ store, route }) {
-    return store.dispatch('GET_NEWS_ARTICLE', route.params.article)
-  },
-
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '../assets/scss/vars';
-
-.tags{
-  margin-bottom: $base-line-height / 4;
-}
-.news-header {
-  min-height: $base-line-height * 12;
-  left: -$base-line-height * 2;
-  top: -$base-line-height * 2;
-  margin-bottom: $base-line-height;
-  background-size: cover;
-  background-position: center;
-  width: calc(100% + #{$base-line-height} * 4);
-  margin: 0;
-  position: relative;
-  display: flex;
-  padding-left: $base-line-height * 2;
-  align-items: flex-end;
-  @include breakpoint-max(desktop) {
-    left: -$base-line-height;
-    top: -$base-line-height;
-    padding-left: $base-line-height;
-    width: calc(100% + #{$base-line-height} * 2);
-  }
-  @include breakpoint-max(tablet){
-    min-height: $base-line-height * 8;
-  }
-}
-
-</style>

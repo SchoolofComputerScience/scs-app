@@ -1,0 +1,11 @@
+header(class=header_class)
+  div(class="container")
+    a(href="index.html")
+      img(v-bind:src="assets/images/logo-color.svg" class="logo", alt="CMU CS Logo")
+    block page_title
+      if page_title_label
+        span(class="section_title") #{page_title_label}
+    nav(class="main_nav")
+      a(href="#", class="open_menu") Open Menu
+      a(href="#", class="launch_explore js_launch_explore desktop") Launch Explore
+      a(href="#",class="launch_search js_launch_search desktop") Launch Search
