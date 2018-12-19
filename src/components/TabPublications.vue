@@ -50,11 +50,6 @@ export default {
   name: 'tab-publications',
   props: [
     "contentData"
-  ],
-  computed: {
-    dataCount () {
-      return 100;
-    }
-  }
+  ]
 }
 </script>

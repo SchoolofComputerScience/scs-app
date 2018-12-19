@@ -122,31 +122,31 @@ export default {
 
       return programs.length > 0 ? programs : false;
     },
-    semesterCode(){
-      return this.$store.state.semesterCode.code;
-    },
     graduateLevel() {
       return this.graduate_level || this.$store.state.route.params.graduate_level;
     }
   },
   asyncData ({ store, route }) {
-    store.dispatch('GET_SEMESTER_CODE');
     store.dispatch('GET_DIRECTORY');
     store.dispatch('GET_RESEARCH_AREA_MEMBERS', route.params.research_area);
     store.dispatch('GET_RESEARCH_AREA_COURSES', route.params.research_area);
     return store.dispatch('GET_RESEARCH_AREAS').then(() => {
-      let area_id = route.params.research_area || store.state.researchAreas.area_id
-      if (area_id) {
-        let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
-        if (research_area) {
-          // store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
-          store.commit("SET_SELECTED_RESEARCH_AREA", {
-            area_id: research_area.area_id,
-            title: research_area.title,
-            description: research_area.description
-          });
-        }
-      }
+      store.dispatch('GET_SEMESTER_CODE').then(() => {
+        store.dispatch('FETCH_COURSE_LIST', 'F18').then(() => {
+          let area_id = route.params.research_area || store.state.researchAreas.area_id
+          if (area_id) {
+            let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
+            if (research_area) {
+              // store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
+              store.commit("SET_SELECTED_RESEARCH_AREA", {
+                area_id: research_area.area_id,
+                title: research_area.title,
+                description: research_area.description
+              });
+            }
+          }
+        })
+      });
     });
   }
 
