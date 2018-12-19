@@ -8,7 +8,7 @@
     div(class="container")
       main
         section(class="page_meta")
-          a(href="#", class="button_back") back
+          a(href="/events", class="button_back") back
           span(class="label_page_meta_title") computer science
         section(class="content_media")
           h1 Computer Science Speaking Skills Talk

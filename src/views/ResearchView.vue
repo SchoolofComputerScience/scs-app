@@ -1,31 +1,12 @@
 <template lang="pug">
   .wrapper
     NavDrawer
-    header(v-bind:class="header_class")
-      div(class="container")
-        a(href="/", class="link_logo")
-          img(src="../assets/images/logo-color.svg" class="logo", alt="CMU CS Logo")
-        span(v-if="page_title_label" class="section_title has_list") {{page_title_label}}
-          ul
-            li(data-anchor="machine-learning") Machine Learning
-            li(data-anchor="robotics") Robotics
-            li(data-anchor="human-computer-interaction") Human-Computer Interaction
-            li(data-anchor="artificial-intelligence") Artificial Intelligence
-            li(data-anchor="computer-vision") Computer Vision
-            li(data-anchor="natural-language-processing") Natural Language Processing
-            li(data-anchor="programming-languages") Programming Languages
-            li(data-anchor="computational-biology") Computational Biology
-            li(data-anchor="software-engineering") Software Engineering
-            li(data-anchor="computer-graphics") Computer Graphics
-            li(data-anchor="distributed-systems") Distributed Systems
-            li(data-anchor="statistics") Statistics
-            li(data-anchor="learning-sciences") Learning Sciences
-            li(data-anchor="formal-methods") Formal Methods
-            li(data-anchor="data-mining") Data Mining
-        nav(class="main_nav")
-          button(class="open_menu") Open Menu
-          button(class="launch_explore js_launch_explore desktop") Launch Explore
-          button(class="launch_search js_launch_search desktop") Launch Search
+    NewHeader(
+      :page_title_label="page_title_label"
+      :header_class="header_class"
+      :page_title_link="page_title_link"
+      :header_list="header_list"
+    )
 
     div(class="container")
       main
@@ -33,139 +14,20 @@
           h1 Research Areas
         section(class="content_list")
           div(class="list_cards visible")
-            div(class="list_card")
-              a(href="#", class="link_absolute") Machine Learning
+
+            div(
+              class="list_card"
+              v-for="area in topForty"
+              class="card card-section"
+              :key="area.area_id"
+            )
+              router-link(
+                :to="'/research/single/' + area.area_id"
+                class="link_absolute"
+              ) {{area.title}}
               div
-                span(class="item_title") Machine Learning
+                span(class="item_title") {{area.title}}
                 span(class="label") #[a(href="#") 24 people] #[a(href="#") 12 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Robotics
-              div
-                span(class="item_title") Robotics
-                span(class="label") #[a(href="#") 42 people] #[a(href="#") 1,205 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Human-Computer Interaction
-              div
-                span(class="item_title") Human-Computer Interaction
-                span(class="label") #[a(href="#") 31 people] #[a(href="#") 842 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Artificial Intelligence
-              div
-                span(class="item_title") Artificial Intelligence
-                span(class="label") #[a(href="#") 14 people] #[a(href="#") 322 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Computer Vision
-              div
-                span(class="item_title") Computer Vision
-                span(class="label") #[a(href="#") 78 people] #[a(href="#") 362 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Natural Language Processing
-              div
-                span(class="item_title") Natural Language Processing
-                span(class="label") #[a(href="#") 98 people] #[a(href="#") 2,582 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Programming Languages
-              div
-                span(class="item_title") Programming Languages
-                span(class="label") #[a(href="#") 39 people] #[a(href="#") 255 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Computational Biology
-              div
-                span(class="item_title") Computational Biology
-                span(class="label") #[a(href="#") 138 people] #[a(href="#") 966 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Software Engineering
-              div
-                span(class="item_title") Software Engineering
-                span(class="label") #[a(href="#") 51 people] #[a(href="#") 843 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Computer Graphics
-              div
-                span(class="item_title") Computer Graphics
-                span(class="label") #[a(href="#") 19 people] #[a(href="#") 319 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Distributed Systems
-              div
-                span(class="item_title") Distributed Systems
-                span(class="label") #[a(href="#") 93 people] #[a(href="#") 1,052 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Statistics
-              div
-                span(class="item_title") Statistics
-                span(class="label") #[a(href="#") 46 people] #[a(href="#") 996 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Learning Sciences
-              div
-                span(class="item_title") Learning Sciences
-                span(class="label") #[a(href="#") 188 people] #[a(href="#") 2,525 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Formal Methods
-              div
-                span(class="item_title") Formal Methods
-                span(class="label") #[a(href="#") 83 people] #[a(href="#") 449 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Data Mining
-              div
-                span(class="item_title") Data Mining
-                span(class="label") #[a(href="#") 34 people] #[a(href="#") 66 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Ubiquitous Computing
-              div
-                span(class="item_title") Ubiquitous Computing
-                span(class="label") #[a(href="#") 86 people] #[a(href="#") 447 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Social Computing
-              div
-                span(class="item_title") Social Computing
-                span(class="label") #[a(href="#") 106 people] #[a(href="#") 3,552 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Security
-              div
-                span(class="item_title") Security
-                span(class="label") #[a(href="#") 37 people] #[a(href="#") 129 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Human-Robot Interaction
-              div
-                span(class="item_title") Human-Robot Interaction
-                span(class="label") #[a(href="#") 155 people] #[a(href="#") 1,868 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Algorithyms
-              div
-                span(class="item_title") Algorithyms
-                span(class="label") #[a(href="#") 72 people] #[a(href="#") 3,323 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Social Network Analysis
-              div
-                span(class="item_title") Social Network Analysis
-                span(class="label") #[a(href="#") 28 people] #[a(href="#") 126 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Privacy
-              div
-                span(class="item_title") Privacy
-                span(class="label") #[a(href="#") 58 people] #[a(href="#") 311 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Motion Planning
-              div
-                span(class="item_title") Motion Planning
-                span(class="label") #[a(href="#") 15 people] #[a(href="#") 405 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Mobile Computing
-              div
-                span(class="item_title") Mobile Computing
-                span(class="label") #[a(href="#") 21 people] #[a(href="#") 121 publications]
-            div(class="list_card")
-              a(href="#", class="link_absolute") Reinforcement Learning
-              div
-                span(class="item_title") Reinforcement Learning
-                span(class="label") #[a(href="#") 91 people] #[a(href="#") 158 publications]
-
-
-
-
-
-
-
-
 
     NewFooter
     ModalExplore
@@ -176,22 +38,116 @@
 
 import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
+import NewHeader from '../components/NewHeader.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
+
+import _ from 'lodash';
 
 export default {
   name: 'pub-view',
   components: {
     NavDrawer,
     NewFooter,
+    NewHeader,
     ModalExplore,
     ModalSearch,
+  },
+  methods: {
+    openMenu: function () {
+      $('main, header').toggleClass('nav_open');
+      $('.slider_nav_container').toggleClass('open');
+      $('.open_menu, .modal_explore').toggleClass('on');
+      $('.launch_explore, .launch_search, .modal_explore, .modal_search, .mobile_nav button').removeClass('on');
+      removeBody();
+    },
+    launchExplore: function () {
+      $('.modal_search, .launch_search').removeClass('on');
+      $('.js_launch_explore, .modal_explore').toggleClass('on');
+      $(".modal_contents").scrollTop(0);
+      closeMenu();
+      removeBody();
+    },
+    launchSearch: function () {
+      $('.modal_explore, .launch_explore').removeClass('on');
+      $('.js_launch_search, .modal_search').toggleClass('on');
+      $(".modal_contents").scrollTop(0);
+      closeMenu();
+      removeBody();
+    }
+  },
+  computed: {
+    topForty(){
+      let topAreas = [];
+
+      if (this.$store.state.researchAreas.list.length) {
+        let list = this.$store.state.researchAreas.list;
+        let sorted = _.sortBy(list, 'gs_count');
+        sorted = sorted.reverse();
+
+        for (let i = 0; i < 25; i++) {
+          topAreas.push(sorted[i]);
+        }
+      }
+      return topAreas;
+    }
+  },
+  asyncData ({ store }) {
+    // console.log(store.dispatch('GET_RESEARCH_AREAS'));
+    return store.dispatch('GET_RESEARCH_AREAS');
   },
   data () {
     return {
       title: 'Research Areas',
       page_title_label: 'Research',
-      header_class: 'pulled'
+      header_class: 'pulled',
+      page_title_link: false,
+      header_list: [{
+        anchor: 'machine-learning',
+        title: 'Machine Learning'
+      }, {
+        anchor: 'robotics',
+        title: 'Robotics'
+      }, {
+        anchor: 'human-computer-interaction',
+        title: 'Human-Computer Interaction'
+      }, {
+        anchor: 'artificial-intelligence',
+        title: 'Artificial Intelligence'
+      }, {
+        anchor: 'computer-vision',
+        title: 'Computer Vision'
+      }, {
+        anchor: 'natural-language-processing',
+        title: 'Natural Language Processing'
+      }, {
+        anchor: 'programming-languages',
+        title: 'Programming Language'
+      }, {
+        anchor: 'computational-biology',
+        title: 'Computational Biology'
+      }, {
+        anchor: 'software-engineering',
+        title: 'Software Engineering'
+      }, {
+        anchor: 'computer-graphics',
+        title: 'Computer Graphics'
+      }, {
+        anchor: 'distributed-systems',
+        title: 'Distributed Systems'
+      }, {
+        anchor: 'statistics',
+        title: 'Statistics'
+      }, {
+        anchor: 'learning-sciences',
+        title: 'Learning Sciences'
+      }, {
+        anchor: 'formal-methods',
+        title: 'Formal Methods'
+      }, {
+        anchor: 'data-mining',
+        title: 'Data Mining'
+      }]
     }
   }
 }

@@ -15,7 +15,7 @@
               class="page_block news_item promoted"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_1.jpg')})`}"
             )
-              a(href="#", class="link_absolute") New CMU Degree Prepares Researchers for AI-Directed Experimentation
+              a(href="/news/single", class="link_absolute") New CMU Degree Prepares Researchers for AI-Directed Experimentation
               div(class="page_block_labels")
                 span(class="page_block_label") oct 9
               div(class="page_block_content")
@@ -27,7 +27,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_2.jpg')})`}"
             )
-              a(href="#", class="link_absolute") PopSci Recognizes Wheel-Track With "Best of What's New" Award
+              a(href="/news/single", class="link_absolute") PopSci Recognizes Wheel-Track With "Best of What's New" Award
               div(class="page_block_labels")
                 span(class="page_block_label") nov 27
               div(class="page_block_content")
@@ -38,7 +38,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_3.jpg')})`}"
             )
-              a(href="#", class="link_absolute") Farber Elected 2018 AAAS Fellow
+              a(href="/news/single", class="link_absolute") Farber Elected 2018 AAAS Fellow
               div(class="page_block_labels")
                 span(class="page_block_label") nov 27
               div(class="page_block_content")
@@ -49,7 +49,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_5.jpg')})`}"
             )
-              a(href="#", class="link_absolute") Bajpai, Wang Earn Stehlik Scholarships
+              a(href="/news/single", class="link_absolute") Bajpai, Wang Earn Stehlik Scholarships
               div(class="page_block_labels")
                 span(class="page_block_label") nov 21
               div(class="page_block_content")
@@ -60,7 +60,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_4.png')})`}"
             )
-              a(href="#", class="link_absolute") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
+              a(href="/news/single", class="link_absolute") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
               div(class="page_block_labels")
                 span(class="page_block_label") nov 14
               div(class="page_block_content")
@@ -71,7 +71,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_13.jpg')})`}"
             )
-              a(href="#", class="link_absolute") Neural Nets Supplant Marker Genes in Analyzing Single Cell RNA Sequencing
+              a(href="/news/single", class="link_absolute") Neural Nets Supplant Marker Genes in Analyzing Single Cell RNA Sequencing
               div(class="page_block_labels")
                 span(class="page_block_label") nov 13
               div(class="page_block_content")
@@ -82,7 +82,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_12.jpg')})`}"
             )
-              a(href="#", class="link_absolute") High Stakes
+              a(href="/news/single", class="link_absolute") High Stakes
               div(class="page_block_labels")
                 span(class="page_block_label") nov 12
               div(class="page_block_content")
@@ -93,7 +93,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_6.jpg')})`}"
             )
-              a(href="#", class="link_absolute") Sandholm, Brown To Receive Minsky Medal
+              a(href="/news/single", class="link_absolute") Sandholm, Brown To Receive Minsky Medal
               div(class="page_block_labels")
                 span(class="page_block_label") nov 6
               div(class="page_block_content")
@@ -104,7 +104,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_nov_1.jpg')})`}"
             )
-              a(href="#", class="link_absolute") Sadeh Speaks on Plenary Panel About Data Protection and Privacy
+              a(href="/news/single", class="link_absolute") Sadeh Speaks on Plenary Panel About Data Protection and Privacy
               div(class="page_block_labels")
                 span(class="page_block_label") nov 1
               div(class="page_block_content")
@@ -115,7 +115,7 @@
               class="page_block news_item"
               :style="{'background-image': `url(${require('../assets/images/placeholders/news_page_oct_30.jpg')})`}"
             )
-              a(href="#", class="link_absolute") Faculty Profile: Fang Finds Fulfilment in AI for Social Good
+              a(href="/news/single", class="link_absolute") Faculty Profile: Fang Finds Fulfilment in AI for Social Good
               div(class="page_block_labels")
                 span(class="page_block_label") oct 30
               div(class="page_block_content")

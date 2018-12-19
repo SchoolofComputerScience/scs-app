@@ -4,6 +4,7 @@
     NewHeader(
       :page_title_label="page_title_label"
       :header_class="header_class"
+      :page_title_link="page_title_link"
     )
     div(class="container")
       main
@@ -12,147 +13,16 @@
           :style="{'background-image': `url(${require('../assets/images/placeholders/research_header.jpg')})`}"
         )
           div(class="page_header_title")
-            h1 Machine Learning
+            h1 {{selected_research_area}}
           div(class="page_header_description")
-            p(class="page_description") Machine learning is a branch of computer science and statistics in which many training examples of a phenomenon are used to automatically generate a predictive model, which can then be used to predict future instances of the phenomenon.
+            p(
+              class="page_description"
+              v-html="selected_description"
+            )
             div(class="page_jump")
               p departments: #[a(class="page_jump_link") mL] | #[a(class="page_jump_link") RI]
 
-        section(class="content_filter")
-          button(class="filter_item active", data-filter="people") #[span people] #[span 224]
-          button(class="filter_item", data-filter="publications") #[span publications] #[span 4]
-          button(class="filter_item", data-filter="courses") #[span upcoming courses] #[span 3]
-
-        section(class="content_list")
-
-          div(class="page_block_container filter_item_list visible" data-filter="people")
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_vincent.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Vincent Aleven
-              div(class="page_block_content")
-                span(class="page_block_title") Vincent Aleven
-                span(class="page_block_description") Director, Bhci Program
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_karen.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Karen Kornblum Berntsen
-              div(class="page_block_content")
-                span(class="page_block_title") Karen Kornblum Berntsen
-                span(class="page_block_description") Associate Teaching Professor
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_marti.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Marti Louw
-              div(class="page_block_content")
-                span(class="page_block_title") Marti Louw
-                span(class="page_block_description") Director, Learning Media Design Center
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_john.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") John Zimmerman
-              div(class="page_block_content")
-                span(class="page_block_title") John Zimmerman
-                span(class="page_block_description") Professor
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_judeth.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Judeth (Judy) Choi
-              div(class="page_block_content")
-                span(class="page_block_title") Judeth (Judy) Choi
-                span(class="page_block_description") Human-Computer Interaction Institute
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_tianshi.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Tianshi Li
-              div(class="page_block_content")
-                span(class="page_block_title") Tianshi Li
-                span(class="page_block_description")
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_anderinsola.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Aderinsola Akintilo
-              div(class="page_block_content")
-                span(class="page_block_title") Aderinsola Akintilo
-                span(class="page_block_description") Human-Computer Interaction Institute
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_jennifer.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") John Zimmerman
-              div(class="page_block_content")
-                span(class="page_block_title") John Zimmerman
-                span(class="page_block_description") MHCI Program Coordinator
-            a(href="#", class="view_all") View All
-
-          // filter list for publications
-
-          div(class="gutter-xl filter_item_list", data-filter="publications")
-            div(class="col-1-3")
-              div(class="filter_column filter_list")
-                div(class="pane_toggle")
-                  span(class="pane_toggle_item active") by Research Area
-                div(class="pane_result")
-                  button(class="pane_result_item", data-filter="all") #[span All] #[span 17]
-                  button(class="pane_result_item") #[span Cognitive robotics] #[span 12]
-                  button(class="pane_result_item active") #[span Computational neuroscience] #[span 4]
-                  button(class="pane_result_item") #[span Computer science education] #[span 1]
-              button(class="filter_toggle") by category
-            div(class="col-2-3")
-              ul(class="list_stacked list_multi_column theme_publications visible")
-                li
-                  a(href="#") #[span(class="item_title") On the role of robot simulations in embodied cognitive science] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Couplets: Helping Elementary School Students Recognize Structure in Code] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Demonstrating the Ability of Elementary School Students to Reason about Programs] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Calypso for Cozmo: Robotic AI for Everyone] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Semantic Reasoning in Young Programmers] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Computational thinking and mental models: From kodu to calypso] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Evaluating the Effect of Using Physical Manipulatives to Foster Computational Thinking] #[span(class="label") 2018]
-                  div(class="list_window")
-                    span(class="label_primary") Robotics Institute
-                    span(class="label_secondary") pub type
-                    span(class="label_title") Evaluating the Effect of Using Physical Manipulatives to Foster Computational Thinking in Elementary School
-                    span(class="label_description") Ashish Aggarwal, Christina Gardner-McCune, David S Touretzky
-                    span(class="label_tertiary") pub #id
-                li
-                  a(href="#") #[span(class="item_title") Semantic reasoning in young programmers] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") CNBC Matlab Mini-Course] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") On the role of robot simulations in embodied cognitive science] #[span(class="label") 2018]
-                li(class="show_more")
-                  button(class="button_show_more") Show More
-
-          // filter list for courses
-
-          ul(class="filter_item_list list_stacked list_multi_column theme_courses" data-filter="courses")
-            li
-              a(href="#") #[span(class="item_title") Rapid Prototyping Technologies] #[span(class="label") fall '18] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Artifical Intelligence: Representation and Problem Solving] #[span(class="label") fall '18] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Intermediate Rapid Prototyping] #[span(class="label") fall '18] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Cognitive Robotics] #[span(class="label") spring '19] #[span(class="label") undergraduate]
-              div(class="list_window")
-                span(class="label_primary") Robotics Institute
-                span(class="label_secondary") 15-494/694
-                span(class="label_title") Cognitive Robotics
-                span(class="label_description") This course will explore the future of robot toys by analyzing and programming Anki Cozmo, a new robot with built-in artificial...
-                span(class="label_tertiary") undergraduate
+        Tabs(:tabs="tab_data")
 
       section(class="subfooter clean")
         div(class="container")
@@ -172,6 +42,10 @@
 import NewHeader from '../components/NewHeader.vue';
 import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
+import Tabs from '../components/Tabs.vue';
+import TabPeople from '../components/TabPeople.vue';
+import TabPublications from '../components/TabPublications.vue';
+import TabCourses from '../components/TabCourses.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
 
@@ -183,13 +57,99 @@ export default {
     NewFooter,
     ModalExplore,
     ModalSearch,
+    Tabs
+  },
+  methods: {
+    filterContent: function (filter, e) {
+      $('.content_filter .filter_item').removeClass('active');
+      $(e.currentTarget).addClass('active');
+      $(".content_list .filter_item_list").removeClass('visible');
+      $(".content_list .filter_item_list[data-filter="+filter+"]").addClass('visible');
+    }
   },
   data () {
     return {
       title: 'Machine Learning - Research Areas',
       page_title_label: 'Research',
+      page_title_link: '/research',
       header_class: 'pulled has_back'
     }
+  },
+  computed: {
+    tab_data () {
+      return [{
+        name: 'People',
+        component: TabPeople
+      }, {
+        name: 'Publications',
+        component: TabPublications
+      }, {
+        name: 'Courses',
+        component: TabCourses
+      }];
+    },
+    selected_research_area() {
+      return this.$store.state.researchAreas.title;
+    },
+    selected_description() {
+      let research_area = this.research_areas.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
+      if (research_area && research_area.description) {
+        return research_area.description;
+      }
+      return '';
+    },
+    research_areas() {
+      return this.$store.state.researchAreas.list;
+    },
+    news() {
+      return this.$store.state.news.list
+    },
+    has_news() {
+      return this.$store.state.news.list.length > 0;
+    },
+    courses() {
+      return this.$store.state.researchAreaCourses.list;
+    },
+    programs() {
+      let programs = [];
+      let selected_area = this.research_areas.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
+
+      if (selected_area && selected_area.programs) {
+        selected_area.programs.forEach(function(program) {
+          programs.push(program);
+        });
+      }
+
+      return programs.length > 0 ? programs : false;
+    },
+    semesterCode(){
+      return this.$store.state.semesterCode.code;
+    },
+    graduateLevel() {
+      return this.graduate_level || this.$store.state.route.params.graduate_level;
+    }
+  },
+  asyncData ({ store, route }) {
+    store.dispatch('GET_SEMESTER_CODE');
+    store.dispatch('GET_DIRECTORY');
+    store.dispatch('GET_RESEARCH_AREA_MEMBERS', route.params.research_area);
+    store.dispatch('GET_RESEARCH_AREA_COURSES', route.params.research_area);
+    return store.dispatch('GET_RESEARCH_AREAS').then(() => {
+      let area_id = route.params.research_area || store.state.researchAreas.area_id
+      if (area_id) {
+        let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
+        if (research_area) {
+          // store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
+          store.commit("SET_SELECTED_RESEARCH_AREA", {
+            area_id: research_area.area_id,
+            title: research_area.title,
+            description: research_area.description
+          });
+        }
+      }
+    });
   }
+
 }
+
 </script>

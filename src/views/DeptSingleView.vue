@@ -4,6 +4,7 @@
     NewHeader(
       :page_title_label="page_title_label"
       :header_class="header_class"
+      :page_title_link="page_title_link"
     )
     main
       div(class="container")
@@ -277,6 +278,7 @@ export default {
     return {
       title: 'Human-Computer Interaction - Departments',
       page_title_label: 'Departments',
+      page_title_link: '/departments',
       header_class: 'pulled has_back'
     }
   }

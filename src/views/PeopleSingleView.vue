@@ -8,7 +8,7 @@
     div(class="container")
       main
         section(class="page_meta")
-          a(href="#", class="button_back") back
+          a(href="/people", class="button_back") back
           span(class="label_page_meta_title") Robotics Institute
         section(class="content_bio")
           div(class="gutter-medium")
@@ -33,89 +33,9 @@
                 div(class="contact_row")
                   p Homepage
                   p #[a(href="http://cs.cmu.edu/~dst/") cs.cmu.edu/~dst/]
-        section(class="content_filter")
-          button(class="filter_item active", data-filter="publications") #[span publications] #[span 224]
-          button(class="filter_item", data-filter="courses") #[span upcoming courses] #[span 4]
-          button(class="filter_item", data-filter="research") #[span research areas] #[span 3]
-        section(class="content_list")
 
-          // filter list for courses
+        Tabs(:tabs="tab_data")
 
-          ul(class="filter_item_list list_stacked list_multi_column theme_courses" data-filter="courses")
-            li
-              a(href="#") #[span(class="item_title") Rapid Prototyping Technologies] #[span(class="label") fall '18] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Artifical Intelligence: Representation and Problem Solving] #[span(class="label") fall '18] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Intermediate Rapid Prototyping] #[span(class="label") fall '18] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Cognitive Robotics] #[span(class="label") spring '19] #[span(class="label") undergraduate]
-              div(class="list_window")
-                span(class="label_primary") Robotics Institute
-                span(class="label_secondary") 15-494/694
-                span(class="label_title") Cognitive Robotics
-                span(class="label_description") This course will explore the future of robot toys by analyzing and programming Anki Cozmo, a new robot with built-in artificial...
-                span(class="label_tertiary") undergraduate
-
-          // filter list for publications
-
-          div(class="gutter-xl filter_item_list visible", data-filter="publications")
-            div(class="col-1-3")
-              div(class="filter_column filter_list")
-                div(class="pane_toggle")
-                  span(class="pane_toggle_item active") by Research Area
-                div(class="pane_result")
-                  button(class="pane_result_item", data-filter="all") #[span All] #[span 17]
-                  button(class="pane_result_item") #[span Cognitive robotics] #[span 12]
-                  button(class="pane_result_item active") #[span Computational neuroscience] #[span 4]
-                  button(class="pane_result_item") #[span Computer science education] #[span 1]
-              button(class="filter_toggle") by category
-            div(class="col-2-3")
-              ul(class="list_stacked list_multi_column theme_publications visible")
-                li
-                  a(href="#") #[span(class="item_title") On the role of robot simulations in embodied cognitive science] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Couplets: Helping Elementary School Students Recognize Structure in Code] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Demonstrating the Ability of Elementary School Students to Reason about Programs] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Calypso for Cozmo: Robotic AI for Everyone] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Semantic Reasoning in Young Programmers] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Computational thinking and mental models: From kodu to calypso] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") Evaluating the Effect of Using Physical Manipulatives to Foster Computational Thinking] #[span(class="label") 2018]
-                  div(class="list_window")
-                    span(class="label_primary") Robotics Institute
-                    span(class="label_secondary") pub type
-                    span(class="label_title") Evaluating the Effect of Using Physical Manipulatives to Foster Computational Thinking in Elementary School
-                    span(class="label_description") Ashish Aggarwal, Christina Gardner-McCune, David S Touretzky
-                    span(class="label_tertiary") pub #id
-                li
-                  a(href="#") #[span(class="item_title") Semantic reasoning in young programmers] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") CNBC Matlab Mini-Course] #[span(class="label") 2018]
-                li
-                  a(href="#") #[span(class="item_title") On the role of robot simulations in embodied cognitive science] #[span(class="label") 2018]
-                li(class="show_more")
-                  button(class="button_show_more") Show More
-
-          // filter list for research areas
-
-          div(class="filter_item_list list_cards", data-filter="research")
-            div(class="list_card")
-              a(href="#", class="link_absolute") Cognitive robotics
-              div
-                span(class="item_title") Cognitive robotics
-            div(class="list_card")
-              a(href="#", class="link_absolute") Computer science education
-              div
-                span(class="item_title") Computer science education
-            div(class="list_card")
-              a(href="#", class="link_absolute") Computational neuroscience
-              div
-                span(class="item_title") Computational neuroscience
     NewFooter
     ModalExplore
     ModalSearch
@@ -126,17 +46,43 @@
 import NewHeader from '../components/NewHeader.vue';
 import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
+import Tabs from '../components/Tabs.vue';
+import TabPublications from '../components/TabPublications.vue';
+import TabCourses from '../components/TabCourses.vue';
+import TabResearchAreas from '../components/TabResearchAreas.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
 
 export default {
-  name: 'discover-view',
+  name: 'person-view',
+  props: ['member'],
   components: {
     NewHeader,
     NavDrawer,
     NewFooter,
     ModalExplore,
     ModalSearch,
+    Tabs
+  },
+  computed: {
+    tab_data () {
+
+      let tabs = [{
+        name: 'Publications',
+        component: TabPublications,
+        data: []
+      }, {
+        name: 'Courses',
+        component: TabCourses,
+        data: [{"course_id":"F18-05434","course_number":"05434","title":"Machine Learning in Practice","__typename":"ResearchAreasCourse"},{"course_id":"F18-05834","course_number":"05834","title":"Applied Machine Learning","__typename":"ResearchAreasCourse"},{"course_id":"F18-10601","course_number":"10601","title":"Introduction to Machine Learning (Master's)","__typename":"ResearchAreasCourse"},{"course_id":"F18-10611","course_number":"10611","title":"MS DAP Research","__typename":"ResearchAreasCourse"},{"course_id":"F18-10701","course_number":"10701","title":"Introduction to Machine Learning (PhD)","__typename":"ResearchAreasCourse"},{"course_id":"F18-10715","course_number":"10715","title":"Advanced Introduction to Machine Learning","__typename":"ResearchAreasCourse"},{"course_id":"F18-10910","course_number":"10910","title":"PhD DAP Research","__typename":"ResearchAreasCourse"},{"course_id":"F18-11344","course_number":"11344","title":"Machine Learning in Practice","__typename":"ResearchAreasCourse"},{"course_id":"F18-11663","course_number":"11663","title":"Applied Machine Learning","__typename":"ResearchAreasCourse"},{"course_id":"F18-11777","course_number":"11777","title":"Advanced Multimodal Machine Learning","__typename":"ResearchAreasCourse"},{"course_id":"F18-17428","course_number":"17428","title":"Machine Learning and Sensing","__typename":"ResearchAreasCourse"},{"course_id":"F18-17728","course_number":"17728","title":"Machine Learning and Sensing","__typename":"ResearchAreasCourse"}]
+      }, {
+        name: 'Research Areas',
+        component: TabResearchAreas,
+        data: [{"area_id":"machine_learning","title":"Machine Learning","description":"","gs_count":14,"__typename":"ResearchAreas"}, {"area_id":"distributed_systems","title":"Distributed Systems","description":"From entertainment to finance to the natural sciences, modern computation increasingly happens across thousands and millions of computing elements working together. Research in distributed systems focuses on developing algorithms, programming models, and implementation strategies for creating functional, usable, and high-performance distributed systems. Research areas of the field include consensus, routing, atomicity, adverse cooperation, and distributed approximation.","gs_count":13,"__typename":"ResearchAreas"},{"area_id":"statistics","title":"Statistics","description":"","gs_count":12,"__typename":"ResearchAreas"},{"area_id":"learning_sciences","title":"Learning Sciences","description":"","gs_count":10,"__typename":"ResearchAreas"},{"area_id":"formal_methods","title":"Formal Methods","description":"","gs_count":10,"__typename":"ResearchAreas"},{"area_id":"data_mining","title":"Data Mining","description":"","gs_count":9,"__typename":"ResearchAreas"}]
+      }];
+
+      return tabs;
+    }
   },
   data () {
     return {

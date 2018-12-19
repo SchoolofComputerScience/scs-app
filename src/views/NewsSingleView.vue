@@ -8,7 +8,7 @@
     div(class="container")
       main
         section(class="page_meta")
-          a(href="#", class="button_back") back
+          a(href="/news", class="button_back") back
           span(class="label_page_meta_title") robotics institute
         section(class="content_media")
           div(class="gutter-xl")

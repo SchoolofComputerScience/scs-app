@@ -192,13 +192,18 @@ section.hidden_content{
   }
   .page_header_description{
     align-items: baseline;
+    a{
+      color: inherit;
+    }
   }
   .page_description{
     line-height: 1.4em;
-
   }
   .page_jump{
     color: black;
+  }
+  &.min{
+    background-size: cover;
   }
   &.min .page_jump{
     color: white;
@@ -503,6 +508,7 @@ section.hidden_content{
   margin-top: 5px;
   font-style: italic;
   transition: all 350ms ease;
+  text-transform: capitalize;
 }
 .page_block.news_item:before, .page_block.person:before{
   content: '';

@@ -29,8 +29,11 @@
         div(class="container")
           div(class="page_block_container visible")
 
-            div(class="page_block news_item promoted", :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_1.jpg')})`}")
-              a(href="#") New CMU Degree Prepares Researchers for AI-Directed Experimentation
+            div(
+              class="page_block news_item promoted"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_1.jpg')})`}"
+            )
+              a(href="/news/single") New CMU Degree Prepares Researchers for AI-Directed Experimentation
               div(class="page_block_labels")
                 span(class="page_block_label primary") news
                 span(class="page_block_label") oct 9
@@ -38,8 +41,11 @@
                 span(class="page_block_title") New CMU Degree Prepares Researchers for AI-Directed Experimentation
                 span(class="page_block_subtitle") Artificial Intelligence Will Drive More Decisions in Biological Experiments
 
-            div(class="page_block news_item", style="background-image:url('../assets/images/placeholders/news_home_2.jpg')")
-              a(href="#") PopSci Recognizes Wheel-Track With "Best of What's New" Award
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_2.jpg')})`}"
+            )
+              a(href="/news/single") PopSci Recognizes Wheel-Track With "Best of What's New" Award
               div(class="page_block_labels")
                 span(class="page_block_label primary") news
                 span(class="page_block_label") nov 27
@@ -47,7 +53,7 @@
                 span(class="page_block_title") PopSci Recognizes Wheel-Track With "Best of What's New" Award
 
             div(class="page_block event")
-              a(href="#") Field Robotics Center Seminar
+              a(href="/events/single") Field Robotics Center Seminar
               div(class="page_block_labels")
                 span(class="page_block_label primary") events
                 span(class="page_block_label") seminar
@@ -58,16 +64,22 @@
                 span(class="page_block_title") Field Robotics Center Seminar
                 span(class="page_block_description") with Rogerio Bonatti
 
-            div(class="page_block news_item", style="background-image:url('../assets/images/placeholders/news_home_3.jpg')")
-              a(href="#") Farber Elected 2018 AAAS Fellow
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_3.jpg')})`}"
+            )
+              a(href="/news/single") Farber Elected 2018 AAAS Fellow
               div(class="page_block_labels")
                 span(class="page_block_label primary") news
                 span(class="page_block_label") nov 27
               div(class="page_block_content")
                 span(class="page_block_title") Farber Elected 2018 AAAS Fellow
 
-            div(class="page_block news_item", style="background-image:url('../assets/images/placeholders/news_home_5.jpg')")
-              a(href="#") Bajpai, Wang Earn Stehlik Scholarships
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_5.jpg')})`}"
+            )
+              a(href="/news/single") Bajpai, Wang Earn Stehlik Scholarships
               div(class="page_block_labels")
                 span(class="page_block_label primary") news
                 span(class="page_block_label") nov 21
@@ -75,7 +87,7 @@
                 span(class="page_block_title") Bajpai, Wang Earn Stehlik Scholarships
 
             div(class="page_block event")
-              a(href="#") CyLab Student Seminar
+              a(href="/events/single") CyLab Student Seminar
               div(class="page_block_labels")
                 span(class="page_block_label primary") events
                 span(class="page_block_label") seminar
@@ -86,8 +98,11 @@
                 span(class="page_block_title") CyLab Student Seminar
                 span(class="page_block_description") with William Melicher
 
-            div(class="page_block news_item", style="background-image:url('../assets/images/placeholders/news_home_4.png')")
-              a(href="#") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
+            div(
+              class="page_block news_item"
+              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_4.png')})`}"
+            )
+              a(href="/news/single") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
               div(class="page_block_labels")
                 span(class="page_block_label primary") news
                 span(class="page_block_label") nov 14
@@ -120,6 +135,7 @@ export default {
   data () {
     return {
       title: 'Discover',
+      page_title_link: false,
     }
   }
 }

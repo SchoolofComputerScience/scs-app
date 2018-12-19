@@ -7,7 +7,7 @@ div(class="modal modal_search")
       section(class="search")
         div(class="search_bar")
           button(class="search", name="Search modal button") Search
-          label(for="search_modal") Search this website
+          label(for="search_modal", class="label_hidden") Search this website
           input(type="text", id="search_modal", placeholder="Search news, events, people and programs")
 
       section(class="trending")

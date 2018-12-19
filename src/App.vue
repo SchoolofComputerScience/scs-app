@@ -25,6 +25,7 @@ export default {
   },
   mounted() {
     window.$ = require('jquery');
+
     $('body').on('click', function (e) {
 
       var container = $(".slider_nav_container, .open_menu");
@@ -35,6 +36,7 @@ export default {
         $('.slider_nav_container').removeClass('open');
         $('.open_menu').removeClass('on');
       }
+
     });
 
   }
