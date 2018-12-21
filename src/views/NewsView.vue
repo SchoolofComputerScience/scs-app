@@ -19,7 +19,10 @@
               v-bind:class="{promoted : !i }"
               :style="{ 'background-image': 'url(' + article.image + ')' }"
             )
-              a(href="/news/single", class="link_absolute") News CMU Degree Prepares Researchers for AI-Directed Experimentation
+              router-link(
+                :to="'/news/single/' + article.id"
+                class="link_absolute"
+              ) {{article.headline}}
               div(class="page_block_labels")
                 span(class="page_block_label") {{timeFix(article.date)}}
               div(class="page_block_content")

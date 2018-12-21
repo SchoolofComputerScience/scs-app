@@ -122,7 +122,7 @@ const router = new Router({
       component: NewsView
     },
     {
-      path: '/news/single/',
+      path: '/news/single/:article',
       meta: {
         title: 'News - Single',
         theme: 'news'
