@@ -10,37 +10,15 @@
         section(class="page_title hidden_content")
           h1 News
         section(class="page_blocks have_tags")
-          div(class="page_block_container visible")
-                   
-          
-            div.page_block.news_item(
-              v-for="article, i in news"
-              v-if="i <= articlesToShow"
-              v-bind:class="{promoted : !i }"
-              :style="{ 'background-image': 'url(' + article.image + ')' }"
-            )
-              router-link(
-                :to="'/news/single/' + article.id"
-                class="link_absolute"
-              ) {{article.headline}}
-              div(class="page_block_labels")
-                span(class="page_block_label") {{timeFix(article.date)}}
-              div(class="page_block_content")
-                span(
-                  class="page_block_title"
-                ) {{article.headline}}
-                span(
-                  class="page_block_subtitle"
-                  v-if="!i"
-                ) {{article.subheading}}
-              div(class="page_block_tags")
-                span robotics institute          
 
+          ArticleItem(
+            v-bind:articlesToShow="articlesToShow"
+            v-bind:featured="promoted"
+            )
           button(
             class="button_show_more"
             v-on:click="articlesToShow += 6"
           ) Show More
-          
     NewFooter
     ModalExplore
     ModalSearch
@@ -53,6 +31,7 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
+import ArticleItem from '../components/NewsArticle.vue';
 import format from 'date-fns/format';
 
 export default {
@@ -61,6 +40,7 @@ export default {
     NewHeader,
     NavDrawer,
     NewFooter,
+    ArticleItem,
     ModalExplore,
     ModalSearch,
   },
@@ -69,7 +49,8 @@ export default {
       title: 'News from the School of Computer Science',
       page_title_label: 'News',
       header_class: 'pulled',
-      articlesToShow: 9
+      articlesToShow: 9,
+      featured: 'promoted'
     }
   },
   asyncData ({ store }) {
@@ -105,8 +86,8 @@ export default {
       }
     }
   }
-  
-  
-  
+
+
+
 }
 </script>
