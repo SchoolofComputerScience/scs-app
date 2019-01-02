@@ -90,7 +90,7 @@ const router = new Router({
       component: PeopleView
     },
     {
-      path: '/people/single/:name?',
+      path: '/people/single/:scid?',
       meta: {
         title: 'David Touretzky - People',
         theme: 'people'
