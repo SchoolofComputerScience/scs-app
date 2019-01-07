@@ -9,16 +9,13 @@
       main
         section(class="page_title hidden_content")
           h1 News
-        section(class="page_blocks have_tags")
 
-          ArticleItem(
-            v-bind:articlesToShow="articlesToShow"
-            v-bind:featured="promoted"
-            )
-          button(
-            class="button_show_more"
-            v-on:click="articlesToShow += 6"
-          ) Show More
+        NewsGrid(
+          :news="news"
+          :articlesToShow="articlesToShow"
+          :moreArticles="moreArticles"
+          )
+
     NewFooter
     ModalExplore
     ModalSearch
@@ -31,8 +28,7 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
-import ArticleItem from '../components/NewsArticle.vue';
-import format from 'date-fns/format';
+import NewsGrid from '../components/NewsGrid.vue';
 
 export default {
   name: 'discover-view',
@@ -40,7 +36,7 @@ export default {
     NewHeader,
     NavDrawer,
     NewFooter,
-    ArticleItem,
+    NewsGrid,
     ModalExplore,
     ModalSearch,
   },
@@ -50,44 +46,17 @@ export default {
       page_title_label: 'News',
       header_class: 'pulled',
       articlesToShow: 9,
-      featured: 'promoted'
+      featured: 'promoted',
+      moreArticles: 6
     }
   },
   asyncData ({ store }) {
     return store.dispatch('GET_NEWS_LIST')
   },
   computed: {
-    loaded() {
-      if(this.$store.state.news.error.length > 0){
-        this.error = this.$store.state.news.error
-        router.replace('/404');
-      }else{
-        this.error = false;
-      }
-      return this.$store.state.news.list.length > 0 ? true : false
-    },
     news() {
       return this.$store.state.news.list
-    },
-  },
-
-  methods: {
-    searchNews: _.debounce(function(){
-      this.$store.dispatch('SEARCH_NEWS_ARTICLES', this.query)
-    }, 500),
-    timeFix (arg) {
-      return format(arg, 'MMM DD')
-    },
-    tagFilter: (tag) => {
-      if(tag.includes('_')) {
-        return '/directory/' + tag
-      }else{
-        return '/departments/' + tag.toLocaleLowerCase()
-      }
     }
   }
-
-
-
 }
 </script>

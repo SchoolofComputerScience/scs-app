@@ -34,17 +34,12 @@
             v-html="article.copy"
           )
 
-        section(class="page_blocks have_tags")
-
-          h2 related
-          ArticleItem(
-            v-bind:articlesToShow="articlesToShow"
-            v-bind:singleNews="true"
-            )
-          button(
-            class="button_show_more"
-            v-on:click="articlesToShow += 3"
-          ) Show More
+        NewsGrid(
+          :news="news"
+          :articlesToShow="articlesToShow"
+          :moreArticles="moreArticles"
+          :isSingle="isSingle"
+          )
 
     NewFooter
     ModalExplore
@@ -58,7 +53,7 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
-import ArticleItem from '../components/NewsArticle.vue';
+import NewsGrid from '../components/NewsGrid.vue';
 import format from 'date-fns/format';
 
 export default {
@@ -67,7 +62,7 @@ export default {
     NewHeader,
     NavDrawer,
     NewFooter,
-    ArticleItem,
+    NewsGrid,
     ModalExplore,
     ModalSearch,
   },
@@ -76,11 +71,13 @@ export default {
       title: 'News - Single',
       page_title_label: 'News',
       header_class: 'pulled single',
-      articlesToShow: 2
+      articlesToShow: 2,
+      moreArticles: 3,
+      isSingle: true
     }
   },
   asyncData ({ store, route }) {
-    return store.dispatch('GET_NEWS_ARTICLE', route.params.article);
+    store.dispatch('GET_NEWS_ARTICLE', route.params.article);
     store.dispatch('GET_NEWS_LIST');
   },
   computed: {
@@ -98,7 +95,10 @@ export default {
         if(id === article) return this.cleanHTML(this.$store.state.news.articles[id])
     },
     news() {
-      return this.$store.state.news.list
+      let theArticle = this.$route.params.article
+      return this.$store.state.news.list.filter((article) => {
+        return article.id !== theArticle;
+      });
     },
     newsContactInfo() {
       return this.$store.state.news.newsContact;

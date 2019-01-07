@@ -66,7 +66,7 @@ const router = new Router({
       component: DeptView
     },
     {
-      path: '/departments/single/',
+      path: '/departments/single/:department',
       meta: {
         title: 'Human-Computer Interaction - Departments',
         theme: 'default'
@@ -138,7 +138,7 @@ const router = new Router({
       component: EventsView
     },
     {
-      path: '/events/single/',
+      path: '/events/single/:event?',
       meta: {
         title: 'Event - Single',
         theme: 'events'

@@ -5,7 +5,7 @@
       :page_title_label="page_title_label"
       :header_class="header_class"
     )
-    
+
     div(class="container" v-if="person")
       main
         section(class="page_meta")
@@ -21,7 +21,7 @@
               div(class="content_tags")
                 span(class="label_tags") Faculty
                 span(class="label_tags") Research
-              div(class="contact_table")            
+              div(class="contact_table")
                 div(class="contact_row" v-if="!person.phone_full.includes('null') && person.phone_full")
                   p Phone
                   p #[a(:href="'tel:' + person.phone_full_call")]{{person.phone_full}}
@@ -98,12 +98,12 @@ export default {
       let directoryListing = this.$store.state.directory.list.find((p) => {
         return p.scid === scid;
       });
-      
+
       return directoryListing.departments.map((departmentId) => {
         let department = this.$store.state.department.scs_list.find((d) => {
           return d.department_id === departmentId;
         });
-        
+
         return department.department_name;
       });
     },
@@ -112,7 +112,7 @@ export default {
     },
     primaryPosition: function () {
       let person = this.$store.state.member[this.$route.params.scid];
-      
+
       return _.first((person.positions || []).filter(function (position) {
         return position.primary_position_indicator;
       }));

@@ -13,14 +13,25 @@
           h1 Departments
         section(class="content_list")
           div(class="list_cards large")
+
+
+            div(
+              class="list_card"
+              v-for="department in departments"
+              v-if="department.uid != 'deans_office'"
+              :departmentData="department"
+              :key="department.uid"
+            ) {{department.department_name}}
+
+
             div(class="list_card")
-              a(href="/departments/single", class="link_absolute") Computational Biology
+              a(href="/departments/single/' + department.department_id", class="link_absolute") Computational Biology
               div
                 span(class="item_title") Computational Biology
                 span(class="item_mark", aria-hidden="true") cb
                 p(class="item_description") Computational biology is a critically important and growing field that is essential to biomedical research.  The Computational Biology Department at Carnegie Mellon is part of the internationally-recognized School of Computer Science, and draws upon the incredible energy and expertise in the entire School.
             div(class="list_card")
-              a(href="/departments/single", class="link_absolute") Computer Science
+              a(href="/departments/single/' + department.department_id", class="link_absolute") Computer Science
               div
                 span(class="item_title") Computer Science
                 span(class="item_mark", aria-hidden="true") cs
@@ -128,6 +139,15 @@ export default {
         title: 'Robotics Institute'
       }]
     }
+  },
+  computed: {
+    departments () {
+      // console.log(this.$store.state.departments.list)
+      // return this.$store.state.departments.list
+    }
+  },
+  asyncData ({ store }) {
+    // store.dispatch('GET_SCS_DEPARTMENT_LIST');
   }
 }
 </script>
