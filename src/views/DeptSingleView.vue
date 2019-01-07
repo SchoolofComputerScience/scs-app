@@ -13,7 +13,7 @@
           :style="{'background-image': `url(${require('../assets/images/placeholders/department_header.jpg')})`}"
         )
           div(class="page_header_title")
-            h1 Human-Computer Interaction
+            h1 {{description.title}}
           div(class="page_header_description")
             p(class="page_description") Founded in 1993, the HCII is a place where we work to understand and create technology that harmonizes with and improves human capabilities, goals, and social environments through interdisciplinary research and education in design, computer science, and behavioral and social sciences. Though housed in the School of Computer Science, the institute is truly interdisciplinary and includes faculty and students from CMU's Dietrich College of Humanities and Social Sciences, Tepper School of Business, College of Fine Arts, Carnegie Institute of Technology and Software Engineering Institute, as well as computer science.
             div(class="page_jump")
@@ -273,6 +273,16 @@ export default {
     NewFooter,
     ModalExplore,
     ModalSearch,
+  },
+  computed: {
+    department: function () {
+      return {
+        id: 'cb',
+        abbreviation: 'cb',
+        title: 'Computational Biology',
+        description: 'Computational biology is a critically important and growing field that is essential to biomedical research.  The Computational Biology Department at Carnegie Mellon is part of the internationally-recognized School of Computer Science, and draws upon the incredible energy and expertise in the entire School.'
+      }
+    }
   },
   data () {
     return {

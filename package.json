@@ -57,7 +57,7 @@
     "babel-plugin-istanbul": "^4.1.5",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-preset-env": "^1.6.0",
-    "bootstrap": "^4.0.0",
+    "bootstrap": "^4.2.1",
     "cross-env": "^5.0.1",
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^3.0.0",
@@ -74,7 +74,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "karma-webpack": "^2.0.9",
     "modularscale-sass": "^3.0.3",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.11.0",
     "npm-run-all": "^4.0.2",
     "plumber-sass": "^0.7.7",
     "popper.js": "^1.12.9",
@@ -82,10 +82,10 @@
     "sass-loader": "^6.0.6",
     "url-loader": "^0.5.9",
     "vue-loader": "^13.0.1",
-    "vue-template-compiler": "^2.3.4",
+    "vue-template-compiler": "^2.5.21",
     "webpack": "3.3.0",
     "webpack-dev-middleware": "^1.11.0",
     "webpack-hot-middleware": "^2.18.2",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.5"
   }
 }
