@@ -18,7 +18,7 @@ div(
       class="page_block_title_container"
     )
       span(class="page_block_title") {{data.name}}
-      span(class="page_block_subtitle") {{data.speakerName.toLowerCase()}}
+      span(class="page_block_subtitle") with {{ data.speakerName | capitalize }}
     div(
       v-if="firsty && !isSingle"
       class="page_block_details"
@@ -32,7 +32,7 @@ div(
     span(
       v-if="!firsty || isSingle"
       class="page_block_description"
-    ) {{data.speakerName.toLowerCase()}}
+    ) with {{ data.speakerName | capitalize }}
   div(class="page_block_tags")
     span department name
 </template>
@@ -63,6 +63,15 @@ div(
       },
       dateFix (arg) {
         return format(arg, 'MMM D, YYYY')
+      }
+    },
+    filters: {
+      capitalize: function (value) {
+        if (!value) return ''
+        value = value.toString().split(/\s+/)
+        return value.map((str) => {
+          return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+        }).join(' ');
       }
     }
   }

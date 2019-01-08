@@ -13,21 +13,24 @@
           :style="{'background-image': `url(${require('../assets/images/placeholders/department_header.jpg')})`}"
         )
           div(class="page_header_title")
-            h1 {{description.title}}
+            h1 {{department.title}}
           div(class="page_header_description")
-            p(class="page_description") Founded in 1993, the HCII is a place where we work to understand and create technology that harmonizes with and improves human capabilities, goals, and social environments through interdisciplinary research and education in design, computer science, and behavioral and social sciences. Though housed in the School of Computer Science, the institute is truly interdisciplinary and includes faculty and students from CMU's Dietrich College of Humanities and Social Sciences, Tepper School of Business, College of Fine Arts, Carnegie Institute of Technology and Software Engineering Institute, as well as computer science.
+            p(class="page_description") {{department.description}}
             div(class="page_jump")
-              a(class="page_jump_button",href="#") visit the hci website
+              a(
+                :href="header_text.button_link"
+                target="_blank"
+                class="page_jump_button"
+              ) {{ header_text.button_name }}
               div
                 p(class="page_title_small") learn more about...
-                a(href="#") Undergraduate Programs
-                a(href="#") Graduate Programs
-                a(href="#") Technical Reports
-                a(href="#") Research Pages
-                a(href="#") Faculty
+                a(
+                  v-for="item in header_text.list"
+                  :href="item.link"
+                  ) {{item.name}}
 
         section(class="page_blocks")
-          h2 news &amp; events
+          h2 News &amp; Events
           div(class="page_block_container visible")
 
             div(
@@ -67,69 +70,72 @@
           h2 People
           div(class="page_block_container visible")
             div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_vincent.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Vincent Aleven
-              div(class="page_block_content")
-                span(class="page_block_title") Vincent Aleven
-                span(class="page_block_description") Director, Bhci Program
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_karen.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Karen Kornblum Berntsen
-              div(class="page_block_content")
-                span(class="page_block_title") Karen Kornblum Berntsen
-                span(class="page_block_description") Associate Teaching Professor
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_marti.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Marti Louw
-              div(class="page_block_content")
-                span(class="page_block_title") Marti Louw
-                span(class="page_block_description") Director, Learning Media Design Center
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_john.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") John Zimmerman
-              div(class="page_block_content")
-                span(class="page_block_title") John Zimmerman
-                span(class="page_block_description") Professor
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_judeth.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Judeth (Judy) Choi
-              div(class="page_block_content")
-                span(class="page_block_title") Judeth (Judy) Choi
-                span(class="page_block_description") Human-Computer Interaction Institute
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_tianshi.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Tianshi Li
-              div(class="page_block_content")
-                span(class="page_block_title") Tianshi Li
-                span(class="page_block_description")
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_anderinsola.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Aderinsola Akintilo
-              div(class="page_block_content")
-                span(class="page_block_title") Aderinsola Akintilo
-                span(class="page_block_description") Human-Computer Interaction Institute
-            div(
-              class="page_block person"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/people_jennifer.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") John Zimmerman
-              div(class="page_block_content")
-                span(class="page_block_title") John Zimmerman
-                span(class="page_block_description") MHCI Program Coordinator
+              v-for="person in directory"
+              ) {{ person.display_name }}
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_vincent.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") Vincent Aleven
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") Vincent Aleven
+            //-     span(class="page_block_description") Director, Bhci Program
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_karen.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") Karen Kornblum Berntsen
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") Karen Kornblum Berntsen
+            //-     span(class="page_block_description") Associate Teaching Professor
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_marti.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") Marti Louw
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") Marti Louw
+            //-     span(class="page_block_description") Director, Learning Media Design Center
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_john.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") John Zimmerman
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") John Zimmerman
+            //-     span(class="page_block_description") Professor
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_judeth.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") Judeth (Judy) Choi
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") Judeth (Judy) Choi
+            //-     span(class="page_block_description") Human-Computer Interaction Institute
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_tianshi.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") Tianshi Li
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") Tianshi Li
+            //-     span(class="page_block_description")
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_anderinsola.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") Aderinsola Akintilo
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") Aderinsola Akintilo
+            //-     span(class="page_block_description") Human-Computer Interaction Institute
+            //- div(
+            //-   class="page_block person"
+            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_jennifer.jpg')})`}"
+            //- )
+            //-   a(href="#", class="link_absolute") John Zimmerman
+            //-   div(class="page_block_content")
+            //-     span(class="page_block_title") John Zimmerman
+            //-     span(class="page_block_description") MHCI Program Coordinator
 
         section(class="content_list")
           h2 Upcoming Courses
@@ -238,20 +244,21 @@
         div(class="container")
           div(class="gutter-xl")
             div(class="col-3-5")
-              h3(class="knockout") Programs
-              p The Human-Computer Interaction Institute offers multidisciplinary undergraduate and graduate educational programs that emphasize technology for the benefit of people and society.
-              a(href="#", class="button_arrow") All Programs
+              h3(class="knockout") {{footer_text.description_title}}
+              p {{footer_text.description}}
+              a(
+                :href="footer_text.description_link"
+                class="button_arrow"
+                ) {{footer_text.description_link_text}}
             div(class="col-2-5")
-              h3 Popular HCI Programs
+              h3 {{footer_text.list_title}}
               ul(class="list_basic")
-                li
-                  a(href="#") Ph.D. in HCI
-                li
-                  a(href="#") Master of Human-Computer Interaction (MHCI)
-                li
-                  a(href="#") Accelerated Master of Human-Computer Interaction
-                li
-                  a(href="#") Master of Educational Technology and Applied Learning Science (METALS)
+                li(
+                  v-for="item in footer_text.list"
+                  )
+                  a(
+                    :href="item.link"
+                    ) {{item.name}}
     NewFooter
     ModalExplore
     ModalSearch
@@ -281,8 +288,80 @@ export default {
         abbreviation: 'cb',
         title: 'Computational Biology',
         description: 'Computational biology is a critically important and growing field that is essential to biomedical research.  The Computational Biology Department at Carnegie Mellon is part of the internationally-recognized School of Computer Science, and draws upon the incredible energy and expertise in the entire School.'
+      };
+    },
+    header_text: function () {
+      return {
+        button_name: 'visit the hci website',
+        button_link: 'https://hcii.cmu.edu/',
+        list: [{
+          name: 'Undergraduate Programs',
+          link: '#',
+        }, {
+          name: 'Graduate Programs',
+          link: '#'
+        }, {
+          name: 'Technical Reports',
+          link: '#'
+        }, {
+          name: 'Research Pages',
+          link: '#'
+        }, {
+          name: 'Faculty',
+          link: '#'
+        }]
+      }
+    },
+    footer_text: function () {
+      return {
+        description_title: 'Programs',
+        description: 'The Human-Computer Interaction Institute offers multidisciplinary undergraduate and graduate educational programs that emphasize technology for the benefit of people and society.',
+        description_link: '#',
+        description_link_text: 'All Programs',
+        list_title: 'Popular HCI Programs',
+        list: [{
+          name: 'Ph.D. in HCI',
+          link: '#',
+        }, {
+          name: 'Master of Human-Computer Interaction (MHCI)',
+          link: '#'
+        }, {
+          name: 'Accelerated Master of Human-Computer Interaction',
+          link: '#'
+        }, {
+          name: 'Master of Educational Technology and Applied Learning Science (METALS)',
+          link: '#'
+        }]
       }
     }
+  },
+  directory() {
+    let filtered = [];
+    let departmentFilter = this.$store.state.route.params.department;
+    let random_indexes = [];
+    let directory_length = this.$store.state.directory.list.length;
+    let maxCount = 12;
+
+    if (directory_length > 0 && !filtered.length) {
+      for(let i = 0; i <= directory_length * 2; i++) {
+        if (filtered.length === maxCount) {
+          break;
+        }
+
+        let rand_num = Math.floor(Math.random() * (directory_length - 1));
+        let person = this.$store.state.directory.list[rand_num];
+
+        if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
+          continue;
+        }
+
+        if(person.departments.includes(departmentFilter) || !departmentFilter) {
+          filtered.push(person);
+          random_indexes.push(rand_num);
+        }
+      }
+    }
+    return filtered;
   },
   data () {
     return {
@@ -291,6 +370,9 @@ export default {
       page_title_link: '/departments',
       header_class: 'pulled has_back'
     }
-  }
+  },
+  asyncData ({ store, route: { params: { department }}} ) {
+    return store.dispatch('GET_DIRECTORY', { department });
+  },
 }
 </script>

@@ -15,10 +15,11 @@
           div(class="gutter-xl")
             div(class="col-3-5")
               div(class="emphasized")
-                h2 {{event.speakerName}}
+                h2 with {{ event.speakerName | capitalize }}
                 p(
                   v-if="event.description"
-                  ) {{event.description}}
+                  v-html="event.description"
+                  )
             div(class="col-2-5")
               div(class="content_page_block")
                 div(class="page_block_date")
@@ -51,7 +52,7 @@ import EventsGrid from '../components/EventsGrid.vue'
 import format from 'date-fns/format';
 
 export default {
-  name: 'discover-view',
+  name: 'events-single-view',
   components: {
     NewHeader,
     NavDrawer,
@@ -83,9 +84,7 @@ export default {
       });
     },
     event(){
-      let event = this.$route.params.event
-      for (var id in this.$store.state.events.event)
-        if(id === event) return this.$store.state.events.event[id]
+      return this.$store.state.events.event[this.$route.params.event];
     },
     eventDate(){
       const dateObject = {
@@ -110,6 +109,15 @@ export default {
   asyncData ({ store, route }) {
     store.dispatch('GET_EVENT', route.params.event)
     store.dispatch('GET_EVENTS_LIST');
+  },
+  filters: {
+    capitalize: function (value) {
+      if (!value) return ''
+      value = value.toString().split(/\s+/)
+      return value.map((str) => {
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
+      }).join(' ');
+    }
   }
 }
 </script>

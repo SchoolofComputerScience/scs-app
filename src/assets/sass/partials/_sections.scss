@@ -183,7 +183,7 @@ section.hidden_content{
     text-align: left;
     margin: 0;
     margin-bottom: 1em;
-    padding-right: 2em;
+    padding-right: 4em;
     align-items: center;
     h1{
       font-size: 3em;
@@ -509,7 +509,7 @@ section.hidden_content{
   margin-top: 5px;
   font-style: italic;
   transition: all 350ms ease;
-  text-transform: capitalize;
+  // text-transform: capitalize;
 }
 .page_block.news_item:before, .page_block.person:before{
   content: '';

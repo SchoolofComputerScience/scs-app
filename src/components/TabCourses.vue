@@ -16,7 +16,7 @@ ul.visible(
       span(class="label_primary") {{getDeparment(course.course_id)}}
       span(class="label_secondary") {{course.course_number}}
       span(class="label_title") {{course.title}}
-      span(class="label_description") {{getDescription(course.course_id)}}
+      span(class="label_description") {{ getDescription(course.course_id) | truncate(250) }}
       span(class="label_tertiary") {{getGraduateLevel(course.course_id)}}
 </template>
 
@@ -70,6 +70,14 @@ export default {
     },
     semesterCode () {
       return this.$store.state.semesterCode.code;
+    }
+  },
+  filters: {
+    truncate: function(value, limit) {
+      if (value.length > limit) {
+        value = value.substring(0, (limit - 3)) + '...';
+      }
+      return value
     }
   }
 }
