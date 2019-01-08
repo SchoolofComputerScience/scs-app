@@ -439,7 +439,8 @@ section.hidden_content {
       font-style: italic;
       margin: 1em;
       line-height: 1.4em;
-      font-size: 0.9em; }
+      font-size: 0.9em;
+      text-transform: capitalize; }
     .page_block.promoted:hover .page_block_date {
       transform: translate(10px, 0); }
   .page_block.event_item .page_block_content {

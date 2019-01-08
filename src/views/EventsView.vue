@@ -16,23 +16,6 @@
           :moreArticles="moreArticles"
           :isSingle="isSingle"
           )
-        //- section(class="page_blocks have_tags")
-
-          //- div(class="page_block_container visible")
-
-
-            EventsItem(
-              class="card"
-              v-for="(event, i) in events"
-              :firsty="!i"
-              :data="event"
-              :key="event.uid"
-            )
-
-          button(
-            class="button_show_more"
-            v-if="events.length > 3"
-          ) Show More
 
     NewFooter
     ModalExplore

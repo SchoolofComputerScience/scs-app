@@ -7,6 +7,7 @@ section(class="page_blocks")
 
     EventsItem(
       class="card"
+      v-if="i <= articlesToShow"
       v-for="(event, i) in events"
       :firsty="!i"
       :data="event"

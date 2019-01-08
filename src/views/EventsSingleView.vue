@@ -35,50 +35,6 @@
           :isSingle="isSingle"
           )
 
-        //- section(class="page_blocks")
-        //-   h2 related
-        //-   div(class="page_block_container visible")
-        //-
-        //-     div(class="page_block event")
-        //-       a(href="#", class="link_absolute") Field Robotics Center Seminar
-        //-       div(class="page_block_labels")
-        //-         span(class="page_block_label") seminar
-        //-       div(class="page_block_content")
-        //-         div(class="page_block_date")
-        //-           span(class="page_block_date_month") nov
-        //-           span(class="page_block_date_day") 28
-        //-         span(class="page_block_title") Field Robotics Center Seminar
-        //-         span(class="page_block_description") with Rogerio Bonatti
-        //-       div(class="page_block_tags")
-        //-         span institute for software research
-        //-
-        //-     div(class="page_block event")
-        //-       a(href="#", class="link_absolute") Field Robotics Center Seminar
-        //-       div(class="page_block_labels")
-        //-         span(class="page_block_label") seminar
-        //-       div(class="page_block_content")
-        //-         div(class="page_block_date")
-        //-           span(class="page_block_date_month") nov
-        //-           span(class="page_block_date_day") 28
-        //-         span(class="page_block_title") Field Robotics Center Seminar
-        //-         span(class="page_block_description") with Rogerio Bonatti
-        //-       div(class="page_block_tags")
-        //-         span institute for software research
-        //-
-        //-     div(class="page_block event")
-        //-       a(href="#", class="link_absolute") Field Robotics Center Seminar
-        //-       div(class="page_block_labels")
-        //-         span(class="page_block_label") seminar
-        //-       div(class="page_block_content")
-        //-         div(class="page_block_date")
-        //-           span(class="page_block_date_month") nov
-        //-           span(class="page_block_date_day") 28
-        //-         span(class="page_block_title") Field Robotics Center Seminar
-        //-         span(class="page_block_description") with Rogerio Bonatti
-        //-       div(class="page_block_tags")
-        //-         span institute for software research
-        //-
-        //-   button(class="button_show_more") Show More
     NewFooter
     ModalExplore
     ModalSearch

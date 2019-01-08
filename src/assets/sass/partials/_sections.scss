@@ -324,6 +324,7 @@ section.hidden_content{
       margin: 1em;
       line-height: 1.4em;
       font-size: 0.9em;
+      text-transform: capitalize;
     }
     &:hover .page_block_date{
       transform: translate(10px,0);

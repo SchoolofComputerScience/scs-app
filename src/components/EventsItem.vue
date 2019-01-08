@@ -18,7 +18,7 @@ div(
       class="page_block_title_container"
     )
       span(class="page_block_title") {{data.name}}
-      span(class="page_block_subtitle") {{data.speakerName}}
+      span(class="page_block_subtitle") {{data.speakerName.toLowerCase()}}
     div(
       v-if="firsty && !isSingle"
       class="page_block_details"
@@ -32,7 +32,7 @@ div(
     span(
       v-if="!firsty || isSingle"
       class="page_block_description"
-    ) {{data.speakerName}}
+    ) {{data.speakerName.toLowerCase()}}
   div(class="page_block_tags")
     span department name
 </template>
