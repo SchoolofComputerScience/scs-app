@@ -69,73 +69,25 @@
         section(class="page_blocks")
           h2 People
           div(class="page_block_container visible")
+
             div(
-              v-for="person in directory"
-              ) {{ person.display_name }}
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_vincent.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") Vincent Aleven
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") Vincent Aleven
-            //-     span(class="page_block_description") Director, Bhci Program
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_karen.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") Karen Kornblum Berntsen
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") Karen Kornblum Berntsen
-            //-     span(class="page_block_description") Associate Teaching Professor
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_marti.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") Marti Louw
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") Marti Louw
-            //-     span(class="page_block_description") Director, Learning Media Design Center
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_john.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") John Zimmerman
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") John Zimmerman
-            //-     span(class="page_block_description") Professor
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_judeth.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") Judeth (Judy) Choi
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") Judeth (Judy) Choi
-            //-     span(class="page_block_description") Human-Computer Interaction Institute
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_tianshi.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") Tianshi Li
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") Tianshi Li
-            //-     span(class="page_block_description")
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_anderinsola.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") Aderinsola Akintilo
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") Aderinsola Akintilo
-            //-     span(class="page_block_description") Human-Computer Interaction Institute
-            //- div(
-            //-   class="page_block person"
-            //-   :style="{'background-image': `url(${require('../assets/images/placeholders/people_jennifer.jpg')})`}"
-            //- )
-            //-   a(href="#", class="link_absolute") John Zimmerman
-            //-   div(class="page_block_content")
-            //-     span(class="page_block_title") John Zimmerman
-            //-     span(class="page_block_description") MHCI Program Coordinator
+              v-for="(person, i) in directory"
+              v-if="i < people_to_show"
+              class="page_block person"
+              :style="person.backgroundImage"
+            )
+              router-link(
+                :to="'/people/single/' + person.scid"
+                class="link_absolute"
+                )
+              div(class="page_block_content")
+                span(class="page_block_title") {{ person.display_name }}
+                span(class="page_block_description") {{ person.position }}
+
+            button(
+              class="button_show_more"
+              v-on:click="people_to_show += more_people"
+            ) Show More
 
         section(class="content_list")
           h2 Upcoming Courses
@@ -281,7 +233,60 @@ export default {
     ModalExplore,
     ModalSearch,
   },
+  data () {
+    return {
+      title: 'Human-Computer Interaction - Departments',
+      page_title_label: 'Departments',
+      page_title_link: '/departments',
+      header_class: 'pulled has_back',
+      people_to_show: 8,
+      more_people: 4,
+      people_types: [
+        'faculty'
+      ]
+    }
+  },
   computed: {
+    directory() {
+      let filtered = [];
+      let departmentFilter = this.$route.params.department;
+      let random_indexes = [];
+      let directory_length = this.$store.state.directory.list.length;
+      let maxCount = 12;
+      let peopleTypes = this.people_types;
+
+      // if (directory_length > 0 && !filtered.length) {
+      //   for(let i = 0; i <= directory_length * 2; i++) {
+      //     if (filtered.length === maxCount) {
+      //       break;
+      //     }
+      //
+      //     let rand_num = Math.floor(Math.random() * (directory_length - 1));
+      //     let person = this.$store.state.directory.list[rand_num];
+      //
+      //     if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
+      //       continue;
+      //     }
+      //
+      //     if(person.departments.includes(departmentFilter) || !departmentFilter) {
+      //       filtered.push(person);
+      //       random_indexes.push(rand_num);
+      //     }
+      //   }
+      // }
+
+      console.log(this.$store.state.directory.list[0]);
+
+      return this.$store.state.directory.list.filter((person) => {
+        return (
+          person.departments.includes(departmentFilter) &&
+          peopleTypes.includes(person.scs_relationship_class)
+        );
+      }).map((person) => {
+        person.backgroundImage = 'background-image: url(' + person.image_url + ');';
+        return person;
+      });
+    },
     department: function () {
       return {
         id: 'cb',
@@ -335,43 +340,8 @@ export default {
       }
     }
   },
-  directory() {
-    let filtered = [];
-    let departmentFilter = this.$store.state.route.params.department;
-    let random_indexes = [];
-    let directory_length = this.$store.state.directory.list.length;
-    let maxCount = 12;
-
-    if (directory_length > 0 && !filtered.length) {
-      for(let i = 0; i <= directory_length * 2; i++) {
-        if (filtered.length === maxCount) {
-          break;
-        }
-
-        let rand_num = Math.floor(Math.random() * (directory_length - 1));
-        let person = this.$store.state.directory.list[rand_num];
-
-        if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
-          continue;
-        }
-
-        if(person.departments.includes(departmentFilter) || !departmentFilter) {
-          filtered.push(person);
-          random_indexes.push(rand_num);
-        }
-      }
-    }
-    return filtered;
-  },
-  data () {
-    return {
-      title: 'Human-Computer Interaction - Departments',
-      page_title_label: 'Departments',
-      page_title_link: '/departments',
-      header_class: 'pulled has_back'
-    }
-  },
   asyncData ({ store, route: { params: { department }}} ) {
+    store.dispatch('GET_SCS_DEPARTMENT_LIST');
     return store.dispatch('GET_DIRECTORY', { department });
   },
 }
