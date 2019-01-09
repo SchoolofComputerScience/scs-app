@@ -66,50 +66,16 @@
 
           button(class="button_show_more") Show More
 
-        section(class="page_blocks")
-          h2 People
-          div(class="page_block_container visible")
+        PeopleGrid(
+          :directory="directory"
+          :hasHeadline="true"
+          )
 
-            div(
-              v-for="(person, i) in directory"
-              v-if="i < people_to_show"
-              class="page_block person"
-              :style="person.backgroundImage"
-            )
-              router-link(
-                :to="'/people/single/' + person.scid"
-                class="link_absolute"
-                )
-              div(class="page_block_content")
-                span(class="page_block_title") {{ person.display_name }}
-                span(class="page_block_description") {{ person.position }}
+        CourseList(
+          :courses="courses"
+          :hasHeadline="true"
+          )
 
-            button(
-              class="button_show_more"
-              v-on:click="people_to_show += more_people"
-            ) Show More
-
-        section(class="content_list")
-          h2 Upcoming Courses
-          ul(class="list_stacked list_multi_column theme_courses visible")
-            li
-              a(href="#") #[span(class="item_title") Interactive Data Science] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Freshman Immigration Course] #[span(class="label") undergraduate]
-              div(class="list_window")
-                span(class="label_primary") computer science
-                span(class="label_secondary") 15-128
-                span(class="label_title") Freshman Immigration Course
-                span(class="label_description") The Freshman Immigration Course is taken by first-semester Computer Science majors on the Pittsburgh campus.
-                span(class="label_tertiary") undergraduate
-            li
-              a(href="#") #[span(class="item_title") Data Science Seminar] #[span(class="label") graduate]
-            li
-              a(href="#") #[span(class="item_title") Data Science Capstone] #[span(class="label") undergraduate]
-            li
-              a(href="#") #[span(class="item_title") Computer Science Co-Op] #[span(class="label") undergraduate]
-            li(class="show_more")
-              button(class="button_show_more") Show More
         section(class="content_list")
           h2 Publications
           ul(class="list_stacked list_multi_column theme_publications visible")
@@ -223,6 +189,8 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
+import PeopleGrid from '../components/PeopleGrid.vue';
+import CourseList from '../components/CourseList.vue';
 
 export default {
   name: 'discover-view',
@@ -232,6 +200,8 @@ export default {
     NewFooter,
     ModalExplore,
     ModalSearch,
+    PeopleGrid,
+    CourseList
   },
   data () {
     return {
@@ -239,15 +209,73 @@ export default {
       page_title_label: 'Departments',
       page_title_link: '/departments',
       header_class: 'pulled has_back',
-      people_to_show: 8,
-      more_people: 4,
       people_types: [
         'faculty'
       ]
     }
   },
+  // methods: {
+  //   getCourse: function (course_id) {
+  //     // FIXME: don't hard code, bruh
+  //     let courseLookup = (this.$store.state.courses.lists['F18'] || []).reduce((h, c) => {
+  //       return h[c.course_id] = c, h;
+  //     }, {});
+  //
+  //     return courseLookup[course_id];
+  //   },
+  //   getGraduateLevel: function (course_id) {
+  //     let course = this.getCourse(course_id);
+  //     let level  = (course
+  //       ? course.graduate_level.toLowerCase()
+  //       : ''
+  //     );
+  //
+  //     if (level === 'u') {
+  //       return 'Undergraduate';
+  //     } else if (level === 'g') {
+  //       return 'Graduate';
+  //     } else {
+  //       return 'N/A';
+  //     }
+  //   },
+  //   getDescription: function (course_id) {
+  //     let course = this.getCourse(course_id);
+  //
+  //     return (course
+  //       ? course.description
+  //       : ''
+  //     );
+  //   },
+  //   getDeparment: function (course_id) {
+  //     let course = this.getCourse(course_id);
+  //
+  //     return (course
+  //       ? course.department
+  //       : ''
+  //     );
+  //   }
+  // },
   computed: {
-    directory() {
+    courses () {
+      let departmentFilter = this.$route.params.department;
+
+      // FIXME: don't hard code me, bruh
+      return this.$store.state.courses.lists['F18'].filter((course) => {
+        return course.department.toLowerCase() === departmentFilter.toLowerCase();
+      });
+    },
+    semesterCode () {
+      return this.$store.state.semesterCode.code;
+    },
+    department: function () {
+      return {
+        id: 'cb',
+        abbreviation: 'cb',
+        title: 'Computational Biology',
+        description: 'Computational biology is a critically important and growing field that is essential to biomedical research.  The Computational Biology Department at Carnegie Mellon is part of the internationally-recognized School of Computer Science, and draws upon the incredible energy and expertise in the entire School.'
+      };
+    },
+    directory () {
       let filtered = [];
       let departmentFilter = this.$route.params.department;
       let random_indexes = [];
@@ -255,27 +283,7 @@ export default {
       let maxCount = 12;
       let peopleTypes = this.people_types;
 
-      // if (directory_length > 0 && !filtered.length) {
-      //   for(let i = 0; i <= directory_length * 2; i++) {
-      //     if (filtered.length === maxCount) {
-      //       break;
-      //     }
-      //
-      //     let rand_num = Math.floor(Math.random() * (directory_length - 1));
-      //     let person = this.$store.state.directory.list[rand_num];
-      //
-      //     if (person.scs_relationship_class !== 'faculty' || !person.image_url || random_indexes.includes(rand_num)) {
-      //       continue;
-      //     }
-      //
-      //     if(person.departments.includes(departmentFilter) || !departmentFilter) {
-      //       filtered.push(person);
-      //       random_indexes.push(rand_num);
-      //     }
-      //   }
-      // }
-
-      console.log(this.$store.state.directory.list[0]);
+      console.log(this.$store.state.courses.lists['F18'][0])
 
       return this.$store.state.directory.list.filter((person) => {
         return (
@@ -286,14 +294,6 @@ export default {
         person.backgroundImage = 'background-image: url(' + person.image_url + ');';
         return person;
       });
-    },
-    department: function () {
-      return {
-        id: 'cb',
-        abbreviation: 'cb',
-        title: 'Computational Biology',
-        description: 'Computational biology is a critically important and growing field that is essential to biomedical research.  The Computational Biology Department at Carnegie Mellon is part of the internationally-recognized School of Computer Science, and draws upon the incredible energy and expertise in the entire School.'
-      };
     },
     header_text: function () {
       return {
@@ -342,7 +342,8 @@ export default {
   },
   asyncData ({ store, route: { params: { department }}} ) {
     store.dispatch('GET_SCS_DEPARTMENT_LIST');
+    store.dispatch('FETCH_COURSE_LIST', 'F18');
     return store.dispatch('GET_DIRECTORY', { department });
-  },
+  }
 }
 </script>
