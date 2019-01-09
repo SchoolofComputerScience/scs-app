@@ -1,7 +1,7 @@
 <template lang="pug">
 section(class="page_blocks")
 
-  h2(v-if="isSingle") related
+  h2(v-if="isSingle") Related
 
   div(class="page_block_container visible")
 
