@@ -10,7 +10,7 @@ section(class="page_blocks have_tags")
       v-if="i <= articlesToShow"
       :firsty="!i"
       :articlesToShow="articlesToShow"
-      :article="article"
+      :item="article"
       :key="article.id"
       :isSingle="isSingle"
       )

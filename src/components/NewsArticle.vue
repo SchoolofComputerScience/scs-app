@@ -1,22 +1,22 @@
 <template lang="pug">
 div.page_block.news_item(
   :class="{promoted: firsty && !isSingle }"
-  :style="{ 'background-image': 'url(' + article.image + ')' }"
+  :style="{ 'background-image': 'url(' + item.image + ')' }"
 )
   router-link(
-    :to="'/news/single/' + article.id"
+    :to="'/news/single/' + item.id"
     class="link_absolute"
-  ) {{article.headline}}
+  ) {{item.headline}}
   div(class="page_block_labels")
-    span(class="page_block_label") {{timeFix(article.date)}}
+    span(class="page_block_label") {{timeFix(item.date)}}
   div(class="page_block_content")
     span(
       class="page_block_title"
-    ) {{article.headline}}
+    ) {{item.headline}}
     span(
       class="page_block_subtitle"
       v-if="firsty && !isSingle"
-    ) {{article.subheading}}
+    ) {{item.subheading}}
   div(class="page_block_tags")
     span robotics institute
 </template>
@@ -28,7 +28,7 @@ export default {
   name: 'news-article',
   props: {
     'firsty': true,
-    'article': {},
+    'item': {},
     'isSingle': false
   },
 

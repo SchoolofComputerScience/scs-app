@@ -10,7 +10,7 @@ section(class="page_blocks")
       v-if="i <= articlesToShow"
       v-for="(event, i) in events"
       :firsty="!i"
-      :data="event"
+      :item="event"
       :key="event.uid"
       :articlesToShow="articlesToShow"
       :isSingle="isSingle"

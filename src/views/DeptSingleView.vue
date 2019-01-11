@@ -29,42 +29,13 @@
                   :href="item.link"
                   ) {{item.name}}
 
-        section(class="page_blocks")
-          h2 News &amp; Events
-          div(class="page_block_container visible")
-
-            div(
-              class="page_block news_item"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/news_item_1.jpg')})`}"
-            )
-              a(href="#", class="link_absolute") Kery, Myers Win Best Paper at VL/HCC for Verdant Prototype
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") oct 22
-              div(class="page_block_content")
-                span(class="page_block_title") Kery, Myers Win Best Paper at VL/HCC for Verdant Prototype
-
-            div(class="page_block event")
-              a(href="#", class="link_absolute") Learning Programming at Scale: Code, Data, and Environment
-              div(class="page_block_labels")
-                span(class="page_block_label primary") events
-                span(class="page_block_label") seminar
-              div(class="page_block_content")
-                div(class="page_block_date")
-                  span(class="page_block_date_month") Oct
-                  span(class="page_block_date_day") 26
-                span(class="page_block_title") Learning Programming at Scale: Code, Data, and Environment
-                span(class="page_block_description") with Philip Guo
-
-            div(class="page_block news_item")
-              a(href="#", class="link_absolute") WGU and CMU Partner to Develop AI-Enabled Career Guidance...
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") oct 16
-              div(class="page_block_content")
-                span(class="page_block_title") WGU and CMU Partner to Develop AI-Enabled Career Guidance...
-
-          button(class="button_show_more") Show More
+        MixedGrid(
+          :items="newsAndEvents"
+          :title= "'News & Events'"
+          :isSingle="false"
+          :minShow="6"
+          :numToAdd="4"
+        )
 
         PeopleGrid(
           :directory="directory"
@@ -116,6 +87,7 @@
 
 <script>
 
+import _ from 'lodash';
 import NewHeader from '../components/NewHeader.vue';
 import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
@@ -125,6 +97,7 @@ import PeopleGrid from '../components/PeopleGrid.vue';
 import CourseList from '../components/CourseList.vue';
 import PubList from '../components/PubList.vue';
 import ResearchAreaGrid from '../components/ResearchAreaGrid.vue';
+import MixedGrid from '../components/MixedGrid.vue';
 
 export default {
   name: 'discover-view',
@@ -137,7 +110,8 @@ export default {
     PeopleGrid,
     CourseList,
     PubList,
-    ResearchAreaGrid
+    ResearchAreaGrid,
+    MixedGrid
   },
   data () {
     return {
@@ -172,7 +146,6 @@ export default {
       return this.$store.state.semesterCode.code;
     },
     department: function () {
-      console.log(this.$store.state.publication.pub[this.$route.params.pubid]);
       return {
         id: 'cb',
         abbreviation: 'cb',
@@ -224,6 +197,30 @@ export default {
         title: 'Natural Language Processing'
       }];
     },
+    newsAndEvents: function () {
+      // FIXME: just sampling/shuffling to show variety of neighbors, need 
+      // to figure out how these are to be combined....
+      
+      let news = _.sampleSize((this.$store.state.news.list || []).map((data) => {
+        return {
+          type: 'news',
+          data: data
+        };
+      }), 6);
+      
+      let events = _.sampleSize((this.$store.state.events.list || []).map((data) => {
+        return {
+          type: 'event',
+          data: data
+        };
+      }), 6);
+      
+      return _.shuffle(
+        news.concat(events)
+      ).map((item, i) => {
+        return item.id = i, item;
+      });
+    },
     header_text: function () {
       return {
         button_name: 'visit the hci website',
@@ -272,6 +269,8 @@ export default {
   asyncData ({ store, route: { params: { department, pubid, scid }}} ) {
     store.dispatch('GET_SCS_DEPARTMENT_LIST');
     store.dispatch('FETCH_COURSE_LIST', 'F18');
+    store.dispatch('GET_EVENTS_LIST');
+    store.dispatch('GET_NEWS_LIST');
     store.dispatch('FETCH_PUBLICATION', { pubid, scid });
     return store.dispatch('GET_DIRECTORY', { department });
   }
