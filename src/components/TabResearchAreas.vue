@@ -1,6 +1,7 @@
 <template lang="pug">
   ResearchAreaGrid(
-    :researchAreas="researchAreas"
+    :researchAreas="researchAreas",
+    :hasHeadline="false"
   )
 </template>
 

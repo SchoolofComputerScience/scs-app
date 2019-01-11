@@ -78,65 +78,11 @@
 
         PubList
 
-        section(class="content_list")
-          h2 Research Areas
-          div(class="filter_item_list list_cards visible small")
-            div(class="list_card")
-              a(href="#", class="link_absolute") Accessibility
-              div
-                span(class="item_title") Accessibility
-            div(class="list_card")
-              a(href="#", class="link_absolute") Crowdsourcing
-              div
-                span(class="item_title") Crowdsourcing
-            div(class="list_card")
-              a(href="#", class="link_absolute") Enabling Technologies
-              div
-                span(class="item_title") Enabling Technologies
-            div(class="list_card")
-              a(href="#", class="link_absolute") Design Research
-              div
-                span(class="item_title") Design Research
-            div(class="list_card")
-              a(href="#", class="link_absolute") Human Assistance
-              div
-                span(class="item_title") Human Assistance
-            div(class="list_card")
-              a(href="#", class="link_absolute") Context-Aware Computing
-              div
-                span(class="item_title") Context-Aware Computing
-            div(class="list_card")
-              a(href="#", class="link_absolute") Tools
-              div
-                span(class="item_title") Tools
-            div(class="list_card")
-              a(href="#", class="link_absolute") Games
-              div
-                span(class="item_title") Games
-            div(class="list_card")
-              a(href="#", class="link_absolute") Education
-              div
-                span(class="item_title") Education
-            div(class="list_card")
-              a(href="#", class="link_absolute") Healthcare
-              div
-                span(class="item_title") Healthcare
-            div(class="list_card")
-              a(href="#", class="link_absolute") Learning Sciences &amp; Technologies
-              div
-                span(class="item_title") Learning Sciences &amp; Technologies
-            div(class="list_card")
-              a(href="#", class="link_absolute") Service Design
-              div
-                span(class="item_title") Service Design
-            div(class="list_card")
-              a(href="#", class="link_absolute") Social Computing
-              div
-                span(class="item_title") Social Computing
-            div(class="list_card")
-              a(href="#", class="link_absolute") Societal Problems
-              div
-                span(class="item_title") Societal Problems
+        ResearchAreaGrid(
+          :researchAreas="researchAreas"
+          :hasHeadline="true"
+        )
+        
 
       section(
         class="subfooter"
@@ -175,6 +121,7 @@ import ModalSearch from '../components/ModalSearch.vue';
 import PeopleGrid from '../components/PeopleGrid.vue';
 import CourseList from '../components/CourseList.vue';
 import PubList from '../components/PubList.vue';
+import ResearchAreaGrid from '../components/ResearchAreaGrid.vue';
 
 export default {
   name: 'discover-view',
@@ -186,7 +133,8 @@ export default {
     ModalSearch,
     PeopleGrid,
     CourseList,
-    PubList
+    PubList,
+    ResearchAreaGrid
   },
   data () {
     return {
@@ -247,6 +195,30 @@ export default {
         person.backgroundImage = 'background-image: url(' + person.image_url + ');';
         return person;
       });
+    },
+    researchAreas: function () {
+      // TODO: this will be a list of research areas filtered 
+      // to the currently loaded department
+      
+      return [{
+        area_id: 'machine_learning',
+        title: 'Machine Learning'
+      }, {
+        area_id: 'robotics',
+        title: 'Robotics'
+      }, {
+        area_id: 'human_computer_interaction',
+        title: 'Human-Computer Interaction'
+      }, {
+        area_id: 'artificial_intelligence',
+        title: 'Artificial Intelligence'
+      }, {
+        area_id: 'computer_vision',
+        title: 'Computer Vision'
+      }, {
+        area_id: 'natural_language_processing',
+        title: 'Natural Language Processing'
+      }];
     },
     header_text: function () {
       return {
