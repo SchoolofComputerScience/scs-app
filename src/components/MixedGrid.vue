@@ -38,8 +38,8 @@ export default {
   ],
   data () {
     return {
-      itemsToShow: this.minShow,
-      moreItems: this.numToAdd,
+      itemsToShow: this.minShow || 3,
+      moreItems: this.numToAdd || 3,
     }
   },
   methods: {

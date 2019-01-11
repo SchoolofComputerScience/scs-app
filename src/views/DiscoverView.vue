@@ -24,92 +24,17 @@
             div(class="col-1-3")
               p(class="micro") Not sure where to look?
               a(class="link_explore") Explore the CMU School<br> of Computer Science
+      .container
+        MixedGrid(
+          :items="newsAndEvents"
+          :title= "false"
+          :isSingle="false"
+          :minShow="7"
+          :numToAdd="3"
+        )
 
-      section(class="page_blocks")
-        div(class="container")
-          div(class="page_block_container visible")
+      DepartmentGrid
 
-            div(
-              class="page_block news_item promoted"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_1.jpg')})`}"
-            )
-              a(href="/news/single") New CMU Degree Prepares Researchers for AI-Directed Experimentation
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") oct 9
-              div(class="page_block_content")
-                span(class="page_block_title") New CMU Degree Prepares Researchers for AI-Directed Experimentation
-                span(class="page_block_subtitle") Artificial Intelligence Will Drive More Decisions in Biological Experiments
-
-            div(
-              class="page_block news_item"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_2.jpg')})`}"
-            )
-              a(href="/news/single") PopSci Recognizes Wheel-Track With "Best of What's New" Award
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") nov 27
-              div(class="page_block_content")
-                span(class="page_block_title") PopSci Recognizes Wheel-Track With "Best of What's New" Award
-
-            div(class="page_block event")
-              a(href="/events/single") Field Robotics Center Seminar
-              div(class="page_block_labels")
-                span(class="page_block_label primary") events
-                span(class="page_block_label") seminar
-              div(class="page_block_content")
-                div(class="page_block_date")
-                  span(class="page_block_date_month") nov
-                  span(class="page_block_date_day") 28
-                span(class="page_block_title") Field Robotics Center Seminar
-                span(class="page_block_description") with Rogerio Bonatti
-
-            div(
-              class="page_block news_item"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_3.jpg')})`}"
-            )
-              a(href="/news/single") Farber Elected 2018 AAAS Fellow
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") nov 27
-              div(class="page_block_content")
-                span(class="page_block_title") Farber Elected 2018 AAAS Fellow
-
-            div(
-              class="page_block news_item"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_5.jpg')})`}"
-            )
-              a(href="/news/single") Bajpai, Wang Earn Stehlik Scholarships
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") nov 21
-              div(class="page_block_content")
-                span(class="page_block_title") Bajpai, Wang Earn Stehlik Scholarships
-
-            div(class="page_block event")
-              a(href="/events/single") CyLab Student Seminar
-              div(class="page_block_labels")
-                span(class="page_block_label primary") events
-                span(class="page_block_label") seminar
-              div(class="page_block_content")
-                div(class="page_block_date")
-                  span(class="page_block_date_month") nov
-                  span(class="page_block_date_day") 28
-                span(class="page_block_title") CyLab Student Seminar
-                span(class="page_block_description") with William Melicher
-
-            div(
-              class="page_block news_item"
-              :style="{'background-image': `url(${require('../assets/images/placeholders/news_home_4.png')})`}"
-            )
-              a(href="/news/single") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
-              div(class="page_block_labels")
-                span(class="page_block_label primary") news
-                span(class="page_block_label") nov 14
-              div(class="page_block_content")
-                span(class="page_block_title") Carnegie Mellon University, Microsoft Join Forces to Advance Edge Computing Research
-
-          button(class="button_show_more") Show More
     NewFooter
     ModalExplore
     ModalSearch
@@ -122,6 +47,8 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
+import MixedGrid from '../components/MixedGrid.vue';
+import DepartmentGrid from '../components/DepartmentGrid.vue';
 
 export default {
   name: 'discover-view',
@@ -131,12 +58,44 @@ export default {
     NewFooter,
     ModalExplore,
     ModalSearch,
+    MixedGrid,
+    DepartmentGrid
   },
   data () {
     return {
       title: 'Discover',
       page_title_link: false,
     }
+  },
+  computed: {
+    newsAndEvents: function () {
+      // FIXME: just sampling/shuffling to show variety of neighbors, need
+      // to figure out how these are to be combined....
+
+      let news = _.sampleSize((this.$store.state.news.list || []).map((data) => {
+        return {
+          type: 'news',
+          data: data
+        };
+      }), 6);
+
+      let events = _.sampleSize((this.$store.state.events.list || []).map((data) => {
+        return {
+          type: 'event',
+          data: data
+        };
+      }), 6);
+
+      return _.shuffle(
+        news.concat(events)
+      ).map((item, i) => {
+        return item.id = i, item;
+      });
+    }
+  },
+  asyncData ({ store, route: { params: { department, pubid, scid }}} ) {
+    store.dispatch('GET_EVENTS_LIST');
+    store.dispatch('GET_NEWS_LIST');
   }
 }
 </script>

@@ -32,9 +32,9 @@
         MixedGrid(
           :items="newsAndEvents"
           :title= "'News & Events'"
-          :isSingle="false"
+          :isSingle="true"
           :minShow="6"
-          :numToAdd="4"
+          :numToAdd="3"
         )
 
         PeopleGrid(
@@ -198,23 +198,23 @@ export default {
       }];
     },
     newsAndEvents: function () {
-      // FIXME: just sampling/shuffling to show variety of neighbors, need 
+      // FIXME: just sampling/shuffling to show variety of neighbors, need
       // to figure out how these are to be combined....
-      
+
       let news = _.sampleSize((this.$store.state.news.list || []).map((data) => {
         return {
           type: 'news',
           data: data
         };
       }), 6);
-      
+
       let events = _.sampleSize((this.$store.state.events.list || []).map((data) => {
         return {
           type: 'event',
           data: data
         };
       }), 6);
-      
+
       return _.shuffle(
         news.concat(events)
       ).map((item, i) => {
