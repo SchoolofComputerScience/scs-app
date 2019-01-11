@@ -39,7 +39,7 @@ export default {
   ],
   data () {
     return {
-      itemsToShow: 5,
+      itemsToShow: 4,
       moreItems: 5,
     }
   },

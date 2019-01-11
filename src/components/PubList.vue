@@ -2,7 +2,9 @@
 section(
   class="content_list"
   )
-  h2 Publications
+  h2(
+    v-if="hasHeadline"
+    ) Publications
   ul(class="list_stacked list_multi_column theme_publications visible")
     li(
       v-for="(item, i) in course.list"
@@ -32,16 +34,15 @@ section(
 
 export default {
   name: 'PubList-view',
-  props: [
-    // 'courses',
-    // 'hasHeadline'
-  ],
   data () {
     return {
       itemsToShow: 4,
       moreItems: 5,
     }
   },
+  props: [
+    'hasHeadline'
+  ],
   computed: {
     course: function () {
       return {

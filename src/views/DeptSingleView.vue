@@ -76,13 +76,14 @@
           :hasHeadline="true"
           )
 
-        PubList
+        PubList(
+          :hasHeadline="hasHeadline"
+          )
 
         ResearchAreaGrid(
           :researchAreas="researchAreas"
-          :hasHeadline="true"
+          :hasHeadline="hasHeadline"
         )
-        
 
       section(
         class="subfooter"
@@ -142,6 +143,7 @@ export default {
       page_title_label: 'Departments',
       page_title_link: '/departments',
       header_class: 'pulled has_back',
+      hasHeadline: true,
       people_types: [
         'faculty'
       ]
@@ -197,9 +199,9 @@ export default {
       });
     },
     researchAreas: function () {
-      // TODO: this will be a list of research areas filtered 
+      // TODO: this will be a list of research areas filtered
       // to the currently loaded department
-      
+
       return [{
         area_id: 'machine_learning',
         title: 'Machine Learning'
