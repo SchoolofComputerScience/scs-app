@@ -83,6 +83,8 @@
         ResearchAreaGrid(
           :researchAreas="researchAreas"
           :hasHeadline="hasHeadline"
+          :minShow="8"
+          :numToAdd="4"
         )
 
       section(

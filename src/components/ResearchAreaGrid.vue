@@ -22,15 +22,17 @@ export default {
   name: 'researchArea-view',
   props: [
     'researchAreas',
-    'hasHeadline'
+    'hasHeadline',
+    'minShow',
+    'numToAdd'
   ],
   components: {
     ResearchAreaItem
   },
   data () {
     return {
-      itemsToShow: 4,
-      moreItems: 2,
+      itemsToShow: this.minShow,
+      moreItems: this.numToAdd,
     }
   }
 }
