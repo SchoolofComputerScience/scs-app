@@ -76,25 +76,8 @@
           :hasHeadline="true"
           )
 
-        section(class="content_list")
-          h2 Publications
-          ul(class="list_stacked list_multi_column theme_publications visible")
-            li
-              a(href="#") #[span(class="item_title") Learning with Staleness] #[span(class="label") 2018]
-            li
-              a(href="#") #[span(class="item_title") Efficient Methods for Prediction and Control in Partially Observable Environments] #[span(class="label") 2018]
-            li
-              a(href="#") #[span(class="item_title") Sublinear-Time Learning and Inference for High-Dimensional Models] #[span(class="label") 2018]
-                div(class="list_window")
-                  span(class="label_primary") Robotics Institute
-                  span(class="label_secondary") thesis
-                  span(class="label_title") Sublinear-Time Learning and Interference for High-Dimensional Models
-                  span(class="label_description") Pengju Jin, M.S. Thesis
-                  span(class="label_tertiary") CMU-CS-18-103
-            li
-              a(href="#") #[span(class="item_title") Stress Detection for Keystroke Dynamics] #[span(class="label") 2018]
-            li(class="show_more")
-              button(class="button_show_more") Show More
+        PubList
+
         section(class="content_list")
           h2 Research Areas
           div(class="filter_item_list list_cards visible small")
@@ -191,6 +174,7 @@ import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
 import PeopleGrid from '../components/PeopleGrid.vue';
 import CourseList from '../components/CourseList.vue';
+import PubList from '../components/PubList.vue';
 
 export default {
   name: 'discover-view',
@@ -201,7 +185,8 @@ export default {
     ModalExplore,
     ModalSearch,
     PeopleGrid,
-    CourseList
+    CourseList,
+    PubList
   },
   data () {
     return {
@@ -214,48 +199,15 @@ export default {
       ]
     }
   },
-  // methods: {
-  //   getCourse: function (course_id) {
-  //     // FIXME: don't hard code, bruh
-  //     let courseLookup = (this.$store.state.courses.lists['F18'] || []).reduce((h, c) => {
-  //       return h[c.course_id] = c, h;
-  //     }, {});
-  //
-  //     return courseLookup[course_id];
-  //   },
-  //   getGraduateLevel: function (course_id) {
-  //     let course = this.getCourse(course_id);
-  //     let level  = (course
-  //       ? course.graduate_level.toLowerCase()
-  //       : ''
-  //     );
-  //
-  //     if (level === 'u') {
-  //       return 'Undergraduate';
-  //     } else if (level === 'g') {
-  //       return 'Graduate';
-  //     } else {
-  //       return 'N/A';
-  //     }
-  //   },
-  //   getDescription: function (course_id) {
-  //     let course = this.getCourse(course_id);
-  //
-  //     return (course
-  //       ? course.description
-  //       : ''
-  //     );
-  //   },
-  //   getDeparment: function (course_id) {
-  //     let course = this.getCourse(course_id);
-  //
-  //     return (course
-  //       ? course.department
-  //       : ''
-  //     );
-  //   }
-  // },
   computed: {
+    // pub(){
+    //   if(this.$store.state.publication.pub[this.$route.params.pubid] !== undefined){
+    //     return this.$store.state.publication.pub[this.$route.params.pubid]
+    //   }
+    // },
+    // pbset(){
+    //   return this.$store.state.publication.pub[this.$route.params.pubid] ? true : false
+    // },
     courses () {
       let departmentFilter = this.$route.params.department;
 
@@ -268,6 +220,7 @@ export default {
       return this.$store.state.semesterCode.code;
     },
     department: function () {
+      console.log(this.$store.state.publication.pub[this.$route.params.pubid]);
       return {
         id: 'cb',
         abbreviation: 'cb',
@@ -283,7 +236,7 @@ export default {
       let maxCount = 12;
       let peopleTypes = this.people_types;
 
-      console.log(this.$store.state.courses.lists['F18'][0])
+      // console.log(this.$store.state.courses.lists['F18'][0]);
 
       return this.$store.state.directory.list.filter((person) => {
         return (
@@ -340,9 +293,10 @@ export default {
       }
     }
   },
-  asyncData ({ store, route: { params: { department }}} ) {
+  asyncData ({ store, route: { params: { department, pubid, scid }}} ) {
     store.dispatch('GET_SCS_DEPARTMENT_LIST');
     store.dispatch('FETCH_COURSE_LIST', 'F18');
+    store.dispatch('FETCH_PUBLICATION', { pubid, scid });
     return store.dispatch('GET_DIRECTORY', { department });
   }
 }

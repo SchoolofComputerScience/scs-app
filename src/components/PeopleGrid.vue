@@ -1,5 +1,8 @@
 <template lang="pug">
-section(class="page_blocks")
+section(
+  v-if="directory.length"
+  class="page_blocks"
+  )
 
   h2(
     v-if="hasHeadline"
@@ -8,13 +11,14 @@ section(class="page_blocks")
 
     PeopleItem(
       v-for="(person, i) in directory"
-      v-if="i < people_to_show"
+      v-if="i < itemsToShow"
       :person="person"
       :key="person.scid"
     )
     button(
       class="button_show_more"
-      v-on:click="people_to_show += more_people"
+      v-if="itemsToShow < directory.length"
+      v-on:click="itemsToShow += moreItems"
     ) Show More
 </template>
 
@@ -33,8 +37,8 @@ export default {
   },
   data () {
     return {
-      people_to_show: 8,
-      more_people: 4,
+      itemsToShow: 8,
+      moreItems: 4,
     }
   }
 }

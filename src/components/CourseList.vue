@@ -1,5 +1,8 @@
 <template lang="pug">
-section(class="content_list")
+section(
+  class="content_list"
+  v-if="courses.length"
+  )
   h2 Upcoming Courses
   ul(class="list_stacked list_multi_column theme_courses visible")
 
@@ -21,6 +24,7 @@ section(class="content_list")
     li(class="show_more")
       button(
         class="button_show_more"
+        v-if="itemsToShow < courses.length"
         v-on:click="itemsToShow += moreItems"
         ) Show More
 </template>
