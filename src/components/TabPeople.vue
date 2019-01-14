@@ -1,19 +1,27 @@
 <template lang="pug">
 
-PeopleGrid(
-  :directory="facultyInArea"
+MixedGrid(
+  :items="facultyInArea"
   :hasHeadline="false"
+  :minShow="minShow"
+  :numToAdd="numToAdd"
   )
 </template>
 
 <script>
 
-import PeopleGrid from '../components/PeopleGrid.vue';
+import MixedGrid from './MixedGrid.vue';
 
 export default {
   name: 'tab-people',
   components: {
-    PeopleGrid
+    MixedGrid
+  },
+  data: function () {
+    return {
+      minShow: 8,
+      numToAdd: 4
+    }
   },
   computed: {
     facultyInArea() {
@@ -35,9 +43,15 @@ export default {
       }
 
       if (faculty.length)
-        return faculty;
+        return faculty.map((person, i) => {
+          return {
+            id: i,
+            type: 'person',
+            data: person
+          }
+        });
       else
-        return false;
+        return [];
     }
   }
 }

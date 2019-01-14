@@ -21,13 +21,15 @@ section.page_blocks(v-if="items.length")
 <script>
 
 import NewsArticle from './NewsArticle.vue';
-import EventsItem from './EventsItem.vue'
+import EventsItem from './EventsItem.vue';
+import PeopleItem from './PeopleItem.vue';
 
 export default {
   name: 'MixedGrid-view',
   components: {
     NewsArticle,
-    EventsItem
+    EventsItem,
+    PeopleItem
   },
   props: [
     'items',
@@ -48,6 +50,8 @@ export default {
         return NewsArticle;
       } else if (type === 'event') {
         return EventsItem;
+      } else if (type === 'person') {
+        return PeopleItem;
       }
     }
   }

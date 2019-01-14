@@ -10,10 +10,11 @@
         section(class="page_title hidden_content")
           h1 News
 
-        NewsGrid(
-          :news="news"
-          :articlesToShow="articlesToShow"
-          :moreArticles="moreArticles"
+        MixedGrid(
+          :items="news"
+          :minShow="minShow"
+          :numToAdd="numToAdd"
+          :isSingle="isSingle"
           )
 
     NewFooter
@@ -28,7 +29,7 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
-import NewsGrid from '../components/NewsGrid.vue';
+import MixedGrid from '../components/MixedGrid.vue';
 
 export default {
   name: 'discover-view',
@@ -36,7 +37,7 @@ export default {
     NewHeader,
     NavDrawer,
     NewFooter,
-    NewsGrid,
+    MixedGrid,
     ModalExplore,
     ModalSearch,
   },
@@ -45,9 +46,10 @@ export default {
       title: 'News from the School of Computer Science',
       page_title_label: 'News',
       header_class: 'pulled',
-      articlesToShow: 9,
       featured: 'promoted',
-      moreArticles: 6
+      minShow: 10,
+      numToAdd: 6,
+      isSingle: false
     }
   },
   asyncData ({ store }) {
@@ -55,7 +57,13 @@ export default {
   },
   computed: {
     news() {
-      return this.$store.state.news.list
+      return this.$store.state.news.list.map((article, i) => {
+        return {
+          id: i,
+          type: 'news',
+          data: article
+        };
+      });
     }
   }
 }
