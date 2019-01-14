@@ -31,8 +31,8 @@ export default {
   },
   data () {
     return {
-      itemsToShow: this.minShow,
-      moreItems: this.numToAdd,
+      itemsToShow: this.minShow || 4,
+      moreItems: this.numToAdd || 2,
     }
   }
 }
