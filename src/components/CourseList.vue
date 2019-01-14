@@ -35,12 +35,14 @@ export default {
   name: 'courseList-view',
   props: [
     'courses',
-    'hasHeadline'
+    'hasHeadline',
+    'minShow',
+    'numToAdd'
   ],
   data () {
     return {
-      itemsToShow: 4,
-      moreItems: 5,
+      itemsToShow: this.minShow || 4,
+      moreItems: this.numToAdd || 5,
     }
   },
   filters: {

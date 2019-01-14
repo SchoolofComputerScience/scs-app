@@ -34,10 +34,10 @@
             v-html="article.copy"
           )
 
-        NewsGrid(
-          :news="news"
-          :articlesToShow="articlesToShow"
-          :moreArticles="moreArticles"
+        MixedGrid(
+          :items="news"
+          :minShow="articlesToShow"
+          :numToAdd="moreArticles"
           :isSingle="isSingle"
           )
 
@@ -53,7 +53,7 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
-import NewsGrid from '../components/NewsGrid.vue';
+import MixedGrid from '../components/MixedGrid.vue';
 import format from 'date-fns/format';
 
 export default {
@@ -62,7 +62,7 @@ export default {
     NewHeader,
     NavDrawer,
     NewFooter,
-    NewsGrid,
+    MixedGrid,
     ModalExplore,
     ModalSearch,
   },
@@ -95,9 +95,16 @@ export default {
         if(id === article) return this.cleanHTML(this.$store.state.news.articles[id])
     },
     news() {
-      let theArticle = this.$route.params.article
+      let theArticle = this.$route.params.article;
+      
       return this.$store.state.news.list.filter((article) => {
         return article.id !== theArticle;
+      }).map((article, i) => {
+        return {
+          id: i,
+          type: 'news',
+          data: article
+        };
       });
     },
     newsContactInfo() {

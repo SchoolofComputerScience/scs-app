@@ -7,7 +7,7 @@ section(
     ) Publications
   ul(class="list_stacked list_multi_column theme_publications visible")
     li(
-      v-for="(item, i) in course.list"
+      v-for="(item, i) in publications"
       v-if="i <= itemsToShow"
       )
       a(href="#")
@@ -24,7 +24,7 @@ section(
           span(class="label_tertiary") {{item.identification}}
     li(class="show_more")
       button(
-        v-if="itemsToShow < course.list.length"
+        v-if="itemsToShow < publications.length"
         v-on:click="itemsToShow += moreItems"
         class="button_show_more"
         ) Show More
@@ -36,50 +36,50 @@ export default {
   name: 'PubList-view',
   data () {
     return {
-      itemsToShow: 4,
-      moreItems: 5,
+      itemsToShow: this.minShow || 4,
+      moreItems: this.numToAdd || 5,
     }
   },
   props: [
-    'hasHeadline'
+    'hasHeadline',
+    'minShow',
+    'numToAdd'
   ],
   computed: {
-    course: function () {
-      return {
-        list: [{
-          name: 'Learning with Staleness',
-          year: '2018',
-          person: '',
-          link: '#',
-          department: '',
-          type: '',
-          identification: ''
-        }, {
-          name: 'Efficient Methods for Prediction and Control in Partially Observable Environments',
-          year: '2018',
-          person: 'Pengju Jin, M.S. Thesis',
-          link: '#',
-          department: 'Robotics Institute',
-          type: 'thesis',
-          identification: 'CMU-CS-18-103'
-        }, {
-          name: 'Sublinear-Time Learning and Inference for High-Dimensional Models',
-          year: '2018',
-          person: 'Pengju Jin, M.S. Thesis',
-          link: '#',
-          department: 'Robotics Institute',
-          type: 'thesis',
-          identification: 'CMU-CS-18-103'
-        }, {
-          name: 'Stress Detection for Keystroke Dynamics',
-          year: '2018',
-          person: 'Pengju Jin, M.S. Thesis',
-          link: '#',
-          department: 'Robotics Institute',
-          type: 'thesis',
-          identification: 'CMU-CS-18-103'
-        }]
-      }
+    publications: function () {
+      return [{
+        name: 'Learning with Staleness',
+        year: '2018',
+        person: '',
+        link: '#',
+        department: '',
+        type: '',
+        identification: ''
+      }, {
+        name: 'Efficient Methods for Prediction and Control in Partially Observable Environments',
+        year: '2018',
+        person: 'Pengju Jin, M.S. Thesis',
+        link: '#',
+        department: 'Robotics Institute',
+        type: 'thesis',
+        identification: 'CMU-CS-18-103'
+      }, {
+        name: 'Sublinear-Time Learning and Inference for High-Dimensional Models',
+        year: '2018',
+        person: 'Pengju Jin, M.S. Thesis',
+        link: '#',
+        department: 'Robotics Institute',
+        type: 'thesis',
+        identification: 'CMU-CS-18-103'
+      }, {
+        name: 'Stress Detection for Keystroke Dynamics',
+        year: '2018',
+        person: 'Pengju Jin, M.S. Thesis',
+        link: '#',
+        department: 'Robotics Institute',
+        type: 'thesis',
+        identification: 'CMU-CS-18-103'
+      }];
     }
   },
   filters: {

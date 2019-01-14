@@ -29,10 +29,10 @@
                   p #[span Time:] {{timeFix(event.start_date)}}
                   p #[span Location:] {{event.building.toUpperCase() | buildingTranslate}} {{event.room}}
 
-        EventsGrid(
-          :events="events"
-          :articlesToShow="articlesToShow"
-          :moreArticles="moreArticles"
+        MixedGrid(
+          :items="events"
+          :minShow="minShow"
+          :numToAdd="numToAdd"
           :isSingle="isSingle"
           )
 
@@ -48,7 +48,7 @@ import NewFooter from '../components/NewFooter.vue';
 import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
-import EventsGrid from '../components/EventsGrid.vue'
+import MixedGrid from '../components/MixedGrid.vue'
 import format from 'date-fns/format';
 
 export default {
@@ -59,15 +59,15 @@ export default {
     NewFooter,
     ModalExplore,
     ModalSearch,
-    EventsGrid
+    MixedGrid
   },
   data () {
     return {
       title: 'Events from the School of Computer Science',
       page_title_label: 'Events',
       header_class: 'pulled single',
-      articlesToShow: 2,
-      moreArticles: 3,
+      minShow: 3,
+      numToAdd: 3,
       isSingle: true
     }
   },
@@ -81,6 +81,12 @@ export default {
       let theEvent = this.$route.params.event
       return this.$store.state.events.list.filter((event) => {
         return event.id !== theEvent;
+      }).map((data, i) => {
+        return {
+          id: i,
+          type: 'event',
+          data: data
+        };
       });
     },
     event(){
@@ -106,10 +112,6 @@ export default {
       return format(arg, 'dddd, MMM D, YYYY')
     }
   },
-  asyncData ({ store, route }) {
-    store.dispatch('GET_EVENT', route.params.event)
-    store.dispatch('GET_EVENTS_LIST');
-  },
   filters: {
     capitalize: function (value) {
       if (!value) return ''
@@ -118,6 +120,10 @@ export default {
         return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
       }).join(' ');
     }
+  },
+  asyncData ({ store, route }) {
+    store.dispatch('GET_EVENT', route.params.event)
+    store.dispatch('GET_EVENTS_LIST');
   }
 }
 </script>

@@ -10,10 +10,10 @@
         section(class="page_title hidden_content")
           h1 Events
 
-        EventsGrid(
-          :events="events"
-          :articlesToShow="articlesToShow"
-          :moreArticles="moreArticles"
+        MixedGrid(
+          :items="events"
+          :minShow="minShow"
+          :numToAdd="numToAdd"
           :isSingle="isSingle"
           )
 
@@ -30,7 +30,7 @@ import NavDrawer from '../components/NavDrawer.vue';
 import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
 
-import EventsGrid from '../components/EventsGrid.vue'
+import MixedGrid from '../components/MixedGrid.vue'
 import { sortDataByDate } from '../filter/index';
 
 export default {
@@ -40,7 +40,7 @@ export default {
     NavDrawer,
     NewFooter,
     ModalExplore,
-    EventsGrid,
+    MixedGrid,
     ModalSearch,
   },
   data () {
@@ -48,8 +48,8 @@ export default {
       title: 'Events from the School of Computer Science',
       page_title_label: 'Events',
       header_class: 'pulled',
-      articlesToShow: 9,
-      moreArticles: 6,
+      minShow: 10,
+      numToAdd: 6,
       isSingle: false
     }
   },
@@ -63,7 +63,13 @@ export default {
       return this.$store.state.events.list.length > 0 ? true : false
     },
     events() {
-      return this.$store.state.events.list;
+      return this.$store.state.events.list.map((data, i) => {
+        return {
+          id: i,
+          type: 'event',
+          data: data
+        };
+      });
     }
   },
   asyncData ({ store, route }) {
