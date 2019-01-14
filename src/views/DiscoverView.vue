@@ -77,14 +77,14 @@ export default {
           type: 'news',
           data: data
         };
-      }), 6);
+      }), 10);
 
       let events = _.sampleSize((this.$store.state.events.list || []).map((data) => {
         return {
           type: 'event',
           data: data
         };
-      }), 6);
+      }), 9);
 
       return _.shuffle(
         news.concat(events)
