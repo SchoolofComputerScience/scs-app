@@ -29,9 +29,9 @@
           h3 more information
           div(class="gutter-xl")
             div(class="col-4-7")
-              p This approach has been widely used to build credit card fraud detection systems, medical diagnosis systems, internet search engines and recommender systems. Important subareas include (i) Active Learning---a form of machine learning in which the computer can choose its own experiments (ii) Reinforcement Learning---in which a system learns to achieve rewards which are delayed and (iii) Life Long Learning in which a machine uses its experience in learning an earlier task to help itself learn faster in future tasks. A very important machine learning technique is Deep Learning, which has proved over the past five years to be surprisingly effective at learning solutions to problems which previous generations of machine learning algorithm had failed at.
+              p {{research_area.exitDescription}}
             div(class="col-3-7")
-              blockquote Instead of asking a programmer to write a program to detect faces in an image, a machine learning practitioner will ask humans to manually label thousands of images with the locations of faces and leave it up to the machine learning algorithm to derive a face detector.
+              blockquote {{research_area.exitStatement}}
     NewFooter
     ModalExplore
     ModalSearch
@@ -76,6 +76,12 @@ export default {
     }
   },
   computed: {
+    research_area: function () {
+      return {
+        exitStatement: 'Instead of asking a programmer to write a program to detect faces in an image, a machine learning practitioner will ask humans to manually label thousands of images with the locations of faces and leave it up to the machine learning algorithm to derive a face detector.',
+        exitDescription: 'This approach has been widely used to build credit card fraud detection systems, medical diagnosis systems, internet search engines and recommender systems. Important subareas include (i) Active Learning---a form of machine learning in which the computer can choose its own experiments (ii) Reinforcement Learning---in which a system learns to achieve rewards which are delayed and (iii) Life Long Learning in which a machine uses its experience in learning an earlier task to help itself learn faster in future tasks. A very important machine learning technique is Deep Learning, which has proved over the past five years to be surprisingly effective at learning solutions to problems which previous generations of machine learning algorithm had failed at.',
+      };
+    },
     tab_data () {
       return [{
         name: 'People',

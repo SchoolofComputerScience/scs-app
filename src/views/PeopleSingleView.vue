@@ -10,7 +10,22 @@
       main
         section(class="page_meta")
           a(href="/people", class="button_back") back
-          span(class="label_page_meta_title" v-for="department in departments") {{department}}
+          span(
+            class="label_page_meta_title"
+            v-for="department in departments"
+            v-if="departments.length <= 1"
+            ) {{department}}
+          div(
+            class="page_meta_dropdown"
+            v-if="departments.length > 1"
+            )
+            div(
+              class="page_meta_dropdown_list"
+              )
+              span(
+                class="label_page_meta_title"
+                v-for="department in departments"
+                ) {{department}}
         section(class="content_bio")
           div(class="gutter-medium")
             div(class="col-1-2")

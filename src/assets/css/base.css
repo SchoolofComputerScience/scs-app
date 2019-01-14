@@ -2158,6 +2158,9 @@ body .theme_publications .rank, body .theme_research .rank {
 .theme_events .page_block_details {
   color: #E8F464; }
 
+.promoted .page_block_details {
+  color: #E8F464; }
+
 .list_window .label_primary {
   color: black; }
 
@@ -2201,6 +2204,43 @@ body .theme_publications .rank, body .theme_research .rank {
   padding: 0.5em 2em;
   letter-spacing: 0.50px;
   display: inline-block; }
+
+.page_meta_dropdown {
+  background: aqua;
+  overflow: hidden;
+  padding: 10px;
+  max-width: 500px; }
+
+.page_meta_dropdown_list {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10; }
+  .page_meta_dropdown_list .label_page_meta_title {
+    display: block;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;
+    height: 0; }
+  .page_meta_dropdown_list .label_page_meta_title:first-child {
+    opacity: 1;
+    visibility: visible;
+    height: auto;
+    position: relative; }
+    .page_meta_dropdown_list .label_page_meta_title:first-child:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      background: center no-repeat url("../images/icon_arrow_down.svg");
+      height: 20px;
+      width: 20px; }
+  .page_meta_dropdown_list:hover span {
+    opacity: 1;
+    height: auto;
+    visibility: visible; }
 
 .label_tags {
   border-left: 3px solid #CC2717;
