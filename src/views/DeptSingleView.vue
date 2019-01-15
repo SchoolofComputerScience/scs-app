@@ -37,9 +37,12 @@
           :numToAdd="3"
         )
 
-        PeopleGrid(
-          :directory="directory"
-          :hasHeadline="true"
+        MixedGrid(
+          :items="directory"
+          :title= "'People'"
+          :isSingle="true"
+          :minShow="8"
+          :numToAdd="4"
           )
 
         CourseList(
@@ -107,7 +110,6 @@ export default {
     NewFooter,
     ModalExplore,
     ModalSearch,
-    PeopleGrid,
     CourseList,
     PubList,
     ResearchAreaGrid,
@@ -168,9 +170,13 @@ export default {
           person.departments.includes(departmentFilter) &&
           peopleTypes.includes(person.scs_relationship_class)
         );
-      }).map((person) => {
+      }).map((person, i) => {
         person.backgroundImage = 'background-image: url(' + person.image_url + ');';
-        return person;
+        return {
+          id: i,
+          type: 'person',
+          data: person
+        };
       });
     },
     researchAreas: function () {
