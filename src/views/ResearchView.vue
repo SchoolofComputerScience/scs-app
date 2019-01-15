@@ -13,7 +13,7 @@
         section(class="page_title hidden_content")
           h1 Research Areas
         section(class="content_list")
-          div(class="list_cards visible")
+          div(class="list_cards visible offset")
 
             div(
               class="list_card"

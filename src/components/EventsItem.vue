@@ -18,7 +18,10 @@ div(
       class="page_block_title_container"
     )
       span(class="page_block_title") {{item.name}}
-      span(class="page_block_subtitle") with {{ item.speakerName | capitalize }}
+      span(
+        class="page_block_subtitle"
+        v-if="item.speakerName"
+        ) with {{ item.speakerName | capitalize }}
     div(
       v-if="firsty && !isSingle"
       class="page_block_details"
@@ -30,7 +33,7 @@ div(
       class="page_block_title"
     ) {{item.name}}
     span(
-      v-if="!firsty || isSingle"
+      v-if="!firsty && item.speakerName || isSingle"
       class="page_block_description"
     ) with {{ item.speakerName | capitalize }}
   div(class="page_block_tags")

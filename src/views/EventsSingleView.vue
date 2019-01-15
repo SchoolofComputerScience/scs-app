@@ -15,7 +15,9 @@
           div(class="gutter-xl")
             div(class="col-3-5")
               div(class="emphasized")
-                h2 with {{ event.speakerName | capitalize }}
+                h2(
+                  v-if="event.speakerName"
+                  ) with {{ event.speakerName | capitalize }}
                 p(
                   v-if="event.description"
                   v-html="event.description"

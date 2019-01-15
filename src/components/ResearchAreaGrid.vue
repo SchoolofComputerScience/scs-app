@@ -1,7 +1,12 @@
 <template lang="pug">
-section(class="content_list" v-if="researchAreas.length")
+section(
+  class="content_list"
+  v-if="researchAreas.length"
+  )
   h2(v-if="hasHeadline") Research Areas
-  div.filter_item_list.list_cards.visible
+  div.filter_item_list.list_cards.visible(
+    :class="{offset: itemOffset}"
+    )
     ResearchAreaItem(
       v-for="(researchArea, i) in researchAreas"
       v-if="i < itemsToShow"
@@ -24,7 +29,8 @@ export default {
     'researchAreas',
     'hasHeadline',
     'minShow',
-    'numToAdd'
+    'numToAdd',
+    'itemOffset'
   ],
   components: {
     ResearchAreaItem
