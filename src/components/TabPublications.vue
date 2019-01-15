@@ -23,9 +23,6 @@ export default {
   components: {
     PubList,
   },
-  props: [
-    "contentData"
-  ],
   data () {
     return {
       hasHeadline: false
