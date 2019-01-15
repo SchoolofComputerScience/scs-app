@@ -71,7 +71,7 @@ export default {
       title: 'News - Single',
       page_title_label: 'News',
       header_class: 'pulled single',
-      articlesToShow: 2,
+      articlesToShow: 3,
       moreArticles: 3,
       isSingle: true
     }
@@ -96,7 +96,7 @@ export default {
     },
     news() {
       let theArticle = this.$route.params.article;
-      
+
       return this.$store.state.news.list.filter((article) => {
         return article.id !== theArticle;
       }).map((article, i) => {
