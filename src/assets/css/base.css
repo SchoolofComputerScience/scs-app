@@ -1815,11 +1815,6 @@ header {
   .content_list .list_cards .list_card {
     width: calc(50% - 0.5em);
     min-height: 16em; }
-  .content_list .list_cards .list_card:nth-child(5n) {
-    width: 100%;
-    min-height: 12em; }
-    .content_list .list_cards .list_card:nth-child(5n) .item_title {
-      max-width: inherit; }
   .content_list .list_cards .item_title {
     font-size: 2.5em; }
   .content_list .list_cards.small {
@@ -1829,6 +1824,11 @@ header {
   .content_list .list_cards.small .list_card {
     width: calc(33.3334% - 1em);
     margin: 0.5em; }
+  .content_list .list_cards.offset .list_card:nth-child(5n) {
+    width: 100%;
+    min-height: 12em; }
+    .content_list .list_cards.offset .list_card:nth-child(5n) .item_title {
+      max-width: inherit; }
   .content_list .list_cards.small .list_card .label {
     font-size: 0.85em; }
   .content_list .list_cards.large .item_title {

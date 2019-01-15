@@ -497,13 +497,6 @@
       width: calc(50% - 0.5em);
       min-height: 16em;
     }
-    .list_card:nth-child(5n){
-      width: 100%;
-      min-height: 12em;
-      .item_title{
-        max-width: inherit;
-      }
-    }
     .item_title{
       font-size: 2.5em;
     }
@@ -515,6 +508,15 @@
     &.small .list_card{
       width: calc(33.3334% - 1em);
       margin: 0.5em;
+    }
+  }
+  .content_list .list_cards.offset{
+    .list_card:nth-child(5n){
+      width: 100%;
+      min-height: 12em;
+      .item_title{
+        max-width: inherit;
+      }
     }
   }
   .content_list .list_cards.small .list_card .label{
