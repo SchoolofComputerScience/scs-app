@@ -101,7 +101,7 @@ export default {
         name: 'Publications',
         component: TabPublications
       }, {
-        name: 'Courses',
+        name: "Currently Teaching",
         component: TabCourses
       }, {
         name: 'Research Areas',

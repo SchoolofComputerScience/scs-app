@@ -2,6 +2,7 @@
   ResearchAreaGrid(
     :researchAreas="researchAreas"
     :hasHeadline="false"
+    :hasMore="false"
     :minShow="4"
     :numToAdd="2"
   )
@@ -19,12 +20,12 @@ export default {
   computed: {
     researchAreas: function () {
       // TODO: i believe we will have a conditional here...
-      // currently this is only being used on a single 
-      // person page, but it is possible that this tab 
-      // item can be used elsewhere, if so, then it will 
-      // be the responsibility of this function to determine 
+      // currently this is only being used on a single
+      // person page, but it is possible that this tab
+      // item can be used elsewhere, if so, then it will
+      // be the responsibility of this function to determine
       // where it is being used and return the correct data...
-      
+
       return [{
         area_id: 'machine_learning',
         title: 'Machine Learning'

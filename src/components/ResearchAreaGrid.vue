@@ -13,10 +13,10 @@ section(
       :researchArea="researchArea"
       :key="researchArea.area_id"
     )
-    button.button_show_more(
-      v-if="itemsToShow < researchAreas.length"
-      v-on:click="itemsToShow += moreItems"
-    ) Show More
+  button.button_show_more(
+    v-if="itemsToShow < researchAreas.length && hasMore"
+    v-on:click="itemsToShow += moreItems"
+  ) Show More
 </template>
 
 <script>
@@ -28,6 +28,7 @@ export default {
   props: [
     'researchAreas',
     'hasHeadline',
+    'hasMore',
     'minShow',
     'numToAdd',
     'itemOffset'

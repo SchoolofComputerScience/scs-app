@@ -24,7 +24,7 @@ body{
 .section_title.has_list:before{
   box-shadow: 0 0 10px rgba(0,0,0,0.15);
 }
-.section_title.has_list:after, .has_back .section_title:after{
+.section_title.has_list:after{
   content: '';
   position: absolute;
   top: 50%;
@@ -35,10 +35,21 @@ body{
   height: 20px;
   background: center no-repeat url('../images/icon_arrow_down.svg');
 }
-.has_back .section_title:after{
+.has_back .section_title:before{
+  cursor: auto;
+}
+.has_back .section_title a{
+  position: relative;
+  padding-left: 25px;
+}
+.has_back .section_title a:before{
+  content: '';
   background: center no-repeat url('../images/icon_arrow_left.svg');
-  right: inherit;
-  left: 1em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 12px;
 }
 [class*="theme_"]{
   .section_title{
