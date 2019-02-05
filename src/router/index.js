@@ -20,8 +20,8 @@ import CourseSelectView from '../views/CourseSelectView.vue'
 import ErrorView from '../views/ErrorView.vue'
 import ProgramsView from '../views/ProgramsView.vue'
 import ProgramView from '../views/ProgramView.vue'
-import ResearchAreasView from '../views/ResearchAreasView.vue'
-import ResearchAreasListView from '../views/ResearchAreasListView.vue'
+import ResearchFieldView from '../views/ResearchFieldView.vue'
+import ResearchFieldsListView from '../views/ResearchFieldsListView.vue'
 import DiversityInclusionView from '../views/DiversityInclusionView.vue'
 
 export default new Router({
@@ -44,8 +44,8 @@ export default new Router({
     { path: '/events/', component: EventsListView },
     { path: '/news/:article?', component: NewsView },
     { path: '/events/:event?', component: EventView },
-    { path: '/research/', component: ResearchAreasListView },
-    { path: '/research/:research_area', component: ResearchAreasView },
+    { path: '/research/', component: ResearchFieldsListView },
+    { path: '/research/:research_field', component: ResearchFieldView },
     { path: '/diversity-and-inclusion', component: DiversityInclusionView },
     { path: '/404', component: ErrorView },
     { path: '/:page', name: 'page', component: PageView },

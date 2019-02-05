@@ -16,37 +16,15 @@ export default {
         : apollo.query({
           query: gql`
             {
-              departmentsContent {
-                uid
-                name
-                description
-                short_description
-                mainimg
-                logo
+              departments {
+                department_id
+                department_name
+                college_id
+                college_name
+                scs_relationship
+                scs_type
+                cmu_type
                 url
-                course_count(semesterCode: "F17") {
-                  _id
-                }
-                member_count {
-                  _id
-                }
-                programs_count{
-                  _id
-                }
-                news(limit:1) {
-                  title
-                  date
-                  uid
-                  image
-                }
-                events(limit:2) {
-                  uid
-                  talkTitle
-                  type
-                  title
-                  speakerName
-                  startDate
-                }
               }
             }
           `
@@ -71,7 +49,12 @@ export default {
               departments(college_id:"scs") {
                 department_id
                 department_name
+                college_id
+                college_name
+                scs_relationship
                 scs_type
+                cmu_type
+                url
               }
             }
           `
@@ -90,7 +73,7 @@ export default {
   },
   mutations: {
     SET_DEPARTMENTS: (state, data) => {
-      state.list = data.departmentsContent
+      state.list = data.departments;
     },
     SET_SCS_DEPARTMENT_LIST: (state, data) => {
       state.scs_list = data.departments;

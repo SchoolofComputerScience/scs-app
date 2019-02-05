@@ -51,18 +51,14 @@
 
     computed: {
       loaded() {
-        if (this.$store.state.department.list) {
-          if (!this.$store.state.department.list.some((n) => n.uid === this.$route.params.department))
-            router.push('/')
-          return true;
-        }
+        return true;
       },
       department() {
         if (this.$store.state.department.list) {
           let param = this.$route.params.department;
           let departments = this.$store.state.department.list;
           return departments.filter(function (el) {
-            if (el.uid === param)
+            if (el.department_id === param)
               return el
           })
         }

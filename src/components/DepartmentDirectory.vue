@@ -1,6 +1,6 @@
 <template>
   <ul class="directory">
-    <li v-for="person in directory" class="card">
+    <li v-for="person in directory" class="card" :key="person.scid">
       <router-link :to="'/directory/' + person.scid">
         <div class="image" :style="{ 'background-image': 'url(' + person.image_url + ')' }"></div>
         <p class="name">{{ person.display_name }}</p>
