@@ -1,26 +1,26 @@
 <template>
   <section class="content-page card">
-    <h1>{{selected_research_area}}</h1>
-    <section class="area-section" v-if="programs">
-      <h2>Programs That Include {{selected_research_area}}</h2>
-      <ul class="items">
-        <li v-for="program in programs" :key="program.program_id">{{program.program_name}}</li>
+    <h1>{{selected_research_field}}</h1>
+    <section class="area-section" v-if="research_areas">
+      <h2>Research Areas In {{selected_research_field}}</h2>
+      <ul>
+        <li v-for="area in research_areas" :key="area.area_id">{{area.title}}</li>
       </ul>
     </section>
     <section class="faculty-members area-section" v-if="facultyInArea">
-      <h2>Faculty Involved In {{selected_research_area}}</h2>
+      <h2>Faculty Involved In {{selected_research_field}}</h2>
       <ul class="items">
         <DirectoryListItem  v-for="member in facultyInArea" :key="member.scid" :item="member"></DirectoryListItem>
       </ul>
     </section>
     <section v-if="courses" class="area-section">
-      <h2 class="title">{{semesterCode | seasonTranslate}} Courses</h2>
+      <h2 class="title">Courses Assoiciated With {{selected_research_field}}</h2>
       <p v-for="course in courses" :key="course.course_id">
-        <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number | formatCourseNumber}} | {{course.title}}</span></router-link>
+        <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number | formatCourseNumber}} | {{course.long_title}}</span></router-link>
       </p>
     </section>
     <section v-if="has_news" class="research-news area-section">
-      <h2>Latest News Articles On {{selected_research_area}}</h2>
+      <h2>Latest News Articles On {{selected_research_field}}</h2>
       <div class="card-holder">
         <div v-if="error" class="error-message">
           <p>{{error}}</p>
@@ -54,7 +54,7 @@ import { router } from '../app'
 import format from 'date-fns/format'
 
 export default {
-  name: 'research-areas-view',
+  name: 'research-field-view',
 
   components: {
     DirectoryListItem,
@@ -68,11 +68,11 @@ export default {
   },
 
   computed: {
-    selected_research_area() {
-      return this.$store.state.researchAreas.title;
+    selected_research_field() {
+      return this.$store.state.researchFields.field.field_text;
     },
     research_areas() {
-      return this.$store.state.researchAreas.list;
+      return this.$store.state.researchFields.field.areas;
     },
     news() {
       return this.$store.state.news.list
@@ -81,29 +81,14 @@ export default {
       return this.$store.state.news.list.length > 0;
     },
     courses() {
-      return this.$store.state.researchAreaCourses.list;
-    },
-    programs() {
-      let programs = [];
-      let selected_area = this.research_areas.find((area) => area.area_id === this.$store.state.researchAreas.area_id);
-
-      if (selected_area && selected_area.programs) {
-        selected_area.programs.forEach(function(program) {
-          programs.push(program);
-        });
-      }
-
-      return programs.length > 0 ? programs : false;
-    },
-    semesterCode(){
-      return this.$store.state.semesterCode.code;
+      return this.$store.state.researchFields.field.courses;
     },
     facultyInArea() {
       let faculty = [];
-      if (this.$store.state.researchAreaMembers.list.length && this.$store.state.directory.list.length && this.$store.state.researchAreas.area_id) {
-        let selected_area = this.$store.state.researchAreas.area_id;
+      if (this.$store.state.researchFields.field.members.length && this.$store.state.directory.list.length) {
+        let selected_area = this.$route.params.research_field;
         let directory = this.$store.state.directory.list;
-        let research_members = this.$store.state.researchAreaMembers.list;
+        let research_members = this.$store.state.researchFields.field.members;
 
         research_members.map(function(member){
           let research_member = _.find(directory, function(person){ return person.scid === member.scid })
@@ -133,20 +118,8 @@ export default {
   },
 
   asyncData ({ store, route }) {
-    store.dispatch('GET_SEMESTER_CODE');
     store.dispatch('GET_DIRECTORY');
-    store.dispatch('GET_RESEARCH_AREA_MEMBERS', route.params.research_area);
-    store.dispatch('GET_RESEARCH_AREA_COURSES', route.params.research_area);
-    return store.dispatch('GET_RESEARCH_AREAS').then(() => {
-      let area_id = route.params.research_area || store.state.researchAreas.area_id
-      if (area_id) {
-        let research_area = store.state.researchAreas.list.find((area) => area.area_id === area_id);
-        if (research_area) {
-          //store.dispatch('SEARCH_NEWS_ARTICLES', research_area.title);
-          store.commit("SET_SELECTED_RESEARCH_AREA", { area_id: research_area.area_id, title: research_area.title });
-        }
-      }
-    });
+    store.dispatch('GET_RESEARCH_FIELD', route.params.research_field);
   }
 }
 </script>
