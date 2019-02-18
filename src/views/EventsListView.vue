@@ -33,15 +33,10 @@
 <script>
 import Spinner from '../components/Spinner.vue'
 import EventsItem from '../components/EventsItem.vue'
-
-function fetchEventsList(store) {
-  return store.dispatch('GET_EVENTS_LIST')
-}
+import { sortDataByDate } from '../filter/index';
 
 export default {
   name: 'events-list-view',
-
-  preFetch: fetchEventsList,
 
   components: {
     Spinner,
@@ -71,7 +66,7 @@ export default {
       return this.$store.state.events.list.length > 0 ? true : false
     },
     events() {
-      return this.$store.state.events.list
+      return this.$store.state.events.list;
     }
   },
 
@@ -81,8 +76,8 @@ export default {
     }, 500)
   },
 
-  beforeMount () {
-    fetchEventsList(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('GET_EVENTS_LIST');
   }
 }
 </script>
@@ -117,7 +112,6 @@ export default {
 .card-holder{
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   position: relative;
 }
 

@@ -8,30 +8,26 @@
           v-on:submit.prevent
           name="query"
           autocomplete="off">
-        <button :class="clearToggle" class="clearQuery" v-on:click="clearQuery"></button>
       </form>
       <div class="filter-container">
         <DepartmentFilter :route_link="route_link" :types="scs_department_types" :excluded_departments="excluded_departments"></DepartmentFilter>
         <div class="filter-title buttons" :class="depTitle">
-          <button class="Student button" @click="titleFilter('Student')" name="student">Student</button>
-          <button class="Faculty button" @click="titleFilter('Faculty')" name="faculty">Faculty</button>
-          <button class="Staff button" @click="titleFilter('Staff')" name="staff">Staff</button>
+          <button class="button" @click="toggleView()" name="student">{{ display_text }}</button>
         </div>
       </div>
     </div>
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-
-    <VirtualScroller
-      v-if="loaded"
-      class="scroller card-holder"
-      :items="directory"
-      main-tag="section"
-      content-tag="ul"
-      page-mode>
-      <template scope="props">
-        <DirectoryListItem :item="props.item"></DirectoryListItem>
-      </template>
-    </VirtualScroller>
+    <ul v-if="loaded" :class="display_view">
+      <li v-if="display_view === 'list'">
+        <div class="row legend">
+          <span class="col-4">Name</span>
+          <span class="col-4 title">Position</span>
+          <span class="col-4">Email</span>
+        </div>
+      </li>
+      <DirectoryListItem v-for="person in finalDirectory" :view="display_view" :item="person" :key="person.scid"></DirectoryListItem>
+    </ul>
+    <button class="button col-12" @click="updatePage()">Load More People</button>
   </section>
 </template>
 
@@ -39,7 +35,6 @@
 import Vue from 'vue'
 import _ from 'lodash'
 import DirectoryListItem from '../components/DirectoryListItem.vue'
-import VirtualScroller from '../components/VirtualScroller.vue'
 import DepartmentFilter from '../components/DepartmentFilter.vue'
 import Spinner from '../components/Spinner.vue'
 
@@ -47,16 +42,11 @@ const renderers = {
   person: DirectoryListItem
 }
 
-function fetchDirectory(store) {
-  store.dispatch('GET_DIRECTORY', store.state.route.params.department);
-}
-
 export default {
   name: 'directory-list',
 
   components: {
     DirectoryListItem,
-    VirtualScroller,
     DepartmentFilter,
     Spinner
   },
@@ -73,53 +63,68 @@ export default {
       route_link: 'true',
       scs_department_types: ['academic', 'admin', 'school'],
       excluded_departments: ['scs_facilities', 'scs'],
+      page: 1,
+      display_view: '',
+      display_text: ''
     }
   },
 
-  watch: {
-    query: function () {
-      this.departmentFilter()
-      this.clearToggle = this.query ? 'active' : 'hide'
-    }
-  },
-
-  beforeMount () {
-    this.query = this.$store.state.directory.query
-    fetchDirectory(this.$store)
-    this.departmentFilter()
-  },
-
-  mounted () {
-    Vue.nextTick(() => {
-      this.query = this.$store.state.directory.query;
-      this.depTitle = this.$store.state.directory.title_filter;
-      window.scrollTo(0, this.$store.state.directory.y_position)
-    })
-  },
-
-  beforeDestroy () {
-    this.$store.commit('SET_POSITION', window.scrollY)
-    this.$store.commit('SET_QUERY', this.query)
-    this.$store.commit('SET_TITLE_FILTER', this.depTitle)
+  asyncData ({ store }) {
+    store.dispatch('GET_SCS_DEPARTMENT_LIST').then(() => {
+      if (store.state.route.params.department && !store.state.department.selected_department.id.length){
+        let selected_department = store.state.department.scs_list.find(function(department) {
+          return department.department_id === store.state.route.params.department;
+        });
+        store.commit("SET_SELECTED_DEPARTMENT", { id: selected_department.department_id, name: selected_department.department_name });
+      }
+    });
+    return store.dispatch('GET_DIRECTORY', store.state.route.params.department);
   },
 
   computed: {
     loaded() {
       if(this.$store.state.directory.list.length > 0){
-        if(this.$store.state.route.params.department === undefined){
-          this.directory = this.$store.state.directory.list
-        }
-        this.directoryLength = this.$store.state.directory.list.length
-        this.directoryShown = this.$store.state.directory.list.length
-        this.departmentFilter()
-        return true
+        this.directory = this.$store.state.directory.list;
+        this.display_view = this.$store.state.directory.layout.view;
+        this.display_text = this.$store.state.directory.layout.text;
+        return true;
       }else{
-        return false
+        return false;
       }
     },
     placeholder() {
-      let depTitleHold = this.depTitle ? ' ' + this.depTitle.toLowerCase() : ''
-      return 'search ' + this.nav.replace('_', ' ') + depTitleHold + ' names';
+      if (this.$store.state.department.selected_department.name) {
+        return 'Search ' + this.$store.state.department.selected_department.name;
+      }
+      else {
+        return 'Search All Departments';
+      }
+    },
+    finalDirectory(){
+      let search_term = this.query;
+      let selected_department = this.$store.state.department.selected_department;
+      let filtered_directory = [];
+      
+      if (selected_department && selected_department.id) {
+        filtered_directory = this.$store.state.directory.list.filter(function(person) {
+          return person.departments.find(function(dep){
+            return dep === selected_department.id;
+          });
+        });
+      }
+      else {
+        filtered_directory = this.$store.state.directory.list;
+      }
+
+      if (search_term.length){
+        filtered_directory = filtered_directory.filter(function(person) {
+          return person.display_name.toLowerCase().indexOf(search_term.toLowerCase()) > -1 ? person : false;
+        }); 
+        return filtered_directory.length > (100 * this.page) ? filtered_directory.slice(0, (100 * this.page)) : filtered_directory;
+      }
+      else {
+        return filtered_directory.slice(0, (100 * this.page));
+      }
     }
   },
 
@@ -128,72 +133,27 @@ export default {
       this.query = '';
     },
 
-    titleFilter: function(val) {
-      if(val === this.depTitle){
-        this.$store.commit('SET_TITLE_FILTER', '')
-        this.depTitle = ''
-      }else{
-        this.$store.commit('SET_TITLE_FILTER', this.depTitle)
-        this.depTitle = val;
+    toggleView: function() {
+      if(this.display_view === 'grid') {
+        this.display_view = 'list';
+        this.display_text = 'Card View';
+        this.$store.commit('SET_PREFERRED_VIEW', {
+          view: 'list',
+          text: 'Card View'
+        });
+      } else {
+        this.display_view = 'grid';
+        this.display_text = 'List View';
+        this.$store.commit('SET_PREFERRED_VIEW', {
+          view: 'grid',
+          text: 'List View'
+        });
       }
-      this.departmentFilter()
     },
 
-    departmentFilter: _.debounce(function(){
-
-      let departmentParam = this.$store.state.route.params.department || ''
-      this.nav = departmentParam
-      this.directoryShown = this.$store.state.directory.list.length
-      this.directory = this.$store.state.directory.list
-
-      if(departmentParam === ''){
-        this.nav = 'all'
-      }
-
-      if(this.query === '' && departmentParam === ''){
-        if(this.depTitle === '')
-          return;
-      }
-
-      var departmentFilter = []
-
-      for (var i = 0; i < this.directoryLength; ++i) {
-        if(this.directory[i].departments.includes(departmentParam) || !departmentParam){
-          departmentFilter.push(this.directory[i])
-        }
-      }
-
-      var titleFilter = []
-
-      for (var i = 0; i < departmentFilter.length; ++i) {
-
-        // check if any of the boolean conditions are met before pushing
-
-        let scs_rel = departmentFilter[i].scs_relationship_class;
-
-        if(scs_rel.includes(this.depTitle.toLowerCase())) {
-          titleFilter.push(departmentFilter[i]);
-        }
-      }
-
-      var textFilter = []
-
-      if(this.query !== '') {
-        for (var i = 0; i < titleFilter.length; ++i) {
-          let normalised = titleFilter[i].display_name.toString().toLowerCase();
-          if (normalised.indexOf(this.query.toLowerCase()) > -1) {
-            textFilter.push(titleFilter[i])
-          }
-        }
-      }else{
-        textFilter = titleFilter;
-      }
-
-      this.directoryShown = textFilter.length
-      this.directory = textFilter
-
-    }, 100),
-
+    updatePage: function() {
+      this.page += 1;
+    }
   }
 }
 </script>
@@ -284,5 +244,17 @@ form.search {
       width: 5em;
     }
   }
+}
+
+.grid {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+
+.legend {
+  margin: 1rem 0 0.5rem 0;
 }
 </style>

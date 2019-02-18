@@ -20,6 +20,7 @@ before_install:
 - gcloud auth activate-service-account --key-file gce-key.json
 - echo "  SCS_API:" $SCS_API >> app.yaml
 - echo "  STAGE_SCS_API:" $STAGE_SCS_API >> app.yaml
+- echo "  SCS_CONTENT:" $SCS_CONTENT >> app.yaml
 - npm install
 - npm run build
 install:

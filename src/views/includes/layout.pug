@@ -1,0 +1,12 @@
+doctype html
+html(lang='en')
+  block vars
+  head
+    block head
+      meta(name="viewport",content="width=device-width, initial-scale=1, minimal-ui")
+      title {{title}}
+      link(rel="shortcut icon", type="image/png", href="public/favicon-96x96.png")
+      link(rel="stylesheet", href="./assets/css/vendor/normalize.css")
+      link(rel="stylesheet", href="./assets/css/base.css")
+  body(class='theme_'+theme)
+    block content

@@ -1,0 +1,96 @@
+.container{
+  position: relative;
+  // z-index: 2;
+  max-width: 1300px;
+  margin: auto;
+  padding: 0 1em;
+  &.small{
+    max-width: 960px;
+    padding: 0;
+  }
+}
+.gutter{
+  margin-right: -5px;
+  margin-left: -5px;
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+  > *[class|='col'] {
+      padding-right: 5px;
+      padding-left: 5px;
+  }
+}
+.gutter-medium{
+  margin-right: -15px;
+  margin-left: -15px;
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+  > *[class|='col'] {
+      padding-right: 15px;
+      padding-left: 15px;
+  }
+}
+.gutter-large{
+  margin-right: -30px;
+  margin-left: -30px;
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+  > *[class|='col'] {
+      padding-right: 30px;
+      padding-left: 30px;
+  }
+}
+.gutter-xl{
+  margin-right: -50px;
+  margin-left: -50px;
+  &:after{
+    content: '';
+    display: block;
+    clear: both;
+  }
+  > *[class|='col'] {
+      padding-right: 50px;
+      padding-left: 50px;
+  }
+}
+// @media screen and (min-width:50em){
+
+  // *[class|='col']{
+    // float: left;
+  // }
+
+// } // end 50em mq
+
+@media screen and (min-width:50em){
+
+  *[class|='col']{
+    float: left;
+  }
+
+  $total-columns: 10;
+
+  $col-widths: ();
+  @for $i from 1 through $total-columns {
+      @for $j from 1 through $i {
+          $w: ($j/$i);
+
+          @if not index($col-widths, $w) {
+              .col-#{$j}-#{$i} {
+                  width: $w * 100%;
+              }
+
+              $col-widths: append($col-widths, $w, comma);
+          }
+
+      }
+  }
+
+}

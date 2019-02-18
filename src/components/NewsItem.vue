@@ -1,13 +1,13 @@
 <template>
   <div class="news-item">
-    <router-link :to="'/news/' + data.uid" class="card">
+    <router-link :to="'/news/' + data.id" class="card">
       <figure :style="{ 'background-image': 'url(' + data.image + ')' }"></figure>
       <div class="content">
         <p>{{timeFix(data.date)}}</p>
-        <h3>{{data.title}}</h3>
+        <h3>{{data.headline}}</h3>
       </div>
     </router-link>
-    <div class="tags">
+    <div v-if="show_tags" class="tags">
       <router-link
         v-for="tag in data.tags"
         v-if="tag.name != ''"
@@ -24,10 +24,10 @@ import format from 'date-fns/format'
 
 export default {
   name: 'NewsItem',
-  props: ['data'],
+  props: ['data', 'show_tags'],
   methods: {
     timeFix (arg) {
-      return format(arg, 'dddd, MMMM Do YYYY')
+      return format(arg, 'MMM D, YYYY')
     }
   }
 }
@@ -51,10 +51,6 @@ export default {
   position: relative;
   width: 50%;
   max-width: 50%;
-  @include breakpoint-max(laptop) {
-    width: 100%;
-    max-width: 100%;
-  }
   &:nth-child(even){
     padding-left: $base-line-height;
     @include breakpoint-max(laptop) {
@@ -80,31 +76,56 @@ export default {
   .content {
     display: block;
   }
-  aside {
-    display: block;
-    vertical-align: center;
-  }
   figure{
     display: block;
     background-position: center;
     background-size: cover;
     width: calc(100% + (#{$base-line-height} * 2));
-    height: $base-line-height * 8;
+    height: $base-line-height * 10;
     top: -$base-line-height;
     position: relative;
     margin: 0;
     margin-left: -$base-line-height;
   }
-  h2 {
-    font-weight: 300;
-    position: relative;
-  }
   h3 {
-    font-weight: 300;
+    font-weight: bold;
   }
   p {
     color: $black;
   }
+}
 
+@include breakpoint-max(laptop) {
+  .card {
+    figure {
+      height: $base-line-height * 5;
+    }
+
+    h3 {
+      font-size: 1.333rem;
+    }
+
+    p { 
+      margin-bottom: 0;
+    }
+  }  
+}
+
+@include breakpoint-max(phone) {
+  .card {
+    figure {
+      height: $base-line-height * 5;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0;
+    }
+
+    p { 
+      margin-bottom: 0;
+      padding-bottom: 0.5rem;
+    }
+  }  
 }
 </style>

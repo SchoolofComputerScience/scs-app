@@ -37,20 +37,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-img{
-  width: 100%
-}
-.content-title a{
-  transition: color .3s ease;
-  &:hover{
-    text-decoration: none;
-  }
-}
-
-.content-meta{
-  margin-top: .5em;
-  margin-bottom: 0;
-}
-</style>

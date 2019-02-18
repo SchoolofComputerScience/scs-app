@@ -18,8 +18,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'public': path.resolve(__dirname, '../public'),
-      'staticDB': path.resolve(__dirname, '../content/static_db.js')
+      'public': path.resolve(__dirname, '../public')
     }
   },
   module: {

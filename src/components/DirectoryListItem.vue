@@ -1,14 +1,21 @@
-<template>
-  <li class="card">
-    <router-link :to="'/directory/' + item.scid">
-      <div class="link-hold">
-        <div class="dep-icons">
-          <span v-for="dep in item.positions" :class="dep.department" v-if="!'qatar'"></span>
+<template v-if="view === 'list'">
+  <li :class="view === 'list' ? 'list' : 'card'">
+    <router-link v-if="view === 'list'" :to="'/directory/' + item.scid">
+      <div class="row row-item">
+        <span class="col-4">{{ item.family_name }}, {{ item.given_name }}</span>
+        <span class="col-4 title">{{ item.position }}</span>
+        <span class="col-4">{{ item.display_email }}</span>
+      </div>
+    </router-link>
+    <router-link v-else :to="'/directory/' + item.scid">
+      <div class="item">
+        <div class="img-box">
+          <img v-if="item.image_url" :src="item.image_url" alt="No Image">
+          <div class="no-image" v-else><p>No</p><p>Image</p></div>
         </div>
-        <div class="image circle" v-if="item.image_url" :style="{ 'background-image': 'url(' + item.image_url + ')' }"></div>
-        <div>
-          <p class="name">{{ item.display_name }}</p>
-          <p class="title">{{ item.position}}</p>
+        <div class="member-info">
+          <p class="name">{{ item.family_name }}, {{ item.given_name }}</p>
+          <p class="title">{{ item.position }}</p>
         </div>
       </div>
     </router-link>
@@ -17,7 +24,7 @@
 
 <script>
 export default {
-  props: ['item']
+  props: ['item', 'view']
 }
 </script>
 
@@ -25,105 +32,99 @@ export default {
 @import '../assets/scss/vars.scss';
 @import '../assets/scss/circle.scss';
 
-.image{
-  width: $base-line-height * 4;
-  height: $base-line-height * 4;
-  background-size: cover;
-  margin: auto;
-}
-
 .card {
-  margin-right: 2.6%;
-  &:nth-child(4n+4) {
-    margin-right: 0;
-  }
-  margin-top: 6px;
-  margin-bottom: 22px;
+  display: flex;
+  flex-direction: row;
   padding: 0;
-  height: 75px * 4;
-  min-height: 75px * 4;
-  max-width: 25%;
-  width: 23%;
-  overflow: hidden;
-  left: 0em;
-  top: 0em;
-  transition: .35s box-shadow, .35s top, .35s left;
-  position: relative;
-  background: white;
-  box-shadow: $box-shadow-inert;
-  display: inline-block;
-  vertical-align: top;
+  max-width: 320px;
+  width: 320px;
 
-  @include breakpoint-max(laptop) {
-    max-width: 50%;
-    width: 48.5%;
-    height: 106px * 2;
-    min-height: 106px * 2;
-    margin-bottom: 6px;
-    &:nth-child(2n+2) {
-      margin-right: 0;
-    }
-  }
-  p{
-    padding-bottom: 0;
-  }
-
-  &:hover {
-    background: white;
-    box-shadow: none;
-    transition: none;
-    top: -.1em;
-    left: -.1em;
-    transition: .2s box-shadow, .2s top, .2s left;
-    box-shadow: $box-shadow-hover;
-  }
-
-  p.name {
-    font-weight: 900;
-    border-bottom: 1px solid #eee;
-    font-size: 1em;
-    text-transform: capitalize;
-    color: #C41230;
-    padding-bottom: .2em;
-    padding-top: .35em;
-  }
-  p.title {
-    font-size: .8em;
-    font-weight: 400;
-    padding-top: 0;
-    span {
-      font-weight: 900;
-      text-transform: uppercase;
-    }
-  }
-  span.department {
-    font-weight: 900;
-    text-transform: uppercase;
-  }
   a {
-    text-decoration: none;
-    color: #131313;
-    width: 100%;
     display: block;
-    height: 100%;
-    padding: 1em;
+    padding: 1rem;
+  }
+
+  .item {
+    display: flex;
+  }
+
+  .img-box {
+    width: 80px;
+    height: 120px;
+    background: $primary-grey;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    .link-hold{
+    margin-right: 1rem;
+
+    img {
       width: 100%;
     }
   }
-  p {
-    margin-bottom: .4em;
-    margin-top: 0;
-    text-transform: capitalize;
+
+  .member-info {
+    flex: 2;
   }
-  p.room {
-    font-size: .7em;
-    text-transform: uppercase;
-    font-weight: 300;
+
+  p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .name {
+    font-size: 1.3rem;
+    color: $red;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+  }
+
+  .no-image {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.title {
+  text-transform: capitalize;
+}
+
+a:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.list {
+  box-shadow: $box-shadow-inert;
+  transition: .2s box-shadow, .2s top, .2s left;
+
+  &:hover{
+    box-shadow: $box-shadow-hover;
+    top: -.1em;
+    left: -.1em;
+    transition: .2s box-shadow, .2s top, .2s left;
+  }
+
+  span {
+    font-size: 1rem;
+  }
+
+  .row {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .row-item {
+    background: #fff;
+    padding: 0.5rem 0;
+    margin-bottom: 1rem;
+  }
+
+  .col-4 {
+    @include breakpoint-max(phablet) {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      flex: none;
+    }
   }
 }
 

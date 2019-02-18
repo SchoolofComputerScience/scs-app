@@ -3,8 +3,24 @@
     <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
     <transition name="fade" mode="out-in" v-if="loaded">
       <div>
-        <h1>{{event.title}}</h1>
-        <h2 v-if="event.talkTitle">{{event.talkTitle}}</h2>
+        <div class="type" :style="{background: typeColors.get(event.event_type)}">{{event.event_type}}</div>
+
+        <h1>{{event.headline}}</h1>
+        <h2 v-if="event.name">{{event.name}}</h2>
+
+        <section>
+          <p class="title small">Place & Time</p>
+          <h3 v-if="event.building">{{event.building.toUpperCase() | buildingTranslate}}
+            <span v-if="event.room"> {{event.room}}</span>
+          </h3>
+
+          <h4>{{dateFix(event.start_date)}}</h4>
+
+          <p>
+            Starts: {{timeFix(event.start_date)}}
+            <span v-if="event.end_date">&#47; Ends: {{timeFix(event.end_date)}}</span>
+          </p>
+        </section>
 
         <section class="speaker" v-if="event.speakerName">
           <p class="title small">Speaker</p>
@@ -13,38 +29,16 @@
           <h4 v-if="event.speakerCompanyTeam">{{event.speakerCompanyTeam}}</h4>
         </section>
 
-        <section class="date" v-if="event.startDate">
-          <p class="title small">Date</p>
-          <h3>{{dateFix(event.startDate)}}</h3>
+        <section class="abstract" v-if="event.description">
+          <p class="title small">Description</p>
+          <p v-html="event.description"></p>
         </section>
 
-        <section class="time">
-          <p class="title small">Time</p>
-          <aside>
-            <p v-if="event.startDate">Starts: {{timeFix(event.startDate)}}</p>
-            <p class="divide" v-if="event.endDate"> / </p>
-            <p v-if="event.endDate">Ends: {{timeFix(event.endDate)}}</p>
-          </aside>
-        </section>
-
-        <section class="location" v-if="event.room">
-          <p class="title small">Location</p>
-          <aside>
-            <h3 v-if="event.room">{{event.room}}</h3>
-            <h3 class="divide" v-if="event.building"> / </h3>
-            <h3 v-if="event.building">{{event.building}}</h3>
-          </aside>
-        </section>
-
-        <section class="abstract" v-if="event.abstract">
-          <p class="title small">Abstract</p>
-          <p v-html="event.abstract"></p>
-        </section>
-
-        <section class="poster" v-if="event.poster">
+        <section class="poster" v-if="event.poster_url">
           <p class="title small">Attachments</p>
-          <p><a class="button" :href="event.poster">poster</a></p>
+          <p><a class="button" :href="event.poster_url">{{event.poster_text}}</a></p>
         </section>
+
       </div>
     </transition>
   </section>
@@ -54,30 +48,31 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 import format from 'date-fns/format'
-
-function fetchEvent(store) {
-  return store.dispatch('GET_EVENT', store.state.route.params.event)
-}
+import { SCS_EVENT_COLORS } from '../filter/index';
 
 export default {
   name: 'event-view',
-
-  preFetch: fetchEvent,
 
   components: {
     Spinner
   },
 
+  data: function () {
+    return {
+      'typeColors': SCS_EVENT_COLORS
+    };
+  },
+
   computed: {
     loaded() {
       let event = this.$route.params.event
-      for (var uid in this.$store.state.events.event)
-        if(uid === event) return true
+      for (var id in this.$store.state.events.event)
+        if(id === event) return true
     },
     event(){
       let event = this.$route.params.event
-      for (var uid in this.$store.state.events.event)
-        if(uid === event) return this.$store.state.events.event[uid]
+      for (var id in this.$store.state.events.event)
+        if(id === event) return this.$store.state.events.event[id]
     }
   },
 
@@ -89,18 +84,28 @@ export default {
       return format(arg, 'h:mm a')
     },
     dateFix (arg) {
-      return format(arg, 'MMMM Do YYYY')
+      return format(arg, 'dddd, MMM D, YYYY')
     }
   },
 
-  beforeMount () {
-    fetchEvent(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('GET_EVENT', route.params.event)
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import '../assets/scss/vars';
+
+.type{
+  display: inline-block;
+  color: white;
+  font-size: .7em;
+  background: $red; //default
+  padding: $base-line-height / 4;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
 
 .title {
   text-transform: uppercase;

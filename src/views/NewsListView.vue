@@ -11,7 +11,7 @@
             <div v-if="error" class="error-message">
               <p>{{error}}</p>
             </div>
-            <NewsItem v-if="!error" v-for="list in news" :key="list.uid" :data="list"></NewsItem>
+            <NewsItem v-if="!error" v-for="list in news" :key="list.id" :data="list" :show_tags="true"></NewsItem>
           </div>
         </section>
       </transition>
@@ -23,6 +23,7 @@
 import Spinner from '../components/Spinner.vue'
 import NewsItem from '../components/NewsItem.vue'
 import _ from 'lodash'
+import { router } from '../app'
 
 export default {
   name: 'news-list-view',
@@ -53,6 +54,7 @@ export default {
     loaded() {
       if(this.$store.state.news.error.length > 0){
         this.error = this.$store.state.news.error
+        router.replace('/404');
       }else{
         this.error = false;
       }

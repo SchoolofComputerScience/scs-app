@@ -29,10 +29,6 @@ export default {
                 hr_relationship
                 hr_relationship_class
                 hr_relationship_desc
-                research_areas {
-                  area_id
-                  title
-                }
                 display_name
                 phone_full_call
                 phone_full
@@ -40,29 +36,15 @@ export default {
                 scs_relationship_class
                 scs_relationship_desc
                 positions {
-                  building
+                  building_id
                   department
-                  department_name
-                  hr_department
-                  performance_supervisor
-                  primary_position
+                  hr_department_id
+                  performance_supervisor_scid
+                  primary_position_indicator
                   room
+                  scs_position_class
+                  scs_position_desc
                   title
-                }
-                news(limit: 2){
-                  title
-                  date
-                  uid
-                  image
-                  tags {
-                    tag
-                    name
-                  }
-                }
-                events{
-                  uid
-                  title
-                  startDate
                 }
                 profile{
                   gs_affiliation
@@ -79,14 +61,22 @@ export default {
                   gs_profile_guid
                   gs_profile_url
                   scid
-                  pub_year_agg{
-                    _id
-                  }
                 }
                 publications{
-                  _id
-                  title
+                  authors
+                  description
+                  gs_citation_count
+                  gs_citation_guid
+                  gs_citation_url
+                  gs_profile_guid
+                  journal
+                  pages
+                  pub_date
+                  pub_format
+                  pub_url
                   pub_year
+                  publisher
+                  title
                 }
                 courses{
                   long_title

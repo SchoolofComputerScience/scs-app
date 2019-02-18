@@ -1,6 +1,5 @@
 
 // GLOBALS
-
 @import 'reset';
 @import 'vars';
 @import 'mixins';
@@ -8,12 +7,16 @@
 @import 'card';
 @import 'circle';
 @import 'button';
+@import "~bootstrap/scss/bootstrap";
 
 // site
-
 html, body {
   background: $primary-grey;
   font-family: $font;
+
+  &.md-theme-default {
+    background-color: $primary-grey;
+  }
 }
 
 body {
@@ -29,10 +32,19 @@ body {
   @include breakpoint-min(full) {
     font-size: 1.25em;
   }
+  color: #333;
 }
 
-// animations
+h3 {
+  color: $black;
+}
 
+a {
+  color: $red;
+  text-decoration: none;
+}
+
+// Animations
 .fade-enter-active, .fade-leave-active {
   transition-property: opacity;
   transition-duration: .15s;
@@ -47,7 +59,6 @@ body {
 }
 
 // container restraints
-
 .content-page{
   padding: $base-line-height;
   &:hover{
@@ -58,7 +69,7 @@ body {
   @include breakpoint-min(desktop) {
     padding: $base-line-height * 2;
     margin: $base-line-height auto;
-    max-width: 1440px;
+    max-width: $max-width;
   }
   @include breakpoint-max(full){
     margin: $base-line-height auto;
@@ -68,7 +79,7 @@ body {
 .display-page{
   @include breakpoint-min(desktop) {
     margin: $base-line-height auto;
-    max-width: 1440px;
+    max-width: $max-width;
   }
 }
 
@@ -76,13 +87,24 @@ body {
   @include breakpoint-min(desktop) {
     margin-left: auto;
     margin-right: auto;
-    max-width: 1440px;
+    max-width: $max-width;
   }
 }
 
+///
 // Utility classes
-// For screen readers only (visually hidden but accessible)
-.sr-only {
+///
+// Helps contain content to same width on fluid layouts
+.u-content-container {
+  @include breakpoint-min(full) {
+    max-width: $max-width;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+// For screen readers only (visually hidden but available to assistive technology)
+.u-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;

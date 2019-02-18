@@ -1,16 +1,12 @@
 <template>
   <div class="card content-page">
-    <page-content class="page-body" :metadata="page"></page-content>
+    <page-content class="page-body"></page-content>
   </div>
 </template>
 
 <script>
 import PageContent from '../components/PageContent.vue'
 import { router } from '../app'
-
-function fetchPage(store) {
-  return store.dispatch('FETCH_PAGE', store.state.route.params.page)
-}
 
 export default {
   name: 'page-view',
@@ -19,26 +15,8 @@ export default {
     PageContent
   },
 
-  preFetch: fetchPage,
-
-  computed: {
-    page () {
-      const pages = this.$store.getters.navigation
-      for (var i = 0; i < pages.length; i++) {
-        if (pages[i].slug === this.$route.params.page) {
-          return pages[i]
-        }
-      }
-      return { markdown: '', slug: '', title: '' }
-    }
-  },
-
-  created () {
-    this.$store.dispatch('documentTitle', this.page.title)
-  },
-
-  beforeMount () {
-    fetchPage(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('FETCH_PAGE', route.params.page);
   }
 }
 </script>

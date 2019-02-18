@@ -14,7 +14,7 @@
         </p>
       </div>
 
-      <h2>{{course.course_number}} {{course.long_title}}</h2>
+      <h2>{{course.course_number | formatCourseNumber}} {{course.long_title}}</h2>
 
       <p class="body">{{course.description}}</p>
 
@@ -25,11 +25,11 @@
         <div v-if="course.areas" class="research">
           <p class="title">Area Tags:</p>
           <p>
-            <a class="button-small" href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in course.areas" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
+            <a class="button-small" href="javascript:void(0);" v-on:click="setResearchArea" v-for="area in course.areas" :key="area.area_id" :area-id="area.area_id" :area-title="area.title">{{ area.title }}</a>
           </p>
         </div>
 
-        <div class="item section" v-for="section in course.sections">
+        <div class="item section" v-for="section in course.sections" :key="section.course_section_id">
 
           <h3 v-if="course.lecture_distinction && !isNaN(section.section)">Lecture {{section.section}}</h3>
           <h4 v-else-if="course.lecture_distinction && section.parent_course">Section {{section.section}} (w/ Lecture {{section.parent_course.section}})</h4>
@@ -38,7 +38,7 @@
             <p>
               <span v-if="section.instructors.length === 1">Instructor</span>
               <span v-else>Instructors</span>:
-              <span v-for="(instructor,index) in section.instructors">
+              <span v-for="(instructor,index) in section.instructors" :key="instructor.scid">
                 <router-link v-if="instructor.valid" :to="'/directory/' + instructor.scid">{{ instructor.first_name + " " + instructor.last_name }}</router-link>
                 <span v-else>{{ instructor.first_name + " " + instructor.last_name }}</span>
                 <span v-if="index < section.instructors.length-1">, </span>
@@ -67,10 +67,6 @@
 import Spinner from '../components/Spinner.vue'
 import { router } from '../app'
 
-function fetchCourse(store) {
-  return store.dispatch('FETCH_COURSE',  store.state.route.params.course)
-}
-
 export default {
   name: 'course-view',
 
@@ -78,12 +74,10 @@ export default {
     Spinner
   },
 
-  preFetch: fetchCourse,
-
   computed: {
 
     loaded() {
-      return this.$store.state.courses.course[this.$route.params.course] ? true : false
+      return this.$store.state.courses.course[this.$route.params.course][0] ? true : false
     },
     course(){
       /*
@@ -91,7 +85,7 @@ export default {
        * This requires checking sections.parent_course. Self-reference
        * indicates the parent. Numerals indicate a lecture.
        */
-      return this.$store.state.courses.course[this.$route.params.course]
+      return this.$store.state.courses.course[this.$route.params.course][0]
     }
   },
 
@@ -110,8 +104,8 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchCourse(this.$store)
+  asyncData ({ store, route }) {
+    return store.dispatch('FETCH_COURSE',  route.params.course)
   }
 }
 </script>

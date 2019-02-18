@@ -52,14 +52,16 @@ export function courseLevelTranslate (levelId) {
 export function departmentTranslate (depId) {
   depId = depId ? depId.toLowerCase() : depId
   let departmentMap = new Map([
-    [ 'compbio', 'Computational Biology Department' ],
-    [ 'hcii', 'Human-Computer Interaction Institute' ],
+    [ 'cb', 'Computational Biology Department' ],
+    [ 'hci', 'Human-Computer Interaction Institute' ],
     [ 'isr', 'Institute for Software Research' ],
-    [ 'mld', 'Machine Learning Department' ],
+    [ 'mlg', 'Machine Learning Department' ],
     [ 'lti', 'Language Technologies Institute' ],
-    [ 'csd', 'Computer Science Department' ],
-    [ 'ri', 'The Robotics Institute' ],
-    [ 'etc', 'Entertainment Technology Center' ]
+    [ 'cs', 'Computer Science Department' ],
+    [ 'rob', 'The Robotics Institute' ],
+    [ 'etc', 'Entertainment Technology Center' ],
+    [ 'se', 'Software Engineering' ],
+    [ 'scs', 'School Of Computer Science' ]
   ])
   return departmentMap.get(depId) || depId
 }
@@ -125,3 +127,63 @@ export function dayTranslate (dayCode) {
 
   return dayTranslate.join(', ') || dayCode
 }
+
+/**
+ * Sorts an array of our data objects by a date. Data must be an array.
+ * dataField is the name of the object property to sort by.
+ * Default order is ascending. Setting ascendingOrder to false will sort descending.
+ *
+ * @param data
+ * @param dateField
+ * @param ascendingOrder
+ * @returns {*|Array}
+ */
+export function sortDataByDate (data, dateField, ascendingOrder=true){
+  let results = [];
+
+  if(ascendingOrder){
+    results = data.sort(function compareDates(date1, date2){
+      const dateA = new Date(date1[dateField]);
+      const dateB = new Date(date2[dateField]);
+
+      return dateA - dateB;
+    });
+  } else {
+    results = data.sort(function compareDates(date1, date2){
+      const dateA = new Date(date1[dateField]);
+      const dateB = new Date(date2[dateField]);
+
+      return dateB - dateA;
+    });
+  }
+
+  return results;
+}
+
+export const SCS_EVENT_COLORS = new Map([
+  [ 'Special Events', '#C60' ],
+  [ 'Seminars', '#603' ],
+  [ 'Thesis Orals', '#224433' ],
+  [ 'Speaking Skills', '#006600' ],
+  //todo: get actual color for conferences and workshops.
+  [ 'Conferences,Workshop', '#c41230' ],
+  [ 'Talks', '#993300' ],
+  [ 'Lecture', '#669966' ],
+  [ 'Career Presentation', '#009999' ],
+  [ 'Fun', '#000066' ],
+  [ 'Introductory Course,Orientation', '#cc0000'],
+  [ 'Project Presentations', '#099' ],
+  [ 'Alumni Event', '#999' ],
+  [ 'Distinguished Lecture Series', '#C00' ]
+]);
+
+/**
+ * Custom filter for course numbers. Formats courses with a dash '-'.
+ * @param course
+ * @returns {string}
+ */
+export function formatCourseNumber(course) {
+  const separator = '-';
+  return course.substring(0, 2) + separator + course.substring(2);
+}
+

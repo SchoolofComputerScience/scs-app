@@ -6,6 +6,12 @@ export default {
   state: {
     articles: {},
     list: [],
+    //TODO: News contact should come from the database and not hard-coded. At this time, it is not available.
+    newsContact: {
+      display_name: 'Byron Spice',
+      phone: '412-268-9068',
+      email: 'bspice@cs.cmu.edu'
+    },
     error: {}
   },
   actions: {
@@ -14,14 +20,12 @@ export default {
           query: gql`
             {
               newsBySearch(query:"${fields}") {
-                title
+                headline
                 date
-                uid
+                id
                 image
-                tags {
-                  tag
-                  name
-                }
+                image_alt
+                image_caption
               }
             }
           `
@@ -34,8 +38,9 @@ export default {
           }
         }).catch((err) =>{
           console.log(err)
-          Promise.reject(":err :department graphql failed")
+          Promise.reject(":err :news articles graphql failed")
           console.error(`GraphQL Error: ${err.message}`)
+          commit('SET_NEWS_LIST', {error: `GraphQL Error: ${err.message}`})
         })
     },
     GET_NEWS_ARTICLE: ({ commit, state }, fields = {}) => {
@@ -44,16 +49,15 @@ export default {
         : apollo.query({
           query: gql`
             {
-              newsArticle(uid:"${fields}") {
-                title
+              news(id:"${fields}") {
+                headline
+                subheading
                 date
-                uid
+                id
                 image
-                body
-                tags {
-                  tag
-                  name
-                }
+                image_alt
+                image_caption
+                copy
               }
             }
           `
@@ -61,10 +65,13 @@ export default {
           if (res) {
             commit('SET_NEWS_ARTICLE', res.data)
             return res.data
+          } else {
+            commit('SET_NEWS_ARTICLE', {error: `GraphQL Error: ${err.message}`})
           }
         }).catch((err) =>{
-          Promise.reject(":err :department graphql failed")
+          Promise.reject(":err :news article graphql failed")
           console.error(`GraphQL Error: ${err.message}`)
+          commit('SET_NEWS_ARTICLE', {error: `GraphQL Error: ${err.message}`})
         })
     },
     GET_NEWS_LIST: ({ commit, state }, fields = {}) => {
@@ -72,14 +79,13 @@ export default {
           query: gql`
             {
               news {
-                title
+                headline
+                subheading
                 date
-                uid
+                id
                 image
-                tags {
-                  tag
-                  name
-                }
+                image_alt
+                image_caption
               }
             }
           `
@@ -88,17 +94,24 @@ export default {
             commit('SET_NEWS_LIST', res.data)
             return res.data
           } else {
-            Promise.reject(":err :department graphql failed")
+            Promise.reject(":err :news articles graphql failed")
+            commit('SET_NEWS_LIST', {error: `GraphQL Error: ${err.message}`})
           }
         }).catch((err) =>{
           console.error(err.locations)
           console.error(`GraphQL Error: ${err.message}`)
+          commit('SET_NEWS_LIST', {error: `GraphQL Error: ${err.message}`})
         })
     }
   },
   mutations: {
     SET_NEWS_ARTICLE: (state, data) => {
-      Vue.set(state.articles, data.newsArticle[0].uid, data.newsArticle[0])
+      if(data.error){
+        state.error = data.error
+      } else {
+        state.error = ''
+        Vue.set(state.articles, data.news[0].id, data.news[0])
+      }
     },
     SET_NEWS_LIST: (state, data) => {
       if(data.error){

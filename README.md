@@ -26,9 +26,9 @@ Main Application
 ## Adding Content
 
 ### Simple markdown pages
-1. Add Markdown file in: [scs-content/pages](https://github.com/SchoolofComputerScience/scs-content/tree/master/pages)
+1. Add Markdown file in: [scs-api/src/content](https://github.com/SchoolofComputerScience/scs-api/tree/master/src/content)
 
-2. When that page is accepted into the repository add a new path to pages in [scs-app/content/static_db.js](https://github.com/SchoolofComputerScience/scs-app/blob/master/content/static_db.js)
+2. When that page is accepted into the API repository, the new URL will be '/whatever-you-named-the-markdown-file'
 
 ### New custom .vue pages
 1. Add new .vue page in [scs-app/src/views](https://github.com/SchoolofComputerScience/scs-app/tree/master/src/views)

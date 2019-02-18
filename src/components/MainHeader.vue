@@ -1,170 +1,127 @@
 <template>
-  <header v-bind:class="{ 'main-nav-is-burger': isMenuHamburger }">
-    <div class="logo">
-      <router-link to="/"><img src="../assets/img/cmu-school-main.svg" alt="CMU School of Computer Science"></router-link>
+  <header v-bind:class="{ 'mobile-menu': mobileMenu }">
+    <div class="beta-banner">
+      <a href="http://cs.cmu.edu">Click Here To Return To The Previous Experience For cs.cmu.edu</a>
     </div>
-    <nav class="main-nav">
-      <mobile-toggle :scrollhandler="scroll"></mobile-toggle>
-      <ul v-bind:class="{ open: open}" class="main-nav-list">
-        <nav-leaf
-          v-for="(childItems, navTitle) in navLinks"
-          :key="navTitle"
-          :navTitle="navTitle"
-          :currentLeaf="currentLeaf"
-          :childItems="childItems"
-          v-on:updateCurrentLeaf="setCurrentLeaf">
-        </nav-leaf>
-      </ul>
+    <nav class="navbar navbar-expand-custom navbar-light">
+      <router-link to="/" class="navbar-brand logo">
+        <span class="u-sr-only">Carnegie Mellon School of Computer Science</span>
+      </router-link>
+      <button class="navbar-toggler" type="button" v-on:click="toggleMenu" ref="menuButton" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="depDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Academics
+            </a>
+            <div class="dropdown-menu" aria-labelledby="depDropdown">
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-programs">Undergraduate Programs</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-programs">Masters Programs</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/doctoral-programs">Doctoral Programs</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/courses/F18">Courses</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/research">Research Areas</router-link>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="admissionsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Admissions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="admissionsDropdown">
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/undergraduate-admissions">Undergraduate</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/masters-admissions">Masters</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/doctoral-admissions">Doctoral</router-link>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="depDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Departments
+            </a>
+            <div class="dropdown-menu" aria-labelledby="depDropdown">
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/compbio">Computational Biology Department</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/csd">Computer Science Department</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/hcii">Human-Computer Interaction Institute</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/isr">Institute for Software Research</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/lti">Language Technologies Institute</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/mld">Machine Learning Department</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/ri">Robotics Institute</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/departments/deans_office">Dean's Business Office</router-link>
+            </div>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/directory">Directory</router-link>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="aboutDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              About
+            </a>
+            <div class="dropdown-menu" aria-labelledby="aboutDropdown">
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/about">About SCS</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/alumni">Alumni Engagement</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/outreach">Outreach</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/corporate">SCS Partnerships</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/international-students">International Students</router-link>
+              <div class="dropdown-divider"></div>
+              <router-link class="dropdown-item" v-on:click.native="menuButtonClick" to="/diversity-and-inclusion">Diversity and Inclusion</router-link>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" target="_blank" v-on:click="menuButtonClick" href="http://www.cs.cmu.edu/~help/">Computing Facilities</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" target="_blank" v-on:click="menuButtonClick" href="http://www.cs.cmu.edu/~scsfacts/awards.html">Faculty Awards</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" target="_blank" v-on:click="menuButtonClick" href="http://www.cs.cmu.edu/~scsfacts/studentawards.html">Student Awards</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/news">News</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/events">Events</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link class="nav-link" v-on:click.native="menuButtonClick" to="/donate">Donate</router-link>
+          </li>
+        </ul>
+      </div>
     </nav>
   </header>
 </template>
 
 <script>
-import NavLeaf from '../components/NavLeaf.vue'
-import MobileToggle from '../components/MobileToggle.vue'
 
 export default {
   name: 'main-header',
 
-  components: {
-    NavLeaf,
-    MobileToggle
-  },
-
-  computed: {
-    open () {
-      return this.$store.state.navigation.navState
-    }
-  },
-
-  data: function () {
+  data () {
     return {
-      currentLeaf: null,
-      isMenuHamburger: false,
-      // Menu links as an object
-      // Each top level section is an object
-      // If that item is a link include the "navLink" key with the URL as a value
-      // Child items should have link text as key and link URL as value
-      navLinks: {
-        "Home": {
-          "navLink": "/",
-        },
-        "Departments": {
-          "Computational Biology Department": "/departments/compbio",
-          "Computer Science Department": "/departments/csd",
-          "Human-Computer Interaction Institute": "/departments/hcii",
-          "Institute for Software Research": "/departments/isr",
-          "Language Technologies Institute": "/departments/lti",
-          "Machine Learning Department": "/departments/mld",
-          "Robotics Institute": "/departments/ri",
-          "Dean's Business Office": "/departments/deans_office",
-        },
-        "Directory": {
-          "navLink": "/directory",
-        },
-        "About": {
-          "navLink": "/about",
-          "Alumni Engagement": "/alumni",
-          "Donate": "/donate",
-          "Outreach": "/outreach",
-          "SCS Partnerships": "/corporate",
-          "International Students": "/international-students",
-          "Diversity and Inclusion": "/diversity-and-inclusion",
-          "Computing Facilities": "http://www.cs.cmu.edu/~help/",
-          "Faculty Awards": "http://www.cs.cmu.edu/~scsfacts/awards.html",
-          "Student Awards": "http://www.cs.cmu.edu/~scsfacts/studentawards.html",
-        },
-        "Programs": {
-          "navLink": "/programs",
-          "Undergraduate": "/undergraduate-programs",
-          "Masters": "/masters-programs",
-          "Doctoral": "/doctoral-programs",
-        },
-        "Admissions": {
-          "navLink": "/admissions",
-          "Undergraduate": "/undergraduate-admissions",
-          "Masters": "/masters-admissions",
-          "Doctoral": "/doctoral-admissions",
-        },
-        "Courses":  {
-          "navLink": "/courses/F17",
-        },
-        "News": {
-          "navLink": "/news",
-        },
-        "Events": {
-          "navLink": "/events"
-        },
-        "Research": {
-          "navLink": "/research",
-        }
-      }
+      mobileMenu: false
     }
   },
-
-  watch: {
-    '$route' (to, from) {
-      this.$store.commit('SET_NAVIGATION_STATE', false);
+  methods: {
+    toggleMenu: function() {
+      this.mobileMenu = !this.mobileMenu;
+    },
+    menuButtonClick: function() {
+      if (this.mobileMenu)
+        this.$refs.menuButton.click();
     }
-  },
-
-  methods:{
-    scroll: function() {
-      const offsetTop = this.$el.querySelector('.main-nav').getBoundingClientRect().top;
-      const logoHeight = document.querySelector('.logo').clientHeight;
-      if (offsetTop < -1 || window.scrollY > logoHeight) {
-        this.$el.querySelector('.main-nav').classList.add('stuck');
-      } else {
-        this.$el.querySelector('.main-nav').classList.remove('stuck');
-      }
-    },
-    scrollTest(){
-      window.requestAnimationFrame(this.scroll);
-    },
-    resize: function() {
-      var header = this.$el;
-      var headerBoundingRect = header.getBoundingClientRect();
-      var menu = header.querySelector('.main-nav');
-      var menuBoundingRect = menu.getBoundingClientRect();
-      var lastMenuItemBoundingRect = header.querySelector('.main-nav-list > li:last-child').getBoundingClientRect();
-      var shouldHamburger = true;
-
-      if (typeof lastMenuItemBoundingRect.x !== 'undefined' && lastMenuItemBoundingRect.x + lastMenuItemBoundingRect.width < menu.clientWidth + menu.getBoundingClientRect().x) {
-        shouldHamburger = false;
-      } else if (typeof lastMenuItemBoundingRect.left !== 'undefined' && lastMenuItemBoundingRect.left + lastMenuItemBoundingRect.width < menu.clientWidth + menu.getBoundingClientRect().left) {
-        shouldHamburger = false;
-      }
-
-      // If the last menu item is popping out of the header, then it's burger time
-      if (shouldHamburger) {
-        this.isMenuHamburger = true;
-        // Make sure the nav is stuck with appropriate styling based on the page
-        this.scrollTest();
-        // Unable to revert back to desktop menu since nav will be skinnier than viewport in mobile mode,
-        // So adding an else will cause the menu to flip back and forth between burger/not burger rapidly
-        // So kill our listener
-        window.removeEventListener('resize', this.resizeTest);
-      }
-    },
-    resizeTest() {
-      window.requestAnimationFrame(this.resize);
-    },
-    setCurrentLeaf: function(currentLeaf) {
-      this.currentLeaf = currentLeaf;
-    }
-  },
-
-  mounted () {
-    window.addEventListener('scroll', this.scrollTest);
-    window.addEventListener('resize', this.resizeTest);
-    // Fire the functions once on load
-    this.scrollTest();
-    this.resizeTest();
-  },
-
-  beforeDestroy() {
-    window.removeEventListener('scroll', this.scrollTest);
-    window.removeEventListener('resize', this.resizeTest);
   }
 }
 </script>
@@ -173,218 +130,137 @@ export default {
 @import '../assets/scss/vars.scss';
 @import '../assets/scss/mixins.scss';
 
-.logo {
-  max-height: $base-line-height * 4;
-  width: 15rem;
-  padding: $base-line-height 0;
-  @include breakpoint-max(phone) {
-    width: 14rem;
-    padding: $base-line-height / 2;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  img{
-    max-height: $base-line-height * 2;
+.navbar {
+  padding: 0;
+  @include breakpoint-min(full) {
+    justify-content: center;
   }
 }
 
-.main-nav {
-  width: 100%;
-  position: absolute;
-  z-index: 200;
-  background: white;
-  padding: 0 $base-line-height;
-  margin-left: -$base-line-height;
-  border-top: 1px solid $primary-grey;
-  box-shadow: $box-shadow-inert;
-
-  a {
-    @include type-setting(0);
+.navbar-nav {
+  .nav-link {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
     color: $black;
-    display: block;
-    padding: $base-line-height / 2;
-    &:hover, &.router-link-active {
+    font-size: 1rem;
+    border-bottom: 3px solid transparent;
+
+    &:hover, &:focus {
       color: $red;
     }
   }
-  &.stuck {
-    position: fixed;
-    top: 0;
-    transition: all .2s;
-    z-index: 100;
+
+  .dropdown-menu {
+    background: $red;
+    border: 1px solid $red;
   }
-  > ul{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    @include breakpoint-min(desktop) {
-      max-width: map-get($breakpoints, desktop);
+
+  .dropdown-item {
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+
+    &:hover, &:focus {
+      color: $red;
+      background: #fff;
     }
-  }
-  li {
-    display: inline-block;
-    align-self: flex-start;
-  }
-  .mobile-toggle{
-    display: none;
   }
 }
 
-/**
- * Burger styles
- * Triggered by class that's added when nav doesn't fit in it's space
- */
-.main-nav-is-burger {
-  &.main-header {
-    margin-bottom: 0;
-    border-bottom: 1px solid $primary-grey;
+.navbar-toggler {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  margin-right: 1rem;
+}
+
+.navbar-toggler-icon {
+  width: 2.5em;
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='5 5 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgb(196, 18, 48)' stroke-width='3' stroke-linecap='square' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E"); 
+}
+
+.navbar-brand {
+  margin-right: 0;
+}
+
+.dropdown-menu {
+  left: initial;
+  padding: 0;
+  border: none;
+}
+
+.navbar-expand-custom {
+  .navbar-collapse {
+    @include breakpoint-min(full) {
+      display: flex !important;
+      flex: unset;
+    }
   }
-  .main-nav {
-    position: fixed;
-    top: $base-line-height * 0.75;
-    right: 0;
-    width: $base-line-height * 3; // Should be greater than burger size in MobileToggle.vue
-    padding: 0;
-    border: 0;
-    background: none;
-    box-shadow: none;
 
-    @include breakpoint-max(phone) {
-      top: $base-line-height * 0.1875;
+  .navbar-toggler {
+    @include breakpoint-min(full) {
+      display: none;
     }
+  }
 
-    &:after{
-      content: ' ';
-      opacity: 0;
-      transition: .2s linear;
-    }
+  .navbar-nav {
+    @include breakpoint-min(full) {
+      flex-direction: row;
 
-    &.stuck {
-      z-index: 100;
-      top: $base-line-height;
-      transition: all .2s;
-
-      &:hover{
-        top: calc(#{$base-line-height} - 2px);
-        transition: .2s linear;
-      }
-
-      .mobile-toggle:before{
-        content: ' ';
+      .dropdown-menu {
         position: absolute;
-        left: 50%;
-        top: 50%;
-        width: $base-line-height * 3.2;
-        height: $base-line-height * 3.2;
-        transform: translate(-50%, -50%);
-        background: white;
-        box-shadow: $box-shadow-inert;
-        border-radius: 100%;
-        transition: .2s linear;
-        opacity: 1;
       }
-
-      .mobile-toggle.open:before {
-        display: none;
-      }
-    }
-
-    &:hover.stuck:after{
-      box-shadow: $box-shadow-hover;
-    }
-    a.router-link-active{
-      color: white;
-      font-weight: 900;
-    }
-    > ul {
-      z-index: 10;
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      background: $red;
-      overflow-y: auto;
-      opacity: 0;
-      pointer-events: none;
-      &.open{
-        opacity: 1;
-        pointer-events: all;
-        transition: .25s opacity ease-in-out;
-      }
-      &:after{
-        content: ' ';
-        width: 100%;
-        background: linear-gradient(to bottom, rgba(196,18,48,0) 0%, rgba(196,18,48,1)100%);
-        height: 2em;
-        position: fixed;
-        display: block;
-        bottom: 0;
-        opacity: 1;
-        pointer-events: none;
-      }
-      &:before{
-        content: ' ';
-        width: 100%;
-        background: linear-gradient(to top, rgba(196,18,48,0) 0%, rgba(196,18,48,1) 100%);
-        height: 2em;
-        position: fixed;
-        display: block;
-        top: 0;
-        opacity: 1;
-        pointer-events: none;
-      }
-      > li{
-        width: 100%;
-        border-bottom: 1px solid lighten($red, 5%);
-        color: white;
-        display: block;
-        > a{
-          @include type-setting(0);
-          padding: $base-line-height * .5 $base-line-height;
-          color: white;
-          display: block;
-          &:hover{
-            color: white;
-          }
-        }
-      }
-      > li:first-child{
-        margin-top: $base-line-height;
-        border-top: 1px solid lighten($red, 5%);
-      }
-      > li:last-child{
-        margin-bottom: $base-line-height;
-      }
-    }
-    .mobile-toggle{
-      position: relative;
-      display: block;
     }
   }
 }
 
-@include breakpoint-max(phone) {
-  .main-nav {
-    top: 3px;
-    &.stuck:hover{
-      top: 3px;
-      transition: none;
-    }
-    &:hover.stuck:after{
-      box-shadow: $box-shadow-inert;
-    }
-    &:after{
-      content: ' ';
-      opacity: 0;
-      transition: .2s linear;
-    }
-    &.stuck {
-      top: 13px;
-      right: 10px;
-    }
+.dropdown-divider {
+  border-top: 1px solid #fff;
+  margin: 0;
+}
+
+
+.u-content-container {
+  @include breakpoint-min(laptop) {
+    padding: 0 $default-gutter;
   }
 }
+
+.logo {
+  max-height: $base-line-height * 4;
+  width: 15rem;
+  display: block;
+  background: url(../assets/img/components/MainHeader/cmu-school-main.svg) no-repeat;
+  background-size: 100% auto;
+  margin-left: 1rem;
+  margin-top: 0.5rem;
+
+  &:before {
+    content: '';
+    display: block;
+    box-sizing: content-box;
+    width: 100%;
+    height: 0;
+    padding-bottom: 43 / 240 * 100%;
+  }
+  @include breakpoint-max(phone) {
+    width: 14rem;
+    max-width: calc(100vw - 7.5rem);
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.beta-banner {
+  background: $red;
+  text-align: center;
+  padding: 1rem;
+  
+  a {
+    display: block;
+    color: white;
+  }
+}
+
+
 
 </style>

@@ -1,59 +1,50 @@
-<template>
-  <main id="app" class="app-shell">
-    <main-header class="main-header"></main-header>
-    <main class="main-body">
-      <transition name="fade">
-        <router-view class="main-view" :key="$route.fullPath"></router-view>
-      </transition>
-    </main>
-    <main-footer class="main-footer"></main-footer>
-  </main>
+<template lang="pug">
+  #app.app-shell
+    router-view.main-view(:key="$route.fullPath")
 </template>
 
 <script>
-import MainHeader from './components/MainHeader.vue'
-import MainFooter from './components/MainFooter.vue'
+import Vue from 'vue'
+// import MainHeader from './components/MainHeader.vue'
+// import MainFooter from './components/MainFooter.vue'
+// import VueMaterial from 'vue-material'
 
-function fetchGlobalData(store) {
-  store.dispatch('GET_DIRECTORY');
-  store.dispatch('GET_PROGRAMS')
-  return store.dispatch('GET_RESEARCH_AREAS');
-}
+/*
+  TODO: When we move to production, only import components we will use.
+        Additionally, once material design is in place, remove bootstrap.
+*/
+
+// Vue.use(VueMaterial);
 
 export default {
   name: 'scsmain',
-  preFetch: fetchGlobalData,
+
   components: {
-    MainHeader,
-    MainFooter
+    // MainHeader,
+    // MainFooter,
   },
-  beforeMount () {
-    fetchGlobalData(this.$store);
+  mounted() {
+    window.$ = require('jquery');
+
+    $('body').on('click', function (e) {
+
+      var container = $(".slider_nav_container, .open_menu");
+
+      if (!container.is(e.target) && container.has(e.target).length === 0)
+      {
+        $('main, header').removeClass('nav_open');
+        $('.slider_nav_container').removeClass('open');
+        $('.open_menu').removeClass('on');
+      }
+
+    });
+
   }
 }
 </script>
 
-<style lang="scss">
-@import './assets/scss/global';
 
-.main-body{
-  margin: 0 auto;
-  padding: $base-line-height;
-  top: 0;
-}
-
-.main-footer{
-  margin: 0 auto $base-line-height auto;
-  padding:$base-line-height;
-  background: white;
-}
-
-.main-header{
-  margin: $base-line-height auto;
-  padding: 0 $base-line-height;
-  margin-top: 0;
-  margin-bottom: $base-line-height * 2;
-  background: white;
-  box-shadow: $box-shadow-inert;
-}
+<style>
+  @import './assets/css/vendor/normalize.css';
+  @import './assets/css/base.css';
 </style>

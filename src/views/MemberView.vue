@@ -55,7 +55,7 @@
           <section v-if="member.courses.length > 0" class="courses">
             <p class="title">{{semesterCode | seasonTranslate}} Courses</p>
             <p v-for="course in member.courses">
-              <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number}} | {{course.long_title}}</span></router-link>
+              <router-link :to="'/courses/course/' + course.course_id"> <span>{{course.course_number | formatCourseNumber}} | {{course.long_title}}</span></router-link>
             </p>
           </section>
 
@@ -66,7 +66,7 @@
             </p>
           </section>
 
-          <section v-if="news" class="news">
+          <!-- <section v-if="news" class="news">
             <p class="title">news articles</p>
             <div class="card-holder">
               <NewsItem v-for="list in member.news" :key="list.uid" :data="list"></NewsItem>
@@ -78,16 +78,24 @@
             <p v-for="event in member.events">
               <router-link :to="'/events/' + event.uid">{{event.title}} | <span>{{event.date | moment("dddd, MMMM Do YYYY")}}</span></router-link>
             </p>
-          </section>
+          </section> -->
 
           <section v-if="gp" class="publications">
-            <p class="title">Cited Publications <span class="amount">(Amount: {{member.profile[0].gs_citation_count}})</span>
+            <p class="title">Cited Publications <span class="amount">(Amount: {{member.publications.length}})</span>
             </p>
-            <div class="list" v-for="pub in member.profile[0].pub_year_agg">
-              <h4>{{pub._id}}</h4>
-              <div v-for="art in member.publications">
-                <div v-if="art.pub_year == pub._id">
-                  <p><router-link :to="'/publication/' + art._id">{{art.title}}</router-link></p>
+            <div class="list" v-for="year in gp_years" :key="year">
+              <h4>{{year}}</h4>
+              <div v-for="art in gp[year]" :key="art.gs_citation_guid">
+                <div>
+                  <p><router-link :to="'/publication/' + art.gs_citation_guid + '/' + member.scid">{{art.title}}</router-link></p>
+                </div>
+              </div>
+            </div>
+            <div v-if="gp['None']" class="list">
+              <h4>None</h4>
+              <div v-for="art in gp['None']" :key="art.gs_citation_guid">
+                <div>
+                  <p><router-link :to="'/publication/' + art.gs_citation_guid">{{art.title}}</router-link></p>
                 </div>
               </div>
             </div>
@@ -104,18 +112,10 @@ import Vue from 'vue'
 import Spinner from '../components/Spinner.vue'
 import NewsItem from '../components/NewsItem.vue'
 
-function fetchData(store) {
-  store.dispatch('GET_SEMESTER_CODE');
-  store.dispatch('GET_RESEARCH_AREAS');
-  return store.dispatch('FETCH_MEMBER', store.state.route.params.name)
-}
-
 const bioHeight = 112
 
 export default {
   name: 'member-view',
-
-  preFetch: fetchData,
 
   components: {
     Spinner,
@@ -142,14 +142,45 @@ export default {
       return this.$store.state.member[this.$route.params.name].profile.length
     },
     gp(){
-      return this.$store.state.member[this.$route.params.name].publications.length
+      const all_pubs = this.$store.state.member[this.$route.params.name].publications;
+      let pubs_by_year = {};
+
+      all_pubs.map(function(pub){
+        let year = "None";
+        if (pub.pub_year) {
+          year = pub.pub_year;
+        }
+
+        if (pubs_by_year[year]){
+          pubs_by_year[year].push(pub);
+        }
+        else {
+          pubs_by_year[year] = [];
+          pubs_by_year[year].push(pub);
+        }
+      });
+
+      return pubs_by_year;
+    },
+    gp_years(){
+      const all_pubs = this.$store.state.member[this.$route.params.name].publications;
+      let years = [];
+
+      all_pubs.map(function(pub){
+        if (pub.pub_year) {
+          if (years.indexOf(parseInt(pub.pub_year)) === -1)
+            years.push(parseInt(pub.pub_year));
+        }
+      });
+
+      return years.sort().reverse();
     },
     news(){
-      return this.$store.state.member[this.$route.params.name].news.length
+      return this.$store.state.member[this.$route.params.name].news || false;
     },
-    events(){
-      return this.$store.state.member[this.$route.params.name].events.length
-    },
+    // events(){
+    //   return this.$store.state.member[this.$route.params.name].events.length
+    // },
     semesterCode(){
       return this.$store.state.semesterCode.code;
     },
@@ -163,8 +194,10 @@ export default {
     }
   },
 
-  beforeMount () {
-    fetchData(this.$store)
+  asyncData ({ store, route }) {
+    store.dispatch('GET_SEMESTER_CODE');
+    store.dispatch('GET_RESEARCH_AREAS');
+    return store.dispatch('FETCH_MEMBER', route.params.name)
   },
 
   mounted () {
@@ -328,12 +361,12 @@ export default {
     margin-bottom: 1.6em;
     > h4{
       position: absolute;
-      left: -3.2em;
+      left: -2.8em;
       top: .2em;
     }
   }
   .amount{
-    font-size: .8em;
+    font-size: 1em;
     font-style: italic;
     margin-bottom: 2rem;
     text-transform: uppercase;
@@ -342,7 +375,7 @@ export default {
     padding-bottom: 0;
   }
   a{
-    font-size: .8em;
+    font-size: 1em;
     margin-top: 2em;
   }
 }

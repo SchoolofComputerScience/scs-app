@@ -2,6 +2,7 @@ import Vue from 'vue'
 import 'es6-promise/auto'
 import { app, store, router } from './app'
 import VueAnalytics from 'vue-analytics'
+import 'bootstrap';
 
 Vue.use(VueAnalytics, {
   id: 'UA-92798181-1',
@@ -27,26 +28,38 @@ if (window.__INITIAL_STATE__) {
 }
 
 router.onReady(() => {
-  router.beforeResolve((to, from, next) => {
-    const matched = router.getMatchedComponents(to)
-    const prevMatched = router.getMatchedComponents(from)
+ // Add router hook for handling asyncData.
+ // Doing it after initial route is resolved so that we don't double-fetch
+ // the data that we already have. Using `router.beforeResolve()` so that all
+ // async components are resolved.
+ router.beforeResolve((to, from, next) => {
+   const matched = router.getMatchedComponents(to)
+   const prevMatched = router.getMatchedComponents(from)
 
-    let diffed = false
-    const activated = matched.filter((c, i) => {
-      return diffed || (diffed = (prevMatched[i] !== c))
-    })
+   // we only care about non-previously-rendered components,
+   // so we compare them until the two matched lists differ
+   let diffed = false
+   const activated = matched.filter((c, i) => {
+     return diffed || (diffed = (prevMatched[i] !== c))
+   })
 
-    const asyncDataHooks = activated.map(c => c.asyncData).filter(_ => _)
-    if (!asyncDataHooks.length) {
-      return next()
-    }
+   if (!activated.length) {
+     return next()
+   }
 
-    Promise.all(asyncDataHooks.map(hook => hook({ store, route: to })))
-      .then(() => {
-        next()
-      })
-      .catch(next)
-  })
+   // this is where we should trigger a loading indicator if there is one
 
-  app.$mount('#app')
+   Promise.all(activated.map(c => {
+     if (c.asyncData) {
+       return c.asyncData({ store, route: to })
+     }
+   })).then(() => {
+
+     // stop loading indicator
+
+     next()
+   }).catch(next)
+ })
+
+ app.$mount('#app')
 })
