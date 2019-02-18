@@ -1,0 +1,210 @@
+body .filter_bar, body .filter_column, body .content_filter{
+  text-align: center;
+  margin: 1em 0;
+
+  .filter_results{
+    width: 100%;
+    flex-wrap: wrap;
+    margin-bottom: 1em;
+  }
+  .filter_item, .pane_result_item{
+    appearance: none;
+    border: 0;
+    background: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    display: block;
+    padding: 0.75em 1em;
+    transition: all 350ms ease;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 0.85em;
+  }
+  .filter_item span:first-child{
+    flex: 1 1 0;
+    margin-right: 10px;
+    min-width: 75%;
+    text-align: left;
+  }
+  .filter_item span:last-child{
+    background: darken($gray,7%);
+    border: 2px solid transparent;
+    transition: all 350ms ease;
+    text-align: center;
+    flex: 1 1 0;
+    width: auto;
+  }
+  .filter_item:hover span:last-child{
+    border-color: black;
+  }
+  .filter_item:hover, .filter_item.active{
+    background: darken($gray,5%);
+  }
+  .filter_item.active:hover span:last-child{
+    border-color: $red;
+  }
+  .filter_item.active span:last-child{
+    background: $red;
+    color: white;
+  }
+}
+.filter_column{
+  display: block;
+  .pane_toggle{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+  .pane_toggle_item{
+    border-bottom: 5px solid darken($gray,5%);
+    padding: 1em 1.5em;
+    font-weight: 600;
+    flex-grow: 1;
+    text-align: center;
+  }
+  .pane_toggle_item.active{
+    color: $red;
+    border-bottom-color: $red;
+  }
+  .pane_result{
+    width: 100%;
+  }
+  .pane_result_item{
+    width: 100%;
+    appearance: none;
+    border: 0;
+    background: none;
+    text-transform: uppercase;
+    font-weight: 600;
+    text-align: right;
+    transition: all 350ms ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+;
+    &:hover, &.active{
+      background: darken($gray,5%);
+      span:last-child{
+        border-color: black;
+      }
+    }
+    &.active{
+      span:last-child{
+        border-color: $red;
+      }
+    }
+    span:first-child{
+      flex: 1 1 0;
+      margin-right: 10px;
+      min-width: 75%;
+      text-align: left;
+    }
+    span:last-child{
+      background: darken($gray,7%);
+      text-align: center;
+      flex: 1 1 0;
+      width: auto;
+      border: 2px solid transparent;
+      transition: all 350ms ease;
+    }
+    &.active span:last-child{
+      background: $red;
+      color: white;
+    }
+  }
+}
+.filter_list{
+  display: none;
+  flex-wrap: wrap;
+}
+.filter_list.visible{
+  display: flex;
+}
+body .content_filter{
+  text-align: center;
+  margin: 2em 0 1em 0;
+  font-size: 1.1em;
+  display: flex;
+  flex-wrap: wrap;
+  .active{
+    background: darken($gray,7%);
+    span:last-child{
+      background: $red;
+      color: white
+    }
+  }
+}
+@media screen and (min-width:50em){
+  body .filter_bar{
+    margin: 2em auto;
+    max-width: 50em;
+    .filter_item:nth-child(n+5){
+      display: none;
+    }
+    .filter_inline_toggle{
+      display: flex;
+      flex: 0 0 0;
+    }
+    .filter_item.visible{
+      display: flex;
+    }
+  }
+  body .filter_bar button{
+    width: auto;
+    margin: 0.25em 0;
+  }
+  body .filter_bar .filter_results{
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  body .filter_bar .filter_item span:first-child{
+    min-width: inherit;
+    text-align: center;
+  }
+  body .filter_bar .filter_item span:last-child{
+    min-width: 4em;
+  }
+  body .filter_bar .filter_item{
+    width: auto;
+    margin-left: 1em;
+  }
+  .filter_toggle{
+    display: none;
+  }
+  .filter_list{
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .filter_column{
+    margin: 0 0 2em 0;
+    .pane_result_item span:first-child{
+      text-align: inherit;
+    }
+    .pane_result_item{
+      margin: 0.5em 0;
+    }
+  }
+  .filter_toggle{
+    margin: 1em 0;
+  }
+  body .content_filter{
+    justify-content: center;
+  }
+  body .content_filter + .content_list .page_block_container{
+    margin-top: 2em;
+  }
+  body .content_filter .filter_item{
+    margin-right: 1em;
+  }
+  body .content_filter .filter_item span:first-child{
+    min-width: inherit;
+    flex: auto;
+  }
+  body .content_filter .filter_item span:last-child{
+    padding: 0 1em;
+  }
+  body .content_filter .filter_item{
+    width: auto;
+  }
+}

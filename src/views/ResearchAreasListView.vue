@@ -16,8 +16,8 @@
 import { router } from '../app'
 
 export default {
-  name: 'research-areas-list-view',
 
+  name: 'research-areas-list-view',
   computed: {
     topForty(){
       let topAreas = [];
@@ -30,11 +30,9 @@ export default {
           topAreas.push(sorted[i]);
         }
       }
-
       return topAreas;
     }
   },
-
   asyncData ({ store }) {
     return store.dispatch('GET_RESEARCH_AREAS');
   }
@@ -44,7 +42,7 @@ export default {
 <style lang="scss" scoped>
 .card-section {
   a {
-    color: #000;  
+    color: #000;
 
     &:hover {
       text-decoration: none;

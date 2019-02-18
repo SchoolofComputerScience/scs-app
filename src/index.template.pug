@@ -1,0 +1,12 @@
+doctype html
+html(lang='en')
+  block vars
+  head
+    block head
+      meta(name="viewport",content="width=device-width, initial-scale=1, minimal-ui")
+      title= "{{title}}"
+      link(rel="shortcut icon", type="image/png", href="/public/favicon-96x96.png")
+      script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+      //- script(src='/public/js/main.js')
+  body
+    <!--vue-ssr-outlet-->

@@ -11,6 +11,7 @@ const { createBundleRenderer } = require('vue-server-renderer')
 const dotenv = require('dotenv');
 const fetch = require('isomorphic-fetch')
 const robots = require('express-robots')
+const pug = require('pug')
 
 dotenv.load({ path: '.env' });
 
@@ -21,7 +22,7 @@ const serverInfo =
 
 const app = express()
 
-const template = fs.readFileSync(resolve('./src/index.template.html'), 'utf-8')
+const template = pug.renderFile('./src/index.template.pug');
 
 function createRenderer (bundle, options) {
   return createBundleRenderer(bundle, Object.assign(options, {

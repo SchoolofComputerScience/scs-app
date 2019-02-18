@@ -1,119 +1,70 @@
-<template>
-  <section class="content-page card">
-    <spinner class="spinner" v-if="!loaded" key="spinner"></spinner>
-    <div class="news-view" >
-      <transition name="fade" mode="out-in" v-if="loaded">
-        <div>
-          <figure class="news-header" :style="{ 'background-image': 'url(' + article.image + ')' }">
-            <div class="tags">
-              <router-link
-                v-for="tag in article.tags"
-                class="tags button-small"
-                v-if="tag.name != ''"
-                :key="tag.name"
-                :to="tag.tag.toLowerCase()">{{tag.name}}</router-link>
-            </div>
-          </figure>
-          <div class="content-container">
-            <h1>{{article.headline}}</h1>
-            <h2>{{dateFix(article.date)}}</h2>
-            <article v-html="article.copy" class="body"></article>
-            <p>{{newsContactInfo.display_name}} |
-              {{newsContactInfo.phone}} |
-              <a :href="`mailto:${newsContactInfo.email}`">{{newsContactInfo.email}}</a>
-            </p>
-          </div>
-        </div>
-      </transition>
-    </div>
-  </section>
+<template lang="pug">
+  .wrapper
+    NavDrawer
+    NewHeader(
+      :page_title_label="page_title_label"
+      :header_class="header_class"
+    )
+    div(class="container")
+      main
+        section(class="page_title hidden_content")
+          h1 News
+
+        MixedGrid(
+          :items="news"
+          :minShow="minShow"
+          :numToAdd="numToAdd"
+          :isSingle="isSingle"
+          )
+
+    NewFooter
+    ModalExplore
+    ModalSearch
 </template>
 
 <script>
-import Spinner from '../components/Spinner.vue'
-import { router } from '../app'
-import format from 'date-fns/format'
+
+import NewHeader from '../components/NewHeader.vue';
+import NewFooter from '../components/NewFooter.vue';
+import NavDrawer from '../components/NavDrawer.vue';
+import ModalExplore from '../components/ModalExplore.vue';
+import ModalSearch from '../components/ModalSearch.vue';
+import MixedGrid from '../components/MixedGrid.vue';
 
 export default {
-  name: 'news-view',
-
+  name: 'discover-view',
   components: {
-    Spinner
+    NewHeader,
+    NavDrawer,
+    NewFooter,
+    MixedGrid,
+    ModalExplore,
+    ModalSearch,
   },
-
+  data () {
+    return {
+      title: 'News from the School of Computer Science',
+      page_title_label: 'News',
+      header_class: 'pulled',
+      featured: 'promoted',
+      minShow: 10,
+      numToAdd: 6,
+      isSingle: false
+    }
+  },
+  asyncData ({ store }) {
+    return store.dispatch('GET_NEWS_LIST')
+  },
   computed: {
-    loaded() {
-      if(this.$store.state.news.error.length > 0) {
-        router.replace('/404');
-      }
-      
-      let article = this.$route.params.article
-      for (var id in this.$store.state.news.articles)
-        if(id === article) return true
-    },
-    article(){
-      let article = this.$route.params.article
-      for (var id in this.$store.state.news.articles)
-        if(id === article) return this.cleanHTML(this.$store.state.news.articles[id])
-    },
-    newsContactInfo() {
-      return this.$store.state.news.newsContact;
+    news() {
+      return this.$store.state.news.list.map((article, i) => {
+        return {
+          id: i,
+          type: 'news',
+          data: article
+        };
+      });
     }
-  },
-
-  methods: {
-    cleanHTML: function(data){
-      return data
-    },
-
-    tagFilter: (tag) => {
-      if(tag.includes('_')) {
-        return '/directory/' + tag
-      }else{
-        return '/departments/' + tag.toLocaleLowerCase()
-      }
-    },
-
-    dateFix (arg) {
-      return format(arg, 'MMM D, YYYY')
-    }
-  },
-
-  asyncData ({ store, route }) {
-    return store.dispatch('GET_NEWS_ARTICLE', route.params.article)
-  },
-
+  }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '../assets/scss/vars';
-
-.tags{
-  margin-bottom: $base-line-height / 4;
-}
-.news-header {
-  min-height: $base-line-height * 12;
-  left: -$base-line-height * 2;
-  top: -$base-line-height * 2;
-  margin-bottom: $base-line-height;
-  background-size: cover;
-  background-position: center;
-  width: calc(100% + #{$base-line-height} * 4);
-  margin: 0;
-  position: relative;
-  display: flex;
-  padding-left: $base-line-height * 2;
-  align-items: flex-end;
-  @include breakpoint-max(desktop) {
-    left: -$base-line-height;
-    top: -$base-line-height;
-    padding-left: $base-line-height;
-    width: calc(100% + #{$base-line-height} * 2);
-  }
-  @include breakpoint-max(tablet){
-    min-height: $base-line-height * 8;
-  }
-}
-
-</style>
