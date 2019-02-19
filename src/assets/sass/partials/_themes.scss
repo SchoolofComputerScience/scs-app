@@ -1,0 +1,165 @@
+body .theme_default{
+  .filter_bar button span{
+    background: lighten($peach,7%);
+  }
+  .filter_column button span{
+    background: lighten($peach,7%);
+  }
+  .list_stacked li a:hover{
+    &:before{
+      background: darken($gray,7%);
+    }
+  }
+  .label_primary{
+    background: darken($gray,7%);
+  }
+  .label_secondary{
+    color: darken($gray,7%);
+  }
+  .section_title{
+    color: white;
+    background-color: $red;
+  }
+  .section_title:before{
+    background-color: $red;
+  }
+  .rank{
+    background: mix(white,$red, 45%);
+  }
+}
+.theme_default{
+  .section_title{
+    color: white;
+    background: $red;
+  }
+}
+.theme_default .section_title, .theme_default .section_title:before{
+  background: $red;
+}
+body .theme_people{
+  &.list_stacked li a:before{
+    background: $people;
+  }
+  .label_primary{
+    background: $people;
+  }
+  .label_secondary{
+    color: $people;
+  }
+  .section_title{
+    background: $people;
+  }
+  .section_title:before{
+    background: $people
+  }
+  &.leading_numbers span {
+    background: lighten($people,5%);
+  }
+  .rank{
+    background: $people;
+  }
+}
+.theme_people .section_title, .theme_people .section_title:before{
+  background: $people;
+}
+body .theme_courses{
+  &.list_stacked li a:hover:before{
+    background: $courses;
+  }
+  .list_window .label_primary{
+    background: $courses;
+  }
+  .list_window .label_secondary{
+    color: $courses;
+  }
+  .section_title{
+    background: $courses;
+  }
+  .section_title:before{
+    background: $courses
+  }
+  &.leading_numbers span {
+    background: lighten($courses,5%);
+  }
+}
+.theme_courses .section_title, .theme_courses .section_title:before{
+  background: $courses;
+}
+body .theme_publications, body .theme_research{
+  &.list_stacked li a:hover:before{
+    background: $research;
+  }
+  .label_primary{
+    background: $research;
+  }
+  .label_secondary{
+    color: $research;
+  }
+  .section_title{
+    background: $research;
+  }
+  .section_title:before{
+    background: $research;
+  }
+  .section_title:before{
+    background: $research
+  }
+  &.list_trending .rank{
+    background: $research;
+  }
+  .rank{
+    background: $research;
+  }
+}
+.theme_research .page_header.min .page_jump a{
+    color: $research;
+}
+.theme_publications .section_title, .theme_publications .section_title:before, .theme_research .section_title, .theme_research .section_title:before{
+  background: $research;
+}
+.theme_research{
+  .section_title ul{
+    background: darken($research,5%);
+    color: black;
+    li:hover{
+      background: darken($research,10%);
+      color: white;
+    }
+  }
+}
+.theme_news{
+  .rank{
+    background: $news;
+  }
+  .page_block_tags{
+    color: $news;
+  }
+  .section_title, .section_title:before{
+    background-color: $news;
+  }
+  .content_media .content_subtitle{
+    border-color: $news;
+  }
+  .content_media ul{
+    border-left-color: $news;
+  }
+}
+.theme_events{
+  .rank{
+    background: $events;
+  }
+  .page_block_tags{
+    color: $events;
+  }
+  .section_title, .section_title:before{
+    background-color: $events;
+  }
+  .page_block_details{
+    color: $events;
+  }
+}
+.promoted{
+  .page_block_details{
+    color: $events;
+  }
+}

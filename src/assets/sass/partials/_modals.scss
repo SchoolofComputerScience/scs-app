@@ -1,0 +1,43 @@
+.modal{
+  background: $gray;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 75;
+  width: 100%;
+  height: 100%;
+  transform: translateY(-200px);
+}
+.modal_contents{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background: $gray;
+  top: 0;
+  left: 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.modal{
+  opacity: 0;
+  visibility: hidden;
+  transition: all 500ms ease;
+  .page_title{
+    margin-top: 6em;
+  }
+}
+.modal.on{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+// @media screen and (min-width:35em){
+//   .page_title{
+//     min-height: 12em;
+//   }
+// }
+@media screen and (min-width:50em){
+  .modal .page_title.large{
+    margin-top: 15em;
+  }
+}
