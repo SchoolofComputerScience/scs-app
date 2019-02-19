@@ -17,16 +17,16 @@
 
             div(
               class="list_card"
-              v-for="area in topForty"
+              v-for="item in fields"
               class="card card-section"
-              :key="area.area_id"
+              :key="item.field"
             )
               router-link(
-                :to="'/research/single/' + area.area_id"
+                :to="'/research/single/' + item.field"
                 class="link_absolute"
-              ) {{area.title}}
+              ) {{item.field_text}}
               div
-                span(class="item_title") {{area.title}}
+                span(class="item_title") {{item.field_text}}
                 span(class="label") #[a(href="#") 24 people] #[a(href="#") 12 publications]
 
     NewFooter
@@ -77,24 +77,17 @@ export default {
     }
   },
   computed: {
-    topForty(){
-      let topAreas = [];
-
-      if (this.$store.state.researchAreas.list.length) {
-        let list = this.$store.state.researchAreas.list;
-        let sorted = _.sortBy(list, 'gs_count');
-        sorted = sorted.reverse();
-
-        for (let i = 0; i < 25; i++) {
-          topAreas.push(sorted[i]);
-        }
+    fields(){
+      if (this.$store.state.researchFields.list.length) {
+        return this.$store.state.researchFields.list;
       }
-      return topAreas;
+      else {
+        return [];
+      }
     }
   },
   asyncData ({ store }) {
-    // console.log(store.dispatch('GET_RESEARCH_AREAS'));
-    return store.dispatch('GET_RESEARCH_AREAS');
+    return store.dispatch('GET_RESEARCH_FIELDS');
   },
   data () {
     return {

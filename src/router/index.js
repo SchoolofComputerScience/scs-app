@@ -20,8 +20,8 @@ Vue.use(Router)
 // import ErrorView from '../views/ErrorView.vue'
 // import ProgramsView from '../views/ProgramsView.vue'
 // import ProgramView from '../views/ProgramView.vue'
-import ResearchAreasView from '../views/ResearchAreasView.vue'
-import ResearchAreasListView from '../views/ResearchAreasListView.vue'
+// import ResearchAreasView from '../views/ResearchAreasView.vue'
+// import ResearchAreasListView from '../views/ResearchAreasListView.vue'
 // import DiversityInclusionView from '../views/DiversityInclusionView.vue'
 import DiscoverView from '../views/DiscoverView.vue'
 import PubView from '../views/PubView.vue'
@@ -161,8 +161,8 @@ const router = new Router({
     // { path: '/events/', component: EventsListView },
     // { path: '/news/:article?', component: NewsView },
     // { path: '/events/:event?', component: EventView },
-    { path: '/research_2/', component: ResearchAreasListView },
-    { path: '/research_2/:research_area', component: ResearchAreasView },
+    // { path: '/research_2/', component: ResearchAreasListView },
+    // { path: '/research_2/:research_area', component: ResearchAreasView },
     // { path: '/diversity-and-inclusion', component: DiversityInclusionView },
     // { path: '/404', component: ErrorView },
     // { path: '/:page', name: 'page', component: PageView },

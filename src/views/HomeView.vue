@@ -245,8 +245,8 @@ export default {
 
   asyncData ({ store }) {
     store.dispatch('GET_NEWS_LIST');
-    store.dispatch('GET_PROGRAMS');
-    store.dispatch('GET_RESEARCH_AREAS');
+    store.dispatch('GET_EVENTS_LIST');
+    store.dispatch('GET_RESEARCH_FIELDS');
     return store.dispatch('GET_DIRECTORY');
   }
 }

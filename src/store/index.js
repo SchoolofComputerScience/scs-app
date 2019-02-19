@@ -11,6 +11,7 @@ import events from './modules/events';
 import courses from './modules/courses';
 import programs from './modules/programs';
 import researchAreas from './modules/researchAreas';
+import researchFields from './modules/researchFields';
 import semesterCode from './modules/semesterCode';
 import navigation from './modules/navigation';
 import researchAreaCourses from './modules/researchAreaCourses';
@@ -30,6 +31,7 @@ const store = new Vuex.Store({
     courses,
     programs,
     researchAreas,
+    researchFields,
     semesterCode,
     navigation,
     researchAreaCourses,
