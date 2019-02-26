@@ -93,9 +93,14 @@ export default {
       });
     }
   },
-  asyncData ({ store, route: { params: { department, pubid, scid }}} ) {
+  asyncData ({ store }) {
+    store.dispatch('GET_SEMESTER_CODE').then(() => {
+      store.dispatch('FETCH_COURSE_LIST', store.state.semesterCode.code);
+    });
     store.dispatch('GET_EVENTS_LIST');
     store.dispatch('GET_NEWS_LIST');
+    store.dispatch('GET_RESEARCH_FIELDS');
+    return store.dispatch('GET_DIRECTORY');
   }
 }
 </script>

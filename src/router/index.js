@@ -14,7 +14,7 @@ Vue.use(Router)
 // import NewsView from '../views/NewsView.vue'
 // import EventView from '../views/EventView.vue'
 // import PageView from '../views/PageView.vue'
-// import CourseView from '../views/CourseView.vue'
+import CourseView from '../views/CourseView.vue'
 // import CourseListView from '../views/CourseListView.vue'
 // import CourseSelectView from '../views/CourseSelectView.vue'
 // import ErrorView from '../views/ErrorView.vue'
@@ -150,7 +150,7 @@ const router = new Router({
     // { path: '/directory/department/:department', component: DirectoryView },
     // { path: '/directory/:name?', component: MemberView },
     // { path: '/courses/', component: CourseSelectView },
-    // { path: '/courses/course/:course', component: CourseView },
+    { path: '/courses/course/:course', component: CourseView },
     // { path: '/courses/:semester', component: CourseListView },
     // { path: '/departments', component: DepartmentsView },
     // { path: '/departments/:department?', component: DepartmentView },
