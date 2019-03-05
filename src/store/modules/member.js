@@ -12,15 +12,19 @@ export default {
           query: gql`
             {
               members(scid:"${fields}"){
-                display_email
+                andrew_id
                 biography
+                display_email
+                display_name
+                email
                 family_name
                 fax_phone
                 given_name
                 homepage_url
+                image_url
+                is_alum
                 middle_name
                 name_suffix
-                image_url
                 phone_area_code
                 phone_area_code_secondary
                 phone_exchange
@@ -29,12 +33,14 @@ export default {
                 hr_relationship
                 hr_relationship_class
                 hr_relationship_desc
-                display_name
-                phone_full_call
                 phone_full
+                phone_full_call
                 scid
-                scs_relationship_class
+                scs_id
+                scs_email
                 scs_relationship_desc
+                scs_relationship_class
+                scs_relationship_subclass
                 positions {
                   building_id
                   department
@@ -46,7 +52,8 @@ export default {
                   scs_position_desc
                   title
                 }
-                profile{
+                profile {
+                  scid
                   gs_affiliation
                   gs_areas
                   gs_citation_count
@@ -60,9 +67,8 @@ export default {
                   gs_image_url
                   gs_profile_guid
                   gs_profile_url
-                  scid
                 }
-                publications{
+                publications {
                   authors
                   description
                   gs_citation_count
@@ -76,14 +82,9 @@ export default {
                   pub_url
                   pub_year
                   publisher
+                  timestamp
                   title
-                }
-                courses{
-                  long_title
-                  course_number
-                  course_id
-                  graduate_level
-                  department
+                  scid
                 }
               }
             }

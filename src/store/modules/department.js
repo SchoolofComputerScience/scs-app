@@ -20,7 +20,6 @@ export default {
                 department_id
                 department_name
                 college_id
-                college_name
                 scs_relationship
                 scs_type
                 cmu_type
