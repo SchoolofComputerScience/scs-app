@@ -100,6 +100,7 @@ export default {
     store.dispatch('GET_EVENTS_LIST');
     store.dispatch('GET_NEWS_LIST');
     store.dispatch('GET_RESEARCH_FIELDS');
+    store.dispatch('GET_DEPARTMENTS');
     return store.dispatch('GET_DIRECTORY');
   }
 }

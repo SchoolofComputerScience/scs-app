@@ -115,7 +115,7 @@ export default {
       });
 
       return directoryListing.departments.map((departmentId) => {
-        let department = this.$store.state.department.scs_list.find((d) => {
+        let department = this.$store.state.department.list.find((d) => {
           return d.department_id === departmentId;
         });
 
