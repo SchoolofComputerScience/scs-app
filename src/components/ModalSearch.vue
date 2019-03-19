@@ -4,33 +4,7 @@ div(class="modal modal_search")
     div(class="container")
       section(class="page_title large")
         div Search
-      section(class="search")
-        div(class="search_bar")
-          button(class="search", name="Search modal button") Search
-          label(for="search_modal", class="label_hidden") Search this website
-          input(type="text", id="search_modal", placeholder="Search news, events, people and programs", v-model="query")
-      
-      section(class="results")
-        section(class="category", v-if="search_results_directory.length")
-          h2 In People
-          div(v-for="person in search_results_directory", key="person.scid")
-            router-link(:to="'/people/single/' + person.scid") {{person.display_name}}
-        section(class="category", v-if="search_results_courses.length")
-          h2 In Courses
-          div(v-for="course in search_results_courses", key="course.course_id")
-            router-link(:to="'/courses/course/' + course.course_id") {{course.course_number}} - {{course.long_title}}
-        section(class="category", v-if="search_results_research.length")
-          h2 In Research
-          div(v-for="field in search_results_research", key="field.field")
-            router-link(:to="'/research/single/' + field.field") {{field.field_text}}
-        section(class="category", v-if="search_results_directory.length")
-          h2 In News
-          div(v-for="news in search_results_news", key="news.id")
-            router-link(:to="'/news/single/' + news.id") {{news.headline}}
-        section(class="category", v-if="search_results_events.length")
-          h2 In Events
-          div(v-for="event in search_results_events", key="event.id")
-            router-link(:to="'/events/single/' + event.id") {{event.name}} 
+      SearchBox(placeholder="Search news, events, people and programs", :dataToSearch="search_data", :autoSuggest="false", :resultLimit="20")
       //- section(class="trending")
       //-   span(class="h2") Popular in the last few hours
       //-   ul(class="list_trending list_multi_column visible")
@@ -49,11 +23,14 @@ div(class="modal modal_search")
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from 'vue';
+import SearchBox from '../components/SearchBox.vue';
 
 export default {
   name: 'global-search',
-
+  components: {
+    SearchBox
+  },
   data () {
     return {
       query: ''
@@ -61,109 +38,86 @@ export default {
   },
 
   computed: {
-    search_results_directory() {
-      let results = [];
-      let search_term = this.query;
+    search_data: function () {
+      let all_data = [];
+
+      //Directory
       let directory = this.$store.state.directory.list;
       let directory_length = this.$store.state.directory.list.length;
 
-      if (search_term.length) {
-        for(let i = 0; i < directory_length; i++) {
-          if(directory[i].display_name.toLowerCase().indexOf(search_term.toLowerCase()) > -1) {
-            results.push(directory[i]);
-          }
+      for(let i = 0; i < directory_length; i++) {
+        let item = {};
 
-          if(results.length >= 5) {
-            break;
-          }
-        }
-      }
-      
-      return results;
-    },
-    search_results_courses() {
-      let results = [];
-      let search_term = this.query;
-      let courses = this.$store.state.courses.lists[this.$store.state.semesterCode.code];
-      let courses_length = this.$store.state.courses.lists[this.$store.state.semesterCode.code].length;
-      
-      if (search_term.length) {
-        for(let i = 0; i < courses_length; i++) {
-          if(courses[i].long_title.toLowerCase().indexOf(search_term.toLowerCase()) > -1) {
-            results.push(courses[i]);
-          }
+        item.id = directory[i].scid;
+        item.display = directory[i].display_name;
+        item.link = '/people/single/' + directory[i].scid;
+        item.category = "Directory";
 
-          if(results.length >= 5) {
-            break;
-          }
-        }
+        all_data.push(item);
       }
-      
-      return results;
-      
-    },
-    search_results_research() {
-      let results = [];
-      let search_term = this.query;
+
+      //Research Areas
       let researchFields = this.$store.state.researchFields.list;
       let researchFields_length = this.$store.state.researchFields.list.length;
 
-      if (search_term.length) {
-        for(let i = 0; i < researchFields_length; i++) {
-          if(researchFields[i].field !== "not_applicable" && researchFields[i].field_text.toLowerCase().indexOf(search_term.toLowerCase()) > -1) {
-            results.push(researchFields[i]);
-          }
+      for(let i = 0; i < researchFields_length; i++) {
+        let item = {};
 
-          if(results.length >= 5) {
-            break;
-          }
-        }
+        item.id = researchFields[i].field;
+        item.display = researchFields[i].field_text;
+        item.link = '/research/single/' + researchFields[i].field;
+        item.category = "Research";
+
+        all_data.push(item);
       }
-      
-      return results;
-      
-    },
-    search_results_news() {
-      let results = [];
-      let search_term = this.query;
+
+      //Courses
+      let courses = this.$store.state.courses.lists[this.$store.state.semesterCode.code];
+      let courses_length = this.$store.state.courses.lists[this.$store.state.semesterCode.code].length;
+
+      for(let i = 0; i < courses_length; i++) {
+        let item = {};
+
+        item.id = courses[i].course_id;
+        item.display = courses[i].long_title;
+        item.link = '/courses/course/' + courses[i].course_id;
+        item.category = "Courses";
+
+        all_data.push(item);
+      }
+
+      //News
       let news = this.$store.state.news.list;
       let news_length = this.$store.state.news.list.length;
-      
-      if (search_term.length) {
-        for(let i = 0; i < news_length; i++) {
-          if(news[i].headline.toLowerCase().indexOf(search_term.toLowerCase()) > -1) {
-            results.push(news[i]);
-          }
 
-          if(results.length >= 5) {
-            break;
-          }
-        }
+      for(let i = 0; i < news_length; i++) {
+        let item = {};
+
+        item.id = news[i].id;
+        item.display = news[i].headline;
+        item.link = '/news/single/' + news[i].id;
+        item.category = "News";
+
+        all_data.push(item);
       }
-      
-      return results;
-      
-    },
-    search_results_events() {
-      let results = [];
-      let search_term = this.query;
+
+      //Events
       let events = this.$store.state.events.list;
       let events_length = this.$store.state.events.list.length;
-      
-      if (search_term.length) {
-        for(let i = 0; i < events_length; i++) {
-          if(events[i].name.toLowerCase().indexOf(search_term.toLowerCase()) > -1) {
-            results.push(events[i]);
-          }
 
-          if(results.length >= 5) {
-            break;
-          }
-        }
+      for(let i = 0; i < events_length; i++) {
+        let item = {};
+
+        item.id = events[i].id;
+        item.display = events[i].name;
+        item.link = '/events/single/' + events[i].id;
+        item.category = "Events";
+
+        all_data.push(item);
       }
-      
-      return results;
-      
+
+
+      return all_data;
     }
   },
 
