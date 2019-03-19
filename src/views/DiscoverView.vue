@@ -17,10 +17,7 @@
         div(class="container")
           div(class="gutter-xl")
             div(class="col-2-3")
-              div(class="search_bar dark")
-                button(class="search", name="Search inline button") Search
-                label(for="search_inline")
-                input(type="text", id="search_inline", placeholder="Search the School of Computer Science", title="Search this website")
+              SearchBox(placeholder="Search the School of Computer Science", :dataToSearch="search_data", :autoSuggest="true", :resultLimit="10")
             div(class="col-1-3")
               p(class="micro") Not sure where to look?
               a(class="link_explore") Explore the CMU School<br> of Computer Science
@@ -49,6 +46,7 @@ import ModalExplore from '../components/ModalExplore.vue';
 import ModalSearch from '../components/ModalSearch.vue';
 import MixedGrid from '../components/MixedGrid.vue';
 import DepartmentGrid from '../components/DepartmentGrid.vue';
+import SearchBox from '../components/SearchBox.vue';
 
 export default {
   name: 'discover-view',
@@ -59,7 +57,8 @@ export default {
     ModalExplore,
     ModalSearch,
     MixedGrid,
-    DepartmentGrid
+    DepartmentGrid,
+    SearchBox
   },
   data () {
     return {
@@ -91,6 +90,87 @@ export default {
       ).map((item, i) => {
         return item.id = i, item;
       });
+    },
+    search_data: function () {
+      let all_data = [];
+
+      //Directory
+      let directory = this.$store.state.directory.list;
+      let directory_length = this.$store.state.directory.list.length;
+
+      for(let i = 0; i < directory_length; i++) {
+        let item = {};
+
+        item.id = directory[i].scid;
+        item.display = directory[i].display_name;
+        item.link = '/people/single/' + directory[i].scid;
+        item.category = "Directory";
+
+        all_data.push(item);
+      }
+
+      //Research Areas
+      let researchFields = this.$store.state.researchFields.list;
+      let researchFields_length = this.$store.state.researchFields.list.length;
+
+      for(let i = 0; i < researchFields_length; i++) {
+        let item = {};
+
+        item.id = researchFields[i].field;
+        item.display = researchFields[i].field_text;
+        item.link = '/research/single/' + researchFields[i].field;
+        item.category = "Research";
+
+        all_data.push(item);
+      }
+
+      //Courses
+      let courses = this.$store.state.courses.lists[this.$store.state.semesterCode.code];
+      let courses_length = this.$store.state.courses.lists[this.$store.state.semesterCode.code].length;
+
+      for(let i = 0; i < courses_length; i++) {
+        let item = {};
+
+        item.id = courses[i].course_id;
+        item.display = courses[i].long_title;
+        item.link = '/courses/course/' + courses[i].course_id;
+        item.category = "Courses";
+
+        all_data.push(item);
+      }
+
+      //News
+      let news = this.$store.state.news.list;
+      let news_length = this.$store.state.news.list.length;
+
+      for(let i = 0; i < news_length; i++) {
+        let item = {};
+
+        item.id = news[i].id;
+        item.display = news[i].headline;
+        item.link = '/news/single/' + news[i].id;
+        item.category = "News";
+
+        all_data.push(item);
+      }
+
+      //Events
+      let events = this.$store.state.events.list;
+      let events_length = this.$store.state.events.list.length;
+
+      for(let i = 0; i < events_length; i++) {
+        let item = {};
+
+        item.id = events[i].id;
+        item.display = events[i].name;
+        item.link = '/events/single/' + events[i].id;
+        item.category = "Events";
+
+        all_data.push(item);
+      }
+
+
+      return all_data;
     }
   },
   asyncData ({ store }) {
