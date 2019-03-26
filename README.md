@@ -1,6 +1,6 @@
 
 # CMU:SCS App
-Main Application
+Welcome to the Universal Web Application for the School Of Computer Science (cs.cmu.edu).
 
 [![Build Status](https://travis-ci.org/SchoolofComputerScience/scs-app.svg?branch=master)](https://travis-ci.org/SchoolofComputerScience/scs-app)
 
@@ -15,7 +15,7 @@ Main Application
 
 3. `npm run build`
 
-4. Request the `.env` file
+4. Request the `.env` file from a member of the Web2020 Team
 
 5. Optionally add `PORT=` with preferred port number, it defaults to 4000
 
@@ -23,18 +23,38 @@ Main Application
 
 7. Visit `http://localhost:4000` (or whatever port number you provided).
 
-## Adding Content
+8. Use Chrome Dev Tools and Vue.js Dev Tools Extension (https://github.com/vuejs/vue-devtools)
 
-### Simple markdown pages
-1. Add Markdown file in: [scs-api/src/content](https://github.com/SchoolofComputerScience/scs-api/tree/master/src/content)
+## Technologies Used In This Repo
+1. Node (https://nodejs.org/)
 
-2. When that page is accepted into the API repository, the new URL will be '/whatever-you-named-the-markdown-file'
+2. Express (https://expressjs.com/)
 
-### New custom .vue pages
-1. Add new .vue page in [scs-app/src/views](https://github.com/SchoolofComputerScience/scs-app/tree/master/src/views)
+3. Vue and Vuex (https://vuejs.org/)
 
-2. Import the 'view' and add new route entry in [scs-app\src\router\index.js](https://github.com/SchoolofComputerScience/scs-app/blob/master/src/router/index.js)
+4. GraphQL (https://graphql.org/)
 
-### @todo Events
+5. Apollo (https://www.apollographql.com/)
 
-### @todo News
+6. Karma (https://karma-runner.github.io/)
+
+7. Pug (https://pugjs.org)
+
+8. Webpack (https://webpack.js.org/)
+
+## Hosting
+Google Cloud Platform - App Flex - modify https://github.com/SchoolofComputerScience/scs-app/blob/master/app.yaml to configure service when deploying to GCP.
+
+## Deployment
+Travis (https://travis-ci.org/) is used to deploy straight to Google Cloud Platform after a Pull Request is accepted and merged.
+
+## Repository Structure
+1. https://github.com/SchoolofComputerScience/scs-app/tree/master/src/views - All main pages of the application. Responsible for getting all data into the Vuex store for the components used on its respectable page.
+   
+2. https://github.com/SchoolofComputerScience/scs-app/tree/master/src/components - All the reusable components that are used on the Views. Because this is a Universal Web Application, the components are not responsible for hydrating the store, the Views are.
+
+3. https://github.com/SchoolofComputerScience/scs-app/tree/master/src/store/module - Modules used to make GraphQL queries (via Apollo) to hydrate the Vuex store
+   
+4. https://github.com/SchoolofComputerScience/scs-app/blob/master/src/filter/index.js - Filters functions that are used to manipulate strings in components and views (https://vuejs.org/v2/guide/filters.html)
+
+
