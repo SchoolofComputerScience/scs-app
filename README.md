@@ -53,7 +53,7 @@ Travis (https://travis-ci.org/) is used to deploy straight to Google Cloud Platf
    
 2. https://github.com/SchoolofComputerScience/scs-app/tree/master/src/components - All the reusable components that are used on the Views. Because this is a Universal Web Application, the components are not responsible for hydrating the store, the Views are.
 
-3. https://github.com/SchoolofComputerScience/scs-app/tree/master/src/store/module - Modules used to make GraphQL queries (via Apollo) to hydrate the Vuex store
+3. https://github.com/SchoolofComputerScience/scs-app/tree/master/src/store/modules - Modules used to make GraphQL queries (via Apollo) to hydrate the Vuex store
    
 4. https://github.com/SchoolofComputerScience/scs-app/blob/master/src/filter/index.js - Filters functions that are used to manipulate strings in components and views (https://vuejs.org/v2/guide/filters.html)
 
